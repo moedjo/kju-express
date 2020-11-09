@@ -2,3 +2,15 @@ columns:
     id:
         label: 'kju.express::lang.regency.id'
         type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'kju.express::lang.regency.name'
+        type: text
+        searchable: true
+        sortable: true
+    province[name]:
+        label: 'kju.express::lang.province.singular'
+        type: text
+        searchable: true
+        sortable: true

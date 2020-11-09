@@ -11,7 +11,7 @@ fields:
         type: text
     province:
         label: 'kju.express::lang.province.singular'
+        placeholder: 'kju.express::lang.province.singular'
         nameFrom: name
         span: left
         type: relation
-        emptyOption: 'kju.express::lang.global.select_an_option'

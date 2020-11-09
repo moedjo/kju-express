@@ -3,8 +3,12 @@ form: $/kju/express/models/regency/fields.yaml
 modelClass: Kju\Express\Models\Regency
 defaultRedirect: kju/express/regencies
 create:
+    title: 'kju.express::lang.regency.new_regency'
     redirect: 'kju/express/regencies/update/:id'
     redirectClose: kju/express/regencies
 update:
+    title: 'kju.express::lang.regency.edit_regency'
     redirect: kju/express/regencies
     redirectClose: kju/express/regencies
+preview:
+    title: 'kju.express::lang.regency.preview_regency'

@@ -14,11 +14,13 @@ class District extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_districts';
+    public $incrementing = false;
 
     /**
      * @var array Validation rules
      */
     public $rules = [
+        'id' => 'required|numeric',
         'name' => 'required|between:1,100|unique:kju_express_districts',
         'regency' => 'required',
     ];
@@ -30,5 +32,12 @@ class District extends Model
     public function getDisplayNameAttribute()
     {
         return "{$this->name}, {$this->regency->name}, {$this->province->name}";
+    }
+
+    public function filterFields($fields, $context = null)
+    {
+        if ($context == 'update') {
+            $fields->id->readOnly = true;
+        }
     }
 }
