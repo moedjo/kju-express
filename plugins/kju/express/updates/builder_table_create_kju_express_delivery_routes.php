@@ -23,7 +23,7 @@ class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
             $table->foreign('district_id')->references('id')->on('kju_express_districts');
 
 
-            
+            $table->unique(['branch_code','district_id']);
         });
     }
     

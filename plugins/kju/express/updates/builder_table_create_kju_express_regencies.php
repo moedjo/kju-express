@@ -15,7 +15,6 @@ class BuilderTableCreateKjuExpressRegencies extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->primary('id');
-
             $table->integer('province_id')->unsigned()->nullable();
             $table->foreign('province_id')->references('id')->on('kju_express_provinces');
           

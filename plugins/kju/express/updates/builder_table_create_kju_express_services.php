@@ -19,7 +19,7 @@ class BuilderTableCreateKjuExpressServices extends Migration
             $table->integer('weight_limit')->default(-1);
 
             $table->primary('code');
-
+            $table->unique('name');
 
             
         });

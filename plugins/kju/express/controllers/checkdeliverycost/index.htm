@@ -1,0 +1,42 @@
+<form class="layout" role="form">
+    <div class="layout-row">
+        <div class="form-group span-left">
+            <label><?= e(trans('kju.express::lang.global.source_or_branch')) ?></label>
+            <select name="branch_code" class="form-control custom-select" data-handler="onGetBranches" data-minimum-input-length="3"
+                data-ajax--delay="300">
+            </select>
+        </div>
+        <div class="form-group span-left">
+            <label><?= e(trans('kju.express::lang.global.destination')) ?></label>
+            <select name="district_id" class="form-control custom-select" data-handler="onGetDestinations" data-minimum-input-length="3"
+                data-ajax--delay="300">
+            </select>
+        </div>
+        <div class="form-group span-left">
+            <label><?= e(trans('kju.express::lang.service.singular')) ?></label>
+            <select name="service_code" class="form-control custom-select select2-hidden-accessible"
+                data-placeholder="<?= e(trans('kju.express::lang.service.singular')) ?>"
+                data-disposable="data-disposable" data-request="onLoadWeight" data-request-update="weight: '#weight'">
+                <option value=""><?= e(trans('kju.express::lang.service.singular')) ?></option>
+
+                <?php foreach ($services as $key => $val) : ?>
+                <option value="<?= $key ?>"><?= $val ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div id="weight" class="form-group span-left">
+        </div>
+    </div>
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <button
+                type="submit"
+                data-request="onCheckDeliveryCost"
+                data-hotkey="ctrl+p, cmd+p"
+                data-load-indicator="<?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>"
+                class="btn btn-primary">
+                <?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>
+            </button>
+        </div>
+    </div>
+</form>

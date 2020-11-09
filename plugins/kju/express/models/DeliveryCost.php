@@ -20,14 +20,20 @@ class DeliveryCost extends Model
     /**
      * @var array Validation rules
      */
-    public $rules = [];
-
-    public $morphTo = [
-        'delivery_route' => []
+    public $rules = [
+        'service' => 'required',
+        'delivery_route' => 'required',
+        'cost' => 'required|numeric|between:0,9999999',
+        'add_cost' => 'numeric|between:0,999999'
     ];
+
+    // public $morphTo = [
+    //     'delivery_route' => []
+    // ];
 
     public $belongsTo = [
         'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
+        'delivery_route' => ['Kju\Express\Models\DeliveryRoute']
     ];
 
 

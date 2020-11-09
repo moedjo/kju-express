@@ -23,6 +23,12 @@ permissions:
     access_delivery_routes:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_delivery_routes'
+    access_delivery_costs:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_delivery_costs'
+    access_check_delivery_cost:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_check_delivery_cost'
 navigation:
     region_data:
         label: 'kju.express::lang.global.region_data'
@@ -70,3 +76,13 @@ navigation:
                 icon: icon-map-marker
                 permissions:
                     - access_delivery_routes
+            delivery_costs:
+                label: 'kju.express::lang.delivery_cost.plural'
+                url: kju/express/deliverycosts
+                icon: icon-money
+                permissions:
+                    - access_delivery_costs
+            check-delivery-cost:
+                label: 'kju.express::lang.delivery_cost.check'
+                url: kju/express/checkdeliverycost
+                icon: icon-money

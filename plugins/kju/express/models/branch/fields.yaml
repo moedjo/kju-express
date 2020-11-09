@@ -10,9 +10,9 @@ fields:
         placeholder: 'kju.express::lang.branch.name'
         type: text
     district:
-        label: 'kju.express::lang.branch.region'
+        label: 'kju.express::lang.global.region'
         span: left
-        placeholder: 'kju.express::lang.branch.region'
+        placeholder: 'kju.express::lang.global.region'
         type: recordfinder
         list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
         modelClass: Kju\Express\Models\District

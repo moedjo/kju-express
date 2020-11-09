@@ -1,6 +1,6 @@
 list: $/kju/express/models/deliveryroute/columns.yaml
 modelClass: Kju\Express\Models\DeliveryRoute
-title: DeliveryRoutes
+title: 'kju.express::lang.delivery_route.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

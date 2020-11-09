@@ -89,4 +89,6 @@
   'napagency\\debugplus\\Plugin' => 'plugins\\napagency\\debugplus\\Plugin.php',
   'bedard\\debugbar\\Plugin' => 'plugins\\bedard\\debugbar\\Plugin.php',
   'NapAgency\\DebugPlus\\classes\\Helper' => 'plugins\\napagency\\debugplus\\classes\\Helper.php',
+  'kju\\express\\Controllers\\deliverycosts' => 'plugins\\kju\\express\\controllers\\deliverycosts.php',
+  'kju\\express\\Controllers\\checkdeliverycost' => 'plugins\\kju\\express\\controllers\\checkdeliverycost.php',
 );

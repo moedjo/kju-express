@@ -1,6 +1,6 @@
 columns:
     code:
-        label: 'kju.express::lang.branch.id'
+        label: 'kju.express::lang.branch.code'
         type: text
         searchable: true
         sortable: true
@@ -10,7 +10,7 @@ columns:
         searchable: true
         sortable: true
     district:
-        label: 'kju.express::lang.branch.region'
+        label: 'kju.express::lang.global.region'
         type: text
         searchable: false
         sortable: false

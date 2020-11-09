@@ -18,6 +18,8 @@ class BuilderTableCreateKjuExpressBranches extends Migration
 
             $table->primary('code');
 
+            $table->unique('name');
+
             $table->integer('district_id')->unsigned()->nullable();
             $table->foreign('district_id')->references('id')->on('kju_express_districts');
         });

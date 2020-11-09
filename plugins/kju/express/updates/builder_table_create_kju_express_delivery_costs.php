@@ -27,7 +27,7 @@ class BuilderTableCreateKjuExpressDeliveryCosts extends Migration
             $table->string('service_code',10)->nullable();
             $table->foreign('service_code')->references('code')->on('kju_express_services');
 
-            $table->string('delivery_route_type');
+            $table->unique(['delivery_route_id','service_code']);
         });
     }
     

@@ -11,13 +11,14 @@
         'access_districts' => 'Manage Districts',
         'access_services' => 'Manage Services',
         'access_delivery_routes' => 'Manage Delivery Routes',
+        'access_delivery_costs' => 'Manage Delivery Costs',
+        'access_check_delivery_cost' => 'Access Check Delivery Cost',
     ],
     'branch' => [
         'id' => 'Branch Id',
         'plural' => 'Branches',
         'name' => 'Branch Name',
         'singular' => 'Branch',
-        'region' => 'Region',
         'code' => 'Branch Code',
         'new_branch' => 'New Branch',
         'edit_branch' => 'Edit Branch',
@@ -30,6 +31,10 @@
         'destination' => 'Destination',
         'cost' => 'Cost',
         'additional_cost' => 'Additional Cost',
+        'region' => 'Region',
+        'source_or_branch' => 'Source / Branch',
+        'weight'=>'Weight (KG)',
+        'check_delivery_cost' => 'Check Delivery Cost'
     ],
     'district' => [
         'plural' => 'Districts',
@@ -75,11 +80,15 @@
     ],
     'delivery_route' => [
         'plural' => 'Delivery Routes',
+        'new_delivery_route' => 'New Delivery Route',
+        'edit_delivery_route' => 'Edit Delivery Route',
+        'preview_delivery_route' => 'Preview Delivery Route',
     ],
     'delivery_cost' => [
         'plural' => 'Delivery Costs',
         'singular' => 'Delivery Cost',
         'comment_cost' => 'Basic cost for limited weight',
         'comment_add_cost' => 'Additional cost after exceeding the limit',
+        'check' => 'Check Delivery Cost',
     ],
 ];
