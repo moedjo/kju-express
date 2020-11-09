@@ -1,0 +1,19 @@
+scopes:
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        modelClass: Kju\Express\Models\Branch
+        conditions: branch_code in (:filtered)
+        nameFrom: displayName
+    province:
+        label: 'kju.express::lang.province.singular'
+        type: group
+        conditions: substr(district_id,1,2) in (:filtered)
+        modelClass: Kju\Express\Models\Province
+        options: getProvinceOptions
+    regency:
+        label: 'kju.express::lang.regency.singular'
+        type: group
+        conditions: substr(district_id,1,4) in (:filtered)
+        modelClass: Kju\Express\Models\Regency
+        options: getRegencyOptions
+        dependsOn: province

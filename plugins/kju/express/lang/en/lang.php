@@ -70,6 +70,8 @@
         'new_service' => 'New Service',
         'edit_service' => 'Edit Service',
         'preview_service' => 'Preview Service',
+        'weight_limit' => 'Weight Limit (KG)',
+        'weight_limit_comment' => '-1 for unlimited weight',
     ],
     'delivery_route' => [
         'plural' => 'Delivery Routes',
@@ -77,7 +79,7 @@
     'delivery_cost' => [
         'plural' => 'Delivery Costs',
         'singular' => 'Delivery Cost',
-        'comment_cost' => 'Limit 10kg for BSC (Basic) service',
-        'comment_add_cost' => 'Additional cost per kg after exceeding the limit',
+        'comment_cost' => 'Basic cost for limited weight',
+        'comment_add_cost' => 'Additional cost after exceeding the limit',
     ],
 ];

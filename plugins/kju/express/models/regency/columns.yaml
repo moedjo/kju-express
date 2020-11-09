@@ -9,8 +9,10 @@ columns:
         type: text
         searchable: true
         sortable: true
-    province[name]:
+    province_name:
         label: 'kju.express::lang.province.singular'
         type: text
+        relation: province
+        select: name
         searchable: true
         sortable: true

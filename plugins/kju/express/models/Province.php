@@ -22,7 +22,7 @@ class Province extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'id' => 'required|numeric',
+        'id' => 'required|numeric|between:11,99',
         'name' => 'required|between:1,100|unique:kju_express_provinces',
     ];
 
@@ -32,5 +32,10 @@ class Province extends Model
         if ($context == 'update') {
             $fields->id->readOnly = true;
         }
+    }
+
+    public function getProvinceOptions()
+    {
+        return Province::lists('name', 'id');
     }
 }

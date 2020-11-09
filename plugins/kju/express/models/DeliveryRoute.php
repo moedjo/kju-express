@@ -23,7 +23,7 @@ class DeliveryRoute extends Model
     public $rules = [];
 
     public $belongsTo = [
-        'branch' => ['Kju\Express\Models\Branch'],
+        'branch' => ['Kju\Express\Models\Branch','key' => 'branch_code'],
         'district' => ['Kju\Express\Models\District']
     ];
 

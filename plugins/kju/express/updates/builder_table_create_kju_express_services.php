@@ -16,6 +16,8 @@ class BuilderTableCreateKjuExpressServices extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
+            $table->integer('weight_limit')->default(-1);
+
             $table->primary('code');
 
 

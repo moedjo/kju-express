@@ -4,7 +4,7 @@ fields:
         span: auto
         placeholder: 'kju.express::lang.service.singular'
         type: relation
-        select: 'concat(code,'', '',name)'
+        select: 'concat(code,'', '',name,if(weight_limit=-1,'''',concat('', '',weight_limit,''kg'')))'
     cost:
         label: 'kju.express::lang.global.cost'
         span: left
@@ -17,3 +17,5 @@ fields:
         placeholder: 'kju.express::lang.global.additional_cost'
         type: text
         comment: 'kju.express::lang.delivery_cost.comment_add_cost'
+        dependsOn:
+            - service

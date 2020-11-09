@@ -9,13 +9,13 @@ columns:
         type: text
         searchable: true
         sortable: true
-    'regency[name]':
+    regency_name:
         label: 'kju.express::lang.regency.singular'
         type: text
+        relation: regency
+        select: name
         searchable: true
         sortable: true
     'regency[province][name]':
         label: 'kju.express::lang.province.singular'
         type: text
-        searchable: true
-        sortable: true

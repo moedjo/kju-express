@@ -9,6 +9,11 @@ columns:
         type: text
         searchable: true
         sortable: true
+    weight_limit:
+        label: 'kju.express::lang.service.weight_limit'
+        type: number
+        searchable: true
+        sortable: true
     description:
         label: 'kju.express::lang.global.description'
         type: text

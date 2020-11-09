@@ -24,7 +24,8 @@ class Service extends Model
     public $rules = [
         'code' => 'required|between:1,10',
         'name' => 'required|between:1,50|unique:kju_express_provinces',
-        'description' => 'required|between:1,100',
+        'weight_limit' => 'required|between:-1,999',
+        'description' => '',
     ];
 
     public function filterFields($fields, $context = null)

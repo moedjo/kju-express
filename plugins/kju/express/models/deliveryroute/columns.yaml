@@ -2,6 +2,24 @@ columns:
     id:
         label: 'kju.express::lang.global.id'
         type: number
-    branch_id:
+        searchable: false
+        sortable: true
+    branch_code:
         label: 'kju.express::lang.branch.singular'
         type: text
+        searchable: true
+        sortable: true
+    district:
+        label: 'kju.express::lang.global.destination'
+        type: text
+        sortable: false
+        relation: district
+        valueFrom: displayName
+    district_name:
+        label: 'kju.express::lang.district.singular'
+        type: text
+        searchable: true
+        invisible: true
+        sortable: true
+        relation: district
+        valueFrom: name

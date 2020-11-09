@@ -37,4 +37,10 @@ class Branch extends Model
             $fields->code->readOnly = true;
         }
     }
+
+    public function getDisplayNameAttribute()
+    {
+        return "{$this->code}, {$this->name}";
+    }
+
 }

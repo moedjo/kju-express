@@ -4,13 +4,15 @@ fields:
         span: left
         placeholder: 'kju.express::lang.branch.singular'
         type: relation
-        nameFrom: name
+        nameFrom: displayName
     district:
-        label: 'kju.express::lang.global.destination'
+        label: 'kju.express::lang.branch.region'
         span: left
-        placeholder: 'kju.express::lang.global.destination'
-        type: relation
-        nameFrom: name
+        placeholder: 'kju.express::lang.branch.region'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
+        modelClass: Kju\Express\Models\District
+        nameFrom: displayName
 tabs:
     fields:
         delivery_costs:

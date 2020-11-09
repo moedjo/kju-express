@@ -20,7 +20,7 @@ class District extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'id' => 'required|numeric',
+        'id' => 'required|numeric|between:110101,999999',
         'name' => 'required|between:1,100|unique:kju_express_districts',
         'regency' => 'required',
     ];

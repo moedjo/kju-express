@@ -9,6 +9,12 @@ fields:
         span: left
         placeholder: 'kju.express::lang.service.name'
         type: text
+    weight_limit:
+        label: 'kju.express::lang.service.weight_limit'
+        span: left
+        placeholder: 'kju.express::lang.service.weight_limit'
+        type: text
+        comment: 'kju.express::lang.service.weight_limit_comment'
     description:
         label: 'kju.express::lang.global.description'
         size: small

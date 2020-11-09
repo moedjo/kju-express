@@ -85,4 +85,8 @@
   'kju\\express\\Controllers\\deliveryroutes' => 'plugins\\kju\\express\\controllers\\deliveryroutes.php',
   'Kju\\Express\\Models\\DeliveryRoute' => 'plugins\\kju\\express\\models\\DeliveryRoute.php',
   'Kju\\Express\\Models\\DeliveryCost' => 'plugins\\kju\\express\\models\\DeliveryCost.php',
+  'qub\\clockwork\\Plugin' => 'plugins\\qub\\clockwork\\Plugin.php',
+  'napagency\\debugplus\\Plugin' => 'plugins\\napagency\\debugplus\\Plugin.php',
+  'bedard\\debugbar\\Plugin' => 'plugins\\bedard\\debugbar\\Plugin.php',
+  'NapAgency\\DebugPlus\\classes\\Helper' => 'plugins\\napagency\\debugplus\\classes\\Helper.php',
 );
