@@ -1,4 +1,4 @@
-title: Provinces
+title: 'kju.express::lang.province.plural'
 modelClass: Kju\Express\Models\Province
 list: $/kju/express/models/province/columns.yaml
 recordUrl: 'kju/express/provinces/update/:id'

@@ -1,6 +1,19 @@
 fields:
+    code:
+        label: 'kju.express::lang.branch.code'
+        span: auto
+        placeholder: 'kju.express::lang.branch.code'
+        type: text
     name:
         label: 'kju.express::lang.branch.name'
         span: left
         placeholder: 'kju.express::lang.branch.name'
         type: text
+    district:
+        label: 'kju.express::lang.branch.region'
+        span: left
+        placeholder: 'kju.express::lang.branch.region'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
+        modelClass: Kju\Express\Models\District
+        nameFrom: displayName

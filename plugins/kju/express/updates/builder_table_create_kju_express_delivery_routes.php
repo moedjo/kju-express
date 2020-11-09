@@ -15,8 +15,8 @@ class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
             $table->timestamp('updated_at')->nullable();
 
             // source
-            $table->integer('branch_id')->unsigned()->nullable();
-            $table->foreign('branch_id')->references('id')->on('kju_express_branches');
+            $table->string('branch_code',10)->nullable();
+            $table->foreign('branch_code')->references('code')->on('kju_express_branches');
 
             //destination
             $table->integer('district_id')->unsigned()->nullable();

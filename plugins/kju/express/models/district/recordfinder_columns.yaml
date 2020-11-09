@@ -1,11 +1,11 @@
 columns:
     id:
-        label: 'kju.express::lang.district.id'
+        label: 'kju.express::lang.global.id'
         type: number
         searchable: true
         sortable: true
     name:
-        label: 'kju.express::lang.district.name'
+        label: 'kju.express::lang.district.singular'
         type: text
         searchable: true
         sortable: true

@@ -18,6 +18,10 @@
         'name' => 'Branch Name',
         'singular' => 'Branch',
         'region' => 'Region',
+        'code' => 'Branch Code',
+        'new_branch' => 'New Branch',
+        'edit_branch' => 'Edit Branch',
+        'preview_branch' => 'Preview Branch',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -31,6 +35,7 @@
         'plural' => 'Districts',
         'id' => 'District Id',
         'name' => 'District Name',
+        'singular' => 'District',
         'new_district' => 'New District',
         'edit_district' => 'Edit District',
         'preview_district' => 'Preview District',
@@ -62,6 +67,9 @@
         'plural' => 'Services',
         'singular' => 'Service',
         'name' => 'Service Name',
+        'new_service' => 'New Service',
+        'edit_service' => 'Edit Service',
+        'preview_service' => 'Preview Service',
     ],
     'delivery_route' => [
         'plural' => 'Delivery Routes',

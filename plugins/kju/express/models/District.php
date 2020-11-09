@@ -31,7 +31,7 @@ class District extends Model
 
     public function getDisplayNameAttribute()
     {
-        return "{$this->name}, {$this->regency->name}, {$this->province->name}";
+        return "{$this->name}, {$this->regency->name}, {$this->regency->province->name}";
     }
 
     public function filterFields($fields, $context = null)

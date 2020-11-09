@@ -1,6 +1,6 @@
 list: $/kju/express/models/branch/columns.yaml
 modelClass: Kju\Express\Models\Branch
-title: Branches
+title: 'kju.express::lang.branch.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/branches/update/:id'
+recordUrl: 'kju/express/branches/update/:code'

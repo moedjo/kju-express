@@ -1,6 +1,6 @@
 list: $/kju/express/models/regency/columns.yaml
 modelClass: Kju\Express\Models\Regency
-title: Regencies
+title: 'kju.express::lang.regency.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

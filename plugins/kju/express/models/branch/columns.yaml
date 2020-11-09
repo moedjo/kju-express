@@ -1,12 +1,18 @@
 columns:
-    id:
+    code:
         label: 'kju.express::lang.branch.id'
-        type: number
+        type: text
+        searchable: true
+        sortable: true
     name:
         label: 'kju.express::lang.branch.name'
         type: text
         searchable: true
         sortable: true
-    district_id:
+    district:
         label: 'kju.express::lang.branch.region'
         type: text
+        searchable: false
+        sortable: false
+        relation: district
+        valueFrom: displayName

@@ -1,6 +1,6 @@
 list: $/kju/express/models/service/columns.yaml
 modelClass: Kju\Express\Models\Service
-title: Services
+title: 'kju.express::lang.service.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

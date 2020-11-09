@@ -1,6 +1,6 @@
 list: $/kju/express/models/district/columns.yaml
 modelClass: Kju\Express\Models\District
-title: Districts
+title: 'kju.express::lang.district.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('kju/express/services') ?>">Services</a></li>
+        <li><a href="<?= Backend::url('kju/express/services') ?>"><?= e(trans('kju.express::lang.service.plural')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>

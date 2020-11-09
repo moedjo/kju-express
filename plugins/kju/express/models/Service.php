@@ -22,5 +22,15 @@ class Service extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'code' => 'required|between:1,10',
+        'name' => 'required|between:1,50|unique:kju_express_provinces',
+        'description' => 'required|between:1,100',
     ];
+
+    public function filterFields($fields, $context = null)
+    {
+        if ($context == 'update') {
+            $fields->code->readOnly = true;
+        }
+    }
 }

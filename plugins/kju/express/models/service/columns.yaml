@@ -3,7 +3,7 @@ columns:
         label: 'kju.express::lang.service.code'
         type: text
         searchable: true
-        sortable: false
+        sortable: true
     name:
         label: 'kju.express::lang.service.name'
         type: text
@@ -12,3 +12,4 @@ columns:
     description:
         label: 'kju.express::lang.global.description'
         type: text
+        sortable: false

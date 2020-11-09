@@ -1,4 +1,4 @@
-title: Branches
+title: 'kju.express::lang.branch.plural'
 modelClass: Kju\Express\Models\Branch
 toolbar:
     buttons: reorder_toolbar

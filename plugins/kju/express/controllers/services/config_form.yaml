@@ -3,9 +3,12 @@ modelClass: Kju\Express\Models\Service
 form: $/kju/express/models/service/fields.yaml
 defaultRedirect: kju/express/services
 create:
+    title: 'kju.express::lang.service.new_service'
     redirect: 'kju/express/services/update/:code'
     redirectClose: kju/express/services
 update:
+    title: 'kju.express::lang.service.edit_service'
     redirect: kju/express/services
     redirectClose: kju/express/services
-preview: {  }
+preview:
+    title: 'kju.express::lang.service.preview_service'
