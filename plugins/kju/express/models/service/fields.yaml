@@ -1,0 +1,17 @@
+fields:
+    code:
+        label: 'kju.express::lang.service.code'
+        span: left
+        placeholder: 'kju.express::lang.service.code'
+        type: text
+    name:
+        label: 'kju.express::lang.service.name'
+        span: left
+        placeholder: 'kju.express::lang.service.name'
+        type: text
+    description:
+        label: 'kju.express::lang.global.description'
+        size: small
+        span: left
+        placeholder: 'kju.express::lang.global.description'
+        type: textarea

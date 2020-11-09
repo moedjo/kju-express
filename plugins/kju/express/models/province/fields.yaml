@@ -1,0 +1,11 @@
+fields:
+    id:
+        label: 'kju.express::lang.province.id'
+        span: left
+        placeholder: 'kju.express::lang.province.id'
+        type: text
+    name:
+        label: 'kju.express::lang.province.name'
+        span: left
+        placeholder: 'kju.express::lang.province.name'
+        type: text

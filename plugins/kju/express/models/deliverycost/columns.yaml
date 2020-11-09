@@ -1,0 +1,12 @@
+columns:
+    service_code:
+        label: 'kju.express::lang.service.singular'
+        type: text
+        searchable: true
+        sortable: true
+    cost:
+        label: 'kju.express::lang.global.cost'
+        type: number
+    add_cost:
+        label: 'kju.express::lang.global.additional_cost'
+        type: number

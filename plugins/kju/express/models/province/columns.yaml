@@ -1,0 +1,9 @@
+columns:
+    id:
+        label: 'kju.express::lang.province.id'
+        type: number
+    name:
+        label: 'kju.express::lang.province.name'
+        type: text
+        searchable: true
+        sortable: true

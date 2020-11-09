@@ -1,0 +1,14 @@
+columns:
+    code:
+        label: 'kju.express::lang.service.code'
+        type: text
+        searchable: true
+        sortable: false
+    name:
+        label: 'kju.express::lang.service.name'
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: 'kju.express::lang.global.description'
+        type: text

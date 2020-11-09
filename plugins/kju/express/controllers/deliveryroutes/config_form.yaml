@@ -1,0 +1,10 @@
+name: DeliveryRoutes
+form: $/kju/express/models/deliveryroute/fields.yaml
+modelClass: Kju\Express\Models\DeliveryRoute
+defaultRedirect: kju/express/deliveryroutes
+create:
+    redirect: 'kju/express/deliveryroutes/update/:id'
+    redirectClose: kju/express/deliveryroutes
+update:
+    redirect: kju/express/deliveryroutes
+    redirectClose: kju/express/deliveryroutes

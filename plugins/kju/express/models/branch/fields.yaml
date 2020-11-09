@@ -1,0 +1,6 @@
+fields:
+    name:
+        label: 'kju.express::lang.branch.name'
+        span: left
+        placeholder: 'kju.express::lang.branch.name'
+        type: text

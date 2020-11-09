@@ -1,0 +1,4 @@
+columns:
+    id:
+        label: 'kju.express::lang.regency.id'
+        type: number

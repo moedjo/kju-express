@@ -1,0 +1,12 @@
+list: $/kju/express/models/regency/columns.yaml
+modelClass: Kju\Express\Models\Regency
+title: Regencies
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'kju/express/regencies/update/:id'

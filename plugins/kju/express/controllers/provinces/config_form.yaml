@@ -1,0 +1,10 @@
+name: Provinces
+form: $/kju/express/models/province/fields.yaml
+modelClass: Kju\Express\Models\Province
+defaultRedirect: kju/express/provinces
+create:
+    redirect: 'kju/express/provinces/update/:id'
+    redirectClose: kju/express/provinces
+update:
+    redirect: kju/express/provinces
+    redirectClose: kju/express/provinces

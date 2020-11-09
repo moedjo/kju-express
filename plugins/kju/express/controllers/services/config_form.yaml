@@ -1,0 +1,10 @@
+name: Services
+form: $/kju/express/models/service/fields.yaml
+modelClass: Kju\Express\Models\Service
+defaultRedirect: kju/express/services
+create:
+    redirect: 'kju/express/services/update/:id'
+    redirectClose: kju/express/services
+update:
+    redirect: kju/express/services
+    redirectClose: kju/express/services

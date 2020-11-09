@@ -1,0 +1,7 @@
+columns:
+    id:
+        label: 'kju.express::lang.global.id'
+        type: number
+    branch_id:
+        label: 'kju.express::lang.branch.singular'
+        type: text

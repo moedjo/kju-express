@@ -1,0 +1,16 @@
+fields:
+    id:
+        label: 'kju.express::lang.district.id'
+        span: auto
+        placeholder: 'kju.express::lang.district.id'
+        type: text
+    name:
+        label: 'kju.express::lang.district.name'
+        span: left
+        type: text
+    regency:
+        label: 'kju.express::lang.regency.singular'
+        span: left
+        type: relation
+        nameFrom: name
+        emptyOption: 'kju.express::lang.global.select_an_option'

@@ -1,0 +1,19 @@
+fields:
+    service:
+        label: 'kju.express::lang.service.singular'
+        span: auto
+        placeholder: 'kju.express::lang.service.singular'
+        type: relation
+        select: 'concat(code,'', '',name)'
+    cost:
+        label: 'kju.express::lang.global.cost'
+        span: left
+        placeholder: 'kju.express::lang.global.cost'
+        type: text
+        comment: 'kju.express::lang.delivery_cost.comment_cost'
+    add_cost:
+        label: 'kju.express::lang.global.additional_cost'
+        span: right
+        placeholder: 'kju.express::lang.global.additional_cost'
+        type: text
+        comment: 'kju.express::lang.delivery_cost.comment_add_cost'

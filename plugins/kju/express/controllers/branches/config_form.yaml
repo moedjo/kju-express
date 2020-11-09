@@ -1,0 +1,10 @@
+name: Branches
+form: $/kju/express/models/branch/fields.yaml
+modelClass: Kju\Express\Models\Branch
+defaultRedirect: kju/express/branches
+create:
+    redirect: 'kju/express/branches/update/:id'
+    redirectClose: kju/express/branches
+update:
+    redirect: kju/express/branches
+    redirectClose: kju/express/branches

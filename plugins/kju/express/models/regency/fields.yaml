@@ -1,0 +1,17 @@
+fields:
+    id:
+        label: 'kju.express::lang.regency.id'
+        span: auto
+        placeholder: 'kju.express::lang.regency.id'
+        type: text
+    name:
+        label: 'kju.express::lang.regency.name'
+        span: left
+        placeholder: 'kju.express::lang.regency.name'
+        type: text
+    province:
+        label: 'kju.express::lang.province.singular'
+        nameFrom: name
+        span: left
+        type: relation
+        emptyOption: 'kju.express::lang.global.select_an_option'

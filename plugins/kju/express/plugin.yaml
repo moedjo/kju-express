@@ -1,0 +1,72 @@
+plugin:
+    name: 'kju.express::lang.plugin.name'
+    description: 'kju.express::lang.plugin.description'
+    author: KJU
+    icon: oc-icon-truck
+    homepage: ''
+permissions:
+    access_branches:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_branches'
+    access_provinces:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_provinces'
+    access_regencies:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_regencies'
+    access_districts:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_districts'
+    access_services:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_services'
+    access_delivery_routes:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_delivery_routes'
+navigation:
+    region_data:
+        label: 'kju.express::lang.global.region_data'
+        url: kju/express/branches
+        icon: icon-area-chart
+        sideMenu:
+            branches:
+                label: 'kju.express::lang.branch.plural'
+                url: kju/express/branches
+                icon: icon-home
+                permissions:
+                    - access_branches
+            districts:
+                label: 'kju.express::lang.district.plural'
+                url: kju/express/districts
+                icon: icon-area-chart
+                permissions:
+                    - access_districts
+            regencies:
+                label: 'kju.express::lang.regency.plural'
+                url: kju/express/regencies
+                icon: icon-area-chart
+                permissions:
+                    - access_regencies
+            provincies:
+                label: 'kju.express::lang.province.plural'
+                url: kju/express/provinces
+                icon: icon-area-chart
+                permissions:
+                    - access_provinces
+    deliveries:
+        label: 'kju.express::lang.delivery.data'
+        url: kju/express/services
+        icon: icon-truck
+        sideMenu:
+            services:
+                label: 'kju.express::lang.service.plural'
+                url: kju/express/services
+                icon: icon-stack-overflow
+                permissions:
+                    - access_services
+            delivery-routes:
+                label: 'kju.express::lang.delivery_route.plural'
+                url: kju/express/deliveryroutes
+                icon: icon-clipboard
+                permissions:
+                    - access_delivery_routes

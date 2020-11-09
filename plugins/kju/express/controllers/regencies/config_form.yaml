@@ -1,0 +1,10 @@
+name: Regencies
+form: $/kju/express/models/regency/fields.yaml
+modelClass: Kju\Express\Models\Regency
+defaultRedirect: kju/express/regencies
+create:
+    redirect: 'kju/express/regencies/update/:id'
+    redirectClose: kju/express/regencies
+update:
+    redirect: kju/express/regencies
+    redirectClose: kju/express/regencies

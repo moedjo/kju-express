@@ -1,0 +1,23 @@
+fields:
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        span: left
+        placeholder: 'kju.express::lang.branch.singular'
+        type: relation
+        nameFrom: name
+    district:
+        label: 'kju.express::lang.global.destination'
+        span: left
+        placeholder: 'kju.express::lang.global.destination'
+        type: relation
+        nameFrom: name
+tabs:
+    fields:
+        delivery_costs:
+            span: full
+            path: field_delivery_costs
+            context:
+                - update
+                - preview
+            type: partial
+            tab: 'kju.express::lang.delivery_cost.plural'

@@ -1,0 +1,10 @@
+name: Districts
+form: $/kju/express/models/district/fields.yaml
+modelClass: Kju\Express\Models\District
+defaultRedirect: kju/express/districts
+create:
+    redirect: 'kju/express/districts/update/:id'
+    redirectClose: kju/express/districts
+update:
+    redirect: kju/express/districts
+    redirectClose: kju/express/districts
