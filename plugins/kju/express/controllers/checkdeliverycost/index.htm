@@ -26,13 +26,18 @@
         </div>
         <div id="weight" class="form-group span-left">
         </div>
+        <div id="deliverycost" class="form-group span-left">
+        </div>
     </div>
+
     <div class="form-buttons">
         <div class="loading-indicator-container">
             <button
                 type="submit"
                 data-request="onCheckDeliveryCost"
                 data-hotkey="ctrl+p, cmd+p"
+                data-request-update="deliverycost: '#deliverycost'"
+                data-request-success="$('.modal').modal('show');"
                 data-load-indicator="<?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>"
                 class="btn btn-primary">
                 <?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>

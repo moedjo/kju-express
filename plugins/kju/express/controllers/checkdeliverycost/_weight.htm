@@ -1,0 +1,8 @@
+<?php if (isset($service)): ?>
+<?php if ($service->weight_limit != -1): ?>
+
+<label><?= e(trans('kju.express::lang.global.weight')) ?></label>
+<input type="number" name="weight" class="form-control" />
+
+<?php endif ?>
+<?php endif ?>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Kju\Express\Models\District;
 use Kju\Express\Models\Service;
+use October\Rain\Exception\ValidationException;
 
 class CheckDeliveryCost extends Controller
 {
@@ -79,8 +80,6 @@ class CheckDeliveryCost extends Controller
 
         $service_code = input('service_code');
 
-        $service = Service::find($service_code);
-
         $weight = input('weight');
 
         $validator = Validator::make(
@@ -88,15 +87,53 @@ class CheckDeliveryCost extends Controller
                 'branch_code' => $branch_code,
                 'district_id' => $district_id,
                 'service_code' => $service_code,
-                'weight' => $weight,
-                'weight_limit' => $service->weight_limit,
             ],
             [
                 'branch_code' => 'required',
                 'district_id' => 'required',
                 'service_code' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        $service = Service::find($service_code);
+        
+        $validator = Validator::make(
+            [
+                'weight' => $weight,
+                'weight_limit' => $service->weight_limit,
+            ],
+            [
                 'weight' => 'required_unless:weight_limit,-1',
             ]
         );
+
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+
+        $cost = DB::table('kju_express_delivery_costs AS cost')
+            ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_id', '=', 'route.id')
+             ->select('cost.cost','cost.add_cost')
+            ->where('cost.service_code', $service_code)
+            ->where('route.branch_code', $branch_code)
+            ->where('route.district_id', $district_id)
+            ->first();
+        
+        // $this->vars['cost'] = $cost;
+
+        if($service->weight_limit == -1){
+            $this->vars['total_cost'] = $cost->cost;
+        }else {
+            $add_cost = ($weight - $service->weight_limit) * $cost->add_cost;
+            $add_cost = $add_cost < 0 ? 0 : $add_cost;
+            $this->vars['total_cost'] = $add_cost + $cost->cost;
+        }
+
     }
+
 }
