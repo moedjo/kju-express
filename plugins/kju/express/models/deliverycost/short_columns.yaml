@@ -20,3 +20,13 @@ columns:
         sortable: true
         select: weight_limit
         relation: service
+    min_lead_time:
+        label: 'kju.express::lang.delivery_cost.min_lead_time'
+        type: number
+        searchable: false
+        sortable: true
+    max_lead_time:
+        label: 'kju.express::lang.delivery_cost.max_lead_time'
+        type: number
+        searchable: false
+        sortable: true

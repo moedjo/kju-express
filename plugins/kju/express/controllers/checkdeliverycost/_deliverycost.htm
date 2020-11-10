@@ -6,7 +6,11 @@
                 <h4 class="modal-title"><?= e(trans('kju.express::lang.delivery_cost.singular')) ?></h4>
             </div>
             <div class="modal-body">
-                <h4>Total Cost : <?= $total_cost;?></h4>
+                <?php if(isset($total_cost)): ?>
+                    <h4><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= $total_cost;?></h4>
+                <?php else: ?>
+                    <h4><?= e(trans('kju.express::lang.global.not_available')) ?></h4>
+                <?php endif ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal"><?= e(trans('backend::lang.form.close')) ?></button>

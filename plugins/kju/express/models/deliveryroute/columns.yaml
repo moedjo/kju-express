@@ -4,22 +4,31 @@ columns:
         type: number
         searchable: false
         sortable: true
-    branch_code:
-        label: 'kju.express::lang.branch.singular'
+    src_district:
+        label: 'kju.express::lang.global.source'
         type: text
-        searchable: true
-        sortable: true
-    district:
+        sortable: false
+        relation: src_district
+        valueFrom: displayName
+    dst_district:
         label: 'kju.express::lang.global.destination'
         type: text
         sortable: false
-        relation: district
+        relation: dst_district
         valueFrom: displayName
-    district_name:
+    src_district_name:
         label: 'kju.express::lang.district.singular'
         type: text
         searchable: true
         invisible: true
         sortable: true
-        relation: district
+        relation: src_district
+        valueFrom: name
+    dst_district_name:
+        label: 'kju.express::lang.district.singular'
+        type: text
+        searchable: true
+        invisible: true
+        sortable: true
+        relation: dst_district
         valueFrom: name

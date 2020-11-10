@@ -21,13 +21,14 @@ class DeliveryRoute extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'branch' => 'required',
-        'district' => 'required'
+        'src_district' => 'required',
+        'dst_district' => 'required',
+    
     ];
 
     public $belongsTo = [
-        'branch' => ['Kju\Express\Models\Branch','key' => 'branch_code'],
-        'district' => ['Kju\Express\Models\District']
+        'src_district' => ['Kju\Express\Models\District'],
+        'dst_district' => ['Kju\Express\Models\District']
     ];
 
     public $hasMany = [

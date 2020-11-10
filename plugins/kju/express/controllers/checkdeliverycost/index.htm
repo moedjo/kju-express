@@ -1,14 +1,14 @@
 <form class="layout" role="form">
     <div class="layout-row">
         <div class="form-group span-left">
-            <label><?= e(trans('kju.express::lang.global.source_or_branch')) ?></label>
-            <select name="branch_code" class="form-control custom-select" data-handler="onGetBranches" data-minimum-input-length="3"
+            <label><?= e(trans('kju.express::lang.global.source')) ?></label>
+            <select name="src_district_id" class="form-control custom-select" data-handler="onGetBranches" data-minimum-input-length="3"
                 data-ajax--delay="300">
             </select>
         </div>
         <div class="form-group span-left">
             <label><?= e(trans('kju.express::lang.global.destination')) ?></label>
-            <select name="district_id" class="form-control custom-select" data-handler="onGetDestinations" data-minimum-input-length="3"
+            <select name="dst_district_id" class="form-control custom-select" data-handler="onGetDestinations" data-minimum-input-length="3"
                 data-ajax--delay="300">
             </select>
         </div>

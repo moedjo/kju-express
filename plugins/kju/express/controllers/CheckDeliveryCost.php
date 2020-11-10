@@ -39,16 +39,14 @@ class CheckDeliveryCost extends Controller
     {
         $q = input('q');
         return [
-            'result' => DB::table('kju_express_branches AS branch')
-                ->join('kju_express_districts AS district', 'branch.district_id', '=', 'district.id')
-                ->join('kju_express_regencies AS regency', 'district.regency_id', '=', 'regency.id')
-                ->join('kju_express_provinces AS province', 'regency.province_id', '=', 'province.id')
-                ->select(DB::raw("CONCAT(branch.code,' - ',branch.name,', ',district.name,', ',regency.name,', ',province.name) AS name"), 'branch.code AS code')
-                ->take(20)
-                ->where('district.name', 'like', "%$q%")
-                ->orWhere('regency.name', 'like', "%$q%")
-                ->orWhere('branch.name', 'like', "%$q%")
-                ->get()->pluck('name', 'code')
+            'result' => DB::table('kju_express_districts AS district')
+            ->join('kju_express_regencies AS regency', 'district.regency_id', '=', 'regency.id')
+            ->join('kju_express_provinces AS province', 'regency.province_id', '=', 'province.id')
+            ->select(DB::raw("CONCAT(district.name,', ',regency.name,', ',province.name) AS name"), 'district.id')
+            ->take(20)
+            ->where('district.name', 'like', "%$q%")
+            ->orWhere('regency.name', 'like', "%$q%")
+            ->get()->pluck('name', 'id')
         ];
     }
 
@@ -75,8 +73,8 @@ class CheckDeliveryCost extends Controller
 
     public function onCheckDeliveryCost(){
         
-        $branch_code = input('branch_code');
-        $district_id = input('district_id');
+        $src_district_id = input('src_district_id');
+        $dst_district_id = input('dst_district_id');
 
         $service_code = input('service_code');
 
@@ -84,13 +82,13 @@ class CheckDeliveryCost extends Controller
 
         $validator = Validator::make(
             [
-                'branch_code' => $branch_code,
-                'district_id' => $district_id,
+                'src_district_id' => $src_district_id,
+                'dst_district_id' => $dst_district_id,
                 'service_code' => $service_code,
             ],
             [
-                'branch_code' => 'required',
-                'district_id' => 'required',
+                'src_district_id' => 'required',
+                'dst_district_id' => 'required',
                 'service_code' => 'required',
             ]
         );
@@ -120,18 +118,21 @@ class CheckDeliveryCost extends Controller
             ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_id', '=', 'route.id')
              ->select('cost.cost','cost.add_cost')
             ->where('cost.service_code', $service_code)
-            ->where('route.branch_code', $branch_code)
-            ->where('route.district_id', $district_id)
+            ->where('route.src_district_id', $src_district_id)
+            ->where('route.dst_district_id', $dst_district_id)
             ->first();
-        
-        // $this->vars['cost'] = $cost;
 
-        if($service->weight_limit == -1){
-            $this->vars['total_cost'] = $cost->cost;
+
+        if(isset($cost)){
+            if($service->weight_limit == -1){
+                $this->vars['total_cost'] = $cost->cost;
+            }else {
+                $add_cost = ($weight - $service->weight_limit) * $cost->add_cost;
+                $add_cost = $add_cost < 0 ? 0 : $add_cost;
+                $this->vars['total_cost'] = $add_cost + $cost->cost;
+            }
         }else {
-            $add_cost = ($weight - $service->weight_limit) * $cost->add_cost;
-            $add_cost = $add_cost < 0 ? 0 : $add_cost;
-            $this->vars['total_cost'] = $add_cost + $cost->cost;
+            $this->vars['total_cost'] = null;
         }
 
     }

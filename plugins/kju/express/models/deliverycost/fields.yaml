@@ -19,3 +19,13 @@ fields:
         comment: 'kju.express::lang.delivery_cost.comment_add_cost'
         dependsOn:
             - service
+    min_lead_time:
+        label: 'kju.express::lang.delivery_cost.min_lead_time'
+        span: left
+        placeholder: 'kju.express::lang.delivery_cost.min_lead_time'
+        type: text
+    max_lead_time:
+        label: 'kju.express::lang.delivery_cost.max_lead_time'
+        span: right
+        placeholder: 'kju.express::lang.delivery_cost.max_lead_time'
+        type: text

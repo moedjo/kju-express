@@ -24,7 +24,9 @@ class DeliveryCost extends Model
         'service' => 'required',
         'delivery_route' => 'required',
         'cost' => 'required|numeric|between:0,9999999',
-        'add_cost' => 'numeric|between:0,999999'
+        'add_cost' => 'numeric|between:0,999999',
+        'min_lead_time' => 'numeric|between:1,99',
+        'max_lead_time' => 'numeric|between:1,99'
     ];
 
     // public $morphTo = [

@@ -1,14 +1,16 @@
 fields:
-    branch:
-        label: 'kju.express::lang.branch.singular'
+    src_district:
+        label: 'kju.express::lang.global.source'
         span: left
-        placeholder: 'kju.express::lang.branch.singular'
-        type: relation
+        placeholder: 'kju.express::lang.global.source'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
+        modelClass: Kju\Express\Models\District
         nameFrom: displayName
-    district:
-        label: 'kju.express::lang.global.region'
+    dst_district:
+        label: 'kju.express::lang.global.destination'
         span: left
-        placeholder: 'kju.express::lang.global.region'
+        placeholder: 'kju.express::lang.global.destination'
         type: recordfinder
         list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
         modelClass: Kju\Express\Models\District

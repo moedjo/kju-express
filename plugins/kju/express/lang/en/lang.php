@@ -13,6 +13,7 @@
         'access_delivery_routes' => 'Manage Delivery Routes',
         'access_delivery_costs' => 'Manage Delivery Costs',
         'access_check_delivery_cost' => 'Access Check Delivery Cost',
+        'access_users' => 'Manage Users',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -28,13 +29,16 @@
         'region_data' => 'Region Data',
         'description' => 'Description',
         'id' => 'Id',
+        'source' => 'Source',
         'destination' => 'Destination',
         'cost' => 'Cost',
+        'total_cost' => 'Total Cost',
+        'not_available' => 'Not Available',
         'additional_cost' => 'Additional Cost',
         'region' => 'Region',
         'source_or_branch' => 'Source / Branch',
-        'weight'=>'Weight (KG)',
-        'check_delivery_cost' => 'Check Delivery Cost'
+        'weight' => 'Weight (KG)',
+        'check_delivery_cost' => 'Check Delivery Cost',
     ],
     'district' => [
         'plural' => 'Districts',
@@ -90,5 +94,10 @@
         'comment_cost' => 'Basic cost for limited weight',
         'comment_add_cost' => 'Additional cost after exceeding the limit',
         'check' => 'Check Delivery Cost',
+        'min_lead_time' => 'Lead Time (Min)',
+        'max_lead_time' => 'Lead Time (Max)',
+    ],
+    'user' => [
+        'plural' => 'Users',
     ],
 ];
