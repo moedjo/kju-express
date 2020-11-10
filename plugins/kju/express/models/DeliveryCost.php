@@ -29,14 +29,16 @@ class DeliveryCost extends Model
         'max_lead_time' => 'numeric|between:1,99'
     ];
 
-    // public $morphTo = [
-    //     'delivery_route' => []
-    // ];
-
     public $belongsTo = [
         'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
-        'delivery_route' => ['Kju\Express\Models\DeliveryRoute']
+        'delivery_route' => ['Kju\Express\Models\DeliveryRoute', 'key' => 'delivery_route_code']
     ];
+
+    public function beforeValidate(){
+        $this->rules['service_code'] = "required|unique:kju_express_delivery_costs,service_code,NULL,id,delivery_route_code,$this->delivery_route_code";
+        $this->rules['max_lead_time'] = "numeric|between:$this->min_lead_time,99";
+  
+    }
 
 
     public function filterFields($fields, $context = null)

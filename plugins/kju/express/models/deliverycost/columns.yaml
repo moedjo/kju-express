@@ -10,7 +10,7 @@ columns:
         searchable: false
         sortable: false
         relation: delivery_route
-        valueFrom: 'src_district[displayName]'
+        valueFrom: 'src_regency[displayName]'
     destination:
         label: 'kju.express::lang.global.destination'
         type: text

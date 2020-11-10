@@ -1,6 +1,6 @@
 list: $/kju/express/models/deliverycost/columns.yaml
 modelClass: Kju\Express\Models\DeliveryCost
-title: DeliveryCosts
+title: 'kju.express::lang.delivery_cost.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: false
@@ -8,3 +8,4 @@ recordsPerPage: 20
 toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
+filter: config_filter.yaml

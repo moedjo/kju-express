@@ -1,11 +1,11 @@
 fields:
-    src_district:
+    src_regency:
         label: 'kju.express::lang.global.source'
         span: left
         placeholder: 'kju.express::lang.global.source'
         type: recordfinder
-        list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
-        modelClass: Kju\Express\Models\District
+        list: ~/plugins/kju/express/models/regency/recordfinder_columns.yaml
+        modelClass: Kju\Express\Models\Regency
         nameFrom: displayName
     dst_district:
         label: 'kju.express::lang.global.destination'

@@ -2,13 +2,13 @@ scopes:
     province:
         label: 'kju.express::lang.province.singular'
         type: group
-        conditions: substr(src_district_id,1,2) in (:filtered) or substr(dst_district_id,1,2) in (:filtered)
+        conditions: substr(src_regency_id,1,2) in (:filtered) or substr(dst_district_id,1,2) in (:filtered)
         modelClass: Kju\Express\Models\Province
         options: getProvinceOptions
     regency:
         label: 'kju.express::lang.regency.singular'
         type: group
-        conditions: substr(src_district_id,1,4) in (:filtered) or substr(dst_district_id,1,2) in (:filtered)
+        conditions: src_regency_id in (:filtered) or substr(dst_district_id,1,2) in (:filtered)
         modelClass: Kju\Express\Models\Regency
         options: getRegencyOptions
         dependsOn: province

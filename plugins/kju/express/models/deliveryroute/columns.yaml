@@ -1,14 +1,14 @@
 columns:
-    id:
-        label: 'kju.express::lang.global.id'
-        type: number
-        searchable: false
+    code:
+        label: 'kju.express::lang.delivery_route.code'
+        type: text
+        searchable: true
         sortable: true
-    src_district:
+    src_regency:
         label: 'kju.express::lang.global.source'
         type: text
         sortable: false
-        relation: src_district
+        relation: src_regency
         valueFrom: displayName
     dst_district:
         label: 'kju.express::lang.global.destination'
@@ -16,13 +16,13 @@ columns:
         sortable: false
         relation: dst_district
         valueFrom: displayName
-    src_district_name:
-        label: 'kju.express::lang.district.singular'
+    src_regency_name:
+        label: 'kju.express::lang.regency.singular'
         type: text
         searchable: true
         invisible: true
         sortable: true
-        relation: src_district
+        relation: src_regency
         valueFrom: name
     dst_district_name:
         label: 'kju.express::lang.district.singular'

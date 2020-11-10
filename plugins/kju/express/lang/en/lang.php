@@ -87,6 +87,7 @@
         'new_delivery_route' => 'New Delivery Route',
         'edit_delivery_route' => 'Edit Delivery Route',
         'preview_delivery_route' => 'Preview Delivery Route',
+        'code' => 'Route Code'
     ],
     'delivery_cost' => [
         'plural' => 'Delivery Costs',

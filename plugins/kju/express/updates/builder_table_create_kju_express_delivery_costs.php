@@ -21,13 +21,13 @@ class BuilderTableCreateKjuExpressDeliveryCosts extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->integer('delivery_route_id')->unsigned()->nullable();;
-            $table->foreign('delivery_route_id')->references('id')->on('kju_express_delivery_routes')->onDelete('cascade');
+            $table->string('delivery_route_code')->nullable();;
+            $table->foreign('delivery_route_code')->references('code')->on('kju_express_delivery_routes')->onDelete('cascade');
 
             $table->string('service_code',10)->nullable();
             $table->foreign('service_code')->references('code')->on('kju_express_services');
 
-            $table->unique(['delivery_route_id','service_code']);
+            $table->unique(['delivery_route_code','service_code'],'route_service_unique');
         });
     }
     
