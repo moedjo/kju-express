@@ -12,6 +12,8 @@ fields:
     regency:
         label: 'kju.express::lang.regency.singular'
         span: left
-        type: relation
-        nameFrom: displayName
         placeholder: 'kju.express::lang.regency.singular'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/regency/recordfinder_columns.yaml
+        modelClass: Kju\Express\Models\Regency
+        nameFrom: displayName
