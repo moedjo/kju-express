@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <?php if(isset($total_cost)): ?>
-                    <h4><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= $total_cost;?></h4>
+                    <h4><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></h4>
                 <?php else: ?>
                     <h4><?= e(trans('kju.express::lang.global.not_available')) ?></h4>
                 <?php endif ?>

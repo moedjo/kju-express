@@ -97,6 +97,7 @@
         'check' => 'Check Delivery Cost',
         'min_lead_time' => 'Lead Time (Min)',
         'max_lead_time' => 'Lead Time (Max)',
+        'lead_time' => 'Lead Time',
     ],
     'user' => [
         'plural' => 'Users',

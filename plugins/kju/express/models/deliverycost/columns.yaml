@@ -1,4 +1,7 @@
 columns:
+    id:
+        label: 'kju.express::lang.global.id'
+        type: text
     service_code:
         label: 'kju.express::lang.service.singular'
         type: text
@@ -19,12 +22,14 @@ columns:
         valueFrom: 'dst_district[displayName]'
     cost:
         label: 'kju.express::lang.global.cost'
-        type: number
+        type: currency
+        align: right
         searchable: false
         sortable: true
     add_cost:
         label: 'kju.express::lang.global.additional_cost'
-        type: number
+        type: currency
+        align: right
         sortable: true
     weight_limit:
         label: 'kju.express::lang.service.weight_limit'
@@ -38,8 +43,9 @@ columns:
         type: number
         searchable: false
         sortable: true
-    max_lead_time:
-        label: 'kju.express::lang.delivery_cost.max_lead_time'
-        type: number
+    lead_time:
+        label: 'kju.express::lang.delivery_cost.lead_time'
+        type: text
         searchable: false
         sortable: true
+        select: concat(min_lead_time, '-', max_lead_time)
