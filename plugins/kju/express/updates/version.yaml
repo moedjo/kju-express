@@ -7,15 +7,7 @@
     - builder_table_create_kju_express_services.php
     - builder_table_create_kju_express_delivery_routes.php
     - builder_table_create_kju_express_delivery_costs.php
-1.0.2:
-    - 'Created table kju_express_delivery_orders'
-    - builder_table_create_kju_express_delivery_orders.php
-1.0.3:
-    - 'Created table kju_express_customers'
     - builder_table_create_kju_express_customers.php
-1.0.4:
-    - 'Created table kju_express_delivery_statuses'
-    - builder_table_create_kju_express_delivery_statuses.php
-1.0.5:
-    - 'Created table kju_express_status_types'
     - builder_table_create_kju_express_status_types.php
+    - builder_table_create_kju_express_delivery_statuses.php
+    - builder_table_create_kju_express_delivery_orders.php

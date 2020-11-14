@@ -17,6 +17,6 @@ class Services extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'deliveries', 'services');
+        BackendMenu::setContext('Kju.Express', 'master-data', 'services');
     }
 }

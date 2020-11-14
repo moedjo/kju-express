@@ -1,0 +1,10 @@
+name: StatusTypes
+form: $/kju/express/models/statustype/fields.yaml
+modelClass: Kju\Express\Models\StatusType
+defaultRedirect: kju/express/statustypes
+create:
+    redirect: 'kju/express/statustypes/update/:id'
+    redirectClose: kju/express/statustypes
+update:
+    redirect: kju/express/statustypes
+    redirectClose: kju/express/statustypes

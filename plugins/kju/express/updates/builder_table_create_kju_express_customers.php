@@ -12,6 +12,7 @@ class BuilderTableCreateKjuExpressCustomers extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name', 100);
+            $table->string('phone_number', 20);
         });
     }
     

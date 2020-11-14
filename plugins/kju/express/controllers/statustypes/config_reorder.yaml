@@ -1,0 +1,4 @@
+title: StatusTypes
+modelClass: Kju\Express\Models\StatusType
+toolbar:
+    buttons: reorder_toolbar

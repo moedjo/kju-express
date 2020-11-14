@@ -1,0 +1,11 @@
+fields:
+    code:
+        label: 'kju.express::lang.status_type.code'
+        span: auto
+        placeholder: 'kju.express::lang.status_type.code'
+        type: text
+    name:
+        label: 'kju.express::lang.status_type.name'
+        span: left
+        placeholder: 'kju.express::lang.status_type.name'
+        type: text

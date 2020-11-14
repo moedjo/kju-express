@@ -108,4 +108,6 @@
   'Lovata\\Toolbox\\Classes\\Item\\ElementItem' => 'plugins\\lovata\\toolbox\\classes\\item\\ElementItem.php',
   'Lovata\\Buddies\\Classes\\Item\\UserItem' => 'plugins\\lovata\\buddies\\classes\\item\\UserItem.php',
   'Lovata\\Toolbox\\Classes\\Item\\ItemStorage' => 'plugins\\lovata\\toolbox\\classes\\item\\ItemStorage.php',
+  'kju\\express\\Controllers\\statustypes' => 'plugins\\kju\\express\\controllers\\statustypes.php',
+  'Kju\\Express\\Models\\StatusType' => 'plugins\\kju\\express\\models\\StatusType.php',
 );

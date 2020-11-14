@@ -14,6 +14,9 @@
         'access_delivery_costs' => 'Manage Delivery Costs',
         'access_check_delivery_cost' => 'Access Check Delivery Cost',
         'access_users' => 'Manage Users',
+        'access_delivery_orders' => 'Manage Delivery Orders',
+        'access_couriers' => 'Manage Couriers',
+        'access_status_types' => 'Manage Status Types',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -39,6 +42,7 @@
         'source_or_branch' => 'Source / Branch',
         'weight' => 'Weight (KG)',
         'check_delivery_cost' => 'Check Delivery Cost',
+        'master_data' => 'Master Data',
     ],
     'district' => [
         'plural' => 'Districts',
@@ -87,7 +91,7 @@
         'new_delivery_route' => 'New Delivery Route',
         'edit_delivery_route' => 'Edit Delivery Route',
         'preview_delivery_route' => 'Preview Delivery Route',
-        'code' => 'Route Code'
+        'code' => 'Route Code',
     ],
     'delivery_cost' => [
         'plural' => 'Delivery Costs',
@@ -101,5 +105,14 @@
     ],
     'user' => [
         'plural' => 'Users',
+    ],
+    'delivery_order' => [
+        'plural' => 'Delivery Orders',
+    ],
+    'status_type' => [
+        'plural' => 'Status Types',
+        'id' => 'Status Type Id',
+        'name' => 'Status Type Name',
+        'code' => 'Status Type Code',
     ],
 ];

@@ -29,14 +29,20 @@ permissions:
     access_check_delivery_cost:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_check_delivery_cost'
-    access_users:
+    access_couriers:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_users'
+    access_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_delivery_orders'
+    access_status_types:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_status_types'
 navigation:
-    region_data:
-        label: 'kju.express::lang.global.region_data'
+    master-data:
+        label: 'kju.express::lang.global.master_data'
         url: kju/express/branches
-        icon: icon-area-chart
+        icon: icon-book
         sideMenu:
             branches:
                 label: 'kju.express::lang.branch.plural'
@@ -44,6 +50,12 @@ navigation:
                 icon: icon-home
                 permissions:
                     - access_branches
+            services:
+                label: 'kju.express::lang.service.plural'
+                url: kju/express/services
+                icon: icon-sliders
+                permissions:
+                    - access_services
             districts:
                 label: 'kju.express::lang.district.plural'
                 url: kju/express/districts
@@ -62,15 +74,23 @@ navigation:
                 icon: icon-book
                 permissions:
                     - access_provinces
-    deliveries:
+            status-types:
+                label: 'kju.express::lang.status_type.plural'
+                url: kju/express/statustypes
+                icon: icon-tasks
+                permissions:
+                    - access_status_types
+    delivery-data:
         label: 'kju.express::lang.delivery.data'
-        url: kju/express/services
+        url: kju/express/checkdeliverycost
         icon: icon-truck
         sideMenu:
             check-delivery-cost:
                 label: 'kju.express::lang.delivery_cost.check'
                 url: kju/express/checkdeliverycost
                 icon: icon-money
+                permissions:
+                    - access_check_delivery_cost
             delivery_costs:
                 label: 'kju.express::lang.delivery_cost.plural'
                 url: kju/express/deliverycosts
@@ -83,13 +103,11 @@ navigation:
                 icon: icon-map-marker
                 permissions:
                     - access_delivery_routes
-            services:
-                label: 'kju.express::lang.service.plural'
-                url: kju/express/services
-                icon: icon-stack-overflow
-                permissions:
-                    - access_services
     users:
         label: 'kju.express::lang.user.plural'
         url: /
         icon: icon-users
+    delivery-orders:
+        label: 'kju.express::lang.delivery_order.plural'
+        url: /
+        icon: icon-reorder
