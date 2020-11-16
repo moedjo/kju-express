@@ -75,9 +75,7 @@ class CheckDeliveryCost extends Controller
 
         $src_region_id = input('src_region_id');
         $dst_region_id = input('dst_region_id');
-
         $service_code = input('service_code');
-
         $weight = input('weight');
 
         $validator = Validator::make(
@@ -98,7 +96,6 @@ class CheckDeliveryCost extends Controller
         }
 
         $service = Service::find($service_code);
-
         $validator = Validator::make(
             [
                 'weight' => $weight,
@@ -123,7 +120,6 @@ class CheckDeliveryCost extends Controller
             ->orderByRaw("FIELD(route.dst_region_id,'$dst_region_id','$dst_regency_id')")
             ->first();
 
-
         $this->vars['service'] = $service;
         $this->vars['src_region'] = Region::find($src_region_id);
         $this->vars['dst_region'] = Region::find($dst_region_id);
@@ -139,7 +135,6 @@ class CheckDeliveryCost extends Controller
             }
         } else {
             $this->vars['total_cost'] = null;
-           
         }
 
     }

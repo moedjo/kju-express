@@ -9,6 +9,15 @@
     </div>
     <div class="content">
         <p><?= $service->displayName ?></p>
-        <p><?= $src_region->displayName.' - '.$dst_region->displayName.' ('.$weight.' KG) ' ?></p>
+        <?php if($service->weight_limit == -1): ?>
+        <p><?= $src_region->displayName.' - '.$dst_region->displayName ?></p>
+        <?php else: ?>
+        <p><?= $src_region->displayName.' - '.$dst_region->displayName.' ('.$weight.' '.e(trans('kju.express::lang.global.kg')).') ' ?></p>
+        <?php endif ?>
+         <?php if(isset($total_cost)): ?>
+        <p><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></p>
+        <?php else: ?>
+        <p><?= e(trans('kju.express::lang.global.not_available')) ?></p>
+        <?php endif ?>
     </div>
 </div>

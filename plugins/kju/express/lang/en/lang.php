@@ -47,6 +47,7 @@
         'province' => 'Province',
         'regency' => 'Regency',
         'district' => 'District',
+        'kg' => 'KG'
     ],
     'delivery' => [
         'plural' => 'Deliveries',
