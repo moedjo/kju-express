@@ -9,11 +9,12 @@ fields:
         span: left
         placeholder: 'kju.express::lang.branch.name'
         type: text
-    district:
+    region:
         label: 'kju.express::lang.global.region'
         span: left
         placeholder: 'kju.express::lang.global.region'
         type: recordfinder
-        list: ~/plugins/kju/express/models/district/recordfinder_columns.yaml
-        modelClass: Kju\Express\Models\District
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        scope: levelDistrict
         nameFrom: displayName

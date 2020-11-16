@@ -23,14 +23,14 @@ class DeliveryRoute extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'src_regency' => 'required',
-        'dst_district' => 'required',
+        'src_region' => 'required',
+        'dst_region' => 'required',
     
     ];
 
     public $belongsTo = [
-        'src_regency' => ['Kju\Express\Models\Regency'],
-        'dst_district' => ['Kju\Express\Models\District']
+        'src_region' => ['Kju\Express\Models\Region','key' => 'src_region_id'],
+        'dst_region' => ['Kju\Express\Models\Region','key' => 'dst_region_id']
     ];
 
     public $hasMany = [
@@ -40,18 +40,18 @@ class DeliveryRoute extends Model
 
     public function beforeCreate(){
         
-        $this->code = $this->src_regency->id.'-'.$this->dst_district->id;
+        $this->code = $this->src_region->id.'-'.$this->dst_region->id;
     }
 
     public function beforeValidate(){
-        $this->rules['src_regency_id'] = "required|unique:kju_express_delivery_routes,src_regency_id,NULL,code,dst_district_id,$this->dst_district_id";
+        $this->rules['src_region'] = "required|unique:kju_express_delivery_routes,src_region_id,NULL,code,dst_region_id,$this->dst_region_id";
     }
 
     public function filterFields($fields, $context = null)
     {
         if ($context == 'update') {
-            $fields->src_regency->readOnly = true;
-            $fields->dst_district->readOnly = true;
+            $fields->src_region->readOnly = true;
+            $fields->dst_region->readOnly = true;
         }
     }
 

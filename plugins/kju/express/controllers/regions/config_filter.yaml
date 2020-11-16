@@ -1,0 +1,7 @@
+scopes:
+    type:
+        label: 'kju.express::lang.region.type'
+        type: group
+        conditions: type in (:filtered)
+        modelClass: Kju\Express\Models\Region
+        options: getTypeOptions

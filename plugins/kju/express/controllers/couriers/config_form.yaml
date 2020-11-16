@@ -1,0 +1,14 @@
+name: Districts
+form: $/kju/express/models/courier/fields.yaml
+modelClass: Kju\Express\Models\Courier
+defaultRedirect: kju/express/couriers
+create:
+    title: 'kju.express::lang.district.new_district'
+    redirect: 'kju/express/couriers/update/:id'
+    redirectClose: kju/express/couriers
+update:
+    title: 'kju.express::lang.district.edit_district'
+    redirect: kju/express/couriers
+    redirectClose: kju/express/couriers
+preview:
+    title: 'kju.express::lang.district.preview_district'

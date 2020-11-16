@@ -1,0 +1,24 @@
+columns:
+    id:
+        label: 'kju.express::lang.region.id'
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'kju.express::lang.region.name'
+        type: text
+        searchable: true
+        sortable: true
+    parent_name:
+        label: 'kju.express::lang.region.parent'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: parent
+    type:
+        label: 'kju.express::lang.region.type'
+        type: text
+        valueFrom: displayType
+        searchable: false
+        sortable: false

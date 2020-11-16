@@ -23,12 +23,12 @@ class Branch extends Model
      */
     public $rules = [
         'code' => 'required|between:1,10',
-        'name' => 'required|between:1,100|unique:kju_express_provinces',
-        'district' => 'required',
+        'name' => 'required|between:1,100|unique:kju_express_branches',
+        'region' => 'required',
     ];
 
     public $belongsTo = [
-        'district' => ['Kju\Express\Models\District']
+        'region' => ['Kju\Express\Models\Region']
     ];
 
     public function filterFields($fields, $context = null)

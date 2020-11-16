@@ -1,8 +1,6 @@
 1.0.1:
     - 'Initialize plugin.'
-    - builder_table_create_kju_express_provinces.php
-    - builder_table_create_kju_express_regencies.php
-    - builder_table_create_kju_express_districts.php
+    - builder_table_create_kju_express_regions.php
     - builder_table_create_kju_express_branches.php
     - builder_table_create_kju_express_services.php
     - builder_table_create_kju_express_delivery_routes.php

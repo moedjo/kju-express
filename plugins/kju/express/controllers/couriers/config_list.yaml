@@ -1,6 +1,6 @@
-list: $/kju/express/models/regency/columns.yaml
-modelClass: Kju\Express\Models\Regency
-title: 'kju.express::lang.regency.plural'
+list: $/kju/express/models/courier/columns.yaml
+modelClass: Kju\Express\Models\Courier
+title: 'kju.express::lang.courier.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/regencies/update/:id'
+recordUrl: 'kju/express/couriers/update/:id'

@@ -5,16 +5,16 @@ scopes:
         conditions: service_code in (:filtered)
         modelClass: Kju\Express\Models\Service
         nameFrom: displayName
-    province:
-        label: 'kju.express::lang.province.singular'
-        type: group
-        conditions: substr(delivery_route_code,1,2) in (:filtered) or substr(delivery_route_code,6,2) in (:filtered)
-        modelClass: Kju\Express\Models\Province
-        options: getProvinceOptions
-    regency:
-        label: 'kju.express::lang.regency.singular'
-        type: group
-        conditions: substr(delivery_route_code,1,4) in (:filtered) or substr(delivery_route_code,6,4) in (:filtered)
-        modelClass: Kju\Express\Models\Regency
-        options: getRegencyOptions
-        dependsOn: province
+    # province:
+    #     label: 'kju.express::lang.province.singular'
+    #     type: group
+    #     conditions: substr(delivery_route_code,1,2) in (:filtered) or substr(delivery_route_code,6,2) in (:filtered)
+    #     modelClass: Kju\Express\Models\Province
+    #     options: getProvinceOptions
+    # regency:
+    #     label: 'kju.express::lang.regency.singular'
+    #     type: group
+    #     conditions: substr(delivery_route_code,1,4) in (:filtered) or substr(delivery_route_code,6,4) in (:filtered)
+    #     modelClass: Kju\Express\Models\Regency
+    #     options: getRegencyOptions
+    #     dependsOn: province

@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class Regencies extends Controller
+class Regions extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
     
@@ -11,12 +11,12 @@ class Regencies extends Controller
     public $formConfig = 'config_form.yaml';
 
     public $requiredPermissions = [
-        'access_regencies' 
+        'access_regions' 
     ];
 
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'master-data', 'regencies');
+        BackendMenu::setContext('Kju.Express', 'master-data', 'regions');
     }
 }

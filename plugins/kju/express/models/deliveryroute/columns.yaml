@@ -4,31 +4,24 @@ columns:
         type: text
         searchable: true
         sortable: true
-    src_regency:
+    src_region:
         label: 'kju.express::lang.global.source'
         type: text
         sortable: false
-        relation: src_regency
-        valueFrom: displayName
-    dst_district:
+        searchable: true
+        relation: src_region
+        valueFrom: name
+    dst_region:
         label: 'kju.express::lang.global.destination'
         type: text
         sortable: false
-        relation: dst_district
+        relation: dst_region
         valueFrom: displayName
-    src_regency_name:
-        label: 'kju.express::lang.regency.singular'
+    dst_region_name:
+        label: 'kju.express::lang.global.destination'
         type: text
+        sortable: false
         searchable: true
         invisible: true
-        sortable: true
-        relation: src_regency
-        valueFrom: name
-    dst_district_name:
-        label: 'kju.express::lang.district.singular'
-        type: text
-        searchable: true
-        invisible: true
-        sortable: true
-        relation: dst_district
+        relation: dst_region
         valueFrom: name

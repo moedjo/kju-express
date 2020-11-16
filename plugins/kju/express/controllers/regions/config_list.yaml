@@ -1,6 +1,6 @@
-list: $/kju/express/models/district/columns.yaml
-modelClass: Kju\Express\Models\District
-title: 'kju.express::lang.district.plural'
+list: $/kju/express/models/region/columns.yaml
+modelClass: Kju\Express\Models\Region
+title: 'kju.express::lang.region.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,5 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/districts/update/:id'
+recordUrl: 'kju/express/regions/update/:id'
+filter: config_filter.yaml

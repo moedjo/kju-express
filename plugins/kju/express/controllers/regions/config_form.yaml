@@ -1,0 +1,14 @@
+name: 'kju.express::lang.region.singular'
+form: $/kju/express/models/region/fields.yaml
+modelClass: Kju\Express\Models\Region
+defaultRedirect: kju/express/regions
+create:
+    title: 'kju.express::lang.region.new'
+    redirect: 'kju/express/regions/update/:id'
+    redirectClose: kju/express/regions
+update:
+    title: 'kju.express::lang.region.edit'
+    redirect: kju/express/regions
+    redirectClose: kju/express/regions
+preview:
+    title: 'kju.express::lang.region.preview'

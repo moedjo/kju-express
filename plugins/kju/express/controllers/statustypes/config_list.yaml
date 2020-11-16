@@ -1,6 +1,6 @@
 list: $/kju/express/models/statustype/columns.yaml
 modelClass: Kju\Express\Models\StatusType
-title: StatusTypes
+title: 'kju.express::lang.status_type.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

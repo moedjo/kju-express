@@ -11,11 +11,12 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
         {
             $table->engine = 'InnoDB';
             $table->string('code', 20);
-            $table->integer('src_regency_id')->unsigned()->nullable();
-            $table->foreign('src_regency_id')->references('id')->on('kju_express_regencies');
 
-            $table->integer('dst_district_id')->unsigned()->nullable();
-            $table->foreign('dst_district_id')->references('id')->on('kju_express_districts');
+            $table->integer('src_region_id')->unsigned()->nullable();
+            $table->foreign('src_region_id')->references('id')->on('kju_express_regions');
+
+            $table->integer('dst_region_id')->unsigned()->nullable();
+            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions');
 
             $table->dateTime('pickup_date');
             $table->text('pickup_address',2000);

@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class Provinces extends Controller
+class Couriers extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
     
@@ -11,12 +11,12 @@ class Provinces extends Controller
     public $formConfig = 'config_form.yaml';
 
     public $requiredPermissions = [
-        'access_provinces' 
+        'access_couriers' 
     ];
 
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'master-data', 'provincies');
+        BackendMenu::setContext('Kju.Express', 'couriers');
     }
 }

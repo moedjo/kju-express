@@ -38,6 +38,9 @@ permissions:
     access_status_types:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_status_types'
+    access_regions:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_regions'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -56,30 +59,18 @@ navigation:
                 icon: icon-sliders
                 permissions:
                     - access_services
-            districts:
-                label: 'kju.express::lang.district.plural'
-                url: kju/express/districts
-                icon: icon-area-chart
-                permissions:
-                    - access_districts
-            regencies:
-                label: 'kju.express::lang.regency.plural'
-                url: kju/express/regencies
-                icon: icon-bars
-                permissions:
-                    - access_regencies
-            provincies:
-                label: 'kju.express::lang.province.plural'
-                url: kju/express/provinces
-                icon: icon-book
-                permissions:
-                    - access_provinces
             status-types:
                 label: 'kju.express::lang.status_type.plural'
                 url: kju/express/statustypes
                 icon: icon-tasks
                 permissions:
                     - access_status_types
+            regions:
+                label: 'kju.express::lang.region.plural'
+                url: kju/express/regions
+                icon: icon-area-chart
+                permissions:
+                    - access_regions
     delivery-data:
         label: 'kju.express::lang.delivery.data'
         url: kju/express/checkdeliverycost
@@ -103,10 +94,12 @@ navigation:
                 icon: icon-map-marker
                 permissions:
                     - access_delivery_routes
-    users:
-        label: 'kju.express::lang.user.plural'
-        url: /
-        icon: icon-users
+    couriers:
+        label: 'kju.express::lang.courier.plural'
+        url: kju/express/couriers
+        icon: icon-automobile
+        permissions:
+            - access_couriers
     delivery-orders:
         label: 'kju.express::lang.delivery_order.plural'
         url: /

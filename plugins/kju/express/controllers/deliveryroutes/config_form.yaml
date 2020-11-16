@@ -1,14 +1,14 @@
-name: DeliveryRoutes
+name: 'kju.express::lang.delivery_route.singular'
 modelClass: Kju\Express\Models\DeliveryRoute
 form: $/kju/express/models/deliveryroute/fields.yaml
 defaultRedirect: kju/express/deliveryroutes
 create:
-    title: 'kju.express::lang.delivery_route.new_delivery_route'
+    title: 'kju.express::lang.delivery_route.new'
     redirect: 'kju/express/deliveryroutes/update/:code'
     redirectClose: kju/express/deliveryroutes
 update:
-    title: 'kju.express::lang.delivery_route.edit_delivery_route'
+    title: 'kju.express::lang.delivery_route.edit'
     redirect: kju/express/deliveryroutes
     redirectClose: kju/express/deliveryroutes
 preview:
-    title: 'kju.express::lang.delivery_route.preview_delivery_route'
+    title: 'kju.express::lang.delivery_route.preview'

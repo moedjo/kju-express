@@ -1,14 +1,14 @@
-name: Branches
+name: 'kju.express::lang.branch.singular'
 form: $/kju/express/models/branch/fields.yaml
 modelClass: Kju\Express\Models\Branch
 defaultRedirect: kju/express/branches
 create:
-    title: 'kju.express::lang.branch.new_branch'
+    title: 'kju.express::lang.branch.new'
     redirect: 'kju/express/branches/update/:code'
     redirectClose: kju/express/branches
 update:
-    title: 'kju.express::lang.branch.edit_branch'
+    title: 'kju.express::lang.branch.edit'
     redirect: kju/express/branches
     redirectClose: kju/express/branches
 preview:
-    title: 'kju.express::lang.branch.preview_branch'
+    title: 'kju.express::lang.branch.preview'

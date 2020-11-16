@@ -2,14 +2,18 @@
     <div class="layout-row">
         <div class="form-group span-left">
             <label><?= e(trans('kju.express::lang.global.source')) ?></label>
-            <select name="src_regency_id" class="form-control custom-select" data-handler="onGetSources" data-minimum-input-length="3"
-                data-ajax--delay="300">
+            <select name="src_region_id" class="form-control custom-select select2-hidden-accessible"
+                data-handler="onGetSources" data-minimum-input-length="3" data-ajax--delay="300"
+                data-disposable="data-disposable"
+                data-placeholder="<?= e(trans('kju.express::lang.global.source')) ?>">
             </select>
         </div>
         <div class="form-group span-left">
             <label><?= e(trans('kju.express::lang.global.destination')) ?></label>
-            <select name="dst_district_id" class="form-control custom-select" data-handler="onGetDestinations" data-minimum-input-length="3"
-                data-ajax--delay="300">
+            <select name="dst_region_id" class="form-control custom-select select2-hidden-accessible"
+                data-handler="onGetDestinations" data-minimum-input-length="3" data-ajax--delay="300"
+                data-placeholder="<?= e(trans('kju.express::lang.global.destination')) ?>"
+                data-disposable="data-disposable">
             </select>
         </div>
         <div class="form-group span-left">
@@ -27,17 +31,14 @@
         <div id="weight" class="form-group span-left">
         </div>
         <div id="deliverycost" class="form-group span-left">
+
         </div>
     </div>
 
     <div class="form-buttons">
         <div class="loading-indicator-container">
-            <button
-                type="submit"
-                data-request="onCheckDeliveryCost"
-                data-hotkey="ctrl+p, cmd+p"
-                data-request-update="deliverycost: '#deliverycost'"
-                data-request-success="$('.modal').modal('show');"
+            <button type="submit" data-request="onCheckDeliveryCost" data-hotkey="ctrl+p, cmd+p"
+                data-request-update="deliverycost: '#deliverycost'" data-request-success=""
                 data-load-indicator="<?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>"
                 class="btn btn-primary">
                 <?= e(trans('kju.express::lang.global.check_delivery_cost')) ?>

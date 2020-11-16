@@ -1,0 +1,30 @@
+fields:
+    id:
+        label: 'kju.express::lang.region.id'
+        span: left
+        placeholder: 'kju.express::lang.region.id'
+        type: text
+    type:
+        label: 'kju.express::lang.region.type'
+        span: left
+        placeholder: 'kju.express::lang.region.type'
+        type: balloon-selector
+    name:
+        label: 'kju.express::lang.region.name'
+        span: left
+        placeholder: 'kju.express::lang.region.name'
+        type: text
+    parent:
+        label: 'kju.express::lang.region.parent'
+        span: left
+        placeholder: 'kju.express::lang.region.parent'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        nameFrom: name
+        scope: type
+        dependsOn: type
+        trigger:
+            action: show
+            field: type
+            condition: 'value[regency]|value[district]'

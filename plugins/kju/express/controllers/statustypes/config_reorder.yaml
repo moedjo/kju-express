@@ -1,4 +1,4 @@
-title: StatusTypes
+title: 'kju.express::lang.status_type.plural'
 modelClass: Kju\Express\Models\StatusType
 toolbar:
     buttons: reorder_toolbar
