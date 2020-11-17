@@ -18,10 +18,10 @@ class BuilderTableCreateKjuExpressDeliveryStatuses extends Migration
             $table->string('description', 100);
 
             $table->integer('updated_user_id')->unsigned()->nullable();
-            $table->foreign('updated_user_id')->references('id')->on('backend_users');
+            $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 
             $table->integer('created_user_id')->unsigned()->nullable();
-            $table->foreign('created_user_id')->references('id')->on('backend_users');
+            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
             
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

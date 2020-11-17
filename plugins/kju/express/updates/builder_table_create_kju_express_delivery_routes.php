@@ -17,10 +17,10 @@ class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
             $table->primary('code');
 
             $table->integer('src_region_id')->unsigned()->nullable();
-            $table->foreign('src_region_id')->references('id')->on('kju_express_regions');
+            $table->foreign('src_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');;
 
             $table->integer('dst_region_id')->unsigned()->nullable();
-            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions');
+            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');;
 
 
             $table->unique(['src_region_id','dst_region_id'],'src_dst_unique');

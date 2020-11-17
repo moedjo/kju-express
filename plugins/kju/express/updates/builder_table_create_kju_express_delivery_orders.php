@@ -13,20 +13,20 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
             $table->string('code', 20);
 
             $table->integer('src_region_id')->unsigned()->nullable();
-            $table->foreign('src_region_id')->references('id')->on('kju_express_regions');
+            $table->foreign('src_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');;
 
             $table->integer('dst_region_id')->unsigned()->nullable();
-            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions');
+            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');;
 
             $table->dateTime('pickup_date');
             $table->text('pickup_address',2000);
             $table->string('pickup_postal_code', 10);
 
             $table->string('status_type_code',10)->nullable();
-            $table->foreign('status_type_code')->references('code')->on('kju_express_status_types');
+            $table->foreign('status_type_code')->references('code')->on('kju_express_status_types')->onDelete('cascade');
 
             $table->integer('customer_id')->unsigned()->nullable();
-            $table->foreign('customer_id')->references('id')->on('kju_express_customers');
+            $table->foreign('customer_id')->references('id')->on('kju_express_customers')->onDelete('cascade');
 
             $table->bigInteger('total_cost');
         
@@ -34,17 +34,17 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
 
             // note going to relation
             $table->integer('pickup_courier_user_id')->unsigned()->nullable();
-            $table->foreign('pickup_courier_user_id')->references('id')->on('backend_users');
+            $table->foreign('pickup_courier_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 
 
             $table->integer('updated_user_id')->unsigned()->nullable();
-            $table->foreign('updated_user_id')->references('id')->on('backend_users');
+            $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 
             $table->integer('created_user_id')->unsigned()->nullable();
-            $table->foreign('created_user_id')->references('id')->on('backend_users');
+            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 
             $table->string('service_code',10)->nullable();
-            $table->foreign('service_code')->references('code')->on('kju_express_services');
+            $table->foreign('service_code')->references('code')->on('kju_express_services')->onDelete('cascade');;
 
             $table->string('delivery_route_code')->nullable();;
             $table->foreign('delivery_route_code')->references('code')->on('kju_express_delivery_routes')->onDelete('cascade');

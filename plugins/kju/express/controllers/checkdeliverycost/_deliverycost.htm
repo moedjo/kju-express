@@ -1,23 +1,21 @@
 <div class="callout fade in callout-info no-subheader">
+    <button type="button" class="close" data-dismiss="callout" aria-hidden="true">&times;</button>
     <div class="header">
         <i class="icon-info"></i>
-        <?php if(isset($total_cost)): ?>
-        <h3><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></h3>
+        <?php if($service->weight_limit == -1): ?>
+        <h3><?= $src_region->displayName.' - '.$dst_region->displayName ?></h3>
         <?php else: ?>
-        <h3><?= e(trans('kju.express::lang.global.not_available')) ?></h3>
+        <h3><?= $src_region->displayName.' - '.$dst_region->displayName.' ('.$weight.' '.e(trans('kju.express::lang.global.kg')).') ' ?>
+        </h3>
         <?php endif ?>
     </div>
     <div class="content">
         <p><?= $service->displayName ?></p>
-        <?php if($service->weight_limit == -1): ?>
-        <p><?= $src_region->displayName.' - '.$dst_region->displayName ?></p>
+        <?php if(isset($total_cost)): ?>
+        <p><strong><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></strong>
+        </p>
         <?php else: ?>
-        <p><?= $src_region->displayName.' - '.$dst_region->displayName.' ('.$weight.' '.e(trans('kju.express::lang.global.kg')).') ' ?></p>
-        <?php endif ?>
-         <?php if(isset($total_cost)): ?>
-        <p><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></p>
-        <?php else: ?>
-        <p><?= e(trans('kju.express::lang.global.not_available')) ?></p>
+        <p class=""><?= e(trans('kju.express::lang.global.not_available')) ?></p>
         <?php endif ?>
     </div>
 </div>
