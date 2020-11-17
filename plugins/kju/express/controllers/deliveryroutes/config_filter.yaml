@@ -1,14 +1,8 @@
 scopes:
-    # province:
-    #     label: 'kju.express::lang.global.province'
-    #     type: group
-    #     conditions: substr(src_region_id,1,2) in (:filtered) or substr(dst_region_id,1,2) in (:filtered)
-    #     modelClass: Kju\Express\Models\Region
-    #     scope: province
-    # regency:
-    #     label: 'kju.express::lang.global.regency'
-    #     type: group
-    #     conditions: src_region_id in (:filtered) or substr(dst_region_id,1,2) in (:filtered)
-    #     modelClass: Kju\Express\Models\Region
-    #     dependsOn: province
-    #     scope: regency
+    destination_type:
+        label: 'kju.express::lang.global.destination_type'
+        type: group
+        conditions: LENGTH(dst_region_id) = (:filtered)
+        options:
+            4: 'kju.express::lang.global.regency'
+            6: 'kju.express::lang.global.district'

@@ -2,6 +2,12 @@ columns:
     id:
         label: 'kju.express::lang.global.id'
         type: text
+        invisible: true
+    delivery_route_code:
+        label: 'kju.express::lang.global.route_code'
+        type: text
+        searchable: true
+        sortable: true
     service_code:
         label: 'kju.express::lang.service.singular'
         type: text
@@ -31,21 +37,17 @@ columns:
         type: currency
         align: right
         sortable: true
-    weight_limit:
-        label: 'kju.express::lang.service.weight_limit'
-        type: number
-        searchable: true
-        sortable: true
-        select: weight_limit
-        relation: service
-        min_lead_time:
-        label: 'kju.express::lang.delivery_cost.min_lead_time'
-        type: number
-        searchable: false
-        sortable: true
     lead_time:
         label: 'kju.express::lang.delivery_cost.lead_time'
         type: text
         searchable: false
         sortable: true
-        select: concat(min_lead_time, '-', max_lead_time)
+        select: 'concat(min_lead_time, ''-'', max_lead_time)'
+    weight_limit:
+        label: 'kju.express::lang.service.weight_limit'
+        type: number
+        searchable: true
+        invisible: true
+        sortable: true
+        select: weight_limit
+        relation: service

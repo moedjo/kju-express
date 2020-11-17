@@ -3,8 +3,9 @@ modelClass: Kju\Express\Models\DeliveryRoute
 title: 'kju.express::lang.delivery_route.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
-showCheckboxes: true
+showCheckboxes: false
 recordsPerPage: 20
+showPageNumbers: false
 toolbar:
     buttons: list_toolbar
     search:

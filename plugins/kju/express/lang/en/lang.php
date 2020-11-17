@@ -35,6 +35,7 @@
         'id' => 'Id',
         'source' => 'Source',
         'destination' => 'Destination',
+        'destination_type' => 'Destination Type',
         'cost' => 'Cost',
         'total_cost' => 'Total Cost',
         'not_available' => 'Not Available',
@@ -47,7 +48,10 @@
         'province' => 'Province',
         'regency' => 'Regency',
         'district' => 'District',
-        'kg' => 'KG'
+        'kg' => 'KG',
+        'lead_time' => 'Lead Time',
+        'days' => 'Days',
+        'route_code' => 'Route Code',
     ],
     'delivery' => [
         'plural' => 'Deliveries',

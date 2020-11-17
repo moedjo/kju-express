@@ -10,10 +10,14 @@
         <?php endif ?>
     </div>
     <div class="content">
-        <p><?= $service->displayName ?></p>
-        <?php if(isset($total_cost)): ?>
-        <p><strong><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></strong>
+        <p>
+            <?= $service->displayName ?>
+            <?php if(isset($cost)): ?>
+            (<?= $cost->min_lead_time.'-'.$cost->max_lead_time; ?> <?= e(trans('kju.express::lang.global.days')) ?>)
+            <?php endif ?>
         </p>
+        <?php if(isset($total_cost)): ?>
+         <p><strong><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></strong></p>
         <?php else: ?>
         <p class=""><?= e(trans('kju.express::lang.global.not_available')) ?></p>
         <?php endif ?>

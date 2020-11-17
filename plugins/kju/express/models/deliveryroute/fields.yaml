@@ -1,4 +1,13 @@
 fields:
+    code:
+        label: 'kju.express::lang.global.route_code'
+        span: auto
+        placeholder: 'kju.express::lang.global.route_code'
+        readOnly: 1
+        context:
+            - update
+            - preview
+        type: text
     src_region:
         label: 'kju.express::lang.global.source'
         span: left
@@ -7,7 +16,7 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        conditions: type = "regency"
+        conditions: 'type = "regency"'
     dst_region:
         label: 'kju.express::lang.global.destination'
         span: left

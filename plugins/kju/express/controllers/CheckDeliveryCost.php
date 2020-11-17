@@ -6,6 +6,7 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Kju\Express\Models\DeliveryCost;
 use Kju\Express\Models\District;
 use Kju\Express\Models\Region;
 use Kju\Express\Models\Service;
@@ -113,7 +114,7 @@ class CheckDeliveryCost extends Controller
         $dst_regency_id = substr($dst_region_id,0,4);
         $cost = DB::table('kju_express_delivery_costs AS cost')
             ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_code', '=', 'route.code')
-            ->select('cost.cost', 'cost.add_cost')
+            ->select('cost.id','cost.cost', 'cost.add_cost')
             ->where('cost.service_code', $service_code)
             ->where('route.src_region_id', $src_region_id)
             ->whereIn('route.dst_region_id', [$dst_region_id,$dst_regency_id])
@@ -126,6 +127,9 @@ class CheckDeliveryCost extends Controller
         $this->vars['weight'] = $weight;
 
         if (isset($cost)) {
+
+        
+            $this->vars['cost'] = DeliveryCost::find($cost->id);
             if ($service->weight_limit == -1) {
                 $this->vars['total_cost'] = $cost->cost;
             } else {
