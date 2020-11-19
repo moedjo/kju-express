@@ -1,0 +1,4 @@
+title: 'kju.express::lang.service.plural'
+modelClass: Kju\Express\Models\Service
+toolbar:
+    buttons: reorder_toolbar

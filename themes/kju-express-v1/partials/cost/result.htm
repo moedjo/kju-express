@@ -22,7 +22,7 @@
        {% endif %} 
        <div class="list-group-item">
          <div class="media">
-           <i class="fas fa-laptop list-group-icon mt-1"></i>
+           <i class="fas fa-tag list-group-icon mt-1"></i>
            <div class="media-body">
              <div class="row align-items-center">
                <div class="col-sm mb-1 mb-sm-0">
@@ -57,8 +57,11 @@
               <img class="img-fluid" src="{{'assets/svg/icons/icon-15.svg'|theme}}" alt="SVG">
             </figure>
             <div class="media-body">
-              <h3>Emil <a href="https://api.whatsapp.com/send?phone=+6281294840816&text={{source.displayName}} - {{destination.displayName}} rute tidak ada." target="_blank"><i class="fab fa-whatsapp"></i>  0812-9484-0816</a></h3>
-              <p class="text-body">Maaf, untuk saat ini belum mencakup rute yang anda tuju.</p>
+              <h3>Hubungi Kami</h3>
+              <p class="text-body">Maaf, untuk saat ini belum mencakup rute {{source.displayName}} - {{destination.displayName}}.<br>
+                Silakan hubungi Customer service kami untuk informasi lebih lanjut
+                <a href="https://api.whatsapp.com/send?phone=+6281317178801&text=Maaf, untuk saat ini belum mencakup rute {{source.displayName}} - {{destination.displayName}}." target="_blank"><i class="fab fa-whatsapp"></i>  0813-1717-8801</a> atau
+<a href="https://api.whatsapp.com/send?phone=+628119438002&text=Maaf, untuk saat ini belum mencakup rute {{source.displayName}} - {{destination.displayName}}." target="_blank"><i class="fab fa-whatsapp"></i>  0811-9438-002</a>.</p>
             </div>
           </div>
       </div>
