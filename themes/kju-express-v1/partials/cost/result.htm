@@ -1,0 +1,68 @@
+<!-- Card -->
+<div class="card">
+   {% if costs is not empty %}
+   <div class="card-header">
+      <h5 class="card-header-title">
+         Daftar Harga
+         <span class="badge badge-soft-success ml-1">{{source.displayName}} - {{destination.displayName}}</span>
+      </h5>
+    </div>
+   <!-- Body -->
+   <div class="card-body">
+     <div class="list-group list-group-lg list-group-flush list-group-no-gutters">
+       <!-- List Item -->
+       {% for cost in  costs %}
+       {% set service = cost.service %}
+       {% if service.weight_limit == -1 %}
+          {% set total_cost = cost.cost %}
+       {% else %}
+          {% set add_cost = (weight - service.weight_limit)*cost.add_cost %}
+          {% set add_cost = add_cost < 0 ? 0 : add_cost %}
+          {% set total_cost = add_cost + cost.cost %}
+       {% endif %} 
+       <div class="list-group-item">
+         <div class="media">
+           <i class="fas fa-laptop list-group-icon mt-1"></i>
+           <div class="media-body">
+             <div class="row align-items-center">
+               <div class="col-sm mb-1 mb-sm-0">
+                 <h6 class="mb-0">{{service.code}} 
+                  {% if service.weight_limit != -1 %}
+                  ({{weight}} KG)
+                  {% endif %} 
+                  <span class="badge badge-soft-info ml-1">{{service.name}} </span>
+                  </h6>
+                 <small><strong>Harga : </strong> Rp{{total_cost|number_format(0, ',', '.') }}</small>
+                 <small>|</small>
+                 <small><strong>Estimasi : </strong> {{cost.min_lead_time}}-{{cost.max_lead_time}} Hari</small>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- End List Item -->
+       {% endfor %}
+     </div>
+   </div>
+   {% else %}
+      <div class="card-header">
+         <h5 class="card-header-title">
+            Daftar Harga
+            <span class="badge badge-soft-success ml-1">{{source.displayName}} - {{destination.displayName}}</span>
+         </h5>
+      </div>
+      <div class="card-body">
+         <div class="media">
+            <figure class="w-100 max-w-6rem mr-3">
+              <img class="img-fluid" src="{{'assets/svg/icons/icon-15.svg'|theme}}" alt="SVG">
+            </figure>
+            <div class="media-body">
+              <h3>Emil <a href="https://api.whatsapp.com/send?phone=+6281294840816&text={{source.displayName}} - {{destination.displayName}} rute tidak ada." target="_blank"><i class="fab fa-whatsapp"></i>  0812-9484-0816</a></h3>
+              <p class="text-body">Maaf, untuk saat ini belum mencakup rute yang anda tuju.</p>
+            </div>
+          </div>
+      </div>
+   {% endif %}
+   <!-- End Body -->
+ </div>
+ <!-- End Card -->

@@ -1,0 +1,81 @@
+==
+<!-- Hero Section -->
+<div class="container position-relative z-index-4 space-top-2 space-top-md-4 space-top-lg-3">
+   <div class="row justify-content-lg-between align-items-lg-center">
+      <div class="col-md-10 col-lg-5 mb-9 mb-lg-0">
+         <div class="mb-7">
+            <h1 class="display-4 mb-4">KJU Express</h1>
+            <p class="lead">Whatever your goal - we will get your there.</p>
+         </div>
+         <img class="img-fluid" src="{{'assets/svg/illustrations/we-are-in-office-1.svg'|theme}}"
+            alt="Image Description">
+      </div>
+      <div class="col-lg-6">
+         <!-- Form -->
+         <form data-request='deliverycosts::onCheckCost' 
+               data-request-validate 
+               data-request-update="cost/result: '#cost-result'"
+               data-request-success="document.querySelector('#cost-result').scrollIntoView({
+                  behavior: 'smooth', block: 'center', inline: 'start'
+               });"
+               class="card shadow-lg">
+            <div class="card-header bg-light text-center py-4 px-5 px-md-6">
+               <h2 class="h4 mb-0">Tarif Kiriman <span class="text-body font-size-1 font-weight-bold">dimulai dari
+                     Rp5.000</span></h2>
+            </div>
+            <div class="card-body p-4 p-md-6">
+               <div class="row">
+                  <div class="col-sm-12 mb-3">
+                     <!-- Input Group -->
+
+                     <!-- Select -->
+                     <select name="source" data-hs-select2-options='{
+                           "minimumResultsForSearch": "Infinity",
+                           "placeholder": "<span class=\"d-flex align-items-center\"><i class=\"fas fa-map-marker-alt mr-2\"></i>Pilih asal</span>"
+                        }'>
+                     </select>
+                     <span data-validate-for="source" class="text-danger font-size-1">
+                        Bidang isian asal wajib diisi.
+                     </span>
+                     <!-- End Select -->
+                  </div>
+                  <div class="col-sm-12 mb-3">
+                     <!-- Select -->
+                     <select name="destination" data-hs-select2-options='{
+                        "minimumResultsForSearch": "Infinity",
+                        "placeholder": "<span class=\"d-flex align-items-center\"><i class=\"fas fa-box mr-2\"></i></i> Pilih tujuan</span>"
+                        }'>
+                     </select>
+                     <span data-validate-for="destination" class="text-danger font-size-1">
+                        Bidang isian tujuan wajib diisi.
+                     </span>
+                     <!-- End Select -->
+                  </div>
+                  <div class="col-sm-12 mb-3">
+                     <!-- Input Group -->
+                     <div class="input-group input-group-merge">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text">
+                              <i class="fas fa-weight"></i>
+                           </span>
+                        </div>
+                        <input name="weight" type="number" class="form-control" placeholder="Berat (kg)" aria-label="Berat (kg)">
+               
+                     </div>
+                     <span data-validate-for="destination" class="text-danger font-size-1">
+                        Bidang isian berat wajib diisi.
+                     </span>
+                     <!-- End Input Group -->
+                  </div>
+               </div>
+               <button data-attach-loading type="submit" class="btn btn-block btn-primary transition-3d-hover">
+                  Cek Tarif Pengiriman
+                  <i class="fas fa-angle-right fa-sm ml-1"></i>
+               </button>
+            </div>
+         </form>
+         <!-- End Form -->
+      </div>
+   </div>
+</div>
+<!-- End Hero Section -->

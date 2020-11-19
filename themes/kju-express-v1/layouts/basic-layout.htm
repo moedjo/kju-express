@@ -1,0 +1,144 @@
+==
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Title -->
+      <title>{{ this.page.title }} | KJU Express</title>
+      <!-- Required Meta Tags Always Come First -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <!-- Font -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+      <!-- CSS Implementing Plugins -->
+      <link href="{{ [
+         'assets/vendor/font-awesome/css/all.min.css',
+         'assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.css',
+         'assets/vendor/select2/dist/css/select2.min.css'
+         ]|theme }}" rel="stylesheet">
+      <!-- CSS Front Template -->
+      <link href="{{ [
+         'assets/css/theme.css',
+         ]|theme }}" rel="stylesheet">
+         
+          {% styles %}
+   </head>
+   <body>
+      {% partial 'basic/header' %} 
+      <!-- ========== MAIN ========== -->
+      <main id="content" role="main">
+         {% page %}
+      </main>
+      <!-- ========== END MAIN ========== -->
+      {% partial 'basic/footer' %} 
+      <!-- Go to Top -->
+      <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;"
+         data-hs-go-to-options='{
+         "offsetTop": 700,
+         "position": {
+         "init": {
+         "right": 15
+         },
+         "show": {
+         "bottom": 15
+         },
+         "hide": {
+         "bottom": -15
+         }
+         }
+         }'>
+      <i class="fas fa-angle-up"></i>
+      </a>
+      <!-- End Go to Top -->
+      <!-- JS Global Compulsory -->
+      <script src="{{ [
+         'assets/vendor/jquery/dist/jquery.min.js',
+         'assets/vendor/jquery-migrate/dist/jquery-migrate.min.js',
+         'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js',
+         ]|theme }}"></script>
+      <!-- JS Implementing Plugins -->
+      <script src="{{ [
+         'assets/vendor/hs-header/dist/hs-header.min.js',
+         'assets/vendor/hs-go-to/dist/hs-go-to.min.js',
+         'assets/vendor/hs-unfold/dist/hs-unfold.min.js',
+         'assets/vendor/hs-mega-menu/dist/hs-mega-menu.min.js',
+         'assets/vendor/hs-show-animation/dist/hs-show-animation.min.js',
+         'assets/vendor/jquery-validation/dist/jquery.validate.min.js',
+         'assets/vendor/select2/dist/js/select2.full.min.js'
+         ]|theme }}"></script>
+      <!-- JS Front -->
+      <script src="{{ [
+         'assets/js/hs.core.js',
+         'assets/js/hs.validation.js',
+         'assets/js/hs.select2.js'
+         ]|theme }}"></script>
+      <!-- JS Plugins Init. -->
+      <script>
+         $(document).on('ready', function () {
+           // initialization of header
+           var header = new HSHeader($('#header')).init();
+         
+            $('.js-validate').each(function() {
+               $.HSCore.components.HSValidation.init($(this));
+             });
+         
+           // initialization of select picker
+         //     $('.js-custom-select').each(function () {
+         //       var select2 = $.HSCore.components.HSSelect2.init($(this));
+               
+         // });
+
+         var source = $.HSCore.components.HSSelect2.init($("select[name='source']"),{
+            ajax: {
+               transport: function(params, success, failure) {
+
+                  var $request = $.request('deliverycosts::onGetSource', {
+                     data: params.data
+                  })
+
+                  $request.done(success)
+                  $request.fail(failure)
+
+                  return $request
+               },
+               dataType: 'json',
+               delay: 250,
+             },
+             minimumInputLength: 3,
+
+         });
+
+         var destination = $.HSCore.components.HSSelect2.init($("select[name='destination']"),{
+            ajax: {
+               transport: function(params, success, failure) {
+
+                  var $request = $.request('deliverycosts::onGetDestination', {
+                     data: params.data
+                  })
+
+                  $request.done(success)
+                  $request.fail(failure)
+
+                  return $request
+               },
+               dataType: 'json',
+               delay: 250,
+             },
+             minimumInputLength: 3,
+
+         });
+      
+
+         //$('.js-custom-select').select2();
+         
+           // initialization of go to
+           $('.js-go-to').each(function () {
+             var goTo = new HSGoTo($(this)).init();
+           });
+         });
+      </script>
+       {% framework extras %}
+    {% scripts %}
+   </body>
+</html>

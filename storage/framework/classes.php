@@ -120,4 +120,6 @@
   'backend\\Controllers\\usergroups' => 'modules\\backend\\controllers\\usergroups.php',
   'kju\\express\\Controllers\\regions' => 'plugins\\kju\\express\\controllers\\regions.php',
   'Kju\\Express\\Models\\Region' => 'plugins\\kju\\express\\models\\Region.php',
+  'Kju\\Express\\Components\\DeliveryCosts' => 'plugins\\kju\\express\\components\\DeliveryCosts.php',
+  'backend\\Controllers\\preferences' => 'modules\\backend\\controllers\\preferences.php',
 );

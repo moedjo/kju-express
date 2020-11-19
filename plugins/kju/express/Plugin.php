@@ -6,8 +6,12 @@ use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
+
     public function registerComponents()
     {
+        return [
+            'Kju\Express\Components\DeliveryCosts' => 'deliverycosts',
+        ];
     }
 
     public function registerSettings()
