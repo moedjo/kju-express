@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Kju\Express\Models\DeliveryCost;
 use October\Rain\Exception\ValidationException;
 use Kju\Express\Models\Region;
+use Multiwebinc\Recaptcha\Validators\RecaptchaValidator;
 
 class DeliveryCosts extends \Cms\Classes\ComponentBase
 {
@@ -64,11 +65,17 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
         $validator = Validator::make(
             [
+                
+                'g-recaptcha-response' => input('g-recaptcha-response'),
                 'source' => $source,
                 'destination' => $destination,
                 'weight' => $weight,
             ],
             [
+                'g-recaptcha-response' => [
+                    'required',
+                    new RecaptchaValidator,
+                ],
                 'source' => 'required',
                 'destination' => 'required',
                 'weight' => 'required',

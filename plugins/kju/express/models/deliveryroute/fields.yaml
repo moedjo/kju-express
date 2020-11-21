@@ -9,9 +9,9 @@ fields:
             - preview
         type: text
     src_region:
-        label: 'kju.express::lang.global.source'
+        label: 'kju.express::lang.global.origin'
         span: left
-        placeholder: 'kju.express::lang.global.source'
+        placeholder: 'kju.express::lang.global.origin'
         type: recordfinder
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
@@ -25,7 +25,7 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        scope: levelDistrict
+        conditions: '(type = "regency" or type = "district")'
 tabs:
     fields:
         delivery_costs:

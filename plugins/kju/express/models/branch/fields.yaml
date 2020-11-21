@@ -16,5 +16,5 @@ fields:
         type: recordfinder
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
-        scope: levelDistrict
         nameFrom: displayName
+        conditions: (type = "regency" or type = "district")

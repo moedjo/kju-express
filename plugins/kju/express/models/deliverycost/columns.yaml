@@ -14,7 +14,7 @@ columns:
         searchable: true
         sortable: true
     source:
-        label: 'kju.express::lang.global.source'
+        label: 'kju.express::lang.global.origin'
         type: text
         searchable: false
         sortable: false

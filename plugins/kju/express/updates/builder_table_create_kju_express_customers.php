@@ -13,6 +13,11 @@ class BuilderTableCreateKjuExpressCustomers extends Migration
             $table->increments('id')->unsigned();
             $table->string('name', 100);
             $table->string('phone_number', 20);
+            $table->string('email', 100);
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+
+            $table->unique('phone_number');
         });
     }
     

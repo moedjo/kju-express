@@ -18,6 +18,7 @@
                data-request-success="document.querySelector('#cost-result').scrollIntoView({
                   behavior: 'smooth', block: 'center', inline: 'start'
                });"
+               data-request-before-update="getRecaptchaToken();"
                class="card shadow-lg">
             <div class="card-header bg-light text-center py-4 px-5 px-md-6">
                <h2 class="h4 mb-0">Tarif Kiriman <span class="text-body font-size-1 font-weight-bold">dimulai dari
@@ -68,10 +69,13 @@
                      <!-- End Input Group -->
                   </div>
                </div>
+               <!--
                <button data-attach-loading type="submit" class="btn btn-block btn-primary transition-3d-hover">
                   Cek Tarif Kiriman
                   <i class="fas fa-angle-right fa-sm ml-1"></i>
                </button>
+               -->
+               {% component 'recaptcha' %}
             </div>
          </form>
          <!-- End Form -->

@@ -24,6 +24,6 @@ class DeliveryRoutes extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'delivery-data', 'delivery-routes');
+        BackendMenu::setContext('Kju.Express', 'master-data', 'delivery-routes');
     }
 }

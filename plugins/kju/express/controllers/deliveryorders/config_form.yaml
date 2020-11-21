@@ -1,0 +1,10 @@
+name: DeliveryOrders
+form: $/kju/express/models/deliveryorder/fields.yaml
+modelClass: Kju\Express\Models\DeliveryOrder
+defaultRedirect: kju/express/deliveryorders
+create:
+    redirect: 'kju/express/deliveryorders/update/:id'
+    redirectClose: kju/express/deliveryorders
+update:
+    redirect: kju/express/deliveryorders
+    redirectClose: kju/express/deliveryorders

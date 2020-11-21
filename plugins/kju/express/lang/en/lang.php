@@ -33,7 +33,7 @@
         'region_data' => 'Region Data',
         'description' => 'Description',
         'id' => 'Id',
-        'source' => 'Source',
+        'origin' => 'Origin',
         'destination' => 'Destination',
         'destination_type' => 'Destination Type',
         'cost' => 'Cost',
@@ -41,7 +41,6 @@
         'not_available' => 'Not Available',
         'additional_cost' => 'Additional Cost',
         'region' => 'Region',
-        'source_or_branch' => 'Source / Branch',
         'weight' => 'Weight (KG)',
         'check_delivery_cost' => 'Check Delivery Cost',
         'master_data' => 'Master Data',
@@ -91,6 +90,32 @@
     ],
     'delivery_order' => [
         'plural' => 'Delivery Orders',
+        'code' => 'Order Code',
+        'pickup_request' => 'Pickup Request',
+        'pickup_data' => 'Pickup Data',
+
+
+        'pickup_date' => 'Date (Pickup)',
+        'pickup_address' => 'Address (Pickup)',
+        'pickup_postal_code' => 'Postal Code (Pickup)',
+
+        'consignee_address' => 'Address (Consignee)',
+        'consignee_postal_code' => 'Postal Code (Consignee)',
+        'consignee_phone_number' => 'Phone Number (Consignee)',
+
+        'branch_region' => 'Region (Branch)',
+        'pickup_region' => 'Region (Pickup)',
+        'consignee_region' => 'Region (Consignee)',
+
+        'customer_data' => 'Customer Data',
+        'consignee_data' => 'Consignee Data',
+        'goods_data' => 'Goods Data',
+
+        'goods_description' => 'Description (Goods)',
+        'goods_amount' => 'Amount (Goods)',
+        'goods_weight' => 'Weight (Goods)',
+
+        'pickup_courier' => 'Courier (Pickup)'
     ],
     'status_type' => [
         'plural' => 'Status Types',
@@ -115,5 +140,9 @@
         'new' => 'New Region',
         'edit' => 'Edit Region',
         'preview' => 'Preview Region',
+    ],
+    'customer' => [
+        'singular' => 'Customer',
+        'id' => 'Customer Id',
     ],
 ];

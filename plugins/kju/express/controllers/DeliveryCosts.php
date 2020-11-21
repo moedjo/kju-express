@@ -19,6 +19,6 @@ class DeliveryCosts extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'delivery-data', 'delivery_costs');
+        BackendMenu::setContext('Kju.Express', 'master-data', 'delivery-costs');
     }
 }

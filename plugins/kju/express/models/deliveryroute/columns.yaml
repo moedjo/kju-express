@@ -5,7 +5,7 @@ columns:
         searchable: true
         sortable: true
     src_region:
-        label: 'kju.express::lang.global.source'
+        label: 'kju.express::lang.global.origin'
         type: text
         sortable: false
         searchable: true

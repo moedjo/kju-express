@@ -1,0 +1,126 @@
+fields:
+    code:
+        label: 'kju.express::lang.delivery_order.code'
+        span: left
+        placeholder: 'kju.express::lang.delivery_order.code'
+        type: text
+    branch_code:
+        label: 'kju.express::lang.branch.code'
+        span: left
+        placeholder: 'kju.express::lang.branch.code'
+        type: text
+    branch_region:
+        label: 'kju.express::lang.delivery_order.branch_region'
+        span: right
+        placeholder: 'kju.express::lang.global.branch_region'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        nameFrom: displayName
+        conditions: '(type = "regency" or type = "district")'
+    pickup_request:
+        label: 'kju.express::lang.delivery_order.pickup_request'
+        span: left
+        placeholder: 'kju.express::lang.delivery_order.pickup_request'
+        type: switch
+tabs:
+    fields:
+        customer:
+            label: 'kju.express::lang.customer.singular'
+            span: left
+            placeholder: 'kju.express::lang.customer.singular'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/customer/columns.yaml
+            modelClass: Kju\Express\Models\Customer
+            tab: 'kju.express::lang.delivery_order.customer_data'
+        pickup_courier:
+            label: 'kju.express::lang.delivery_order.pickup_courier'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.pickup_courier'
+            type: text
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+        pickup_date:
+            label: 'kju.express::lang.delivery_order.pickup_date'
+            mode: date
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.pickup_date'
+            type: datepicker
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+        pickup_region:
+            label: 'kju.express::lang.delivery_order.pickup_region'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.pickup_region'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            modelClass: Kju\Express\Models\Region
+            nameFrom: displayName
+            conditions: 'type = "district"'
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+        pickup_address:
+            label: 'kju.express::lang.delivery_order.pickup_address'
+            size: small
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.pickup_address'
+            type: textarea
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+        pickup_postal_code:
+            label: 'kju.express::lang.delivery_order.pickup_postal_code'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.pickup_postal_code'
+            type: text
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+        consignee_region:
+            label: 'kju.express::lang.delivery_order.consignee_region'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_region'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            modelClass: Kju\Express\Models\Region
+            nameFrom: displayName
+            conditions: 'type = "district"'
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_phone_number:
+            label: 'kju.express::lang.delivery_order.consignee_phone_number'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.consignee_phone_number'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_address:
+            label: 'kju.express::lang.delivery_order.consignee_address'
+            size: small
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_address'
+            type: textarea
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_postal_code:
+            label: 'kju.express::lang.delivery_order.consignee_postal_code'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.consignee_postal_code'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        service_code:
+            label: 'kju.express::lang.service.code'
+            span: left
+            placeholder: 'kju.express::lang.service.code'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_description:
+            label: 'kju.express::lang.delivery_order.goods_description'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.goods_description'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_amount:
+            label: 'kju.express::lang.delivery_order.goods_amount'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.goods_amount'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_weight:
+            label: 'kju.express::lang.delivery_order.goods_weight'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.goods_weight'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+secondaryTabs:
+    fields:

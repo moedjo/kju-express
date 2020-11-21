@@ -4,6 +4,13 @@ layout = "basic-layout"
 is_hidden = 0
 
 [deliverycosts]
+
+[recaptcha]
+type = "v3"
+load_script = 1
+action_name = "onCheckCost"
+button_text = "Cek Tarif Kiriman  <i class=\"fas fa-angle-right fa-sm ml-1\"></i>"
+button_class = "btn btn-block btn-primary transition-3d-hover"
 ==
 {% partial 'basic/hero' %} 
 <div id="cost-result" class="container space-2"></div>

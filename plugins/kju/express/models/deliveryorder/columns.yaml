@@ -1,0 +1,6 @@
+columns:
+    code:
+        label: 'kju.express::lang.global.id'
+        type: text
+        searchable: true
+        sortable: true

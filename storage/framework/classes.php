@@ -122,4 +122,11 @@
   'Kju\\Express\\Models\\Region' => 'plugins\\kju\\express\\models\\Region.php',
   'Kju\\Express\\Components\\DeliveryCosts' => 'plugins\\kju\\express\\components\\DeliveryCosts.php',
   'backend\\Controllers\\preferences' => 'modules\\backend\\controllers\\preferences.php',
+  'multiwebinc\\recaptcha\\Plugin' => 'plugins\\multiwebinc\\recaptcha\\Plugin.php',
+  'Multiwebinc\\Recaptcha\\Models\\Settings' => 'plugins\\multiwebinc\\recaptcha\\models\\Settings.php',
+  'Multiwebinc\\Recaptcha\\Components\\Recaptcha' => 'plugins\\multiwebinc\\recaptcha\\components\\Recaptcha.php',
+  'Multiwebinc\\Recaptcha\\Validators\\RecaptchaValidator' => 'plugins\\multiwebinc\\recaptcha\\validators\\RecaptchaValidator.php',
+  'kju\\express\\Controllers\\deliveryorders' => 'plugins\\kju\\express\\controllers\\deliveryorders.php',
+  'Kju\\Express\\Models\\DeliveryOrder' => 'plugins\\kju\\express\\models\\DeliveryOrder.php',
+  'Kju\\Express\\Models\\Customer' => 'plugins\\kju\\express\\models\\Customer.php',
 );
