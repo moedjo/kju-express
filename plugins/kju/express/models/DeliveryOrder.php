@@ -27,5 +27,10 @@ class DeliveryOrder extends Model
         'consignee_region' => ['Kju\Express\Models\Region','key' => 'consignee_region_id'],
 
         'customer' => ['Kju\Express\Models\Customer','key' => 'customer_id'],
+        'pickup_courier' => ['Backend\Models\User','key' => 'pickup_courier_user_id'],
+        'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
+
+        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+        
     ];
 }

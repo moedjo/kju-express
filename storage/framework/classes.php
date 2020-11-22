@@ -129,4 +129,6 @@
   'kju\\express\\Controllers\\deliveryorders' => 'plugins\\kju\\express\\controllers\\deliveryorders.php',
   'Kju\\Express\\Models\\DeliveryOrder' => 'plugins\\kju\\express\\models\\DeliveryOrder.php',
   'Kju\\Express\\Models\\Customer' => 'plugins\\kju\\express\\models\\Customer.php',
+  'Kju\\Express\\Models\\User' => 'plugins\\kju\\express\\models\\User.php',
+  'kju\\express\\Controllers\\users' => 'plugins\\kju\\express\\controllers\\users.php',
 );

@@ -40,7 +40,6 @@ class DeliveryCost extends Model
   
     }
 
-
     public function filterFields($fields, $context = null)
     {
         if (isset($this->service)) {

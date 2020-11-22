@@ -1,0 +1,14 @@
+name: 'kju.express::lang.user.singular'
+form: $/kju/express/models/user/fields.yaml
+modelClass: Kju\Express\Models\User
+defaultRedirect: kju/express/users
+create:
+    title: 'kju.express::lang.user.new'
+    redirect: 'kju/express/users/update/:id'
+    redirectClose: kju/express/users
+update:
+    title: 'kju.express::lang.user.edit'
+    redirect: kju/express/users
+    redirectClose: kju/express/users
+preview:
+    title: 'kju.express::lang.user.preview'

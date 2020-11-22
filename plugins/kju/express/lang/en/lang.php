@@ -4,20 +4,19 @@
         'description' => 'KJU Express',
     ],
     'permission' => [
-        'access_branches' => 'Manage Branches',
+        'access_branches' => 'Manage branches',
         'tab' => 'KJU Express',
-        'access_provinces' => 'Manage Provinces',
-        'access_regencies' => 'Manage Regencies',
-        'access_districts' => 'Manage Districts',
-        'access_services' => 'Manage Services',
-        'access_delivery_routes' => 'Manage Delivery Routes',
-        'access_delivery_costs' => 'Manage Delivery Costs',
-        'access_check_delivery_cost' => 'Access Check Delivery Cost',
-        'access_users' => 'Manage Users',
-        'access_delivery_orders' => 'Manage Delivery Orders',
-        'access_couriers' => 'Manage Couriers',
-        'access_status_types' => 'Manage Status Types',
-        'access_regions' => 'Manage Regions',
+        'access_services' => 'Manage services',
+        'access_delivery_routes' => 'Manage delivery routes',
+        'access_delivery_costs' => 'Manage delivery costs',
+        'access_check_delivery_cost' => 'Access check delivery cost',
+        'access_users' => 'Manage users',
+        'access_delivery_orders' => 'Manage delivery orders',
+        'access_status_types' => 'Manage status types',
+        'access_regions' => 'Manage regions',
+        'access_users_add_role_courier' => 'Manage users for add role courier',
+        'access_users_add_role_operator' => 'Manage users for add role operator',
+        'access_users_add_role_supervisor' => 'Manage users for add role supervisor',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -87,35 +86,32 @@
     ],
     'user' => [
         'plural' => 'Users',
+        'singular' => 'User',
+        'new' => 'New User',
+        'edit' => 'Edit User',
+        'preview' => 'Preview User',
     ],
     'delivery_order' => [
         'plural' => 'Delivery Orders',
         'code' => 'Order Code',
         'pickup_request' => 'Pickup Request',
         'pickup_data' => 'Pickup Data',
-
-
         'pickup_date' => 'Date (Pickup)',
         'pickup_address' => 'Address (Pickup)',
         'pickup_postal_code' => 'Postal Code (Pickup)',
-
         'consignee_address' => 'Address (Consignee)',
         'consignee_postal_code' => 'Postal Code (Consignee)',
         'consignee_phone_number' => 'Phone Number (Consignee)',
-
         'branch_region' => 'Region (Branch)',
         'pickup_region' => 'Region (Pickup)',
         'consignee_region' => 'Region (Consignee)',
-
-        'customer_data' => 'Customer Data',
+        'shipper_data' => 'Shipper Data',
         'consignee_data' => 'Consignee Data',
         'goods_data' => 'Goods Data',
-
         'goods_description' => 'Description (Goods)',
         'goods_amount' => 'Amount (Goods)',
         'goods_weight' => 'Weight (Goods)',
-
-        'pickup_courier' => 'Courier (Pickup)'
+        'pickup_courier' => 'Courier (Pickup)',
     ],
     'status_type' => [
         'plural' => 'Status Types',

@@ -28,7 +28,7 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
             $table->foreign('customer_id')->references('id')->on('kju_express_customers')->onDelete('cascade');
 
             $table->boolean('pickup_request');
-            $table->dateTime('pickup_date');
+            $table->dateTime('pickup_date')->nullable();
             $table->text('pickup_address',2000);
             $table->string('pickup_postal_code', 10);
 

@@ -8,15 +8,6 @@ permissions:
     access_branches:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_branches'
-    access_provinces:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_provinces'
-    access_regencies:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_regencies'
-    access_districts:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_districts'
     access_services:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_services'
@@ -29,7 +20,7 @@ permissions:
     access_check_delivery_cost:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_check_delivery_cost'
-    access_couriers:
+    access_users:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_users'
     access_delivery_orders:
@@ -41,6 +32,15 @@ permissions:
     access_regions:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_regions'
+    access_users_add_role_courier:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_users_add_role_courier'
+    access_users_add_role_operator:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_users_add_role_operator'
+    access_users_add_role_supervisor:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_users_add_role_supervisor'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -89,12 +89,12 @@ navigation:
         icon: icon-truck
         permissions:
             - access_check_delivery_cost
-    couriers:
-        label: 'kju.express::lang.courier.plural'
-        url: kju/express/couriers
+    users:
+        label: 'kju.express::lang.user.plural'
+        url: kju/express/users
         icon: icon-user-secret
         permissions:
-            - access_couriers
+            - access_users
     delivery-orders:
         label: 'kju.express::lang.delivery_order.plural'
         url: kju/express/deliveryorders

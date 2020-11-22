@@ -1,0 +1,13 @@
+list: $/kju/express/models/user/columns.yaml
+modelClass: Kju\Express\Models\User
+title: 'kju.express::lang.user.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'kju/express/users/update/:id'
+filter: config_filter.yaml
