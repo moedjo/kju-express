@@ -1,0 +1,10 @@
+customer:
+    label: 'kju.express::lang.customer.singular'
+    view:
+        form: $/kju/express/models/customer/fields.yaml
+        toolbarButtons: create|link
+    manage:
+        form: $/kju/express/models/customer/fields.yaml
+        list: $/kju/express/models/customer/columns.yaml
+        recordsPerPage: 10
+        showSearch: true

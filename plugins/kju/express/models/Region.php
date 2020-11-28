@@ -3,6 +3,7 @@
 namespace Kju\Express\Models;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Model;
 
 /**
@@ -80,11 +81,23 @@ class Region extends Model
         }
     }
 
-    public function scopeLevelDistrict($query, $model)
+    public function scopeDeliveryOrderDistrict($query,$model)
     {
-        return $query->where(function($query){
-            $query->where('type', "regency")
-                ->orWhere('type', "district");
-        });
+        $branch_region = input('DeliveryOrder[branch_region]');
+
+        if(isset($branch_region)) {
+            Session::put('DeliveryOrder[branch_region]',$branch_region);
+        }else{
+            $branch_region = Session::get('DeliveryOrder[branch_region]');
+        }
+        return $query->where('parent_id', $branch_region);
     }
+
+    // public function scopeLevelDistrict($query, $model)
+    // {
+    //     return $query->where(function($query){
+    //         $query->where('type', "regency")
+    //             ->orWhere('type', "district");
+    //     });
+    // }
 }

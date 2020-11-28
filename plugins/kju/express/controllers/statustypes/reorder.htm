@@ -1,8 +1,0 @@
-<?php Block::put('breadcrumb') ?>
-    <ul>
-        <li><a href="<?= Backend::url('kju/express/statustypes') ?>"><?= e(trans('kju.express::lang.status_type.plural')) ?></a></li>
-        <li><?= e($this->pageTitle) ?></li>
-    </ul>
-<?php Block::endPut() ?>
-
-<?= $this->reorderRender() ?>

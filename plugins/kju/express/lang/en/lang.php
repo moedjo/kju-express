@@ -14,9 +14,9 @@
         'access_delivery_orders' => 'Manage delivery orders',
         'access_status_types' => 'Manage status types',
         'access_regions' => 'Manage regions',
-        'access_users_add_role_courier' => 'Manage users for add role courier',
-        'access_users_add_role_operator' => 'Manage users for add role operator',
-        'access_users_add_role_supervisor' => 'Manage users for add role supervisor',
+        // 'access_role_courier' => 'Access role courier',
+        // 'access_role_operator' => 'Access role operator',
+        // 'access_role_supervisor' => 'Access role supervisor',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -50,6 +50,9 @@
         'lead_time' => 'Lead Time',
         'days' => 'Days',
         'route_code' => 'Route Code',
+        'phone_number' => 'Phone Number',
+        'status' => 'Status',
+        'detail_price' => 'Detail Price'
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -93,6 +96,7 @@
     ],
     'delivery_order' => [
         'plural' => 'Delivery Orders',
+        'singular' => 'Delivery Order',
         'code' => 'Order Code',
         'pickup_request' => 'Pickup Request',
         'pickup_data' => 'Pickup Data',
@@ -112,6 +116,9 @@
         'goods_amount' => 'Amount (Goods)',
         'goods_weight' => 'Weight (Goods)',
         'pickup_courier' => 'Courier (Pickup)',
+        'new' => 'New Delivery Order',
+        'edit' => 'Edit Delivery Order',
+        'preview' => 'Preview Delivery Order',
     ],
     'status_type' => [
         'plural' => 'Status Types',
@@ -140,5 +147,6 @@
     'customer' => [
         'singular' => 'Customer',
         'id' => 'Customer Id',
+        'name' => 'Customer Name',
     ],
 ];

@@ -15,6 +15,7 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
             $table->string('branch_code',10)->nullable();
             $table->foreign('branch_code')->references('code')->on('kju_express_branches')->onDelete('cascade');;
 
+
             $table->integer('branch_region_id')->unsigned()->nullable();
             $table->foreign('branch_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');
 
@@ -40,13 +41,12 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
             $table->foreign('service_code')->references('code')->on('kju_express_services')->onDelete('cascade');;
            
             $table->string('goods_description', 10);
-            $table->string('goods_amount', 10);
+            $table->integer('goods_amount');
             $table->integer('goods_weight');
             $table->bigInteger('total_cost');
     
-            $table->string('status_type_code',10)->nullable();
-            $table->foreign('status_type_code')->references('code')->on('kju_express_status_types')->onDelete('cascade');
-            
+            $table->enum('status', ['pick_up', 'process', 'transit','received','failed','cancel']);
+
             $table->integer('pickup_courier_user_id')->unsigned()->nullable();
             $table->foreign('pickup_courier_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 

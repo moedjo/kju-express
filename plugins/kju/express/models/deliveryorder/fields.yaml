@@ -3,13 +3,26 @@ fields:
         label: 'kju.express::lang.delivery_order.code'
         span: left
         placeholder: 'kju.express::lang.delivery_order.code'
+        readOnly: 1
+        context:
+            - update
+            - preview
+        type: text
+    status:
+        label: 'kju.express::lang.global.status'
+        readOnly: 1
+        span: right
+        placeholder: 'kju.express::lang.global.status'
+        context:
+            - update
+            - preview
         type: text
     branch:
         label: 'kju.express::lang.branch.code'
         span: left
         placeholder: 'kju.express::lang.branch.code'
         type: relation
-        select: concat(code,', ',name)
+        select: 'concat(code,'', '',name)'
     branch_region:
         label: 'kju.express::lang.delivery_order.branch_region'
         span: right
@@ -18,7 +31,7 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        conditions: '(type = "regency" or type = "district")'
+        conditions: '(type = "regency")'
     pickup_request:
         label: 'kju.express::lang.delivery_order.pickup_request'
         span: left
@@ -27,12 +40,9 @@ fields:
 tabs:
     fields:
         customer:
-            label: 'kju.express::lang.customer.singular'
-            span: left
-            placeholder: 'kju.express::lang.customer.singular'
-            type: recordfinder
-            list: ~/plugins/kju/express/models/customer/columns.yaml
-            modelClass: Kju\Express\Models\Customer
+            span: full
+            path: field_customer
+            type: partial
             tab: 'kju.express::lang.delivery_order.shipper_data'
         consignee_region:
             label: 'kju.express::lang.delivery_order.consignee_region'
@@ -88,41 +98,93 @@ tabs:
             placeholder: 'kju.express::lang.delivery_order.goods_weight'
             type: text
             tab: 'kju.express::lang.delivery_order.goods_data'
+            dependsOn:
+                - service
         pickup_courier:
             label: 'kju.express::lang.delivery_order.pickup_courier'
             span: left
             placeholder: 'kju.express::lang.delivery_order.pickup_courier'
-            type: text
+            required: 1
+            type: recordfinder
+            list: ~/plugins/kju/express/models/user/columns.yaml
+            modelClass: Kju\Express\Models\User
+            nameFrom: fullName
+            scope: courier
             tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
         pickup_date:
             label: 'kju.express::lang.delivery_order.pickup_date'
             mode: date
             span: left
             placeholder: 'kju.express::lang.delivery_order.pickup_date'
+            required: 1
             type: datepicker
             tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
         pickup_region:
             label: 'kju.express::lang.delivery_order.pickup_region'
-            span: right
-            placeholder: 'kju.express::lang.delivery_order.pickup_region'
-            type: recordfinder
-            list: ~/plugins/kju/express/models/region/columns.yaml
-            modelClass: Kju\Express\Models\Region
             nameFrom: displayName
-            conditions: 'type = "district"'
+            descriptionFrom: description
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            span: right
+            required: 1
+            type: recordfinder
             tab: 'kju.express::lang.delivery_order.pickup_data'
+            scope: deliveryOrderDistrict
+            useRelation: true
+            dependsOn:
+                - branch_region
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
         pickup_address:
             label: 'kju.express::lang.delivery_order.pickup_address'
             size: small
             span: left
             placeholder: 'kju.express::lang.delivery_order.pickup_address'
+            required: 1
             type: textarea
             tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
         pickup_postal_code:
             label: 'kju.express::lang.delivery_order.pickup_postal_code'
             span: right
             placeholder: 'kju.express::lang.delivery_order.pickup_postal_code'
+            required: 1
             type: text
             tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
 secondaryTabs:
     fields:
+        _detail_price:
+            label: 'kju.express::lang.global.detail_price'
+            span: auto
+            type: partial
+            dependsOn:
+                - branch_region
+                - pickup_region
+                - consignee_region
+                - service
+                - goods_weight
+            tab: Misc
+        total_cost:
+            label: 'kju.express::lang.global.total_cost'
+            span: auto
+            placeholder: 'kju.express::lang.global.total_cost'
+            default: '123'
+            hidden: 1
+            type: text
+            tab: Misc

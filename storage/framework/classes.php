@@ -131,4 +131,5 @@
   'Kju\\Express\\Models\\Customer' => 'plugins\\kju\\express\\models\\Customer.php',
   'Kju\\Express\\Models\\User' => 'plugins\\kju\\express\\models\\User.php',
   'kju\\express\\Controllers\\users' => 'plugins\\kju\\express\\controllers\\users.php',
+  'Kju\\Express\\classes\\IdGenerator' => 'plugins\\kju\\express\\classes\\IdGenerator.php',
 );

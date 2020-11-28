@@ -2,3 +2,13 @@ columns:
     id:
         label: 'kju.express::lang.customer.id'
         type: number
+    name:
+        label: 'kju.express::lang.customer.name'
+        type: text
+        searchable: true
+        sortable: true
+    phone_number:
+        label: 'kju.express::lang.global.phone_number'
+        type: text
+        searchable: true
+        sortable: true

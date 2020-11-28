@@ -1,0 +1,5 @@
+<?php if($this->widget->form->context == 'update'): ?>
+    <?= $this->relationRender('customer', ['readOnly' => true]) ?>
+<?php else: ?>
+    <?= $this->relationRender('customer', ['readOnly' => false]) ?>
+<?php endif; ?>

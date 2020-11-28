@@ -3,46 +3,46 @@
 # ===================================
 
 fields:
-  login:
-      span: left
-      label: backend::lang.user.login
+    login:
+        span: left
+        label: backend::lang.user.login
 
-  email:
-      span: right
-      type: email
-      label: backend::lang.user.email
+    email:
+        span: right
+        type: email
+        label: backend::lang.user.email
 
-  send_invite:
-      context: create
-      type: checkbox
-      label: backend::lang.user.send_invite
-      comment: backend::lang.user.send_invite_comment
-      default: true
+    send_invite:
+        context: create
+        type: checkbox
+        label: backend::lang.user.send_invite
+        comment: backend::lang.user.send_invite_comment
+        default: true
 
-  first_name:
-      span: left
-      label: backend::lang.user.first_name
+    first_name:
+        span: left
+        label: backend::lang.user.first_name
 
-  last_name:
-      span: right
-      label: backend::lang.user.last_name
+    last_name:
+        span: right
+        label: backend::lang.user.last_name
+        
+    password:
+        type: password
+        span: left
+        label: backend::lang.user.password
 
-  password:
-      type: password
-      span: left
-      label: backend::lang.user.password
+    password_confirmation:
+        type: password
+        span: right
+        label: backend::lang.user.password_confirmation
 
-  password_confirmation:
-      type: password
-      span: right
-      label: backend::lang.user.password_confirmation
-
-  role:
-      context: [create, update]
-      label: backend::lang.user.role_field
-      commentAbove: backend::lang.user.role_comment
-      type: radio
-      options: 
+    role:
+        context: [create, update]
+        label: backend::lang.user.role_field
+        commentAbove: backend::lang.user.role_comment
+        type: radio
+        options: 
 
 secondaryTabs:
     fields:
@@ -50,6 +50,12 @@ secondaryTabs:
             label: ''
             context: [update]
             type: partial
+        branch:
+            label: 'kju.express::lang.branch.singular'
+            span: full
+            placeholder: 'kju.express::lang.branch.singular'
+            type: relation
+            select: 'concat(code,'', '',name)'
         avatar:
             label: backend::lang.user.avatar
             type: fileupload

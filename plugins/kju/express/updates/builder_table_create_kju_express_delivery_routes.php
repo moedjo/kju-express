@@ -10,7 +10,6 @@ class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
         Schema::create('kju_express_delivery_routes', function($table)
         {
             $table->engine = 'InnoDB';
-            // $table->increments('id')->unsigned();
             $table->string('code', 12);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

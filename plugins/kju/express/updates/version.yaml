@@ -1,11 +1,11 @@
 1.0.1:
-    - 'Initialize plugin.'
+    - 'Welcome to PUTRA KJU EXPRESS.'
     - builder_table_create_kju_express_regions.php
     - builder_table_create_kju_express_branches.php
     - builder_table_create_kju_express_services.php
+    - builder_table_create_kju_express_customers.php
     - builder_table_create_kju_express_delivery_routes.php
     - builder_table_create_kju_express_delivery_costs.php
-    - builder_table_create_kju_express_customers.php
-    - builder_table_create_kju_express_status_types.php
-    - builder_table_create_kju_express_delivery_statuses.php
     - builder_table_create_kju_express_delivery_orders.php
+    - builder_table_create_kju_express_delivery_order_statuses.php
+    - add_new_fields_to_users_table.php

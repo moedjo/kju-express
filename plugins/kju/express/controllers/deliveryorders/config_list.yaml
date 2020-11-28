@@ -1,12 +1,13 @@
 list: $/kju/express/models/deliveryorder/columns.yaml
 modelClass: Kju\Express\Models\DeliveryOrder
-title: DeliveryOrders
+title: 'kju.express::lang.delivery_order.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
-showCheckboxes: true
+showCheckboxes: false
+showPageNumbers: false
 recordsPerPage: 20
 toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/deliveryorders/update/:id'
+recordUrl: 'kju/express/deliveryorders/update/:code'

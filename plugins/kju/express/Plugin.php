@@ -2,6 +2,7 @@
 
 namespace Kju\Express;
 
+use Backend\Models\User;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -25,5 +26,20 @@ class Plugin extends PluginBase
                 return number_format($value);
             }
         ];
+    }
+
+
+    public function boot()
+    {
+        $this->extendBackendUser();
+    }
+
+    protected function extendBackendUser()
+    {
+        User::extend(function($model) {
+           
+            $model->belongsTo['branch'] =  ['Kju\Express\Models\Branch', 'key' => 'branch_code'];
+
+        });
     }
 }

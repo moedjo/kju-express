@@ -35,28 +35,14 @@ class Users extends Controller
      */
     public function listExtendQuery($query)
     {
-        $query->where('is_superuser', false);
         $query->where('id', '!=', $this->user->id);
-
-        if ($this->user->hasAccess('access_users_add_role_*')) {
-
-            $query->where(function ($query) {
-
-                if ($this->user->hasAccess('access_users_add_role_courier')) {
-                    $role = UserRole::where('code', 'courier')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-                if ($this->user->hasAccess('access_users_add_role_operator')) {
-                    $role = UserRole::where('code', 'operator')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-    
-                if ($this->user->hasAccess('access_users_add_role_supervisor')) {
-                    $role = UserRole::where('code', 'supervisor')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-            });
-            
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
+            if ($this->user->role->code == 'supervisor') {
+                $query->whereHas('role', function ($query) {
+                    $query->whereIn('code', ['operator', 'courier']);
+                });
+            }
         }
     }
 
@@ -83,29 +69,15 @@ class Users extends Controller
     public function formExtendQuery($query)
     {
 
-        $query->where('is_superuser', false);
-
         $query->where('id', '!=', $this->user->id);
+        if (!$this->user->isSuperUser()) {
+            $query->where('is_superuser', false);
 
-        if ($this->user->hasAccess('access_users_add_role_*')) {
-
-            $query->where(function ($query) {
-
-                if ($this->user->hasAccess('access_users_add_role_courier')) {
-                    $role = UserRole::where('code', 'courier')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-                if ($this->user->hasAccess('access_users_add_role_operator')) {
-                    $role = UserRole::where('code', 'operator')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-    
-                if ($this->user->hasAccess('access_users_add_role_supervisor')) {
-                    $role = UserRole::where('code', 'supervisor')->first();
-                    $query->orWhere('role_id', $role->id);
-                }
-            });
-            
+            if ($this->user->role->code == 'supervisor') {
+                $query->whereHas('role', function ($query) {
+                    $query->whereIn('code', ['operator', 'courier']);
+                });
+            }
         }
         // Ensure soft-deleted records can still be managed
         $query->withTrashed();

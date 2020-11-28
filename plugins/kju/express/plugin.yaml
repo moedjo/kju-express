@@ -32,15 +32,15 @@ permissions:
     access_regions:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_regions'
-    access_users_add_role_courier:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_users_add_role_courier'
-    access_users_add_role_operator:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_users_add_role_operator'
-    access_users_add_role_supervisor:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_users_add_role_supervisor'
+    # access_role_courier:
+    #     tab: 'kju.express::lang.permission.tab'
+    #     label: 'kju.express::lang.permission.access_role_courier'
+    # access_role_operator:
+    #     tab: 'kju.express::lang.permission.tab'
+    #     label: 'kju.express::lang.permission.access_role_operator'
+    # access_role_supervisor:
+    #     tab: 'kju.express::lang.permission.tab'
+    #     label: 'kju.express::lang.permission.access_role_supervisor'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'

@@ -17,4 +17,4 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        conditions: (type = "regency" or type = "district")
+        conditions: (type = "regency")

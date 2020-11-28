@@ -1,5 +1,11 @@
 fields:
-    text1:
-        label: Text
+    name:
+        label: 'kju.express::lang.customer.name'
         span: auto
+        placeholder: 'kju.express::lang.customer.name'
+        type: text
+    phone_number:
+        label: 'kju.express::lang.global.phone_number'
+        span: left
+        placeholder: 'kju.express::lang.global.phone_number'
         type: text

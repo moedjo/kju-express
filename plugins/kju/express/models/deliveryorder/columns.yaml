@@ -1,6 +1,38 @@
 columns:
     code:
-        label: 'kju.express::lang.global.id'
+        label: 'kju.express::lang.delivery_order.code'
         type: text
         searchable: true
         sortable: true
+    customer_name:
+        label: 'kju.express::lang.customer.singular'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: customer
+    customer_phone_number:
+        label: 'kju.express::lang.global.phone_number'
+        type: text
+        searchable: true
+        sortable: true
+        select: phone_number
+        relation: customer
+    status:
+        label: 'kju.express::lang.global.status'
+        type: text
+        searchable: false
+        sortable: true
+    delivery_route_code:
+        label: 'kju.express::lang.global.route_code'
+        type: text
+        searchable: true
+        sortable: true
+    total_cost:
+        label: 'kju.express::lang.global.total_cost'
+        type: number
+    consignee_region_name:
+        label: 'kju.express::lang.global.destination'
+        type: text
+        relation: consignee_region
+        valueFrom: displayName
