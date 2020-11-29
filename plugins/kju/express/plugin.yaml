@@ -32,20 +32,17 @@ permissions:
     access_regions:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_regions'
-    # access_role_courier:
-    #     tab: 'kju.express::lang.permission.tab'
-    #     label: 'kju.express::lang.permission.access_role_courier'
-    # access_role_operator:
-    #     tab: 'kju.express::lang.permission.tab'
-    #     label: 'kju.express::lang.permission.access_role_operator'
-    # access_role_supervisor:
-    #     tab: 'kju.express::lang.permission.tab'
-    #     label: 'kju.express::lang.permission.access_role_supervisor'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
         url: kju/express/deliverycosts
         icon: icon-book
+        permissions:
+            - access_delivery_costs
+            - access_delivery_routes
+            - access_branches
+            - access_services
+            - access_regions
         sideMenu:
             delivery-costs:
                 label: 'kju.express::lang.delivery_cost.plural'
@@ -71,12 +68,6 @@ navigation:
                 icon: icon-sliders
                 permissions:
                     - access_services
-            status-types:
-                label: 'kju.express::lang.status_type.plural'
-                url: kju/express/statustypes
-                icon: icon-tasks
-                permissions:
-                    - access_status_types
             regions:
                 label: 'kju.express::lang.region.plural'
                 url: kju/express/regions

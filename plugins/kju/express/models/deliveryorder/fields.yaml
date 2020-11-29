@@ -18,11 +18,11 @@ fields:
             - preview
         type: text
     branch:
-        label: 'kju.express::lang.branch.code'
+        label: 'kju.express::lang.branch.singular'
         span: left
-        placeholder: 'kju.express::lang.branch.code'
+        placeholder: 'kju.express::lang.branch.singular'
         type: relation
-        select: 'concat(code,'', '',name)'
+        nameFrom: displayName
     branch_region:
         label: 'kju.express::lang.delivery_order.branch_region'
         span: right

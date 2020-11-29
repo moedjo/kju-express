@@ -2,6 +2,7 @@
 
 namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Model;
@@ -41,23 +42,6 @@ class Region extends Model
         ];
     }
 
-
-    public function scopeType($query, $model)
-    {
-        $type = $model->type;
-        if (empty($type)) {
-            $type = input()['Region']['type'];
-        }
-
-        if ($type == 'regency') {
-            return $query->where('type', 'province');
-        } else  if ($type == 'district') {
-            return $query->where('type', 'regency');
-        } else {
-            return $query->where('type', '');
-        }
-    }
-
     public function getDisplayTypeAttribute()
     {
         return e(trans('kju.express::lang.global.' . $this->type));
@@ -76,28 +60,24 @@ class Region extends Model
     public function filterFields($fields, $context = null)
     {
         if ($context == 'update') {
-            $fields->id->readOnly = true;
+            $fields->id->disabled = true;
             $fields->type->disabled = true;
         }
     }
 
-    public function scopeDeliveryOrderDistrict($query,$model)
+    public function scopeDeliveryOrderDistrict($query, $model)
     {
-        $branch_region = input('DeliveryOrder[branch_region]');
 
-        if(isset($branch_region)) {
-            Session::put('DeliveryOrder[branch_region]',$branch_region);
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        if (!$user->isSuperUser()) {
+            if (isset($branch)) {
+                return $query->where('parent_id', $branch->id);
+            }else{
+                return $query->where('parent_id', '-1');;
+            }
         }else{
-            $branch_region = Session::get('DeliveryOrder[branch_region]');
+            return $query;
         }
-        return $query->where('parent_id', $branch_region);
     }
-
-    // public function scopeLevelDistrict($query, $model)
-    // {
-    //     return $query->where(function($query){
-    //         $query->where('type', "regency")
-    //             ->orWhere('type', "district");
-    //     });
-    // }
 }

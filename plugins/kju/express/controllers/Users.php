@@ -30,6 +30,21 @@ class Users extends Controller
     }
 
 
+    public function formExtendModel($model)
+    {
+        $context = $this->formGetContext();
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($context == 'create') {
+            if (!$user->isSuperUser()) {
+                if (isset($branch)) {
+                    $model->branch = $branch;
+                }
+            }
+        }
+    }
+
+
     /**
      * Extends the list query to hide superusers if the current user is not a superuser themselves
      */

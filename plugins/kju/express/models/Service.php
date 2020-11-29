@@ -32,7 +32,7 @@ class Service extends Model
     public function filterFields($fields, $context = null)
     {
         if ($context == 'update') {
-            $fields->code->readOnly = true;
+            $fields->code->disabled = true;
         }
     }
 

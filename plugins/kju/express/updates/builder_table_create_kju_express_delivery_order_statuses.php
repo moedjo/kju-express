@@ -12,7 +12,7 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
 
-            $table->enum('status', ['pick_up', 'process', 'transit','received','failed','cancel']);
+            $table->enum('status', ['pick_up', 'process', 'transit','received','failed']);
            
             
             $table->string('delivery_order_code',20)->nullable();;
@@ -27,8 +27,8 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
             $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 
             $table->integer('created_user_id')->unsigned()->nullable();
-            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
-            
+            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('cascade');;    
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

@@ -46,15 +46,20 @@ class User extends \Backend\Models\User
         return $result;
     }
 
+    public function beforeCreate(){
+        $user = BackendAuth::getUser();
+        if (!$user->isSuperUser()) {
+            if ($user->role->code == 'supervisor') {
+                $this->branch = $user->branch;
+            }
+        }
+    }
 
     public function filterFields($fields, $context = null)
     {
         $user = BackendAuth::getUser();
         if (!$user->isSuperUser()) {
-            if ($user->role->code == 'supervisor') {
-                $fields->branch->readOnly = true;
-                $fields->branch->value = $user->branch->code;
-            }
+            $fields->branch->disabled = true;
         }
     }
 }

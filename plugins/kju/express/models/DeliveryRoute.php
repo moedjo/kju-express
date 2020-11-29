@@ -50,8 +50,8 @@ class DeliveryRoute extends Model
     public function filterFields($fields, $context = null)
     {
         if ($context == 'update') {
-            $fields->src_region->readOnly = true;
-            $fields->dst_region->readOnly = true;
+            $fields->src_region->disabled = true;
+            $fields->dst_region->disabled = true;
         }
     }
 

@@ -2,9 +2,11 @@
 
 namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Illuminate\Support\Facades\DB;
 use Kju\Express\classes\IdGenerator;
 use Model;
+use October\Rain\Exception\ApplicationException;
 
 /**
  * Model
@@ -12,7 +14,7 @@ use Model;
 class DeliveryOrder extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /**
      * @var string The database table used by the model.
@@ -21,13 +23,15 @@ class DeliveryOrder extends Model
     protected $primaryKey = 'code';
     public $incrementing = false;
 
+ 
+    protected $dates = ['deleted_at'];
+
     /**
      * @var array Validation rules
      */
     public $rules = [
         'branch' => 'required',
         'branch_region' => 'required',
-        // 'customer_id' => 'required',
         'consignee_region' => 'required',
         'consignee_phone_number' => 'required',
         'consignee_address' => 'required',
@@ -47,6 +51,7 @@ class DeliveryOrder extends Model
 
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
 
+        'updated_user' => ['Kju\Express\Models\User', 'key' => 'updated_user_id'],
     ];
 
 
@@ -65,11 +70,19 @@ class DeliveryOrder extends Model
         if (isset($this->service) && $this->service->weight_limit != -1) {
             $this->rules['goods_weight'] = "required";
         }
-        $this->rules['total_cost'] = "required";
+        // $this->rules['total_cost'] = "required";
     }
+
+    
 
     public function beforeCreate()
     {
+
+        //INITIALIZE USER & BRANCH
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+
+        // CODE GENERATOR
         $config = [
             'table' => $this->table,
             'field' => $this->primaryKey,
@@ -80,6 +93,15 @@ class DeliveryOrder extends Model
         $this->code = $code;
 
 
+        //SET BRANCH & BRANCH REGION
+        if (!$user->isSuperUser()) {
+           if(isset($branch)){
+               $this->branch = $branch;
+               $this->branch_region = $branch->region;
+           }
+        }
+
+        // SET INIT STATUS
         if ($this->pickup_request) {
             $this->status = 'pick_up';
         } else {
@@ -106,8 +128,6 @@ class DeliveryOrder extends Model
             ->orderByRaw("FIELD(route.dst_region_id,'$destination_id','$dst_regency_id')")
             ->first();
 
-
-        trace_log($cost);
 
         if (isset($cost)) {
             $cost = DeliveryCost::find($cost->id);
@@ -138,6 +158,10 @@ class DeliveryOrder extends Model
 
     public function filterFields($fields, $context = null)
     {
+
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        
         if ($context == 'update') {
             $fields->branch->readOnly = true;
             $fields->branch_region->readOnly = true;
@@ -166,13 +190,15 @@ class DeliveryOrder extends Model
 
         if ($context == 'create') {
 
-            // $this->pickup_region = null;
+
+            if (!$user->isSuperUser()) {
+                $fields->branch->readOnly = true;
+                $fields->branch_region->readOnly = true;
+            }
+
             if (empty($this->branch_region)) {
                 return false;
             }
-
-           
-
             if (empty($this->service)) {
                 return false;
             }
@@ -220,5 +246,10 @@ class DeliveryOrder extends Model
                 }
             }
         }
+    }
+
+
+    public function beforeDelete(){
+        throw new ApplicationException("You cannot delete me!");
     }
 }
