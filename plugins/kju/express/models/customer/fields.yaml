@@ -9,3 +9,8 @@ fields:
         span: left
         placeholder: 'kju.express::lang.global.phone_number'
         type: text
+    email:
+        label: 'kju.express::lang.global.email'
+        span: auto
+        placeholder: 'kju.express::lang.global.email'
+        type: text

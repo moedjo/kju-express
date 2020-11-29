@@ -1,0 +1,5 @@
+import:
+    title: Import subscribers
+    modelClass: Kju\Express\Models\DeliveryOrderStatusImport
+    list: $/kju/express/models/deliveryorderstatus/columns.yaml
+    form: $/kju/express/models/deliveryorderstatus/fields.yaml

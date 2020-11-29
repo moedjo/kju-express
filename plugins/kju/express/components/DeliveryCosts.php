@@ -78,7 +78,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
                 ],
                 'source' => 'required',
                 'destination' => 'required',
-                'weight' => 'required',
+                'weight' => 'required|min:1',
             ]
         );
 

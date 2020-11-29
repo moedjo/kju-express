@@ -15,24 +15,49 @@ columns:
         label: 'kju.express::lang.global.phone_number'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
         select: phone_number
         relation: customer
     status:
         label: 'kju.express::lang.global.status'
         type: text
-        searchable: false
-        sortable: true
+        sortable: false
     delivery_route_code:
         label: 'kju.express::lang.global.route_code'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
     total_cost:
         label: 'kju.express::lang.global.total_cost'
         type: number
+        invisible: true
     consignee_region_name:
         label: 'kju.express::lang.global.destination'
         type: text
         relation: consignee_region
         valueFrom: displayName
+    created_at:
+        label: 'kju.express::lang.global.created_at'
+        type: datetime
+        sortable: true
+        format: 'Y-m-d H:i:s'
+    updated_at:
+        label: 'kju.express::lang.global.updated_at'
+        type: datetime
+        invisible: true
+        sortable: true
+        format: 'Y-m-d H:i:s'
+    created_user_id:
+        label: 'kju.express::lang.global.created_by'
+        type: text
+        select: login
+        relation: created_user
+    updated_user_id:
+        label: 'kju.express::lang.global.updated_by'
+        type: text
+        invisible: true
+        select: login
+        relation: updated_user
+    branch_code:
+        label: 'kju.express::lang.branch.code'
+        type: text

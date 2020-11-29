@@ -17,11 +17,19 @@ fields:
             - update
             - preview
         type: text
+    # branch:
+    #     label: 'kju.express::lang.branch.singular'
+    #     span: left
+    #     placeholder: 'kju.express::lang.branch.singular'
+    #     type: relation
+    #     nameFrom: displayName
     branch:
         label: 'kju.express::lang.branch.singular'
         span: left
         placeholder: 'kju.express::lang.branch.singular'
-        type: relation
+        type: recordfinder
+        list: ~/plugins/kju/express/models/branch/columns.yaml
+        modelClass: Kju\Express\Models\Branch
         nameFrom: displayName
     branch_region:
         label: 'kju.express::lang.delivery_order.branch_region'
@@ -54,6 +62,12 @@ tabs:
             nameFrom: displayName
             conditions: 'type = "district"'
             tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_name:
+            label: 'kju.express::lang.delivery_order.consignee_name'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_name'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
         consignee_phone_number:
             label: 'kju.express::lang.delivery_order.consignee_phone_number'
             span: right
@@ -80,6 +94,14 @@ tabs:
             type: relation
             select: 'concat(code,'', '',name,if(weight_limit=-1,'''',concat('', '',weight_limit,''kg'')))'
             tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_weight:
+            label: 'kju.express::lang.delivery_order.goods_weight'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.goods_weight'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+            dependsOn:
+                - service
         goods_description:
             label: 'kju.express::lang.delivery_order.goods_description'
             span: left
@@ -90,16 +112,25 @@ tabs:
             label: 'kju.express::lang.delivery_order.goods_amount'
             span: right
             placeholder: 'kju.express::lang.delivery_order.goods_amount'
+            default: '1'
             type: text
             tab: 'kju.express::lang.delivery_order.goods_data'
-        goods_weight:
-            label: 'kju.express::lang.delivery_order.goods_weight'
+        pickup_region:
+            label: 'kju.express::lang.delivery_order.pickup_region'
+            nameFrom: displayName
+            descriptionFrom: description
+            list: ~/plugins/kju/express/models/region/columns.yaml
             span: left
-            placeholder: 'kju.express::lang.delivery_order.goods_weight'
-            type: text
-            tab: 'kju.express::lang.delivery_order.goods_data'
+            required: 1
+            type: recordfinder
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            scope: deliveryOrderDistrict
             dependsOn:
-                - service
+                - branch_region
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
         pickup_courier:
             label: 'kju.express::lang.delivery_order.pickup_courier'
             span: left
@@ -109,7 +140,7 @@ tabs:
             list: ~/plugins/kju/express/models/user/columns.yaml
             modelClass: Kju\Express\Models\User
             nameFrom: fullName
-            scope: courier
+            scope: deliveryOrderCourier
             tab: 'kju.express::lang.delivery_order.pickup_data'
             trigger:
                 action: show
@@ -118,28 +149,11 @@ tabs:
         pickup_date:
             label: 'kju.express::lang.delivery_order.pickup_date'
             mode: date
-            span: left
+            span: right
             placeholder: 'kju.express::lang.delivery_order.pickup_date'
             required: 1
             type: datepicker
             tab: 'kju.express::lang.delivery_order.pickup_data'
-            trigger:
-                action: show
-                field: pickup_request
-                condition: checked
-        pickup_region:
-            label: 'kju.express::lang.delivery_order.pickup_region'
-            nameFrom: displayName
-            descriptionFrom: description
-            list: ~/plugins/kju/express/models/region/columns.yaml
-            span: right
-            required: 1
-            type: recordfinder
-            tab: 'kju.express::lang.delivery_order.pickup_data'
-            scope: deliveryOrderDistrict
-            useRelation: true
-            dependsOn:
-                - branch_region
             trigger:
                 action: show
                 field: pickup_request
@@ -167,24 +181,34 @@ tabs:
                 action: show
                 field: pickup_request
                 condition: checked
+        statuses:
+            span: full
+            path: field_delivery_order_statuses
+            context:
+                - update
+                - preview
+            type: partial
+            tab: 'kju.express::lang.delivery_cost.plural'
 secondaryTabs:
     fields:
-        _detail_price:
-            label: 'kju.express::lang.global.detail_price'
-            span: auto
-            type: partial
+        total_cost:
+            label: 'kju.express::lang.global.total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
             dependsOn:
                 - branch_region
                 - pickup_region
                 - consignee_region
                 - service
                 - goods_weight
-            tab: Misc
-        total_cost:
-            label: 'kju.express::lang.global.total_cost'
-            span: auto
-            placeholder: 'kju.express::lang.global.total_cost'
-            default: '123'
-            hidden: 1
-            type: text
+        agreement:
+            label: 'kju.express::lang.global.agree_total_cost'
+            span: full
+            context:
+                - create
+            type: checkbox
             tab: Misc

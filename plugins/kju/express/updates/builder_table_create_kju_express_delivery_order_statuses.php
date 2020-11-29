@@ -12,7 +12,7 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
 
-            $table->enum('status', ['pick_up', 'process', 'transit','received','failed']);
+            $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
            
             
             $table->string('delivery_order_code',20)->nullable();;

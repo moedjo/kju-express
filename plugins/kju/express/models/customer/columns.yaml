@@ -11,4 +11,9 @@ columns:
         label: 'kju.express::lang.global.phone_number'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
+    email:
+        label: 'kju.express::lang.global.email'
+        type: text
+        searchable: true
+        sortable: false

@@ -32,6 +32,9 @@ permissions:
     access_regions:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_regions'
+    access_delivery_order_statuses:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_statuses'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -92,3 +95,9 @@ navigation:
         icon: icon-inbox
         permissions:
             - access_delivery_orders
+    delivery-order-statuses:
+        label: 'kju.express::lang.deliver_order_status.plural'
+        url: kju/express/deliveryorderstatuses
+        icon: icon-stack-exchange
+        permissions:
+            - access_delivery_order_statuses

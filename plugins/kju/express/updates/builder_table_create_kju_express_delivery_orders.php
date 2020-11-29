@@ -32,9 +32,11 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
 
             $table->integer('consignee_region_id')->unsigned()->nullable();
             $table->foreign('consignee_region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');
+            $table->string('consignee_name', 100);
+            $table->string('consignee_phone_number', 20);
             $table->text('consignee_address',2000);
             $table->string('consignee_postal_code', 10);
-            $table->string('consignee_phone_number', 20);
+           
 
             $table->string('service_code',10)->nullable();
             $table->foreign('service_code')->references('code')->on('kju_express_services')->onDelete('cascade');;
@@ -44,7 +46,7 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
 
             $table->bigInteger('total_cost');
     
-            $table->enum('status', ['pick_up', 'process', 'transit','received','failed']);
+            $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
 
             $table->string('delivery_route_code')->nullable();;
             $table->foreign('delivery_route_code')->references('code')->on('kju_express_delivery_routes')->onDelete('cascade');

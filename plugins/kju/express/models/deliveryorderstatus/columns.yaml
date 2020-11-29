@@ -1,0 +1,7 @@
+columns:
+    id:
+        label: 'kju.express::lang.global.id'
+        type: number
+    description:
+        label: 'kju.express::lang.global.description'
+        type: text

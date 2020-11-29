@@ -14,9 +14,7 @@
         'access_delivery_orders' => 'Manage delivery orders',
         'access_status_types' => 'Manage status types',
         'access_regions' => 'Manage regions',
-        // 'access_role_courier' => 'Access role courier',
-        // 'access_role_operator' => 'Access role operator',
-        // 'access_role_supervisor' => 'Access role supervisor',
+        'access_statuses' => 'Manage delivery order statuses',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -52,7 +50,13 @@
         'route_code' => 'Route Code',
         'phone_number' => 'Phone Number',
         'status' => 'Status',
-        'detail_price' => 'Detail Price'
+        'detail_price' => 'Detail Price',
+        'agree_total_cost' => 'Agreement for total delivery cost',
+        'email' => 'Email',
+        'created_at' => 'Created At',
+        'updated_at' => 'Updated At',
+        'created_by' => 'Created By',
+        'updated_by' => 'Updated By',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -119,6 +123,7 @@
         'new' => 'New Delivery Order',
         'edit' => 'Edit Delivery Order',
         'preview' => 'Preview Delivery Order',
+        'consignee_name' => 'Name (Consignee)',
     ],
     'status_type' => [
         'plural' => 'Status Types',
@@ -148,5 +153,8 @@
         'singular' => 'Customer',
         'id' => 'Customer Id',
         'name' => 'Customer Name',
+    ],
+    'deliver_order_status' => [
+        'plural' => 'Delivery Order Statuses',
     ],
 ];

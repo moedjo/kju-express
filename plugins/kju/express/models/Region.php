@@ -72,7 +72,10 @@ class Region extends Model
         $branch = $user->branch;
         if (!$user->isSuperUser()) {
             if (isset($branch)) {
-                return $query->where('parent_id', $branch->id);
+
+                trace_log($branch);
+
+                return $query->where('parent_id', $branch->region->id);
             }else{
                 return $query->where('parent_id', '-1');;
             }

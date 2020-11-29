@@ -23,11 +23,26 @@ class User extends \Backend\Models\User
         $this->rules['branch'] = 'required';
     }
 
-    public function scopeCourier($query, $model)
+    public function scopeDeliveryOrderCourier($query, $model)
     {
-        return $query->whereHas('role', function ($query) {
-            $query->where('code', 'courier');
-        });
+
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        if (!$user->isSuperUser()) {
+            if (isset($branch)) {
+                return $query->where('branch_code', $branch->code)->whereHas('role', function ($query) {
+                    $query->where('code', 'courier');
+                });
+            } else {
+                return $query->where('branch_code','-1')->whereHas('role', function ($query) {
+                    $query->where('code', 'courier');
+                });
+            }
+        } else {
+            return $query->whereHas('role', function ($query) {
+                $query->where('code', 'courier');
+            });
+        }
     }
 
     public function getRoleOptions()
@@ -46,7 +61,8 @@ class User extends \Backend\Models\User
         return $result;
     }
 
-    public function beforeCreate(){
+    public function beforeCreate()
+    {
         $user = BackendAuth::getUser();
         if (!$user->isSuperUser()) {
             if ($user->role->code == 'supervisor') {

@@ -35,7 +35,7 @@ class DeliveryOrders extends Controller
         $context = $this->formGetContext();
         $user = $this->user;
         $branch = $user->branch;
-        if ($context == 'create') {
+        if ($context == 'create' ) {
             if (!$user->isSuperUser()) {
                 if (isset($branch)) {
                     $model->branch = $branch;
@@ -50,11 +50,51 @@ class DeliveryOrders extends Controller
         if ($record->trashed()) {
             return 'strike';
         }
+
+        if ($record->status == 'process') {
+            return 'new';
+        }
+
+        if ($record->status == 'received') {
+            return 'positive';
+        }
+
+        if ($record->status == 'transit') {
+            return 'frozen';
+        }
+
+        if ($record->status == 'pickup') {
+            return 'processing';
+        }
+
+        if ($record->status == 'failed') {
+            return 'negative';
+        }
     }
 
     public function listExtendQuery($query)
     {
-        // $query->withTrashed();
+        $user = $this->user;
+        $branch = $user->branch;
+        if (!$user->isSuperUser()) {
+            if (isset($branch)) {
+                $query->where('branch_code', $branch->code);
+            }else{
+                $query->where('branch_code', '-1');
+            }
+        }
     }
 
+    public function relationExtendRefreshResults($field)
+    {
+
+        if ($field != 'statuses')
+            return;
+
+
+        $model =   $this->formGetModel();
+
+        trace_log("masuk mas " . $model->statuses);
+        return ['#Form-field-DeliveryOrder-status' => 'Total records: 6'];
+    }
 }

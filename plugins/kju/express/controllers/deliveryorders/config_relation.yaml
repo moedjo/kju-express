@@ -8,3 +8,13 @@ customer:
         list: $/kju/express/models/customer/columns.yaml
         recordsPerPage: 10
         showSearch: true
+statuses:
+    label: 'kju.express::lang.delivery_cost.singular'
+    manage:
+        form: $/kju/express/models/deliveryorderstatus/fields.yaml
+        list: $/kju/express/models/deliveryorderstatus/columns.yaml
+    view:
+        list: $/kju/express/models/deliveryorderstatus/columns.yaml
+        toolbarButtons: create
+        showCheckboxes: false
+        recordOnClick: #

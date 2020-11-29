@@ -1,0 +1,14 @@
+fields:
+    description:
+        label: Text
+        span: auto
+        type: text
+    region:
+        label: 'kju.express::lang.delivery_order.pickup_region'
+        nameFrom: displayName
+        descriptionFrom: description
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        span: right
+        required: 1
+        type: recordfinder
+        tab: 'kju.express::lang.delivery_order.pickup_data'

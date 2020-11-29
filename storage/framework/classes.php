@@ -132,4 +132,7 @@
   'Kju\\Express\\Models\\User' => 'plugins\\kju\\express\\models\\User.php',
   'kju\\express\\Controllers\\users' => 'plugins\\kju\\express\\controllers\\users.php',
   'Kju\\Express\\classes\\IdGenerator' => 'plugins\\kju\\express\\classes\\IdGenerator.php',
+  'Kju\\Express\\Models\\DeliveryOrderStatus' => 'plugins\\kju\\express\\models\\DeliveryOrderStatus.php',
+  'kju\\express\\Controllers\\deliveryorderstatuses' => 'plugins\\kju\\express\\controllers\\deliveryorderstatuses.php',
+  'Kju\\Express\\Models\\DeliveryOrderStatusImport' => 'plugins\\kju\\express\\models\\DeliveryOrderStatusImport.php',
 );
