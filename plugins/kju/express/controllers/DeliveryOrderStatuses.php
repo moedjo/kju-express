@@ -9,7 +9,7 @@ class DeliveryOrderStatuses extends Controller
 {
     public $implement = [
         'Backend\Behaviors\ListController',
-        'Backend.Behaviors.ImportExportController',
+        'Backend\Behaviors\ImportExportController',
     ];
 
     public $listConfig = 'config_list.yaml';

@@ -216,6 +216,8 @@ class DeliveryOrder extends Model
         $user = BackendAuth::getUser();
         $branch = $user->branch;
 
+       
+
         if (isset($this->service)) {
             if ($this->service->weight_limit == -1) {
                 $fields->goods_weight->hidden = true;
@@ -229,7 +231,6 @@ class DeliveryOrder extends Model
         if ($context == 'update') {
             $fields->branch->disabled = true;
             $fields->branch_region->disabled = true;
-
             $fields->customer->disabled = true;
 
             $fields->consignee_region->disabled = true;

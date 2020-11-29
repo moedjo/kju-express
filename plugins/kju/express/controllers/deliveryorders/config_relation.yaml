@@ -15,6 +15,3 @@ statuses:
         list: $/kju/express/models/deliveryorderstatus/columns.yaml
     view:
         list: $/kju/express/models/deliveryorderstatus/columns.yaml
-        toolbarButtons: create
-        showCheckboxes: false
-        recordOnClick: #

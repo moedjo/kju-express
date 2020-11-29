@@ -1,5 +1,6 @@
 <?php namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 
 /**
@@ -33,21 +34,23 @@ class DeliveryOrderStatus extends Model
 
 
     public function afterCreate(){
-    
-        // $order = $this->order;
+        $order = $this->order;
+        $order->status = $this->status;
 
+        $order->save();
+    }
 
-        // $order->consignee_phone_number = 'blee';
-        // $order->save();
-
+    public function beforeSave(){
+        $user = BackendAuth::getUser();
+        $this->created_user = $user;
     }
 
 
     public function getStatusOptions()
     {
         return [
-            // 'pickup' => 'kju.express::lang.global.pickup',
-            // 'process' => 'kju.express::lang.global.process',
+            'pickup' => 'kju.express::lang.global.pickup',
+            'process' => 'kju.express::lang.global.process',
             'transit' => 'kju.express::lang.global.transit',
             'received' => 'kju.express::lang.global.received',
             'failed' => 'kju.express::lang.global.failed',

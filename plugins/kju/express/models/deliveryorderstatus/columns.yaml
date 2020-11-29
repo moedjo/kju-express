@@ -2,14 +2,12 @@ columns:
     created_at:
         label: 'kju.express::lang.global.created_at'
         type: datetime
+        format: 'Y-m-d H:i:s'
     created_user_id:
         label: 'kju.express::lang.global.created_by'
         type: text
         relation: created_user
         valueFrom: login
-    description:
-        label: 'kju.express::lang.global.description'
-        type: text
     status:
         label: 'kju.express::lang.global.status'
         type: text
@@ -19,3 +17,6 @@ columns:
         searchable: false
         relation: region
         valueFrom: displayName
+    description:
+        label: 'kju.express::lang.global.description'
+        type: text

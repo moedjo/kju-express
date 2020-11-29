@@ -21,9 +21,9 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
         foreach ($results as $row => $data) {
 
             try {
-                $subscriber = new Subscriber;
-                $subscriber->fill($data);
-                $subscriber->save();
+                $order_status = new DeliveryOrderStatus();
+                $order_status->fill($data);
+                $order_status->save();
 
                 $this->logCreated();
             }

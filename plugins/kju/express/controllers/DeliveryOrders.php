@@ -90,11 +90,13 @@ class DeliveryOrders extends Controller
 
         if ($field != 'statuses')
             return;
+        $model = $this->formGetModel();
+
+        $model->status='failed';
+
+        redirect('test');
 
 
-        $model =   $this->formGetModel();
-
-        trace_log("masuk mas " . $model->statuses);
-        return ['#Form-field-DeliveryOrder-status' => 'Total records: 6'];
+        // return ['#Form-field-DeliveryOrder-status' => 'Total records: 6'];
     }
 }
