@@ -17,12 +17,6 @@ fields:
             - update
             - preview
         type: text
-    # branch:
-    #     label: 'kju.express::lang.branch.singular'
-    #     span: left
-    #     placeholder: 'kju.express::lang.branch.singular'
-    #     type: relation
-    #     nameFrom: displayName
     branch:
         label: 'kju.express::lang.branch.singular'
         span: left
@@ -31,6 +25,7 @@ fields:
         list: ~/plugins/kju/express/models/branch/columns.yaml
         modelClass: Kju\Express\Models\Branch
         nameFrom: displayName
+        keyFrom: code
     branch_region:
         label: 'kju.express::lang.delivery_order.branch_region'
         span: right
@@ -186,9 +181,8 @@ tabs:
             path: field_delivery_order_statuses
             context:
                 - update
-                - preview
             type: partial
-            tab: 'kju.express::lang.delivery_cost.plural'
+            tab: 'kju.express::lang.status.plural'
 secondaryTabs:
     fields:
         total_cost:

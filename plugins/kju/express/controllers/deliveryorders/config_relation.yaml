@@ -9,7 +9,7 @@ customer:
         recordsPerPage: 10
         showSearch: true
 statuses:
-    label: 'kju.express::lang.delivery_cost.singular'
+    label: 'kju.express::lang.status.singular'
     manage:
         form: $/kju/express/models/deliveryorderstatus/fields.yaml
         list: $/kju/express/models/deliveryorderstatus/columns.yaml

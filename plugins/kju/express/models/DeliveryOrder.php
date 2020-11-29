@@ -227,7 +227,7 @@ class DeliveryOrder extends Model
         }
 
         if ($context == 'update') {
-            // $fields->branch->disabled = true;
+            $fields->branch->disabled = true;
             $fields->branch_region->disabled = true;
 
             $fields->customer->disabled = true;
@@ -239,7 +239,7 @@ class DeliveryOrder extends Model
             $fields->consignee_postal_code->disabled = true;
 
             $fields->pickup_request->disabled = true;
-            $fields->service->disabled = true;
+            $fields->service->readOnly = true;
             $fields->goods_weight->disabled = true;
             $fields->goods_description->disabled = true;
             $fields->goods_amount->disabled = true;
@@ -253,7 +253,7 @@ class DeliveryOrder extends Model
             $fields->pickup_postal_code->disabled = true;
 
             if ($this->status == 'pickup') {
-                $fields->service->disabled = false;
+                $fields->service->readOnly = false;
                 $fields->goods_weight->disabled = false;
                 $fields->goods_description->disabled = false;
                 $fields->goods_amount->disabled = false;

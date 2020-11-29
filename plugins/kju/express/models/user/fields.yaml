@@ -54,8 +54,11 @@ secondaryTabs:
             label: 'kju.express::lang.branch.singular'
             span: full
             placeholder: 'kju.express::lang.branch.singular'
-            type: relation
-            select: 'concat(code,'', '',name)'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/branch/columns.yaml
+            modelClass: Kju\Express\Models\Branch
+            nameFrom: displayName
+            keyFrom: code
         avatar:
             label: backend::lang.user.avatar
             type: fileupload

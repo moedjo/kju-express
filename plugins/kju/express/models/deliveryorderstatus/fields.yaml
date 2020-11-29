@@ -1,14 +1,20 @@
 fields:
-    description:
-        label: Text
-        span: auto
-        type: text
+    status:
+        label: 'kju.express::lang.global.status'
+        span: full
+        placeholder: 'kju.express::lang.global.status'
+        type: balloon-selector
     region:
         label: 'kju.express::lang.delivery_order.pickup_region'
         nameFrom: displayName
         descriptionFrom: description
         list: ~/plugins/kju/express/models/region/columns.yaml
-        span: right
-        required: 1
+        span: left
         type: recordfinder
-        tab: 'kju.express::lang.delivery_order.pickup_data'
+        conditions: (type = "regency")
+    description:
+        label: 'kju.express::lang.global.description'
+        span: full
+        placeholder: 'kju.express::lang.global.description'
+        type: text
+

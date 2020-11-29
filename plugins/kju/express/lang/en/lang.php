@@ -57,6 +57,12 @@
         'updated_at' => 'Updated At',
         'created_by' => 'Created By',
         'updated_by' => 'Updated By',
+
+        'pickup' => 'Pick Up',
+        'process' => 'Process',
+        'transit' => 'Transit',
+        'received' => 'Received',
+        'failed' => 'Failed',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -125,15 +131,9 @@
         'preview' => 'Preview Delivery Order',
         'consignee_name' => 'Name (Consignee)',
     ],
-    'status_type' => [
-        'plural' => 'Status Types',
-        'id' => 'Status Type Id',
-        'name' => 'Status Type Name',
-        'code' => 'Status Type Code',
-        'singular' => 'Status Type',
-        'new' => 'New Status Type',
-        'edit' => 'Edit Status Type',
-        'preview' => 'Preview Status Type',
+    'status' => [
+        'plural' => 'Statuses',
+        'singular' => 'Status',
     ],
     'courier' => [
         'plural' => 'Couriers',
