@@ -1,4 +1,6 @@
-<?php namespace Kju\Express\Models;
+<?php
+
+namespace Kju\Express\Models;
 
 
 
@@ -7,13 +9,13 @@
  */
 class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 {
-   /**
+    /**
      * @var array The rules to be applied to the data.
      */
     public $rules = [];
 
     public $belongsTo = [
-        'region' => ['Kju\Express\Models\Region','key' => 'region_id'],
+        'region' => ['Kju\Express\Models\Region', 'key' => 'region_id'],
     ];
 
     public function importData($results, $sessionKey = null)
@@ -22,15 +24,15 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
             try {
                 $order_status = new DeliveryOrderStatus();
-                $order_status->fill($data);
-                $order_status->save();
 
+                $order_status->fill($data);
+                $order_status->region = $this->region;
+                $order_status->save();
+                
                 $this->logCreated();
-            }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
             }
-
         }
     }
 }

@@ -31,14 +31,18 @@ class DeliveryOrderStatus extends Model
       
     ];
 
+    protected $fillable = [
+        'delivery_order_code',
+        'description' ,
+        'status' ,
 
+    ];
 
-    public function afterCreate(){
-        $order = $this->order;
-        $order->status = $this->status;
-
-        $order->save();
-    }
+    // public function afterCreate(){
+    //     $order = $this->order;
+    //     $order->status = $this->status;
+    //     $order->save();
+    // }
 
     public function beforeSave(){
         $user = BackendAuth::getUser();

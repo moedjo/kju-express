@@ -156,5 +156,7 @@
     ],
     'deliver_order_status' => [
         'plural' => 'Delivery Order Statuses',
+        'singular' => 'Delivery Order Status',
+        'import' => 'Import Delivery Order Status',
     ],
 ];
