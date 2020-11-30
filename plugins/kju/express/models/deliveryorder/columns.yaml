@@ -34,6 +34,8 @@ columns:
     consignee_region_name:
         label: 'kju.express::lang.global.destination'
         type: text
+        invisible: false
+        sortable: false
         relation: consignee_region
         valueFrom: displayName
     created_at:

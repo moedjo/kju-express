@@ -3,6 +3,7 @@
 namespace Kju\Express\Models;
 
 use Backend\Facades\BackendAuth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Kju\Express\classes\IdGenerator;
 use Model;
@@ -53,7 +54,7 @@ class DeliveryOrder extends Model
 
         'service' => 'required',
 
-        'goods_weight' => 'required',
+        // 'goods_weight' => 'required',
         'goods_amount' => 'required',
 
 
@@ -66,7 +67,7 @@ class DeliveryOrder extends Model
 
 
     public $belongsTo = [
-  
+
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
         'branch_region' => ['Kju\Express\Models\Region', 'key' => 'branch_region_id'],
         'pickup_region' => ['Kju\Express\Models\Region', 'key' => 'pickup_region_id'],
@@ -75,7 +76,7 @@ class DeliveryOrder extends Model
         'customer' => ['Kju\Express\Models\Customer', 'key' => 'customer_id'],
         'pickup_courier' => ['Kju\Express\Models\User', 'key' => 'pickup_courier_user_id'],
         'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
-         
+
         'updated_user' => ['Kju\Express\Models\User', 'key' => 'updated_user_id'],
         'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
@@ -135,8 +136,8 @@ class DeliveryOrder extends Model
         $config = [
             'table' => $this->table,
             'field' => $this->primaryKey,
-            'length' => 10,
-            'prefix' => 'KJU'
+            'length' => 13,
+            'prefix' => 'KJU'. $this->branch_region->id
         ];
         $code = IdGenerator::generate($config);
         $this->code = $code;
@@ -216,7 +217,7 @@ class DeliveryOrder extends Model
         $user = BackendAuth::getUser();
         $branch = $user->branch;
 
-       
+
 
         if (isset($this->service)) {
             if ($this->service->weight_limit == -1) {
@@ -312,6 +313,40 @@ class DeliveryOrder extends Model
 
     public function beforeDelete()
     {
-        throw new ApplicationException("You cannot delete me!");
+        $user = BackendAuth::getUser();
+        $role = $user->role;
+        $this->deleted_user = $user;
+        // trace_log($this->created_at->diffInMinutes(new Carbon()));
+        if ($user->isSuperUser()) {
+        } else if (isset($role) && $role->code == 'supervisor') {
+            if ($this->status == 'pickup' || $this->status == 'process') {
+                if ($this->created_at->diffInMinutes(new Carbon()) >= 120) {
+                    throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
+                }
+            }else{
+                throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
+            }
+        } else {
+            throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
+        }
+    }
+
+    public function afterDelete()
+    {
+        $user = BackendAuth::getUser();
+        $this->deleted_user = $user;
+        $this->save();
+    }
+
+
+    public function afterCreate(){
+
+        $order_status = new DeliveryOrderStatus();
+        $order_status->region = $this->branch_region;
+        $order_status->status = $this->status;
+        $order_status->created_user = $this->created_user;
+        $order_status->delivery_order_code = $this->code;
+
+        $order_status->save();
     }
 }

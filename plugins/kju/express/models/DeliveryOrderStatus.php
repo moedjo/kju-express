@@ -35,6 +35,8 @@ class DeliveryOrderStatus extends Model
         'delivery_order_code',
         'description' ,
         'status' ,
+        // 'created_user',
+        // 'region'
 
     ];
 

@@ -41,6 +41,13 @@ fields:
         placeholder: 'kju.express::lang.delivery_order.pickup_request'
         type: switch
 tabs:
+    defaultTab: kju.express::lang.delivery_order.shipper_data
+    icons:
+        kju.express::lang.delivery_order.shipper_data: icon-user
+        kju.express::lang.delivery_order.consignee_data: icon-user-circle
+        kju.express::lang.delivery_order.goods_data: icon-inbox
+        kju.express::lang.delivery_order.pickup_data: icon-truck
+        kju.express::lang.status.plural: icon-list-ol
     fields:
         customer:
             span: full

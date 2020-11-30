@@ -461,4 +461,53 @@ return [
 
     'enableBackendServiceWorkers' => false,
 
+    'fileDefinitions' => [
+        'defaultExtensions' => [
+            'jpg',
+            'jpeg',
+            'bmp',
+            'png',
+            'webp',
+            'gif',
+            'js',
+            'map',
+            'ico',
+            'css',
+            'less',
+            'scss',
+            'ics',
+            'odt',
+            'doc',
+            'docx',
+            'ppt',
+            'pptx',
+            'pdf',
+            'swf',
+            'txt',
+            'xml',
+            'ods',
+            'xls',
+            'xlsx',
+            'eot',
+            'woff',
+            'woff2',
+            'ttf',
+            'flv',
+            'wmv',
+            'mp3',
+            'ogg',
+            'wav',
+            'avi',
+            'mov',
+            'mp4',
+            'mpeg',
+            'webm',
+            'mkv',
+            'rar',
+            'xml',
+            'zip',
+            'svg'
+        ]
+    ]
+
 ];

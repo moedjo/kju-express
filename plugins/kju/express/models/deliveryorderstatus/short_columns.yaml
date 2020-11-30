@@ -1,30 +1,19 @@
 columns:
-    delivery_order_code:
-        label: 'kju.express::lang.delivery_order.code'
-        type: text
-        searchable: true
-        sortable: true
     created_at:
         label: 'kju.express::lang.global.created_at'
         type: datetime
-        sortable: true
         format: 'Y-m-d H:i:s'
     created_user_id:
         label: 'kju.express::lang.global.created_by'
         type: text
-        sortable: false
-        searchable: false
         relation: created_user
         valueFrom: login
     status:
         label: 'kju.express::lang.global.status'
         type: text
-        sortable: false
-        searchable: false
     region_name:
         label: 'kju.express::lang.global.region'
         type: text
-        sortable: false
         searchable: false
         relation: region
         valueFrom: displayName

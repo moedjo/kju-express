@@ -11,3 +11,4 @@ toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
 recordUrl: 'kju/express/deliveryorders/update/:code'
+filter: config_filter.yaml

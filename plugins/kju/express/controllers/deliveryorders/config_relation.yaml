@@ -12,6 +12,6 @@ statuses:
     label: 'kju.express::lang.status.singular'
     manage:
         form: $/kju/express/models/deliveryorderstatus/fields.yaml
-        list: $/kju/express/models/deliveryorderstatus/columns.yaml
+        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
     view:
-        list: $/kju/express/models/deliveryorderstatus/columns.yaml
+        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
