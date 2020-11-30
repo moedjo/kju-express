@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'debug' => true,
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost/kju-express/',
+    'url' => env('APP_URL', 'http://localhost/kju-express/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ return [
     |
     */
 
-    'key' => '3Qwfd64DT45aBid6SVjmxZwwlXOzt9XG',
+    'key' => env('APP_KEY', ''),
 
     'cipher' => 'AES-256-CBC',
 
