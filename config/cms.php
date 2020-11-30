@@ -323,7 +323,7 @@ return [
         'media' => [
             'disk'   => 'local',
             'folder' => 'media',
-            'path'   => 'storage/app/media',
+            'path'   => '/storage/app/media',
         ],
 
     ],
