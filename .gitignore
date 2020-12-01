@@ -6,4 +6,6 @@ storage/cms/twig/
 storage/framework/cache/
 storage/framework/views/
 
-plugins/rainlab/builder/
+plugins/rainlab/
+plugins/bedard/
+plugins/napagency/
