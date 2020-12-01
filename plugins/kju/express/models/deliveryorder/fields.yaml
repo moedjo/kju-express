@@ -117,6 +117,8 @@ tabs:
             default: '1'
             type: text
             tab: 'kju.express::lang.delivery_order.goods_data'
+            dependsOn:
+                - service
         pickup_region:
             label: 'kju.express::lang.delivery_order.pickup_region'
             nameFrom: displayName

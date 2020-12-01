@@ -55,7 +55,7 @@ class DeliveryOrder extends Model
         'service' => 'required',
 
         // 'goods_weight' => 'required',
-        'goods_amount' => 'required',
+        //'goods_amount' => 'required',
 
 
 
@@ -112,6 +112,7 @@ class DeliveryOrder extends Model
 
             if (isset($this->service) && $this->service->weight_limit != -1) {
                 $this->rules['goods_weight'] = "required";
+                $this->rules['goods_amount'] = "required";
             }
             $this->rules['total_cost'] = "required|min:1";
         }
@@ -195,6 +196,14 @@ class DeliveryOrder extends Model
     {
         $cost = DeliveryCost::find($cost_id);
 
+        if(empty($cost)){
+            return;
+        }
+
+        if(empty($this->goods_weight)){
+            return;
+        }
+
         $this->cost = $cost->cost;
         $this->add_cost = $cost->add_cost;
         $this->weight_limit = $cost->service->weight_limit;
@@ -204,6 +213,7 @@ class DeliveryOrder extends Model
 
         if ($cost->service->weight_limit == -1) {
             $this->total_cost = $cost->cost;
+            $this->goods_amount = 1;
         } else {
             $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
@@ -222,11 +232,14 @@ class DeliveryOrder extends Model
         if (isset($this->service)) {
             if ($this->service->weight_limit == -1) {
                 $fields->goods_weight->hidden = true;
+                $fields->goods_amount->hidden = true;
             } else {
                 $fields->goods_weight->hidden = false;
+                $fields->goods_amount->hidden = false;
             }
         } else {
             $fields->goods_weight->hidden = true;
+            $fields->goods_amount->hidden = true;
         }
 
         if ($context == 'update') {

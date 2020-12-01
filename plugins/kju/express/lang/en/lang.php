@@ -63,7 +63,8 @@
         'transit' => 'Transit',
         'received' => 'Received',
         'failed' => 'Failed',
-        'delete_not_allowed' => 'Delete not allowed'
+        'delete_not_allowed' => 'Delete not allowed',
+        'print' => 'Print'
     ],
     'delivery' => [
         'plural' => 'Deliveries',

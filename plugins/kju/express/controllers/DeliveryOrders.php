@@ -4,6 +4,8 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Kju\Express\Models\DeliveryOrder;
+use Renatio\DynamicPDF\Classes\PDF;
 
 class DeliveryOrders extends Controller
 {
@@ -30,12 +32,27 @@ class DeliveryOrders extends Controller
     }
 
 
+    public function print($code)
+    {
+
+        $delivery_order = DeliveryOrder::findOrFail($code);
+
+        $result = ['delivery_order' => $delivery_order];
+
+        if ($delivery_order->weight_limit == -1) {
+            return PDF::loadTemplate('delivery_order_no_weight', $result)->stream();
+        } else {
+            return PDF::loadTemplate('delivery_order', $result)->stream();
+        }
+    }
+
+
     public function formExtendModel($model)
     {
         $context = $this->formGetContext();
         $user = $this->user;
         $branch = $user->branch;
-        if ($context == 'create' ) {
+        if ($context == 'create') {
             if (!$user->isSuperUser()) {
                 if (isset($branch)) {
                     $model->branch = $branch;
@@ -79,7 +96,7 @@ class DeliveryOrders extends Controller
         if (!$user->isSuperUser()) {
             if (isset($branch)) {
                 $query->where('branch_code', $branch->code);
-            }else{
+            } else {
                 $query->where('branch_code', '-1');
             }
         }
@@ -92,7 +109,7 @@ class DeliveryOrders extends Controller
             return;
         $model = $this->formGetModel();
 
-        $model->status='failed';
+        $model->status = 'failed';
 
         redirect('test');
 

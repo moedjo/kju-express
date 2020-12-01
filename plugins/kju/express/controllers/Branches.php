@@ -4,6 +4,7 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Renatio\DynamicPDF\Classes\PDF;
 
 class Branches extends Controller
 {
@@ -26,4 +27,5 @@ class Branches extends Controller
         parent::__construct();
         BackendMenu::setContext('Kju.Express', 'master-data', 'branches');
     }
+
 }
