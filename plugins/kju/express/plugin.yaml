@@ -35,6 +35,9 @@ permissions:
     access_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_statuses'
+    is_supervisor:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.is_supervisor'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'

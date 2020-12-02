@@ -137,8 +137,8 @@ class DeliveryOrder extends Model
         $config = [
             'table' => $this->table,
             'field' => $this->primaryKey,
-            'length' => 13,
-            'prefix' => 'KJU'. $this->branch_region->id
+            'length' => 12,
+            'prefix' => $this->branch_region->id.''.strrev(date('my')),
         ];
         $code = IdGenerator::generate($config);
         $this->code = $code;
@@ -196,11 +196,7 @@ class DeliveryOrder extends Model
     {
         $cost = DeliveryCost::find($cost_id);
 
-        if(empty($cost)){
-            return;
-        }
-
-        if(empty($this->goods_weight)){
+        if (empty($cost)) {
             return;
         }
 
@@ -215,6 +211,9 @@ class DeliveryOrder extends Model
             $this->total_cost = $cost->cost;
             $this->goods_amount = 1;
         } else {
+            if (empty($this->goods_weight)) {
+                return;
+            }
             $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost  = $add_cost + $cost->cost;
@@ -329,14 +328,15 @@ class DeliveryOrder extends Model
         $user = BackendAuth::getUser();
         $role = $user->role;
         $this->deleted_user = $user;
-        // trace_log($this->created_at->diffInMinutes(new Carbon()));
         if ($user->isSuperUser()) {
-        } else if (isset($role) && $role->code == 'supervisor') {
+        } else if ($user->hasPermission([
+            'is_supervisor'
+        ])) {
             if ($this->status == 'pickup' || $this->status == 'process') {
                 if ($this->created_at->diffInMinutes(new Carbon()) >= 120) {
                     throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
                 }
-            }else{
+            } else {
                 throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
             }
         } else {
@@ -352,7 +352,8 @@ class DeliveryOrder extends Model
     }
 
 
-    public function afterCreate(){
+    public function afterCreate()
+    {
 
         $order_status = new DeliveryOrderStatus();
         $order_status->region = $this->branch_region;

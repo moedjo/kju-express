@@ -15,6 +15,7 @@
         'access_status_types' => 'Manage status types',
         'access_regions' => 'Manage regions',
         'access_statuses' => 'Manage delivery order statuses',
+        'is_supervisor' => 'Is supervisor',
     ],
     'branch' => [
         'id' => 'Branch Id',

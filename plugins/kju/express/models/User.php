@@ -52,7 +52,9 @@ class User extends \Backend\Models\User
         $roles = null;
         if ($user->isSuperUser()) {
             $roles = UserRole::all();
-        } else if ($user->role->code == 'supervisor') {
+        } else if ($user->hasPermission([
+            'is_supervisor'
+        ])) {
             $roles = UserRole::whereIn('code', ['operator', 'courier'])->get();
         }
         foreach ($roles as $role) {
@@ -65,7 +67,9 @@ class User extends \Backend\Models\User
     {
         $user = BackendAuth::getUser();
         if (!$user->isSuperUser()) {
-            if ($user->role->code == 'supervisor') {
+            if ($user->hasPermission([
+                'is_supervisor'
+            ])) {
                 $this->branch = $user->branch;
             }
         }

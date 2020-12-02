@@ -53,7 +53,9 @@ class Users extends Controller
         $query->where('id', '!=', $this->user->id);
         if (!$this->user->isSuperUser()) {
             $query->where('is_superuser', false);
-            if ($this->user->role->code == 'supervisor') {
+            if ($this->user->hasPermission([
+                'is_supervisor'
+            ])) {
                 $query->whereHas('role', function ($query) {
                     $query->whereIn('code', ['operator', 'courier']);
                 });
@@ -88,7 +90,9 @@ class Users extends Controller
         if (!$this->user->isSuperUser()) {
             $query->where('is_superuser', false);
 
-            if ($this->user->role->code == 'supervisor') {
+            if ($this->user->hasPermission([
+                'is_supervisor'
+            ])) {
                 $query->whereHas('role', function ($query) {
                     $query->whereIn('code', ['operator', 'courier']);
                 });
