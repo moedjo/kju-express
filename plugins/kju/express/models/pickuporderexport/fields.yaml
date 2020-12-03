@@ -1,0 +1,6 @@
+fields:
+    pickup_date:
+        label: 'kju.express::lang.global.pickup_date'
+        mode: date
+        span: auto
+        type: datepicker

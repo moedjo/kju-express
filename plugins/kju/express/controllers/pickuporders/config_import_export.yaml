@@ -1,0 +1,6 @@
+export:
+    title: 'kju.express::lang.pickup_order.export'
+    modelClass: Kju\Express\Models\PickupOrderExport
+    list: $/kju/express/models/pickuporderexport/columns.yaml
+    form: $/kju/express/models/pickuporderexport/fields.yaml
+    fileName: pickup_orders.csv

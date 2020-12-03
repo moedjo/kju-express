@@ -28,7 +28,7 @@ class DeliveryOrder extends Model
     protected $purgeable = ['agreement'];
 
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','process_at','received_at','pickup_date'];
 
     /**
      * @var array Validation rules
@@ -103,7 +103,7 @@ class DeliveryOrder extends Model
             if ($this->pickup_request) {
                 $this->rules['pickup_region'] = "required";
                 $this->rules['pickup_courier'] = "required";
-                $this->rules['pickup_date'] = "required|after:" . date('Y-m-d') . "|before:" . date("Y-m-d", strtotime("+1 week"));
+                $this->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
 
                 $this->rules['pickup_address'] = "required";
                 $this->rules['pickup_postal_code'] = "required|digits:5";
@@ -122,6 +122,14 @@ class DeliveryOrder extends Model
     {
         $user = BackendAuth::getUser();
         $this->updated_user = $user;
+
+        if ($this->status == 'process') {
+            $this->process_at = Carbon::now();
+        }
+
+        if ($this->status == 'received') {
+            $this->received_at = Carbon::now();
+        }
     }
 
     public function beforeCreate()
@@ -138,18 +146,17 @@ class DeliveryOrder extends Model
             'table' => $this->table,
             'field' => $this->primaryKey,
             'length' => 12,
-            'prefix' => $this->branch_region->id.''.strrev(date('my')),
+            'prefix' => $this->branch_region->id . '' . strrev(date('my')),
         ];
         $code = IdGenerator::generate($config);
         $this->code = $code;
 
 
         //SET BRANCH & BRANCH REGION
-        if (!$user->isSuperUser()) {
-            if (isset($branch)) {
-                $this->branch = $branch;
-                $this->branch_region = $branch->region;
-            }
+        if ($user->isSuperUser()) {
+        } else if (isset($branch)) {
+            $this->branch = $branch;
+            $this->branch_region = $branch->region;
         }
 
         // SET INIT STATUS

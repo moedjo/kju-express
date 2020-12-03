@@ -1,5 +1,8 @@
-<?php namespace Kju\Express\Models;
+<?php
 
+namespace Kju\Express\Models;
+
+use Backend\Facades\BackendAuth;
 use Model;
 
 /**
@@ -8,7 +11,7 @@ use Model;
 class Customer extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
 
     /**
      * @var string The database table used by the model.
@@ -22,11 +25,38 @@ class Customer extends Model
         'name' => [
             'required',
             'regex:/^[\pL\s\-]+$/u',
-            ],
+        ],
         'phone_number' => [
             'required',
             'regex:/(?:\+62)?0?8\d{2}(\d{8})/',
         ],
         'email' => 'email'
     ];
+
+    public $belongsTo = [
+        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+    ];
+
+
+    public function beforeCreate()
+    {
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        if (isset($branch)) {
+            $this->branch = $branch;
+        }
+    }
+
+    public function scopeDeliveryOrderCustomer($query, $model)
+    {
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        if ($user->isSuperUser()) {
+            return $query;
+        } else if (isset($branch)) {
+            return $query->where('branch_code', $branch->code);
+        } else {
+            return $query->where('branch_code', '-1');;
+        }
+    }
 }

@@ -8,6 +8,7 @@ customer:
         list: $/kju/express/models/customer/columns.yaml
         recordsPerPage: 10
         showSearch: true
+        scope: deliveryOrderCustomer
 statuses:
     label: 'kju.express::lang.status.singular'
     manage:

@@ -36,10 +36,9 @@ class Users extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if ($context == 'create') {
-            if (!$user->isSuperUser()) {
-                if (isset($branch)) {
-                    $model->branch = $branch;
-                }
+            if ($user->isSuperUser()) {
+            } else if (isset($branch)) {
+                $model->branch = $branch;
             }
         }
     }

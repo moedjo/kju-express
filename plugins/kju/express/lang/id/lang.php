@@ -65,7 +65,10 @@
         'received' => 'Received',
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
-        'print' => 'Print'
+        'print' => 'Print',
+        'process_date' => 'Process Date',
+        'shipper' => 'Shipper',
+        'pickup_date' => 'Tanggal Pickup',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -133,6 +136,7 @@
         'edit' => 'Edit Delivery Order',
         'preview' => 'Preview Delivery Order',
         'consignee_name' => 'Name Penerima',
+        'export' => 'Export Delivery Orders'
     ],
     'status' => [
         'plural' => 'Statuses',
@@ -160,6 +164,10 @@
     'deliver_order_status' => [
         'plural' => 'Delivery Order Statuses',
         'singular' => 'Delivery Order Status',
-        'import' => 'Import Delivery Order Status',
+        'import' => 'Import Delivery Order Statuses',
     ],
+
+    'pickup_order' => [
+        'export' => 'Export Pickup Orders'
+    ]
 ];

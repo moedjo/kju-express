@@ -61,6 +61,9 @@ class BuilderTableCreateKjuExpressDeliveryOrders extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
 
+            $table->timestamp('process_at')->nullable();
+            $table->timestamp('received_at')->nullable();
+
             $table->integer('updated_user_id')->unsigned()->nullable();
             $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
 

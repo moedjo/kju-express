@@ -70,17 +70,12 @@ class Region extends Model
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        if (!$user->isSuperUser()) {
-            if (isset($branch)) {
-
-                trace_log($branch);
-
-                return $query->where('parent_id', $branch->region->id);
-            }else{
-                return $query->where('parent_id', '-1');;
-            }
-        }else{
+        if ($user->isSuperUser()) {
             return $query;
+        } else  if (isset($branch)) {
+            return $query->where('parent_id', $branch->region->id);
+        } else {
+            return $query->where('parent_id', '-1');;
         }
     }
 }

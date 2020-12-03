@@ -147,4 +147,7 @@
   'Renatio\\DynamicPDF\\Classes\\PDFWrapper' => 'plugins\\renatio\\dynamicpdf\\classes\\PDFWrapper.php',
   'Renatio\\DynamicPDF\\Classes\\PDFParser' => 'plugins\\renatio\\dynamicpdf\\classes\\PDFParser.php',
   'system\\Controllers\\mailbrandsettings' => 'modules\\system\\controllers\\mailbrandsettings.php',
+  'Kju\\Express\\Models\\DeliveryOrderExport' => 'plugins\\kju\\express\\models\\DeliveryOrderExport.php',
+  'kju\\express\\Controllers\\pickuporders' => 'plugins\\kju\\express\\controllers\\pickuporders.php',
+  'Kju\\Express\\Models\\PickupOrderExport' => 'plugins\\kju\\express\\models\\PickupOrderExport.php',
 );

@@ -40,6 +40,7 @@
         'additional_cost' => 'Additional Cost',
         'region' => 'Region',
         'weight' => 'Weight (KG)',
+        'amount' => 'Amount (Units)',
         'check_delivery_cost' => 'Check Delivery Cost',
         'master_data' => 'Master Data',
         'province' => 'Province',
@@ -58,14 +59,17 @@
         'updated_at' => 'Updated At',
         'created_by' => 'Created By',
         'updated_by' => 'Updated By',
-
         'pickup' => 'Pick Up',
         'process' => 'Process',
         'transit' => 'Transit',
         'received' => 'Received',
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
-        'print' => 'Print'
+        'print' => 'Print',
+        'process_date' => 'Process Date',
+        'shipper' => 'Shipper',
+        'consignee' => 'Consignee',
+        'pickup_date' => 'Pickup Date',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -133,6 +137,7 @@
         'edit' => 'Edit Delivery Order',
         'preview' => 'Preview Delivery Order',
         'consignee_name' => 'Name (Consignee)',
+        'export' => 'Export Delivery Orders',
     ],
     'status' => [
         'plural' => 'Statuses',
@@ -162,4 +167,8 @@
         'singular' => 'Delivery Order Status',
         'import' => 'Import Delivery Order Status',
     ],
+
+    'pickup_order' => [
+        'export' => 'Export Pickup Orders'
+    ]
 ];

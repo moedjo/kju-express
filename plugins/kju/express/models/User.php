@@ -28,18 +28,16 @@ class User extends \Backend\Models\User
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        if (!$user->isSuperUser()) {
-            if (isset($branch)) {
-                return $query->where('branch_code', $branch->code)->whereHas('role', function ($query) {
-                    $query->where('code', 'courier');
-                });
-            } else {
-                return $query->where('branch_code','-1')->whereHas('role', function ($query) {
-                    $query->where('code', 'courier');
-                });
-            }
-        } else {
+        if ($user->isSuperUser()) {
             return $query->whereHas('role', function ($query) {
+                $query->where('code', 'courier');
+            });
+        } else if (isset($branch)) {
+            return $query->where('branch_code', $branch->code)->whereHas('role', function ($query) {
+                $query->where('code', 'courier');
+            });
+        } else {
+            return $query->where('branch_code', '-1')->whereHas('role', function ($query) {
                 $query->where('code', 'courier');
             });
         }
@@ -66,12 +64,9 @@ class User extends \Backend\Models\User
     public function beforeCreate()
     {
         $user = BackendAuth::getUser();
-        if (!$user->isSuperUser()) {
-            if ($user->hasPermission([
-                'is_supervisor'
-            ])) {
-                $this->branch = $user->branch;
-            }
+        if ($user->isSuperUser()) {
+        } else if ($user->hasPermission(['is_supervisor'])) {
+            $this->branch = $user->branch;
         }
     }
 

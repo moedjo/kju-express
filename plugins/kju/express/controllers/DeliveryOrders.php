@@ -12,12 +12,14 @@ class DeliveryOrders extends Controller
     public $implement = [
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController',
-        'Backend\Behaviors\RelationController'
+        'Backend\Behaviors\RelationController',
+        'Backend\Behaviors\ImportExportController',
     ];
 
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $relationConfig = 'config_relation.yaml';
+    public $importExportConfig = 'config_import_export.yaml';
 
     public $bodyClass = 'compact-container';
 
@@ -29,6 +31,13 @@ class DeliveryOrders extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Kju.Express', 'delivery-orders');
+    }
+
+
+    public function export(){
+        $this->bodyClass = '';
+
+        return $this->asExtension('ImportExportController')->export();
     }
 
 
@@ -53,11 +62,11 @@ class DeliveryOrders extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if ($context == 'create') {
-            if (!$user->isSuperUser()) {
-                if (isset($branch)) {
-                    $model->branch = $branch;
-                    $model->branch_region = $branch->region;
-                }
+            if ($user->isSuperUser()) {
+            } else if (isset($branch)) {
+                $model->branch = $branch;
+                $model->branch_region = $branch->region;
+            } else {
             }
         }
     }
@@ -93,12 +102,11 @@ class DeliveryOrders extends Controller
     {
         $user = $this->user;
         $branch = $user->branch;
-        if (!$user->isSuperUser()) {
-            if (isset($branch)) {
-                $query->where('branch_code', $branch->code);
-            } else {
-                $query->where('branch_code', '-1');
-            }
+        if ($user->isSuperUser()) {
+        } else if (isset($branch)) {
+            $query->where('branch_code', $branch->code);
+        } else {
+            $query->where('branch_code', '-1');
         }
     }
 
