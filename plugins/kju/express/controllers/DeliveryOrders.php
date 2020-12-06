@@ -109,4 +109,17 @@ class DeliveryOrders extends Controller
             $query->where('branch_code', '-1');
         }
     }
+
+    public function formExtendQuery($query)
+    {
+
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($user->isSuperUser()) {
+        } else if (isset($branch)) {
+            $query->where('branch_code', $branch->code);
+        } else {
+            $query->where('branch_code', '-1');
+        }
+    }
 }

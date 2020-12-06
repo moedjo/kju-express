@@ -28,7 +28,7 @@ class DeliveryOrder extends Model
     protected $purgeable = ['agreement'];
 
 
-    protected $dates = ['deleted_at','process_at','received_at','pickup_date'];
+    protected $dates = ['deleted_at', 'process_at', 'received_at', 'pickup_date'];
 
     /**
      * @var array Validation rules
@@ -36,9 +36,6 @@ class DeliveryOrder extends Model
     public $rules = [
         'branch' => 'required',
         'branch_region' => 'required',
-
-        // 'customer' => 'required',
-
         'consignee_region' => 'required',
         'consignee_name' => [
             'required',
@@ -49,15 +46,8 @@ class DeliveryOrder extends Model
             'required',
             'regex:/(?:\+62)?0?8\d{2}(\d{8})/',
         ],
-
         'consignee_postal_code' => 'required|digits:5',
-
         'service' => 'required',
-
-        // 'goods_weight' => 'required',
-        //'goods_amount' => 'required',
-
-
 
         // Purgeable Field
         'agreement' => 'in:1',
@@ -116,10 +106,25 @@ class DeliveryOrder extends Model
             }
             $this->rules['total_cost'] = "required|min:1";
         }
+
+        $user = BackendAuth::getUser();
+        if ($user->hasPermission([
+            'is_courier'
+        ])) {
+            if ($this->status == 'pickup') {
+                $this->status = 'process';
+            }
+        }
     }
 
     public function beforeSave()
     {
+
+
+        if (isset($this->original['pickup_request'])) {
+            $this->pickup_request = $this->original['pickup_request'];
+        }
+
         $user = BackendAuth::getUser();
         $this->updated_user = $user;
 
@@ -129,6 +134,21 @@ class DeliveryOrder extends Model
 
         if ($this->status == 'received') {
             $this->received_at = Carbon::now();
+        }
+
+        // initialize total cost
+        $origin_id = null;
+        $destination_id = $this->consignee_region->id;
+        $service_code = $this->service->code;
+
+        if ($this->pickup_request) {
+            $origin_id = $this->pickup_region->id;
+        } else {
+            $origin_id = $this->branch_region->id;
+        }
+        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
+        if (isset($cost_id)) {
+            $this->calculateTotalCost($cost_id);
         }
     }
 
@@ -145,8 +165,8 @@ class DeliveryOrder extends Model
         $config = [
             'table' => $this->table,
             'field' => $this->primaryKey,
-            'length' => 12,
-            'prefix' => $this->branch_region->id . '' . strrev(date('my')),
+            'length' => 13,
+            'prefix' => 'K' . $this->branch_region->id . '' . strrev(date('my')),
         ];
         $code = IdGenerator::generate($config);
         $this->code = $code;
@@ -164,21 +184,6 @@ class DeliveryOrder extends Model
             $this->status = 'pickup';
         } else {
             $this->status = 'process';
-        }
-
-        // initialize total cost
-        $origin_id = null;
-        $destination_id = $this->consignee_region->id;
-        $service_code = $this->service->code;
-
-        if ($this->pickup_request) {
-            $origin_id = $this->pickup_region->id;
-        } else {
-            $origin_id = $this->branch_region->id;
-        }
-        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
-        if (isset($cost_id)) {
-            $this->calculateTotalCost($cost_id);
         }
     }
 
@@ -210,7 +215,7 @@ class DeliveryOrder extends Model
         $this->cost = $cost->cost;
         $this->add_cost = $cost->add_cost;
         $this->weight_limit = $cost->service->weight_limit;
-        $this->delivery_route_code = $cost->delivery_route->code;
+        $this->delivery_route_code = $cost->route->code;
         $this->min_lead_time = $cost->min_lead_time;
         $this->max_lead_time = $cost->max_lead_time;
 
@@ -229,10 +234,8 @@ class DeliveryOrder extends Model
 
     public function filterFields($fields, $context = null)
     {
-
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-
 
 
         if (isset($this->service)) {
@@ -273,20 +276,43 @@ class DeliveryOrder extends Model
             $fields->pickup_address->disabled = true;
             $fields->pickup_postal_code->disabled = true;
 
-            if ($this->status == 'pickup') {
-                $fields->service->readOnly = false;
-                $fields->goods_weight->disabled = false;
-                $fields->goods_description->disabled = false;
-                $fields->goods_amount->disabled = false;
+            $fields->agreement->hidden = true;
 
-                $fields->pickup_courier->disabled = false;
-                $fields->pickup_date->disabled = false;
+            // trace_log('test 123232'.$this->status);
+            if ($this->status == 'pickup') {
+
+                trace_log('test 123232' . $this->status);
+
+                if ($user->hasPermission([
+                    'is_supervisor'
+                ])) {
+                    $fields->service->readOnly = false;
+                    $fields->goods_weight->disabled = false;
+                    $fields->goods_description->disabled = false;
+                    $fields->goods_amount->disabled = false;
+
+                    $fields->pickup_courier->disabled = false;
+                    $fields->pickup_date->disabled = false;
+
+                    $fields->agreement->hidden = false;
+                }
+
+
+                if ($user->hasPermission([
+                    'is_courier'
+                ])) {
+                    $fields->service->readOnly = false;
+                    $fields->goods_weight->disabled = false;
+                    $fields->goods_description->disabled = false;
+                    $fields->goods_amount->disabled = false;
+
+                    $fields->agreement->hidden = false;
+                }
             }
         }
 
 
-        if ($context == 'create') {
-
+        if ($context == 'create' || $context == 'update') {
 
             if (!$user->isSuperUser()) {
                 $fields->branch->readOnly = true;
@@ -356,6 +382,24 @@ class DeliveryOrder extends Model
         $user = BackendAuth::getUser();
         $this->deleted_user = $user;
         $this->save();
+    }
+
+    public function afterUpdate()
+    {
+        $user = BackendAuth::getUser();
+        if ($user->hasPermission([
+            'is_courier'
+        ])) {
+            if ($this->original['status'] == 'pickup') {
+                $order_status = new DeliveryOrderStatus();
+                $order_status->region = $this->branch_region;
+                $order_status->status = $this->status;
+                $order_status->created_user = $this->created_user;
+                $order_status->delivery_order_code = $this->code;
+
+                $order_status->save();
+            }
+        }
     }
 
 

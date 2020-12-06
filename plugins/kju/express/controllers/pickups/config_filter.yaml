@@ -1,5 +1,12 @@
-# scopes:
-#     code:
-#         label: 'kju.express::lang.delivery_order.code'
-#         type: text
-#         conditions: code in :value
+scopes:
+    status:
+        label: 'kju.express::lang.status.singular'
+        type: group
+        conditions: status in (:filtered)
+        options:
+            pickup: 'kju.express::lang.status.pickup'
+            process: 'kju.express::lang.status.process'
+    pickup_date:
+        label: 'kju.express::lang.global.pickup_date'
+        type: date
+        conditions: date(pickup_date) = ':filtered'

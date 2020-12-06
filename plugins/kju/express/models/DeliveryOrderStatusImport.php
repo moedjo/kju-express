@@ -47,19 +47,15 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
                     continue;
                 }
 
-                $order_status = DeliveryOrderStatus::where('delivery_order_code', $order_code)
-                    ->whereIn('status', ['received', 'failed','pickup'])->orderByDesc('created_at')->first();
+                if ($delivery_order->status == 'pickup') {
+                    $this->logError(
+                        $row,
+                        e(trans('kju.express::lang.global.delivery_order_still_pickup'))
+                    );
+                    continue;
+                }
 
-                if (isset($order_status)) {
-
-                    if ($order_status->status == 'pickup') {
-                        $this->logError(
-                            $row,
-                            e(trans('kju.express::lang.global.delivery_order_still_pickup'))
-                        );
-                        continue;
-                    }
-
+                if ($delivery_order->status == 'received' || $delivery_order->status == 'failed') {
                     $this->logError(
                         $row,
                         e(trans('kju.express::lang.global.delivery_order_already_finish'))
@@ -95,6 +91,10 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
                 }
 
                 $new_order_status->save();
+
+                $order = $new_order_status->order;
+                $order->status = $new_order_status->status;
+                $order->save();
 
                 $this->logCreated();
             } catch (\Exception $ex) {

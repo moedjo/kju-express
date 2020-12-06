@@ -37,11 +37,11 @@ class DeliveryOrderStatus extends Model
         'status' ,
     ];
 
-    public function afterCreate(){
-        $order = $this->order;
-        $order->status = $this->status;
-        $order->save();
-    }
+    // public function afterCreate(){
+    //     $order = $this->order;
+    //     $order->status = $this->status;
+    //     $order->save();
+    // }
 
     public function beforeSave(){
         $user = BackendAuth::getUser();

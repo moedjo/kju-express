@@ -18,7 +18,7 @@
         'access_pickups' => 'Manage pickups',
         'is_supervisor' => 'Is supervisor',
         'is_courier' => 'Is courier',
-        'is_operator' => 'Is courier',
+        'is_operator' => 'Is operator',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -152,6 +152,8 @@
     'status' => [
         'plural' => 'Statuses',
         'singular' => 'Status',
+        'process' => 'Process',
+        'pickup' => 'Pickup',
     ],
     'courier' => [
         'plural' => 'Couriers',

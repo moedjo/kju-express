@@ -4,6 +4,8 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Response;
 
 class Pickups extends Controller
 {
@@ -29,6 +31,10 @@ class Pickups extends Controller
         BackendMenu::setContext('Kju.Express', 'pickup-list');
     }
 
+    public function create()
+    {
+    }
+
 
     public function formExtendModel($model)
     {
@@ -47,28 +53,12 @@ class Pickups extends Controller
 
     public function listInjectRowClass($record, $definition = null)
     {
-        if ($record->trashed()) {
-            return 'strike';
-        }
-
         if ($record->status == 'process') {
             return 'new';
         }
 
-        if ($record->status == 'received') {
-            return 'positive';
-        }
-
-        if ($record->status == 'transit') {
-            return 'frozen';
-        }
-
         if ($record->status == 'pickup') {
             return 'processing';
-        }
-
-        if ($record->status == 'failed') {
-            return 'negative';
         }
     }
 
@@ -77,8 +67,37 @@ class Pickups extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if ($user->isSuperUser()) {
+
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
+            if ($user->hasPermission([
+                'is_courier'
+            ])){
+                $query->whereIn('status',['pickup','process']);
+                $query->where('pickup_courier_user_id',$user->id);
+            }
+        
+        } else {
+            $query->where('branch_code', '-1');
+        }
+    }
+
+    public function formExtendQuery($query)
+    {
+
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($user->isSuperUser()) {
+
+        } else if (isset($branch)) {
+            $query->where('branch_code', $branch->code);
+            if ($user->hasPermission([
+                'is_courier'
+            ])){
+                $query->whereIn('status',['pickup','process']);
+                $query->where('pickup_courier_user_id',$user->id);
+            }
+        
         } else {
             $query->where('branch_code', '-1');
         }

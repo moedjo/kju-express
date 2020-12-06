@@ -3,14 +3,14 @@ fields:
         label: 'kju.express::lang.delivery_order.code'
         span: left
         placeholder: 'kju.express::lang.delivery_order.code'
-        readOnly: 1
+        disabled: 1
         context:
             - update
             - preview
         type: text
     status:
         label: 'kju.express::lang.global.status'
-        readOnly: 1
+        disabled: 1
         span: right
         placeholder: 'kju.express::lang.global.status'
         context:
@@ -213,5 +213,6 @@ secondaryTabs:
             span: full
             context:
                 - create
+                - update
             type: checkbox
             tab: Misc
