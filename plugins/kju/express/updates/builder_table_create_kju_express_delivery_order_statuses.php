@@ -16,7 +16,7 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
            
             
             $table->string('delivery_order_code',20)->nullable();;
-            $table->foreign('delivery_order_code')->references('code')->on('kju_express_delivery_orders')->onDelete('cascade');
+            $table->foreign('delivery_order_code')->references('code')->on('kju_express_delivery_orders')->onDelete('restrict');
 
             $table->integer('region_id')->unsigned()->nullable();
             $table->foreign('region_id')->references('id')->on('kju_express_regions');
@@ -24,10 +24,10 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
             $table->string('description', 100);
 
             $table->integer('updated_user_id')->unsigned()->nullable();
-            $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('cascade');;
+            $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('restrict');;
 
             $table->integer('created_user_id')->unsigned()->nullable();
-            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('cascade');;    
+            $table->foreign('created_user_id')->references('id')->on('backend_users')->onDelete('restrict');;    
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

@@ -23,7 +23,7 @@ class BuilderTableCreateKjuExpressRegions extends Migration
 
         Schema::table('kju_express_regions', function ($table) {
           
-            $table->foreign('parent_id')->references('id')->on('kju_express_regions')->onDelete('cascade');;
+            $table->foreign('parent_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
         });
     }
 

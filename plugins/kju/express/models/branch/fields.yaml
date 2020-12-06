@@ -3,6 +3,10 @@ fields:
         label: 'kju.express::lang.branch.code'
         span: auto
         placeholder: 'kju.express::lang.branch.code'
+        disabled: 0
+        context:
+            - update
+            - preview
         type: text
     name:
         label: 'kju.express::lang.branch.name'
@@ -17,4 +21,4 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        conditions: (type = "regency")
+        conditions: '(type = "regency")'

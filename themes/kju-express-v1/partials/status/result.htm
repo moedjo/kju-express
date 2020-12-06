@@ -1,0 +1,77 @@
+==
+<div class="modal fade" id="delivery-order-statuses" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-top-cover bg-primary text-center">
+        <figure class="position-absolute right-0 bottom-0 left-0">
+          <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1">
+            <path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"/>
+          </svg>
+        </figure>
+
+        <div class="modal-close">
+          <button type="button" class="btn btn-icon btn-sm btn-ghost-light" data-dismiss="modal" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- End Header -->
+      <!-- Body -->
+      <div class="modal-body pt-3 pb-sm-5 px-sm-5">
+      
+      {% if delivery_order is not empty %}
+       {% set statuses = delivery_order.statuses %}
+        <div class="text-center mb-5">
+          <h3 class="mb-1">Putra KJU Express</h3>
+          <span class="d-block">Nomor Resi #{{delivery_order.code}} </span>
+        </div>
+
+        <div class="row mb-6">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <small class="text-cap">Pengirim:</small>
+            <span class="text-dark">{{delivery_order.customer.name}}</span><br>
+            <span class="text-dark">{{delivery_order.customer.phone_number}}</span><br>
+             <span class="text-dark">{{delivery_order.branch_region.displayName}}</span>
+          </div>
+
+          <div class="col-md-6 mb-3 mb-md-0">
+            <small class="text-cap">Penerima:</small>
+            <span class="text-dark">{{delivery_order.consignee_name}}</span><br>
+            <span class="text-dark">{{delivery_order.consignee_phone_number}}</span><br>
+             <span class="text-dark">{{delivery_order.consignee_region.displayName}}</span>
+          </div>
+
+        </div>
+
+        <small class="text-cap mb-2">Detil</small>
+
+        <ul class="list-group mb-4">
+              {% for status in  statuses %}
+          <li class="list-group-item text-dark">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>{{status.created_at|date('d-m-Y H:m')}} - {{status.status}} </span>
+              <span>{{status.region.displayName}}</span>
+            </div>
+          </li>
+           {% endfor %}
+        </ul>
+        {% else %}
+        
+         <div class="text-center mb-5">
+          <h3 class="mb-1">Putra KJU Express</h3>
+          <span class="d-block">Maaf nomor resi tidak ditemukan. </span>
+        </div>
+          {% endif %}
+
+        <p class="modal-footer-text"> Silakan hubungi Customer service kami untuk informasi lebih lanjut<br>
+                <a href="https://api.whatsapp.com/send?phone=+6281317178001&text=Maaf, untuk saat ini belum mencakup rute {{source.displayName}} - {{destination.displayName}}." target="_blank"><i class="fab fa-whatsapp"></i> 0813 1717 8001</a> atau
+<a href="https://api.whatsapp.com/send?phone=+628119438002&text=Maaf, untuk saat ini belum mencakup rute {{source.displayName}} - {{destination.displayName}}." target="_blank"><i class="fab fa-whatsapp"></i>  0811-9438-002</a>.</p>
+      </div>
+      <!-- End Body -->
+    </div>
+  </div>
+</div>
+<!-- End Invoice Modal -->

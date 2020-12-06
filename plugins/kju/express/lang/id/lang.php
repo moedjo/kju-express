@@ -15,7 +15,10 @@
         'access_status_types' => 'Manage status types',
         'access_regions' => 'Manage regions',
         'access_statuses' => 'Manage delivery order statuses',
+        'access_pickups' => 'Manage pickups',
         'is_supervisor' => 'Is supervisor',
+        'is_courier' => 'Is courier',
+        'is_operator' => 'Is courier',
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -69,6 +72,15 @@
         'process_date' => 'Process Date',
         'shipper' => 'Shipper',
         'pickup_date' => 'Tanggal Pickup',
+
+        'order_code_not_found' => 'Order code not found.',
+        'delivery_order_already_finish' => 'Delivery order already finish.',
+        'delivery_order_still_pickup' => 'Delivery order still pickup.',
+        'region_id_not_found' => 'Region id not found.',
+        'status_not_allowed' => 'Status not allowed.',
+
+        'origin_id' => 'Origin Id',
+        'destination_id' => 'Destination Id',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -136,7 +148,7 @@
         'edit' => 'Edit Delivery Order',
         'preview' => 'Preview Delivery Order',
         'consignee_name' => 'Name Penerima',
-        'export' => 'Export Delivery Orders'
+        'export' => 'Export Delivery Orders',
     ],
     'status' => [
         'plural' => 'Statuses',
@@ -169,5 +181,10 @@
 
     'pickup_order' => [
         'export' => 'Export Pickup Orders'
-    ]
+    ],
+    'pickup' => [
+        'plural' => 'Pickup List',
+        'singular' => 'Pickup',
+        'edit' => 'Edit Pickup',
+    ],
 ];

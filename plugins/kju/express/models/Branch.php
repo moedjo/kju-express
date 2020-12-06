@@ -1,5 +1,8 @@
-<?php namespace Kju\Express\Models;
+<?php
 
+namespace Kju\Express\Models;
+
+use Kju\Express\classes\IdGenerator;
 use Model;
 
 /**
@@ -9,7 +12,7 @@ class Branch extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sortable;
-    
+
 
     /**
      * @var string The database table used by the model.
@@ -22,7 +25,7 @@ class Branch extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'code' => 'required|between:1,10',
+        // 'code' => 'required|between:1,10',
         'name' => 'required|between:1,100|unique:kju_express_branches',
         'region' => 'required',
     ];
@@ -34,13 +37,27 @@ class Branch extends Model
     public function filterFields($fields, $context = null)
     {
         if ($context == 'update') {
-            $fields->code->readOnly = true;
+            $fields->code->disabled = true;
+            $fields->region->disabled = true;
         }
     }
 
     public function getDisplayNameAttribute()
     {
         return "{$this->code}, {$this->name}";
+    }
+
+    public function beforeCreate()
+    {
+        // CODE GENERATOR
+        $config = [
+            'table' => $this->table,
+            'field' => $this->primaryKey,
+            'length' => 9,
+            'prefix' => 'K'.$this->region->id ,
+        ];
+        $code = IdGenerator::generate($config);
+        $this->code = $code;
     }
 
 }

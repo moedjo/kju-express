@@ -9,9 +9,8 @@ namespace Kju\Express\Models;
  */
 class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 {
-    /**
-     * @var array The rules to be applied to the data.
-     */
+
+
     public $rules = [];
 
     public $belongsTo = [
@@ -23,16 +22,94 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
         foreach ($results as $row => $data) {
 
             try {
-                $order_status = new DeliveryOrderStatus();
 
-                $order_status->fill($data);
-                $order_status->region = $this->region;
-                $order_status->save();
-                
+                $order_code = $data['delivery_order_code'];
+                $status = $data['status'];
+                $region_id = $data['region_id'];
+
+                $delivery_order = DeliveryOrder::find($order_code);
+
+                $statuses = ['transit', 'received', 'failed'];
+
+                if (!in_array($status, $statuses)) {
+                    $this->logError(
+                        $row,
+                        e(trans('kju.express::lang.global.status_not_allowed'))
+                    );
+                    continue;
+                }
+
+                if (empty($delivery_order)) {
+                    $this->logError(
+                        $row,
+                        e(trans('kju.express::lang.global.order_code_not_found'))
+                    );
+                    continue;
+                }
+
+                $order_status = DeliveryOrderStatus::where('delivery_order_code', $order_code)
+                    ->whereIn('status', ['received', 'failed','pickup'])->orderByDesc('created_at')->first();
+
+                if (isset($order_status)) {
+
+                    if ($order_status->status == 'pickup') {
+                        $this->logError(
+                            $row,
+                            e(trans('kju.express::lang.global.delivery_order_still_pickup'))
+                        );
+                        continue;
+                    }
+
+                    $this->logError(
+                        $row,
+                        e(trans('kju.express::lang.global.delivery_order_already_finish'))
+                    );
+                    continue;
+                }
+
+
+                $new_order_status = new DeliveryOrderStatus();
+
+                $new_order_status->fill($data);
+
+                if ($status == 'received') {
+                    $new_order_status->region = $delivery_order->consignee_region->parent;
+                } else {
+                    $region = Region::find($region_id);
+                    if (empty($region)) {
+                        $this->logError(
+                            $row,
+                            e(trans('kju.express::lang.global.region_id_not_found'))
+                        );
+                        continue;
+                    }
+
+                    if ($region->type != 'regency') {
+                        $this->logError(
+                            $row,
+                            e(trans('kju.express::lang.global.region_id_not_found'))
+                        );
+                        continue;
+                    }
+                    $new_order_status->region = $region;
+                }
+
+                $new_order_status->save();
+
                 $this->logCreated();
             } catch (\Exception $ex) {
+                trace_log($ex);
                 $this->logError($row, $ex->getMessage());
             }
         }
+    }
+
+    public function getStatusOptions()
+    {
+        return [
+            'transit' => 'kju.express::lang.global.transit',
+            'received' => 'kju.express::lang.global.received',
+            'failed' => 'kju.express::lang.global.failed',
+        ];
     }
 }

@@ -1,0 +1,18 @@
+customer:
+    label: 'kju.express::lang.customer.singular'
+    view:
+        form: $/kju/express/models/customer/fields.yaml
+        toolbarButtons: create|link
+    manage:
+        form: $/kju/express/models/customer/fields.yaml
+        list: $/kju/express/models/customer/columns.yaml
+        recordsPerPage: 10
+        showSearch: true
+        scope: deliveryOrderCustomer
+statuses:
+    label: 'kju.express::lang.status.singular'
+    manage:
+        form: $/kju/express/models/deliveryorderstatus/fields.yaml
+        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
+    view:
+        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml

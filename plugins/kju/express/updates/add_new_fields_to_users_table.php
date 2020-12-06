@@ -11,7 +11,7 @@ class AddNewFieldsToUsersTable extends Migration
         {
 
             $table->string('branch_code',10)->nullable();
-            $table->foreign('branch_code','backend_users_branch_foreign')->references('code')->on('kju_express_branches')->onDelete('cascade');;
+            $table->foreign('branch_code','backend_users_branch_foreign')->references('code')->on('kju_express_branches')->onDelete('restrict');;
 
         });
     }

@@ -18,7 +18,7 @@ class BuilderTableCreateKjuExpressCustomers extends Migration
             $table->timestamp('updated_at')->nullable();
 
             $table->string('branch_code',10)->nullable();
-            $table->foreign('branch_code')->references('code')->on('kju_express_branches')->onDelete('cascade');
+            $table->foreign('branch_code')->references('code')->on('kju_express_branches')->onDelete('restrict');
             
             $table->unique(['phone_number','branch_code']);
         });

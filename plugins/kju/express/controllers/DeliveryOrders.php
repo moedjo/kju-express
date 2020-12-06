@@ -109,19 +109,4 @@ class DeliveryOrders extends Controller
             $query->where('branch_code', '-1');
         }
     }
-
-    public function relationExtendRefreshResults($field)
-    {
-
-        if ($field != 'statuses')
-            return;
-        $model = $this->formGetModel();
-
-        $model->status = 'failed';
-
-        redirect('test');
-
-
-        // return ['#Form-field-DeliveryOrder-status' => 'Total records: 6'];
-    }
 }

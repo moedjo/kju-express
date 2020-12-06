@@ -28,6 +28,7 @@
    </head>
    <body>
       {% partial 'basic/header' %} 
+      
       <!-- ========== MAIN ========== -->
       <main id="content" role="main">
          {% page %}
@@ -80,16 +81,18 @@
          $(document).on('ready', function () {
            // initialization of header
            var header = new HSHeader($('#header')).init();
-         
+           
+               // initialization of HSMegaMenu component
+    var megaMenu = new HSMegaMenu($('.js-mega-menu')).init();
+
+    // initialization of unfold
+    var unfold = new HSUnfold('.js-hs-unfold-invoker').init();
+  
             $('.js-validate').each(function() {
                $.HSCore.components.HSValidation.init($(this));
              });
          
-           // initialization of select picker
-         //     $('.js-custom-select').each(function () {
-         //       var select2 = $.HSCore.components.HSSelect2.init($(this));
-               
-         // });
+
 
          var source = $.HSCore.components.HSSelect2.init($("select[name='source']"),{
             ajax: {
@@ -131,8 +134,6 @@
 
          });
       
-
-         //$('.js-custom-select').select2();
          
            // initialization of go to
            $('.js-go-to').each(function () {

@@ -22,7 +22,7 @@ class DeliveryCost extends Model
      */
     public $rules = [
         'service' => 'required',
-        'delivery_route' => 'required',
+        'route' => 'required',
         'cost' => 'required|numeric|between:0,9999999',
         'add_cost' => 'numeric|between:0,999999',
         'min_lead_time' => 'numeric|between:1,99',
@@ -31,7 +31,7 @@ class DeliveryCost extends Model
 
     public $belongsTo = [
         'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
-        'delivery_route' => ['Kju\Express\Models\DeliveryRoute', 'key' => 'delivery_route_code']
+        'route' => ['Kju\Express\Models\DeliveryRoute', 'key' => 'delivery_route_code']
     ];
 
     public function beforeValidate(){

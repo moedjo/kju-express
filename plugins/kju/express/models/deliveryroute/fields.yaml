@@ -28,9 +28,9 @@ fields:
         conditions: '(type = "regency" or type = "district")'
 tabs:
     fields:
-        delivery_costs:
+        costs:
             span: full
-            path: field_delivery_costs
+            path: field_costs
             context:
                 - update
                 - preview

@@ -5,9 +5,11 @@ namespace Kju\Express\Components;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Kju\Express\Models\DeliveryCost;
+use Kju\Express\Models\DeliveryOrder;
 use October\Rain\Exception\ValidationException;
 use Kju\Express\Models\Region;
 use Multiwebinc\Recaptcha\Validators\RecaptchaValidator;
+use October\Rain\Support\Facades\Flash;
 
 class DeliveryCosts extends \Cms\Classes\ComponentBase
 {
@@ -33,14 +35,15 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         $q = input('q');
         return [
             'results' => Region::where('name', 'like', "%$q%")
-                ->select('id','name AS text')
+                ->select('id', 'name AS text')
                 ->where('type', "regency")
                 ->take(20)
                 ->get()
         ];
     }
 
-    public function onGetDestination(){
+    public function onGetDestination()
+    {
         $q = input('q');
         $select = DB::select("
             SELECT district.id AS id,IF(district.type = 'regency',district.name,CONCAT(district.name,', ',regency.name)) AS text 
@@ -56,7 +59,34 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
     }
 
 
-    public function onCheckCost(){
+    public function onCheckStatus()
+    {
+        $delivery_order_code = input('code');
+
+        // TODO recaptha
+        // TODO sorting status with timestamp
+
+        // $validator = Validator::make(
+        //     [
+        //         'g-recaptcha-response' => input('g-recaptcha-response'),
+        //     ],
+        //     [
+        //         'g-recaptcha-response' => [
+        //             'required',
+        //             new RecaptchaValidator,
+        //         ],
+        //     ]
+        // );
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+        $delivery_order = DeliveryOrder::with(['statuses'])->find($delivery_order_code);
+        $this->page['delivery_order'] = $delivery_order;
+    }
+
+
+    public function onCheckCost()
+    {
         $source = input('source');
         $destination = input('destination');
         $weight = input('weight');
@@ -65,7 +95,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
         $validator = Validator::make(
             [
-                
+
                 'g-recaptcha-response' => input('g-recaptcha-response'),
                 'source' => $source,
                 'destination' => $destination,
@@ -78,7 +108,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
                 ],
                 'source' => 'required',
                 'destination' => 'required',
-                'weight' => 'required|min:1',
+                'weight' => 'required|numeric|between:0,100000',
             ]
         );
 
@@ -90,24 +120,24 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         $this->page['destination'] = Region::findOrFail($destination);
 
         // District Level
-        $costs = DeliveryCost::whereHas('delivery_route',function($query){
-            $query->where('src_region_id',input('source'))
+        $costs = DeliveryCost::whereHas('route', function ($query) {
+            $query->where('src_region_id', input('source'))
                 ->where('dst_region_id', input('destination'));
         })->get()
-        ->sortBy(function($cost, $key) {
-            return $cost->service->sort_order;
-        });
+            ->sortBy(function ($cost, $key) {
+                return $cost->service->sort_order;
+            });
 
         $this->page['costs'] = null;
         if (isset($costs)) {
             $this->page['costs'] = $costs;
         } else {
-             // Regency Level
-            $costs = DeliveryCost::whereHas('delivery_route',function($query){
-                $regency = substr(input('destination'),0,4);
-                $query->where('src_region_id',input('source'))
+            // Regency Level
+            $costs = DeliveryCost::whereHas('route', function ($query) {
+                $regency = substr(input('destination'), 0, 4);
+                $query->where('src_region_id', input('source'))
                     ->where('dst_region_id', $regency);
-            })->get()->sortBy(function($cost, $key) {
+            })->get()->sortBy(function ($cost, $key) {
                 return $cost->service->sort_order;
             });;
 
@@ -115,7 +145,6 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
                 $this->page['costs'] = $costs;
             }
         }
-
     }
 
 

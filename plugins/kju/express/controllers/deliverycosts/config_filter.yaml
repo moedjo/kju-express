@@ -5,3 +5,11 @@ scopes:
         conditions: service_code in (:filtered)
         modelClass: Kju\Express\Models\Service
         nameFrom: displayName
+    origin_id:
+        label: 'kju.express::lang.global.origin_id'
+        type: text
+        conditions: LEFT(delivery_route_code,4) = :value
+    destination_id:
+        label: 'kju.express::lang.global.destination_id'
+        type: text
+        conditions: SUBSTR(delivery_route_code,6,4) = :value

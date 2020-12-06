@@ -1,10 +1,5 @@
 columns:
-    delivery_order_code:
-        label: 'kju.express::lang.delivery_order.code'
-        type: text
-    status:
-        label: 'kju.express::lang.global.status'
-        type: text
-    description:
-        label: 'kju.express::lang.global.description'
-        type: text
+    delivery_order_code: 'kju.express::lang.delivery_order.code'
+    region_id: 'kju.express::lang.region.id'
+    status: 'kju.express::lang.global.status'
+    description: 'kju.express::lang.global.description'

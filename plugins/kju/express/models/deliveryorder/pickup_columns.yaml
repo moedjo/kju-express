@@ -1,0 +1,58 @@
+columns:
+    code:
+        label: 'kju.express::lang.delivery_order.code'
+        type: text
+        searchable: true
+        sortable: true
+    pickup_date: 
+        label: 'kju.express::lang.delivery_order.pickup_date'
+        type: date
+        sortable: false
+        searchable: false
+        format: d-M-Y
+    status:
+        label: 'kju.express::lang.global.status'
+        type: text
+        sortable: false
+        searchable: false
+    customer_name:
+        label: 'kju.express::lang.customer.singular'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: customer
+    customer_phone_number:
+        label: 'kju.express::lang.global.phone_number'
+        type: text
+        searchable: true
+        sortable: false
+        select: phone_number
+        relation: customer
+    pickup_region:
+        label: 'kju.express::lang.delivery_order.pickup_region'
+        type: text
+        select: name
+        relation: pickup_region
+        searchable: false
+        sortable: false
+    pickup_address:
+        label: 'kju.express::lang.delivery_order.pickup_address'
+        type: text
+        searchable: false
+        sortable: false
+    pickup_postal_code:
+        label: 'kju.express::lang.delivery_order.pickup_postal_code'
+        type: text
+        searchable: true
+        sortable: true
+    pickup_courier:
+        label: 'kju.express::lang.courier.singular'
+        type: text
+        invisible: true
+        relation: pickup_courier
+        select: login
+    branch_code:
+        label: 'kju.express::lang.branch.code'
+        type: text
+        invisible: true

@@ -34,7 +34,7 @@ class DeliveryRoute extends Model
     ];
 
     public $hasMany = [
-        'delivery_costs' => ['Kju\Express\Models\DeliveryCost']
+        'costs' => ['Kju\Express\Models\DeliveryCost']
     ];
 
 

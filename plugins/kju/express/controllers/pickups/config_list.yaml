@@ -1,0 +1,16 @@
+list: $/kju/express/models/deliveryorder/pickup_columns.yaml
+modelClass: Kju\Express\Models\DeliveryOrder
+title: 'kju.express::lang.pickup.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+showPageNumbers: false
+recordsPerPage: 20
+defaultSort:
+    - updated_at : desc
+    - created_at : desc
+toolbar:
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'kju/express/pickups/update/:code'
+filter: config_filter.yaml

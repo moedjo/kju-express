@@ -21,7 +21,7 @@ class BuilderTableCreateKjuExpressBranches extends Migration
             $table->unique('name');
 
             $table->integer('region_id')->unsigned()->nullable();
-            $table->foreign('region_id')->references('id')->on('kju_express_regions')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');
         });
     }
     

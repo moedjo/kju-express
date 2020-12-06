@@ -38,6 +38,15 @@ permissions:
     is_supervisor:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.is_supervisor'
+    is_operator:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.is_operator'
+    is_courier:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.is_courier'
+    access_pickups:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_pickups'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -104,3 +113,9 @@ navigation:
         icon: icon-stack-exchange
         permissions:
             - access_delivery_order_statuses
+    pickup-list:
+        label: 'kju.express::lang.pickup.plural'
+        url: kju/express/pickups
+        icon: icon-inbox
+        permissions:
+            - access_pickups

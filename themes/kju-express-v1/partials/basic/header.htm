@@ -1,52 +1,85 @@
 ==
 <!-- ========== HEADER ========== -->
-<header id="header" class="header header-sticky-top"
-        data-hs-header-options='{
-          "fixMoment": 1000,
-          "fixEffect": "slide"
-        }'>
+<header id="header" class="header">
   <div class="header-section">
     <div id="logoAndNav" class="container">
       <!-- Nav -->
       <nav class="js-mega-menu navbar navbar-expand-lg">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{{'index'|page}}" aria-label="Putra KJU Express">
+        <div class="navbar-nav-wrap">
+          <!-- Logo -->
+    
+		 <a class="navbar-brand navbar-nav-wrap-brand" href="{{'index'|page}}" aria-label="Putra KJU Express">
           <img src="{{'assets/svg/logos/logo4.svg'|media}}" alt="Logo">
         </a>
-        <!-- End Logo -->
+          <!-- End Logo -->
 
-        <!-- Responsive Toggle Button -->
-        <button type="button" class="navbar-toggler btn btn-icon btn-sm rounded-circle"
-                aria-label="Toggle navigation"
-                aria-expanded="false"
-                aria-controls="navBar"
-                data-toggle="collapse"
-                data-target="#navBar">
-          <span class="navbar-toggler-default">
-            <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z"/>
-            </svg>
-          </span>
-          <span class="navbar-toggler-toggled">
-            <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
-            </svg>
-          </span>
-        </button>
-        <!-- End Responsive Toggle Button -->
+          <!-- Secondary Content -->
+          <div class="navbar-nav-wrap-content text-center">
+            <!-- Search Classic -->
+            <div class="hs-unfold position-static">
+              <a class="js-hs-unfold-invoker btn btn-primary btn-sm transition-3d-hover" href="javascript:;"
+                 data-hs-unfold-options='{
+                  "target": "#searchClassic",
+                  "type": "css-animation",
+                  "animationIn": "slideInUp"
+                 }'> 
+                 Tracking Now
+                
+              </a>
 
-        <!-- Navigation -->
-        <div id="navBar" class="collapse navbar-collapse">
-          <ul class="js-scroll-nav navbar-nav">
-            <li class="navbar-nav-item">
-              <a class="nav-link" href="{{ 'index'|page }}">Home</a>
-            </li>
-            <li class="nav-item navbar-nav-last-item">
-              <a class="btn btn-primary btn-sm transition-3d-hover" href="#">Tracking Now</a>
-            </li>
-          </ul>
+              <div id="searchClassic" class="hs-unfold-content dropdown-menu right-0 left-auto shadow border-0 rounded-0 px-3 mt-0">
+              
+                <form data-request='deliverycosts::onCheckStatus' 
+                    data-request-validate
+                    data-request-update="status/result: '#status-result'"
+                     data-request-success="$('#delivery-order-statuses').modal('show')"
+                    class="input-group input-group-sm input-group-merge">
+                  <input type="text" class="form-control" name="code" placeholder="Nomor Resi" aria-label="Search Front">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+            <!-- End Search Classic -->
+          </div>
+          <!-- End Secondary Content -->
+
+          <!-- Responsive Toggle Button -->
+          <button type="button" class="navbar-toggler navbar-nav-wrap-toggler btn btn-icon btn-sm rounded-circle"
+                  aria-label="Toggle navigation"
+                  aria-expanded="false"
+                  aria-controls="navBar"
+                  data-toggle="collapse"
+                  data-target="#navBar">
+            <span class="navbar-toggler-default">
+              <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z"/>
+              </svg>
+            </span>
+            <span class="navbar-toggler-toggled">
+              <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+              </svg>
+            </span>
+          </button>
+          <!-- End Responsive Toggle Button -->
+
+          <!-- Navigation -->
+          <div id="navBar" class="collapse navbar-collapse navbar-nav-wrap-collapse">
+            <div class="navbar-body header-abs-top-inner">
+              <ul class="js-scroll-nav navbar-nav header-navbar-nav">
+                <li class="header-nav-item active">
+                  <a class="nav-link header-nav-link" href="{{ 'index'|page }}">Home</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- End Navigation -->
         </div>
-        <!-- End Navigation -->
       </nav>
       <!-- End Nav -->
     </div>

@@ -45,7 +45,7 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
             $delivery_order->addVisible('consignee_region');
             $delivery_order->addVisible('customer');
 
-            $delivery_order->code = '#'.$delivery_order->code;
+            // $delivery_order->code = '#'.$delivery_order->code;
 
             $delivery_order->consignee_region->displayName = $delivery_order->consignee_region->displayName;
         });

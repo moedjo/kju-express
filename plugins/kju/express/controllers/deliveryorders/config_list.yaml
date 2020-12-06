@@ -6,6 +6,9 @@ showSetup: true
 showCheckboxes: false
 showPageNumbers: false
 recordsPerPage: 20
+defaultSort:
+    - updated_at : desc
+    - created_at : desc
 toolbar:
     buttons: list_toolbar
     search:

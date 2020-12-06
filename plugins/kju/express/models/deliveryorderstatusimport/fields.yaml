@@ -1,10 +1,16 @@
-fields:
-    region:
-        label: 'kju.express::lang.global.region'
-        nameFrom: displayName
-        descriptionFrom: description
-        list: ~/plugins/kju/express/models/region/columns.yaml
-        span: left
-        type: recordfinder
-        conditions: (type = "regency")
+# fields:
+#     status:
+#         label: 'kju.express::lang.global.status'
+#         span: full
+#         placeholder: 'kju.express::lang.global.status'
+#         type: balloon-selector
+#     region:
+#         label: 'kju.express::lang.global.region'
+#         nameFrom: displayName
+#         descriptionFrom: description
+#         list: ~/plugins/kju/express/models/region/columns.yaml
+#         span: full
+#         type: recordfinder
+#         conditions: (type = "regency")
+    
 

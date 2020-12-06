@@ -150,4 +150,5 @@
   'Kju\\Express\\Models\\DeliveryOrderExport' => 'plugins\\kju\\express\\models\\DeliveryOrderExport.php',
   'kju\\express\\Controllers\\pickuporders' => 'plugins\\kju\\express\\controllers\\pickuporders.php',
   'Kju\\Express\\Models\\PickupOrderExport' => 'plugins\\kju\\express\\models\\PickupOrderExport.php',
+  'kju\\express\\Controllers\\pickups' => 'plugins\\kju\\express\\controllers\\pickups.php',
 );

@@ -1,0 +1,210 @@
+fields:
+    code:
+        label: 'kju.express::lang.delivery_order.code'
+        span: left
+        placeholder: 'kju.express::lang.delivery_order.code'
+        readOnly: 1
+        context:
+            - update
+            - preview
+        type: text
+    status:
+        label: 'kju.express::lang.global.status'
+        readOnly: 1
+        span: right
+        placeholder: 'kju.express::lang.global.status'
+        context:
+            - update
+            - preview
+        type: text
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        span: left
+        placeholder: 'kju.express::lang.branch.singular'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/branch/columns.yaml
+        modelClass: Kju\Express\Models\Branch
+        nameFrom: displayName
+        keyFrom: code
+    branch_region:
+        label: 'kju.express::lang.delivery_order.branch_region'
+        span: right
+        placeholder: 'kju.express::lang.global.branch_region'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        nameFrom: displayName
+        conditions: '(type = "regency")'
+    pickup_request:
+        label: 'kju.express::lang.delivery_order.pickup_request'
+        span: left
+        placeholder: 'kju.express::lang.delivery_order.pickup_request'
+        type: switch
+tabs:
+    defaultTab: kju.express::lang.delivery_order.shipper_data
+    icons:
+        kju.express::lang.delivery_order.shipper_data: icon-user
+        kju.express::lang.delivery_order.consignee_data: icon-user-circle
+        kju.express::lang.delivery_order.goods_data: icon-inbox
+        kju.express::lang.delivery_order.pickup_data: icon-truck
+        kju.express::lang.status.plural: icon-list-ol
+    fields:
+        customer:
+            span: full
+            path: field_customer
+            type: partial
+            tab: 'kju.express::lang.delivery_order.shipper_data'
+        consignee_region:
+            label: 'kju.express::lang.delivery_order.consignee_region'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_region'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            modelClass: Kju\Express\Models\Region
+            nameFrom: displayName
+            conditions: 'type = "district"'
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_name:
+            label: 'kju.express::lang.delivery_order.consignee_name'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_name'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_phone_number:
+            label: 'kju.express::lang.delivery_order.consignee_phone_number'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.consignee_phone_number'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_address:
+            label: 'kju.express::lang.delivery_order.consignee_address'
+            size: small
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.consignee_address'
+            type: textarea
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        consignee_postal_code:
+            label: 'kju.express::lang.delivery_order.consignee_postal_code'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.consignee_postal_code'
+            type: text
+            tab: 'kju.express::lang.delivery_order.consignee_data'
+        service:
+            label: 'kju.express::lang.service.singular'
+            span: left
+            placeholder: 'kju.express::lang.service.singular'
+            type: relation
+            select: 'concat(code,'', '',name,if(weight_limit=-1,'''',concat('', '',weight_limit,''kg'')))'
+            tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_weight:
+            label: 'kju.express::lang.delivery_order.goods_weight'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.goods_weight'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+            dependsOn:
+                - service
+        goods_description:
+            label: 'kju.express::lang.delivery_order.goods_description'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.goods_description'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+        goods_amount:
+            label: 'kju.express::lang.delivery_order.goods_amount'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.goods_amount'
+            default: '1'
+            type: text
+            tab: 'kju.express::lang.delivery_order.goods_data'
+            dependsOn:
+                - service
+        pickup_region:
+            label: 'kju.express::lang.delivery_order.pickup_region'
+            nameFrom: displayName
+            descriptionFrom: description
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            span: left
+            required: 1
+            type: recordfinder
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            scope: deliveryOrderDistrict
+            dependsOn:
+                - branch_region
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        pickup_courier:
+            label: 'kju.express::lang.delivery_order.pickup_courier'
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.pickup_courier'
+            required: 1
+            type: recordfinder
+            list: ~/plugins/kju/express/models/user/columns.yaml
+            modelClass: Kju\Express\Models\User
+            nameFrom: fullName
+            scope: deliveryOrderCourier
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        pickup_date:
+            label: 'kju.express::lang.delivery_order.pickup_date'
+            mode: date
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.pickup_date'
+            required: 1
+            type: datepicker
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        pickup_address:
+            label: 'kju.express::lang.delivery_order.pickup_address'
+            size: small
+            span: left
+            placeholder: 'kju.express::lang.delivery_order.pickup_address'
+            required: 1
+            type: textarea
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        pickup_postal_code:
+            label: 'kju.express::lang.delivery_order.pickup_postal_code'
+            span: right
+            placeholder: 'kju.express::lang.delivery_order.pickup_postal_code'
+            required: 1
+            type: text
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+secondaryTabs:
+    fields:
+        total_cost:
+            label: 'kju.express::lang.global.total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            dependsOn:
+                - branch_region
+                - pickup_region
+                - consignee_region
+                - service
+                - goods_weight
+        agreement:
+            label: 'kju.express::lang.global.agree_total_cost'
+            span: full
+            context:
+                - create
+            type: checkbox
+            tab: Misc

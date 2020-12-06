@@ -6,3 +6,11 @@ scopes:
         options:
             4: 'kju.express::lang.global.regency'
             6: 'kju.express::lang.global.district'
+    origin_id:
+        label: 'kju.express::lang.global.origin_id'
+        type: text
+        conditions: src_region_id = :value
+    destination_id:
+        label: 'kju.express::lang.global.destination_id'
+        type: text
+        conditions: LEFT(dst_region_id,4) = :value

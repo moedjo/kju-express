@@ -37,7 +37,6 @@ class Plugin extends PluginBase
     protected function extendBackendUser()
     {
         User::extend(function ($model) {
-
             $model->belongsTo['branch'] =  ['Kju\Express\Models\Branch', 'key' => 'branch_code'];
         });
     }

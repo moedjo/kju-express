@@ -1,0 +1,8 @@
+name: 'kju.express::lang.pickup.singular'
+form: $/kju/express/models/deliveryorder/pickup_fields.yaml
+modelClass: Kju\Express\Models\DeliveryOrder
+defaultRedirect: kju/express/pickups
+update:
+    title: 'kju.express::lang.pickup.edit'
+    redirect: kju/express/pickups
+    redirectClose: kju/express/pickups

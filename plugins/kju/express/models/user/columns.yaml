@@ -35,7 +35,11 @@ columns:
         select: name
         sortable: true
         searchable: true
-
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        relation: branch
+        valueFrom: displayName
+        searchable: false
     last_login:
         label: backend::lang.user.last_login
         searchable: true
