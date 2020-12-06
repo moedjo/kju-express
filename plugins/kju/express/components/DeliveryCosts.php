@@ -77,9 +77,9 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         //         ],
         //     ]
         // );
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
+        // if ($validator->fails()) {
+        //     throw new ValidationException($validator);
+        // }
         $delivery_order = DeliveryOrder::with(['statuses'])->find($delivery_order_code);
         $this->page['delivery_order'] = $delivery_order;
     }
