@@ -135,7 +135,7 @@ class DeliveryOrder extends Model
         if ($this->status == 'received') {
             $this->received_at = Carbon::now();
         }
-
+       
         // initialize total cost
         $origin_id = null;
         $destination_id = $this->consignee_region->id;
@@ -182,8 +182,10 @@ class DeliveryOrder extends Model
         // SET INIT STATUS
         if ($this->pickup_request) {
             $this->status = 'pickup';
+            
         } else {
             $this->status = 'process';
+            $this->process_at = Carbon::now();
         }
     }
 

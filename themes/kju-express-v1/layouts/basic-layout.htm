@@ -9,8 +9,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Favicon -->
       <!--
-      <link rel="shortcut icon" href="{{'assets/svg/logos/logo4.svg'|media}}">
-      -->
+         <link rel="shortcut icon" href="{{'assets/svg/logos/logo4.svg'|media}}">
+         -->
       <!-- Font -->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
       <!-- CSS Implementing Plugins -->
@@ -23,12 +23,10 @@
       <link href="{{ [
          'assets/css/theme.css',
          ]|theme }}" rel="stylesheet">
-         
-          {% styles %}
+      {% styles %}
    </head>
    <body>
       {% partial 'basic/header' %} 
-      
       <!-- ========== MAIN ========== -->
       <main id="content" role="main">
          {% page %}
@@ -78,70 +76,70 @@
          ]|theme }}"></script>
       <!-- JS Plugins Init. -->
       <script>
-         $(document).on('ready', function () {
-           // initialization of header
-           var header = new HSHeader($('#header')).init();
-           
-               // initialization of HSMegaMenu component
-    var megaMenu = new HSMegaMenu($('.js-mega-menu')).init();
-
-    // initialization of unfold
-    var unfold = new HSUnfold('.js-hs-unfold-invoker').init();
-  
+        $(document).on('ready', function() {
+            // initialization of header
+            var header = new HSHeader($('#header')).init();
+        
+            // initialization of HSMegaMenu component
+           // var megaMenu = new HSMegaMenu($('.js-mega-menu')).init();
+        
+            // initialization of unfold
+            var unfold = new HSUnfold('.js-hs-unfold-invoker').init();
+        
             $('.js-validate').each(function() {
-               $.HSCore.components.HSValidation.init($(this));
-             });
-         
-
-
-         var source = $.HSCore.components.HSSelect2.init($("select[name='source']"),{
-            ajax: {
-               transport: function(params, success, failure) {
-
-                  var $request = $.request('deliverycosts::onGetSource', {
-                     data: params.data
-                  })
-
-                  $request.done(success)
-                  $request.fail(failure)
-
-                  return $request
-               },
-               dataType: 'json',
-               delay: 250,
-             },
-             minimumInputLength: 3,
-
-         });
-
-         var destination = $.HSCore.components.HSSelect2.init($("select[name='destination']"),{
-            ajax: {
-               transport: function(params, success, failure) {
-
-                  var $request = $.request('deliverycosts::onGetDestination', {
-                     data: params.data
-                  })
-
-                  $request.done(success)
-                  $request.fail(failure)
-
-                  return $request
-               },
-               dataType: 'json',
-               delay: 250,
-             },
-             minimumInputLength: 3,
-
-         });
-      
-         
-           // initialization of go to
-           $('.js-go-to').each(function () {
-             var goTo = new HSGoTo($(this)).init();
-           });
-         });
+                $.HSCore.components.HSValidation.init($(this));
+            });
+        
+        
+        
+            var source = $.HSCore.components.HSSelect2.init($("select[name='source']"), {
+                ajax: {
+                    transport: function(params, success, failure) {
+        
+                        var $request = $.request('deliverycosts::onGetSource', {
+                            data: params.data
+                        })
+        
+                        $request.done(success)
+                        $request.fail(failure)
+        
+                        return $request
+                    },
+                    dataType: 'json',
+                    delay: 250,
+                },
+                minimumInputLength: 3,
+        
+            });
+        
+            var destination = $.HSCore.components.HSSelect2.init($("select[name='destination']"), {
+                ajax: {
+                    transport: function(params, success, failure) {
+        
+                        var $request = $.request('deliverycosts::onGetDestination', {
+                            data: params.data
+                        })
+        
+                        $request.done(success)
+                        $request.fail(failure)
+        
+                        return $request
+                    },
+                    dataType: 'json',
+                    delay: 250,
+                },
+                minimumInputLength: 3,
+        
+            });
+        
+        
+            // initialization of go to
+            $('.js-go-to').each(function() {
+                var goTo = new HSGoTo($(this)).init();
+            });
+        });
       </script>
-       {% framework extras %}
-    {% scripts %}
+      {% framework extras %}
+      {% scripts %}
    </body>
 </html>
