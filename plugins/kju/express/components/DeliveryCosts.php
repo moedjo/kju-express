@@ -121,30 +121,25 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
         // District Level
         $costs = DeliveryCost::whereHas('route', function ($query) {
-            $query->where('src_region_id', input('source'))
-                ->where('dst_region_id', input('destination'));
-        })->get()
+            $query
+                ->where('src_region_id', input('source'))
+                ->where(function ($query) {
+                    $destination = input('destination');
+                    $regency = substr($destination, 0, 4);
+                    $query
+                        ->where('dst_region_id', $destination)
+                        ->orWhere('dst_region_id', $regency);
+                });
+        })
+            ->with(['service' => function ($query) {
+            }])
+            ->orderBy('delivery_route_code', 'desc')
+            ->get()
+            ->unique('service_code')
             ->sortBy(function ($cost, $key) {
                 return $cost->service->sort_order;
             });
-
-        $this->page['costs'] = null;
-        if (isset($costs)) {
-            $this->page['costs'] = $costs;
-        } else {
-            // Regency Level
-            $costs = DeliveryCost::whereHas('route', function ($query) {
-                $regency = substr(input('destination'), 0, 4);
-                $query->where('src_region_id', input('source'))
-                    ->where('dst_region_id', $regency);
-            })->get()->sortBy(function ($cost, $key) {
-                return $cost->service->sort_order;
-            });;
-
-            if (isset($costs)) {
-                $this->page['costs'] = $costs;
-            }
-        }
+        $this->page['costs'] = $costs;
     }
 
 

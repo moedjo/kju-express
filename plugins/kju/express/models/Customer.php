@@ -28,7 +28,7 @@ class Customer extends Model
         ],
         'phone_number' => [
             'required',
-            'regex:/(?:\+62)?0?8\d{2}(\d{8})/',
+            'regex:/(\()?(\+62|62|0)(\d{2,3})?\)?[ .-]?\d{2,4}[ .-]?\d{2,4}[ .-]?\d{2,4}/',
         ],
         'email' => 'email'
     ];

@@ -44,17 +44,14 @@ class DeliveryOrder extends Model
         'consignee_address' => 'required',
         'consignee_phone_number' => [
             'required',
-            'regex:/(?:\+62)?0?8\d{2}(\d{8})/',
+            'regex:/(\()?(\+62|62|0)(\d{2,3})?\)?[ .-]?\d{2,4}[ .-]?\d{2,4}[ .-]?\d{2,4}/',
         ],
         'consignee_postal_code' => 'required|digits:5',
         'service' => 'required',
-
         // Purgeable Field
         'agreement' => 'in:1',
     ];
     public $attributeNames = [];
-
-
 
     public $belongsTo = [
 
@@ -80,12 +77,8 @@ class DeliveryOrder extends Model
     public function beforeValidate()
     {
 
-        // we need to check record is created or not
         if ($this->code == null) {
-            // CREATE CASE
-            // we need to use differ binding scope as this record is not saved yet.
             if ($this->customer()->withDeferred(post('_session_key'))->count() == 0) {
-                // throw new \ValidationException(['customer' => 'We need User !']);
                 $this->rules['customer'] = "required";
                 $this->setValidationAttributeName('customer', 'kju.express::lang.customer.singular');
             }
@@ -119,7 +112,6 @@ class DeliveryOrder extends Model
 
     public function beforeSave()
     {
-
 
         if (isset($this->original['pickup_request'])) {
             $this->pickup_request = $this->original['pickup_request'];
@@ -280,10 +272,7 @@ class DeliveryOrder extends Model
 
             $fields->agreement->hidden = true;
 
-            // trace_log('test 123232'.$this->status);
             if ($this->status == 'pickup') {
-
-                trace_log('test 123232' . $this->status);
 
                 if ($user->hasPermission([
                     'is_supervisor'
@@ -364,6 +353,7 @@ class DeliveryOrder extends Model
         $role = $user->role;
         $this->deleted_user = $user;
         if ($user->isSuperUser()) {
+            
         } else if ($user->hasPermission([
             'is_supervisor'
         ])) {
@@ -407,13 +397,11 @@ class DeliveryOrder extends Model
 
     public function afterCreate()
     {
-
         $order_status = new DeliveryOrderStatus();
         $order_status->region = $this->branch_region;
         $order_status->status = $this->status;
         $order_status->created_user = $this->created_user;
         $order_status->delivery_order_code = $this->code;
-
         $order_status->save();
     }
 }
