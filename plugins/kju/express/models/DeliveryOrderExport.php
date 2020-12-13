@@ -10,7 +10,7 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
 {
 
     protected $fillable = [
-        'process_date'
+        'process_date','type'
     ];
 
     public function exportData($columns, $sessionKey = null)
@@ -18,6 +18,8 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
+        $branch_code = isset($branch) ? $branch->code : -1;
+        $branch_region_id = isset($branch) ? $branch->region->id : -1;
 
         $query = DeliveryOrder::with([
             'branch_region',
@@ -25,12 +27,14 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
             'customer'
         ])->whereDate('process_at', $this->process_date);
 
-        if (!$user->isSuperUser()) {
-            if (isset($branch)) {
-                $query = $query->where('branch_code', $branch->code);
-            } else {
-                $query = $query->where('branch_code', -1);
-            }
+
+        if ($user->isSuperUser()) {
+        } else if ($this->type == 'outgoing') {
+            $query = $query->where('branch_code',  $branch_code);
+        } else if ($this->type == 'incoming') {
+            $query = $query->where(DB::raw('SUBSTR(consignee_region_id,1,4)'),  $branch_region_id);
+        } else {
+            $query = $query->where('code',  -1);
         }
 
 
@@ -44,8 +48,6 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
             $delivery_order->addVisible('branch_region');
             $delivery_order->addVisible('consignee_region');
             $delivery_order->addVisible('customer');
-
-            // $delivery_order->code = '#'.$delivery_order->code;
 
             $delivery_order->consignee_region->displayName = $delivery_order->consignee_region->displayName;
         });

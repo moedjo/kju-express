@@ -9,3 +9,6 @@
     - builder_table_create_kju_express_delivery_orders.php
     - builder_table_create_kju_express_delivery_order_statuses.php
     - add_new_fields_to_users_table.php
+1.0.3:
+    - 'Add discount for orders'
+    - add_fields_to_orders_table.php

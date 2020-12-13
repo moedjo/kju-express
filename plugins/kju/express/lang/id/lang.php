@@ -43,6 +43,7 @@
         'additional_cost' => 'Additional Cost',
         'region' => 'Region',
         'weight' => 'Weight (KG)',
+		'amount' => 'Amount (Units)',							 
         'check_delivery_cost' => 'Check Delivery Cost',
         'master_data' => 'Master Data',
         'province' => 'Province',
@@ -61,7 +62,6 @@
         'updated_at' => 'Updated At',
         'created_by' => 'Created By',
         'updated_by' => 'Updated By',
-
         'pickup' => 'Pick Up',
         'process' => 'Process',
         'transit' => 'Transit',
@@ -71,16 +71,19 @@
         'print' => 'Print',
         'process_date' => 'Process Date',
         'shipper' => 'Shipper',
+		'consignee' => 'Consignee',						   
         'pickup_date' => 'Tanggal Pickup',
-
         'order_code_not_found' => 'Order code not found.',
         'delivery_order_already_finish' => 'Delivery order already finish.',
         'delivery_order_still_pickup' => 'Delivery order still pickup.',
         'region_id_not_found' => 'Region id not found.',
         'status_not_allowed' => 'Status not allowed.',
-
         'origin_id' => 'Origin Id',
         'destination_id' => 'Destination Id',
+        'report' => 'Report',
+        'type' => 'Type',
+        'outgoing' => 'Outgoing',
+        'incoming' => 'Incoming'
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -153,9 +156,12 @@
     'status' => [
         'plural' => 'Statuses',
         'singular' => 'Status',
+		'process' => 'Process',
+        'pickup' => 'Pickup',					   
     ],
     'courier' => [
         'plural' => 'Couriers',
+		'singular' => 'Courier',						
     ],
     'region' => [
         'id' => 'Region Id',

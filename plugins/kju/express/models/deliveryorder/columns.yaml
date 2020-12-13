@@ -29,7 +29,8 @@ columns:
         sortable: false
     total_cost:
         label: 'kju.express::lang.global.total_cost'
-        type: number
+        type: currency
+        align: right
         invisible: true
     consignee_region_name:
         label: 'kju.express::lang.global.destination'

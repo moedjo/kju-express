@@ -47,6 +47,7 @@ tabs:
         kju.express::lang.delivery_order.consignee_data: icon-user-circle
         kju.express::lang.delivery_order.goods_data: icon-inbox
         kju.express::lang.delivery_order.pickup_data: icon-truck
+        kju.express::lang.delivery_order.payment_data: icon-money
         kju.express::lang.status.plural: icon-list-ol
     fields:
         customer:
@@ -185,6 +186,25 @@ tabs:
                 action: show
                 field: pickup_request
                 condition: checked
+        payment_status:
+            label: 'kju.express::lang.global.payment_status'
+            span: left
+            type: balloon-selector
+            default: paid
+            options:
+                paid: 'kju.express::lang.global.paid'
+                unpaid: 'kju.express::lang.global.unpaid'
+            tab: 'kju.express::lang.delivery_order.payment_data'
+            permissions: 
+                - access_payment_data_for_delivery_orders
+        payment_description:
+            label: 'kju.express::lang.global.payment_description'
+            span: left
+            placeholder: 'kju.express::lang.global.payment_description'
+            type: text
+            tab: 'kju.express::lang.delivery_order.payment_data'
+            permissions: 
+                - access_payment_data_for_delivery_orders
         statuses:
             span: full
             path: field_delivery_order_statuses
@@ -208,6 +228,14 @@ secondaryTabs:
                 - consignee_region
                 - service
                 - goods_weight
+        discount:
+            label: 'kju.express::lang.global.discount'
+            span: full
+            placeholder: 'kju.express::lang.global.discount'
+            type: text
+            permissions: 
+                - access_discount_for_delivery_orders
+            tab: Misc
         agreement:
             label: 'kju.express::lang.global.agree_total_cost'
             span: full

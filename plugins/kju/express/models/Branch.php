@@ -49,15 +49,7 @@ class Branch extends Model
 
     public function beforeCreate()
     {
-        // CODE GENERATOR
-        $config = [
-            'table' => $this->table,
-            'field' => $this->primaryKey,
-            'length' => 9,
-            'prefix' => 'K'.$this->region->id ,
-        ];
-        $code = IdGenerator::generate($config);
+        $code = IdGenerator::alpha($this->region->code, 4).IdGenerator::numeric($this->region->code, 4);
         $this->code = $code;
     }
-
 }

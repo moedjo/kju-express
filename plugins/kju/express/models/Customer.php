@@ -37,6 +37,12 @@ class Customer extends Model
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
     ];
 
+    public function beforeValidate(){
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+        $this->rules['phone_number'][]='unique:kju_express_customers,phone_number,NULL,id,branch_code,'.$branch->code;
+    }
+
 
     public function beforeCreate()
     {

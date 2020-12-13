@@ -127,7 +127,7 @@ class DeliveryOrder extends Model
         if ($this->status == 'received') {
             $this->received_at = Carbon::now();
         }
-       
+
         // initialize total cost
         $origin_id = null;
         $destination_id = $this->consignee_region->id;
@@ -144,6 +144,7 @@ class DeliveryOrder extends Model
         }
     }
 
+   
     public function beforeCreate()
     {
 
@@ -153,16 +154,11 @@ class DeliveryOrder extends Model
 
         $this->created_user = $user;
 
-        // CODE GENERATOR
-        $config = [
-            'table' => $this->table,
-            'field' => $this->primaryKey,
-            'length' => 13,
-            'prefix' => 'K' . $this->branch_region->id . '' . strrev(date('my')),
-        ];
-        $code = IdGenerator::generate($config);
+        $code = IdGenerator::alpha($this->branch->code, 4)
+        .$this->branch_region->id
+        .IdGenerator::numeric($this->branch->code, 4);
+        
         $this->code = $code;
-
 
         //SET BRANCH & BRANCH REGION
         if ($user->isSuperUser()) {
@@ -174,7 +170,6 @@ class DeliveryOrder extends Model
         // SET INIT STATUS
         if ($this->pickup_request) {
             $this->status = 'pickup';
-            
         } else {
             $this->status = 'process';
             $this->process_at = Carbon::now();
@@ -215,6 +210,7 @@ class DeliveryOrder extends Model
 
         if ($cost->service->weight_limit == -1) {
             $this->total_cost = $cost->cost;
+            $this->original_total_cost = $this->total_cost;
             $this->goods_amount = 1;
         } else {
             if (empty($this->goods_weight)) {
@@ -222,7 +218,8 @@ class DeliveryOrder extends Model
             }
             $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
-            $this->total_cost  = $add_cost + $cost->cost;
+            $this->total_cost = $add_cost + $cost->cost;
+            $this->original_total_cost = $this->total_cost;
         }
     }
 
@@ -353,7 +350,6 @@ class DeliveryOrder extends Model
         $role = $user->role;
         $this->deleted_user = $user;
         if ($user->isSuperUser()) {
-            
         } else if ($user->hasPermission([
             'is_supervisor'
         ])) {

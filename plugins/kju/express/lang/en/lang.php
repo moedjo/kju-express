@@ -19,6 +19,8 @@
         'is_supervisor' => 'Is supervisor',
         'is_courier' => 'Is courier',
         'is_operator' => 'Is operator',
+        'access_payment_data_for_delivery_orders' => 'Access Payment Data for Delivery Order',
+        'access_discount_for_delivery_orders' => 'Access Discount for Delivery Order'
     ],
     'branch' => [
         'id' => 'Branch Id',
@@ -80,6 +82,15 @@
         'status_not_allowed' => 'Status not allowed.',
         'origin_id' => 'Origin Id',
         'destination_id' => 'Destination Id',
+        'report' => 'Report',
+        'type' => 'Type',
+        'outgoing' => 'Outgoing',
+        'incoming' => 'Incoming',
+        'discount' => 'Discount',
+        'payment_status' => 'Payment Status',
+        'payment_description' => 'Payment Description',
+        'paid' => 'Paid',
+        'unpaid' => 'Unpaid',
     ],
     'delivery' => [
         'plural' => 'Deliveries',
@@ -148,6 +159,7 @@
         'preview' => 'Preview Delivery Order',
         'consignee_name' => 'Name (Consignee)',
         'export' => 'Export Delivery Orders',
+        'payment_data' => 'Payment Data',
     ],
     'status' => [
         'plural' => 'Statuses',

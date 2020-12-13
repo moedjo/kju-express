@@ -3,15 +3,16 @@
 use October\Rain\Database\Updates\Migration;
 use Schema;
 
-class AddNewFieldsToUsersTable extends Migration
+class AddFieldsToOrdersTable extends Migration
 {
     public function up()
     {
         Schema::table('kju_express_delivery_orders', function($table)
         {
-
+            $table->smallInteger('original_total_cost');
             $table->smallInteger('discount');
-            $table->smallInteger('discount');
+            $table->enum('payment_status', ['paid', 'unpaid']);
+            $table->string('payment_description');
             
         });
     }
@@ -20,7 +21,7 @@ class AddNewFieldsToUsersTable extends Migration
     {
         Schema::table('kju_express_delivery_orders', function($table)
         {
-            $table->dropColumn(['discount',]);
+            $table->dropColumn(['discount','paid','description']);
         });
     }
 }

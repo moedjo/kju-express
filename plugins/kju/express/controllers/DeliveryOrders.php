@@ -34,6 +34,9 @@ class DeliveryOrders extends Controller
     }
 
 
+
+
+
     public function export(){
         $this->bodyClass = '';
 
@@ -82,7 +85,7 @@ class DeliveryOrders extends Controller
         }
 
         if ($record->status == 'received') {
-            return 'positive';
+            return 'safe';
         }
 
         if ($record->status == 'transit') {
@@ -90,7 +93,7 @@ class DeliveryOrders extends Controller
         }
 
         if ($record->status == 'pickup') {
-            return 'processing';
+            return 'positive';
         }
 
         if ($record->status == 'failed') {

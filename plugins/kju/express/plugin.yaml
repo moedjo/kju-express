@@ -47,6 +47,12 @@ permissions:
     access_pickups:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_pickups'
+    access_payment_data_for_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_payment_data_for_delivery_orders'
+    access_discount_for_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_discount_for_delivery_orders'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -89,24 +95,27 @@ navigation:
                 icon: icon-area-chart
                 permissions:
                     - access_regions
-    check-delivery-cost:
-        label: 'kju.express::lang.delivery_cost.check'
-        url: kju/express/checkdeliverycost
-        icon: icon-truck
-        permissions:
-            - access_check_delivery_cost
-    users:
-        label: 'kju.express::lang.user.plural'
-        url: kju/express/users
-        icon: icon-user-secret
-        permissions:
-            - access_users
+    report:
+        label: 'kju.express::lang.global.report'
+        url: /
+        icon: icon-print
+        sideMenu:
+            export-delivery-orders:
+                label: 'kju.express::lang.delivery_order.export'
+                url: /
+                icon: icon-inbox
     delivery-orders:
         label: 'kju.express::lang.delivery_order.plural'
         url: kju/express/deliveryorders
         icon: icon-inbox
         permissions:
             - access_delivery_orders
+    check-delivery-cost:
+        label: 'kju.express::lang.delivery_cost.check'
+        url: kju/express/checkdeliverycost
+        icon: icon-truck
+        permissions:
+            - access_check_delivery_cost
     delivery-order-statuses:
         label: 'kju.express::lang.deliver_order_status.plural'
         url: kju/express/deliveryorderstatuses
@@ -119,3 +128,9 @@ navigation:
         icon: icon-inbox
         permissions:
             - access_pickups
+    users:
+        label: 'kju.express::lang.user.plural'
+        url: kju/express/users
+        icon: icon-user-secret
+        permissions:
+            - access_users
