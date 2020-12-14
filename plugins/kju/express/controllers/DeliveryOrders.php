@@ -152,6 +152,9 @@ class DeliveryOrders extends Controller
 
         if ($context == 'update') {
 
+            //Main Data
+            $fields['pickup_request']->disabled = true;
+
             // Consignee Data
             $host->removeField('consignee_region'); // recordfinder can't support disabled
             $fields['_consignee_region']->hidden = false; // recordfinder can't support disabled
@@ -185,7 +188,6 @@ class DeliveryOrders extends Controller
             if ($model->status == 'pickup') {
 
                 // Pickup Data
-                $fields['pickup_request']->disabled = true;
                 $host->removeField('pickup_region'); // recordfinder can't support disabled
                 $fields['_pickup_region']->hidden = false; // recordfinder can't support disabled
                 $fields['pickup_date']->disabled = true;
