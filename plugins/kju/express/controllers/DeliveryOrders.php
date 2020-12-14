@@ -4,6 +4,7 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Illuminate\Support\Facades\Redirect;
 use Kju\Express\Models\DeliveryOrder;
 use Renatio\DynamicPDF\Classes\PDF;
 
@@ -34,10 +35,8 @@ class DeliveryOrders extends Controller
     }
 
 
-
-
-
-    public function export(){
+    public function export()
+    {
         $this->bodyClass = '';
 
         return $this->asExtension('ImportExportController')->export();
@@ -58,21 +57,19 @@ class DeliveryOrders extends Controller
         }
     }
 
-
-    public function formExtendModel($model)
+    public function create()
     {
-        $context = $this->formGetContext();
+
         $user = $this->user;
         $branch = $user->branch;
-        if ($context == 'create') {
-            if ($user->isSuperUser()) {
-            } else if (isset($branch)) {
-                $model->branch = $branch;
-                $model->branch_region = $branch->region;
-            } else {
-            }
+
+        if(empty($branch)){
+            return Redirect::back();
         }
+
+        return $this->asExtension('FormController')->create();
     }
+
 
     public function listInjectRowClass($record, $definition = null)
     {
@@ -106,6 +103,7 @@ class DeliveryOrders extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if ($user->isSuperUser()) {
+            // TODO Nothing
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
@@ -119,10 +117,174 @@ class DeliveryOrders extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if ($user->isSuperUser()) {
+            // TODO Nothing
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
             $query->where('branch_code', '-1');
         }
+    }
+
+    public function formExtendModel($model)
+    {
+        $user = $this->user;
+        $branch = $user->branch;
+        $context = $this->formGetContext();
+        if ($context == 'create') {
+            if (isset($branch)) {
+                $model->branch = $branch;
+                $model->branch_region = $branch->region;
+            }
+        }
+    }
+
+    public function formExtendFields($host, $fields)
+    {
+        $user = $this->user;
+        $branch = $user->branch;
+        $context = $host->getContext();
+        $model = $host->model;
+
+        if ($context == 'create') {
+            // $fields['branch']->hidden = true;
+            // $fields['branch_region']->hidden = true;
+        }
+
+        if ($context == 'update') {
+
+            // Consignee Data
+            $host->removeField('consignee_region'); // recordfinder can't support disabled
+            $fields['_consignee_region']->hidden = false; // recordfinder can't support disabled
+            $fields['consignee_name']->disabled = true;
+            $fields['consignee_phone_number']->disabled = true;
+            $fields['consignee_address']->disabled = true;
+            $fields['consignee_postal_code']->disabled = true;
+
+            // Goods Data
+            $fields['service']->disabled = true;
+            $fields['goods_description']->disabled = true;
+            $fields['goods_weight']->disabled = true;
+            $fields['goods_amount']->disabled = true;
+
+
+
+            //panel Data
+            $fields['agreement']->hidden = true;
+
+            if ($user->hasPermission('access_payment_data_for_delivery_orders')) {
+                if ($model->payment_status == 'paid') {
+                    $fields['payment_status']->disabled = true;
+                    $fields['payment_description']->disabled = true;
+                }
+            }
+
+            if ($user->hasPermission('access_discount_for_delivery_orders')) {
+                $fields['discount']->disabled = true;
+            }
+
+            if ($model->status == 'pickup') {
+
+                // Pickup Data
+                $fields['pickup_request']->disabled = true;
+                $host->removeField('pickup_region'); // recordfinder can't support disabled
+                $fields['_pickup_region']->hidden = false; // recordfinder can't support disabled
+                $fields['pickup_date']->disabled = true;
+                $fields['pickup_address']->disabled = true;
+                $fields['pickup_postal_code']->disabled = true;
+
+                if ($user->hasPermission('is_supervisor')) {
+                    $fields['service']->disabled = false;
+                    $fields['goods_weight']->disabled = false;
+                    $fields['goods_description']->disabled = false;
+                    $fields['goods_amount']->disabled = false;
+
+                    $fields['pickup_courier']->disabled = false;
+                    $fields['pickup_date']->disabled = false;
+
+                    $fields['agreement']->hidden = false;
+                } else {
+                    $host->removeField('pickup_courier'); // recordfinder can't support disabled
+                    $fields['_pickup_courier']->hidden = false; // recordfinder can't support disabled
+
+                }
+            }
+        }
+    }
+
+    public function formBeforeUpdate($model)
+    {
+        $model->bindEvent('model.beforeValidate', function () use ($model) {
+            if ($model->status == 'pickup') {
+                if ($this->user->hasPermission('is_supervisor')) {
+                    // Goods data
+                    $model->rules['service'] = 'required';
+                    if (isset($model->service) && $model->service->weight_limit != -1) {
+                        $model->rules['goods_weight'] = "required";
+                        $model->rules['goods_amount'] = "required";
+                    }
+
+                    //Pickup data
+                    $model->rules['pickup_courier'] = "required";
+                    $model->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
+
+                    //Panel data
+                    $model->rules['agreement'] = 'in:1';
+                }
+            }
+        });
+    }
+
+    public function formBeforeCreate($model)
+    {
+        $model->bindEvent('model.beforeValidate', function () use ($model) {
+
+            // Customer Data
+            $session_key = post('_session_key');
+            $count = $model->customer()->withDeferred($session_key)->count();
+            if ($count == 0) {
+                $model->rules['customer'] = 'required';
+                $model->setValidationAttributeName('customer', 'kju.express::lang.customer.singular');
+            }
+
+            // Consignee Data
+            $model->rules['consignee_region'] = 'required';
+            $model->rules['consignee_name'] = [
+                'required',
+                'regex:/^[\pL\s\-]+$/u',
+            ];
+            $model->rules['consignee_address'] = 'required';
+            $model->rules['consignee_phone_number'] = [
+                'required',
+                'regex:/(\()?(\+62|62|0)(\d{2,3})?\)?[ .-]?\d{2,4}[ .-]?\d{2,4}[ .-]?\d{2,4}/',
+            ];
+            $model->rules['consignee_postal_code'] = 'required|digits:5';
+
+            // Goods Data
+            $model->rules['service'] = 'required';
+            if (isset($model->service) && $model->service->weight_limit != -1) {
+                $model->rules['goods_weight'] = "required";
+                $model->rules['goods_amount'] = "required";
+            }
+
+            // Pickup Data
+            if ($model->pickup_request) {
+                $model->rules['pickup_region'] = "required";
+                $model->rules['pickup_courier'] = "required";
+                $model->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
+
+                $model->rules['pickup_address'] = "required";
+                $model->rules['pickup_postal_code'] = "required|digits:5";
+                if (isset($model->pickup_region)) {
+                    $model->rules['branch_region'] = "required|in:" . substr($model->pickup_region->id, 0, 4);
+                }
+            } else if ($this->user->hasPermission('access_discount_for_delivery_orders')) {
+                $model->rules['discount_agreement'] = 'in:1';
+                $model->rules['discount'] = 'required|numeric|between:0,100';
+            }
+
+            // Panel Data
+            $model->rules['total_cost'] = "required|numeric|min:1";
+            $model->rules['agreement'] = 'in:1';
+        });
     }
 }

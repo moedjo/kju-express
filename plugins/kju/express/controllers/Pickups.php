@@ -5,6 +5,7 @@ namespace Kju\Express\Controllers;
 use Backend\Classes\Controller;
 use BackendMenu;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
 class Pickups extends Controller
@@ -33,22 +34,7 @@ class Pickups extends Controller
 
     public function create()
     {
-    }
-
-
-    public function formExtendModel($model)
-    {
-        $context = $this->formGetContext();
-        $user = $this->user;
-        $branch = $user->branch;
-        if ($context == 'create') {
-            if ($user->isSuperUser()) {
-            } else if (isset($branch)) {
-                $model->branch = $branch;
-                $model->branch_region = $branch->region;
-            } else {
-            }
-        }
+        return Redirect::back();
     }
 
     public function listInjectRowClass($record, $definition = null)
@@ -66,40 +52,55 @@ class Pickups extends Controller
     {
         $user = $this->user;
         $branch = $user->branch;
-        if ($user->isSuperUser()) {
-
-        } else if (isset($branch)) {
+        if (isset($branch) && $user->hasPermission('is_courier')) {
             $query->where('branch_code', $branch->code);
-            if ($user->hasPermission([
-                'is_courier'
-            ])){
-                $query->whereIn('status',['pickup','process']);
-                $query->where('pickup_courier_user_id',$user->id);
-            }
-        
+            $query->whereIn('status', ['pickup', 'process']);
+            $query->where('pickup_courier_user_id', $user->id);
         } else {
-            $query->where('branch_code', '-1');
+            $query->where('branch_code', null);
         }
     }
 
     public function formExtendQuery($query)
     {
-
         $user = $this->user;
         $branch = $user->branch;
-        if ($user->isSuperUser()) {
-
-        } else if (isset($branch)) {
+        if (isset($branch) && $user->hasPermission('is_courier')) {
             $query->where('branch_code', $branch->code);
-            if ($user->hasPermission([
-                'is_courier'
-            ])){
-                $query->whereIn('status',['pickup','process']);
-                $query->where('pickup_courier_user_id',$user->id);
-            }
-        
+            $query->whereIn('status', ['pickup', 'process']);
+            $query->where('pickup_courier_user_id', $user->id);
         } else {
-            $query->where('branch_code', '-1');
+            $query->where('branch_code', null);
         }
+    }
+
+
+    public function formExtendFields($host, $fields)
+    {
+        $user = $this->user;
+        $context = $host->getContext();
+        $model = $host->model;
+
+        if ($context == 'update') {
+
+            if ($model->status == 'process') {
+
+                $fields['service']->disabled = true;
+                $fields['goods_weight']->disabled = true;
+                $fields['goods_description']->disabled = true;
+                $fields['goods_amount']->disabled = true;
+
+                $fields['agreement']->hidden = true;
+            }
+        }
+    }
+
+    public function formBeforeUpdate($model)
+    {
+        $model->bindEvent('model.beforeValidate', function () use ($model) {
+            if ($model->status == 'pickup') {
+                $model->rules['agreement'] = 'in:1';
+            }
+        });
     }
 }

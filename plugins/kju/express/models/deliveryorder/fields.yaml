@@ -17,24 +17,18 @@ fields:
             - update
             - preview
         type: text
-    branch:
+    _branch:
         label: 'kju.express::lang.branch.singular'
         span: left
-        placeholder: 'kju.express::lang.branch.singular'
-        type: recordfinder
-        list: ~/plugins/kju/express/models/branch/columns.yaml
-        modelClass: Kju\Express\Models\Branch
-        nameFrom: displayName
-        keyFrom: code
-    branch_region:
+        type: text
+        disabled: true
+        valueFrom: branch[displayName]
+    _branch_region:
         label: 'kju.express::lang.delivery_order.branch_region'
         span: right
-        placeholder: 'kju.express::lang.global.branch_region'
-        type: recordfinder
-        list: ~/plugins/kju/express/models/region/columns.yaml
-        modelClass: Kju\Express\Models\Region
-        nameFrom: displayName
-        conditions: '(type = "regency")'
+        type: text
+        disabled: true
+        valueFrom: branch_region[displayName]
     pickup_request:
         label: 'kju.express::lang.delivery_order.pickup_request'
         span: left
@@ -59,15 +53,25 @@ tabs:
             label: 'kju.express::lang.delivery_order.consignee_region'
             span: left
             placeholder: 'kju.express::lang.delivery_order.consignee_region'
+            required: 1
             type: recordfinder
             list: ~/plugins/kju/express/models/region/columns.yaml
             modelClass: Kju\Express\Models\Region
             nameFrom: displayName
             conditions: 'type = "district"'
             tab: 'kju.express::lang.delivery_order.consignee_data'
+        _consignee_region:
+            label: 'kju.express::lang.delivery_order.consignee_region'
+            span: left
+            type: text
+            disabled: true
+            hidden: true
+            valueFrom: consignee_region[displayName]
+            tab: 'kju.express::lang.delivery_order.consignee_data'
         consignee_name:
             label: 'kju.express::lang.delivery_order.consignee_name'
             span: left
+            required: 1
             placeholder: 'kju.express::lang.delivery_order.consignee_name'
             type: text
             tab: 'kju.express::lang.delivery_order.consignee_data'
@@ -76,6 +80,7 @@ tabs:
             span: right
             placeholder: 'kju.express::lang.delivery_order.consignee_phone_number'
             type: text
+            required: 1
             tab: 'kju.express::lang.delivery_order.consignee_data'
         consignee_address:
             label: 'kju.express::lang.delivery_order.consignee_address'
@@ -83,18 +88,21 @@ tabs:
             span: left
             placeholder: 'kju.express::lang.delivery_order.consignee_address'
             type: textarea
+            required: 1
             tab: 'kju.express::lang.delivery_order.consignee_data'
         consignee_postal_code:
             label: 'kju.express::lang.delivery_order.consignee_postal_code'
             span: right
             placeholder: 'kju.express::lang.delivery_order.consignee_postal_code'
             type: text
+            required: 1
             tab: 'kju.express::lang.delivery_order.consignee_data'
         service:
             label: 'kju.express::lang.service.singular'
             span: left
             placeholder: 'kju.express::lang.service.singular'
             type: relation
+            required: 1
             select: 'concat(code,'', '',name,if(weight_limit=-1,'''',concat('', '',weight_limit,''kg'')))'
             tab: 'kju.express::lang.delivery_order.goods_data'
         goods_weight:
@@ -102,6 +110,7 @@ tabs:
             span: right
             placeholder: 'kju.express::lang.delivery_order.goods_weight'
             type: text
+            required: 1
             tab: 'kju.express::lang.delivery_order.goods_data'
             dependsOn:
                 - service
@@ -117,21 +126,19 @@ tabs:
             placeholder: 'kju.express::lang.delivery_order.goods_amount'
             default: '1'
             type: text
+            required: 1
             tab: 'kju.express::lang.delivery_order.goods_data'
             dependsOn:
                 - service
         pickup_region:
             label: 'kju.express::lang.delivery_order.pickup_region'
             nameFrom: displayName
-            descriptionFrom: description
             list: ~/plugins/kju/express/models/region/columns.yaml
             span: left
             required: 1
             type: recordfinder
             tab: 'kju.express::lang.delivery_order.pickup_data'
             scope: deliveryOrderDistrict
-            dependsOn:
-                - branch_region
             trigger:
                 action: show
                 field: pickup_request
@@ -146,6 +153,32 @@ tabs:
             modelClass: Kju\Express\Models\User
             nameFrom: fullName
             scope: deliveryOrderCourier
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        _pickup_region:
+            label: 'kju.express::lang.delivery_order.pickup_region'
+            span: left
+            required: 1
+            type: text
+            valueFrom: pickup_region[displayName]
+            disabled: true
+            hidden: true
+            tab: 'kju.express::lang.delivery_order.pickup_data'
+            trigger:
+                action: show
+                field: pickup_request
+                condition: checked
+        _pickup_courier:
+            label: 'kju.express::lang.delivery_order.pickup_courier'
+            span: left
+            required: 1
+            type: text
+            valueFrom: pickup_courier[fullName]
+            disabled: true
+            hidden: true
             tab: 'kju.express::lang.delivery_order.pickup_data'
             trigger:
                 action: show
@@ -197,6 +230,10 @@ tabs:
             tab: 'kju.express::lang.delivery_order.payment_data'
             permissions: 
                 - access_payment_data_for_delivery_orders
+            trigger:
+                action: show
+                field: pickup_request
+                condition: unchecked
         payment_description:
             label: 'kju.express::lang.global.payment_description'
             span: left
@@ -205,6 +242,10 @@ tabs:
             tab: 'kju.express::lang.delivery_order.payment_data'
             permissions: 
                 - access_payment_data_for_delivery_orders
+            trigger:
+                action: show
+                field: pickup_request
+                condition: unchecked
         statuses:
             span: full
             path: field_delivery_order_statuses
@@ -223,24 +264,44 @@ secondaryTabs:
             type: text
             tab: Misc
             dependsOn:
-                - branch_region
-                - pickup_region
+                - pickup_request
                 - consignee_region
                 - service
                 - goods_weight
+                - discount
         discount:
             label: 'kju.express::lang.global.discount'
             span: full
             placeholder: 'kju.express::lang.global.discount'
             type: text
+            default: 0
+            comment: 'kju.express::lang.global.percentage'
             permissions: 
                 - access_discount_for_delivery_orders
+            trigger:
+                action: show
+                field: pickup_request
+                condition: unchecked
+            tab: Misc
+        discount_agreement:
+            label: 'kju.express::lang.global.agreement_for_discount'
+            span: full
+            context:
+                - create
+            permissions: 
+                - access_discount_for_delivery_orders
+            trigger:
+                action: show
+                field: pickup_request
+                condition: unchecked
+            type: checkbox
             tab: Misc
         agreement:
-            label: 'kju.express::lang.global.agree_total_cost'
+            label: 'kju.express::lang.global.agreement_for_total_cost'
             span: full
             context:
                 - create
                 - update
             type: checkbox
             tab: Misc
+     

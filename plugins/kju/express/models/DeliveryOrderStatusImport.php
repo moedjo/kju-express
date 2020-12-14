@@ -29,12 +29,22 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
                 $delivery_order = DeliveryOrder::find($order_code);
 
+
+
                 $statuses = ['transit', 'received', 'failed'];
 
                 if (!in_array($status, $statuses)) {
                     $this->logError(
                         $row,
                         e(trans('kju.express::lang.global.status_not_allowed'))
+                    );
+                    continue;
+                }
+
+                if (empty($order_code)) {
+                    $this->logError(
+                        $row,
+                        e(trans('kju.express::lang.global.order_code_not_found'))
                     );
                     continue;
                 }

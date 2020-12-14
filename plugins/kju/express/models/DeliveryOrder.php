@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Kju\Express\classes\IdGenerator;
 use Model;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Support\Facades\Flash;
 
 /**
  * Model
@@ -25,7 +26,7 @@ class DeliveryOrder extends Model
     protected $primaryKey = 'code';
     public $incrementing = false;
 
-    protected $purgeable = ['agreement'];
+    protected $purgeable = ['agreement','discount_agreement'];
 
 
     protected $dates = ['deleted_at', 'process_at', 'received_at', 'pickup_date'];
@@ -33,24 +34,8 @@ class DeliveryOrder extends Model
     /**
      * @var array Validation rules
      */
-    public $rules = [
-        'branch' => 'required',
-        'branch_region' => 'required',
-        'consignee_region' => 'required',
-        'consignee_name' => [
-            'required',
-            'regex:/^[\pL\s\-]+$/u',
-        ],
-        'consignee_address' => 'required',
-        'consignee_phone_number' => [
-            'required',
-            'regex:/(\()?(\+62|62|0)(\d{2,3})?\)?[ .-]?\d{2,4}[ .-]?\d{2,4}[ .-]?\d{2,4}/',
-        ],
-        'consignee_postal_code' => 'required|digits:5',
-        'service' => 'required',
-        // Purgeable Field
-        'agreement' => 'in:1',
-    ];
+    public $rules = [];
+
     public $attributeNames = [];
 
     public $belongsTo = [
@@ -74,108 +59,6 @@ class DeliveryOrder extends Model
         'statuses' => ['Kju\Express\Models\DeliveryOrderStatus']
     ];
 
-    public function beforeValidate()
-    {
-
-        if ($this->code == null) {
-            if ($this->customer()->withDeferred(post('_session_key'))->count() == 0) {
-                $this->rules['customer'] = "required";
-                $this->setValidationAttributeName('customer', 'kju.express::lang.customer.singular');
-            }
-
-            if ($this->pickup_request) {
-                $this->rules['pickup_region'] = "required";
-                $this->rules['pickup_courier'] = "required";
-                $this->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
-
-                $this->rules['pickup_address'] = "required";
-                $this->rules['pickup_postal_code'] = "required|digits:5";
-                $this->rules['branch_region'] = "required|in:" . substr($this->pickup_region->id, 0, 4);
-            }
-
-            if (isset($this->service) && $this->service->weight_limit != -1) {
-                $this->rules['goods_weight'] = "required";
-                $this->rules['goods_amount'] = "required";
-            }
-            $this->rules['total_cost'] = "required|min:1";
-        }
-
-        $user = BackendAuth::getUser();
-        if ($user->hasPermission([
-            'is_courier'
-        ])) {
-            if ($this->status == 'pickup') {
-                $this->status = 'process';
-            }
-        }
-    }
-
-    public function beforeSave()
-    {
-
-        if (isset($this->original['pickup_request'])) {
-            $this->pickup_request = $this->original['pickup_request'];
-        }
-
-        $user = BackendAuth::getUser();
-        $this->updated_user = $user;
-
-        if ($this->status == 'process') {
-            $this->process_at = Carbon::now();
-        }
-
-        if ($this->status == 'received') {
-            $this->received_at = Carbon::now();
-        }
-
-        // initialize total cost
-        $origin_id = null;
-        $destination_id = $this->consignee_region->id;
-        $service_code = $this->service->code;
-
-        if ($this->pickup_request) {
-            $origin_id = $this->pickup_region->id;
-        } else {
-            $origin_id = $this->branch_region->id;
-        }
-        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
-        if (isset($cost_id)) {
-            $this->calculateTotalCost($cost_id);
-        }
-    }
-
-   
-    public function beforeCreate()
-    {
-
-        //INITIALIZE USER & BRANCH
-        $user = BackendAuth::getUser();
-        $branch = $user->branch;
-
-        $this->created_user = $user;
-
-        $code = IdGenerator::alpha($this->branch->code, 4)
-        .$this->branch_region->id
-        .IdGenerator::numeric($this->branch->code, 4);
-        
-        $this->code = $code;
-
-        //SET BRANCH & BRANCH REGION
-        if ($user->isSuperUser()) {
-        } else if (isset($branch)) {
-            $this->branch = $branch;
-            $this->branch_region = $branch->region;
-        }
-
-        // SET INIT STATUS
-        if ($this->pickup_request) {
-            $this->status = 'pickup';
-        } else {
-            $this->status = 'process';
-            $this->process_at = Carbon::now();
-        }
-    }
-
     private function getCostId($service_code, $origin_id, $destination_id)
     {
 
@@ -193,13 +76,12 @@ class DeliveryOrder extends Model
         return isset($cost) ? $cost->id : null;
     }
 
-    private function calculateTotalCost($cost_id)
+    private function initData($cost_id)
     {
-        $cost = DeliveryCost::find($cost_id);
 
-        if (empty($cost)) {
-            return;
-        }
+        $user = BackendAuth::getUser();
+
+        $cost = DeliveryCost::findOrFail($cost_id);
 
         $this->cost = $cost->cost;
         $this->add_cost = $cost->add_cost;
@@ -208,18 +90,38 @@ class DeliveryOrder extends Model
         $this->min_lead_time = $cost->min_lead_time;
         $this->max_lead_time = $cost->max_lead_time;
 
+        if($this->pickup_request){
+            $this->payment_status = 'paid';
+            $this->payment_description = '';
+
+            $this->discount = 0;
+        }
+
         if ($cost->service->weight_limit == -1) {
             $this->total_cost = $cost->cost;
-            $this->original_total_cost = $this->total_cost;
+            $this->original_total_cost = $this->total_cost + 0;
             $this->goods_amount = 1;
+
+            $total_discount =  $this->total_cost * ($this->discount/100);
+            $this->total_cost = $this->total_cost - $total_discount;
         } else {
-            if (empty($this->goods_weight)) {
-                return;
-            }
+    
             $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost = $add_cost + $cost->cost;
-            $this->original_total_cost = $this->total_cost;
+            $this->original_total_cost = $this->total_cost + 0;
+
+            
+
+            $total_discount =  $this->total_cost * ($this->discount/100);
+            $this->total_cost = $this->total_cost - $total_discount;
+
+        }
+
+        if ($user->hasPermission('is_courier')) {
+            if ($this->status == 'pickup') {
+                $this->status = 'process';
+            }
         }
     }
 
@@ -236,123 +138,102 @@ class DeliveryOrder extends Model
             } else {
                 $fields->goods_weight->hidden = false;
                 $fields->goods_amount->hidden = false;
+                if (empty($this->goods_weight)) {
+                    return;
+                }
             }
         } else {
             $fields->goods_weight->hidden = true;
             $fields->goods_amount->hidden = true;
         }
 
-        if ($context == 'update') {
-            $fields->branch->disabled = true;
-            $fields->branch_region->disabled = true;
-            $fields->customer->disabled = true;
-
-            $fields->consignee_region->disabled = true;
-            $fields->consignee_name->disabled = true;
-            $fields->consignee_phone_number->disabled = true;
-            $fields->consignee_address->disabled = true;
-            $fields->consignee_postal_code->disabled = true;
-
-            $fields->pickup_request->disabled = true;
-            $fields->service->readOnly = true;
-            $fields->goods_weight->disabled = true;
-            $fields->goods_description->disabled = true;
-            $fields->goods_amount->disabled = true;
-
-
-            $fields->pickup_region->disabled = true;
-            $fields->pickup_courier->disabled = true;
-            $fields->pickup_region->disabled = true;
-            $fields->pickup_date->disabled = true;
-            $fields->pickup_address->disabled = true;
-            $fields->pickup_postal_code->disabled = true;
-
-            $fields->agreement->hidden = true;
-
-            if ($this->status == 'pickup') {
-
-                if ($user->hasPermission([
-                    'is_supervisor'
-                ])) {
-                    $fields->service->readOnly = false;
-                    $fields->goods_weight->disabled = false;
-                    $fields->goods_description->disabled = false;
-                    $fields->goods_amount->disabled = false;
-
-                    $fields->pickup_courier->disabled = false;
-                    $fields->pickup_date->disabled = false;
-
-                    $fields->agreement->hidden = false;
-                }
-
-
-                if ($user->hasPermission([
-                    'is_courier'
-                ])) {
-                    $fields->service->readOnly = false;
-                    $fields->goods_weight->disabled = false;
-                    $fields->goods_description->disabled = false;
-                    $fields->goods_amount->disabled = false;
-
-                    $fields->agreement->hidden = false;
-                }
-            }
+        // initialize total cost
+        if (empty($this->branch_region)) {
+            $this->branch_region = $branch->region;
         }
 
-
-        if ($context == 'create' || $context == 'update') {
-
-            if (!$user->isSuperUser()) {
-                $fields->branch->readOnly = true;
-                $fields->branch_region->readOnly = true;
-            }
-
-            if (empty($this->branch_region)) {
-                return false;
-            }
-            if (empty($this->service)) {
-                return false;
-            }
-            if (empty($this->consignee_region)) {
-                return false;
-            }
-
-            if ($this->pickup_request) {
-                if (empty($this->pickup_region)) {
-                    return false;
-                }
-            }
-
-            // initialize total cost
-            $origin_id = null;
-            $destination_id = $this->consignee_region->id;
-            $service_code = $this->service->code;
-
-            if ($this->pickup_request) {
-                $origin_id = $this->pickup_region->id;
-            } else {
-                $origin_id = $this->branch_region->id;
-            }
-
-            $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
-
-            if (isset($cost_id)) {
-                $this->calculateTotalCost($cost_id);
-                $fields->total_cost->value = $this->total_cost;
-            }
+        if (empty($this->service)) {
+            return false;
         }
+        if (empty($this->consignee_region)) {
+            return false;
+        }
+
+        if(!is_numeric($this->discount)){
+            return false;
+        }
+
+        $service_code = $this->service->code;
+        $origin_id = $this->branch_region->id;
+        $destination_id = $this->consignee_region->id;
+        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
+        if (isset($cost_id)) {
+            $this->initData($cost_id);
+            $fields->total_cost->value = $this->total_cost;
+        }else{
+            Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
+        }
+    }
+
+    public function beforeValidate()
+    {
+    }
+
+  
+
+
+    public function beforeCreate()
+    {
+        $user = BackendAuth::getUser();
+        $branch = $user->branch;
+
+        //INITIALIZE CODE
+        $code = IdGenerator::alpha($this->branch->code, 4)
+            . $this->branch_region->id
+            . IdGenerator::numeric($this->branch->code, 4);
+
+        $this->code = $code;
+        
+        $this->created_user = $user;
+        //SET BRANCH & BRANCH REGION
+        if (isset($branch)) {
+            $this->branch = $branch;
+            $this->branch_region = $branch->region;
+        }
+
+        // SET INIT STATUS
+        if ($this->pickup_request) {
+            $this->status = 'pickup';
+        } else {
+            $this->status = 'process';
+            $this->process_at = Carbon::now();
+        }
+    }
+
+    public function beforeSave(){
+        $origin_id = $this->branch_region->id;
+        $destination_id = $this->consignee_region->id;
+        $service_code = $this->service->code;
+
+        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
+        trace_log($cost_id);
+        if (isset($cost_id)) {
+            $this->initData($cost_id);
+        }
+    }
+
+    public function beforeUpdate(){
+        $user = BackendAuth::getUser();
+        $this->updated_user = $user;
     }
 
 
     public function beforeDelete()
     {
         $user = BackendAuth::getUser();
-        $role = $user->role;
-        $this->deleted_user = $user;
         if ($user->isSuperUser()) {
-        } else if ($user->hasPermission([
-            'is_supervisor'
-        ])) {
+            // Nothing
+        } else if ($user->hasPermission('is_supervisor')) {
             if ($this->status == 'pickup' || $this->status == 'process') {
                 if ($this->created_at->diffInMinutes(new Carbon()) >= 120) {
                     throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
@@ -375,10 +256,8 @@ class DeliveryOrder extends Model
     public function afterUpdate()
     {
         $user = BackendAuth::getUser();
-        if ($user->hasPermission([
-            'is_courier'
-        ])) {
-            if ($this->original['status'] == 'pickup') {
+        if ($user->hasPermission('is_courier')) {
+            if ($this->original['status'] == 'pickup' && $this->status == 'process') {
                 $order_status = new DeliveryOrderStatus();
                 $order_status->region = $this->branch_region;
                 $order_status->status = $this->status;

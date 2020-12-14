@@ -9,9 +9,9 @@ class AddFieldsToOrdersTable extends Migration
     {
         Schema::table('kju_express_delivery_orders', function($table)
         {
-            $table->smallInteger('original_total_cost');
+            $table->bigInteger('original_total_cost');
             $table->smallInteger('discount');
-            $table->enum('payment_status', ['paid', 'unpaid']);
+            $table->enum('payment_status', ['paid', 'unpaid'])->default('paid');
             $table->string('payment_description');
             
         });

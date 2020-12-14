@@ -1,5 +1,6 @@
 customer:
     label: 'kju.express::lang.customer.singular'
+    deferredBinding: true
     view:
         form: $/kju/express/models/customer/fields.yaml
         toolbarButtons: create|link
@@ -16,3 +17,4 @@ statuses:
         list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
     view:
         list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
+        toolbarButtons: create|delete

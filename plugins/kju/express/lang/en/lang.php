@@ -42,6 +42,7 @@
         'cost' => 'Cost',
         'total_cost' => 'Total Cost',
         'not_available' => 'Not Available',
+        'service_not_available' => 'Service Not Available',
         'additional_cost' => 'Additional Cost',
         'region' => 'Region',
         'weight' => 'Weight (KG)',
@@ -58,7 +59,8 @@
         'phone_number' => 'Phone Number',
         'status' => 'Status',
         'detail_price' => 'Detail Price',
-        'agree_total_cost' => 'Agreement for total delivery cost',
+        'agreement_for_total_cost' => 'Agreement for total delivery cost',
+        'agreement_for_discount' => 'Agreement for discount',
         'email' => 'Email',
         'created_at' => 'Created At',
         'updated_at' => 'Updated At',
@@ -91,6 +93,7 @@
         'payment_description' => 'Payment Description',
         'paid' => 'Paid',
         'unpaid' => 'Unpaid',
+        'percentage' => 'Percentage (%)'
     ],
     'delivery' => [
         'plural' => 'Deliveries',
