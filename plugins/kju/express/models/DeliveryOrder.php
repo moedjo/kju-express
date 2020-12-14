@@ -26,7 +26,7 @@ class DeliveryOrder extends Model
     protected $primaryKey = 'code';
     public $incrementing = false;
 
-    protected $purgeable = ['agreement','discount_agreement'];
+    protected $purgeable = ['agreement', 'discount_agreement'];
 
 
     protected $dates = ['deleted_at', 'process_at', 'received_at', 'pickup_date'];
@@ -90,7 +90,7 @@ class DeliveryOrder extends Model
         $this->min_lead_time = $cost->min_lead_time;
         $this->max_lead_time = $cost->max_lead_time;
 
-        if($this->pickup_request){
+        if ($this->pickup_request) {
             $this->payment_status = 'paid';
             $this->payment_description = '';
 
@@ -102,20 +102,19 @@ class DeliveryOrder extends Model
             $this->original_total_cost = $this->total_cost + 0;
             $this->goods_amount = 1;
 
-            $total_discount =  $this->total_cost * ($this->discount/100);
+            $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
         } else {
-    
+
             $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost = $add_cost + $cost->cost;
             $this->original_total_cost = $this->total_cost + 0;
 
-            
 
-            $total_discount =  $this->total_cost * ($this->discount/100);
+
+            $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
-
         }
 
         if ($user->hasPermission('is_courier')) {
@@ -159,8 +158,10 @@ class DeliveryOrder extends Model
             return false;
         }
 
-        if(!is_numeric($this->discount)){
-            return false;
+        if (isset($this->discount)) {
+            if (!is_numeric($this->discount)) {
+                return false;
+            }
         }
 
         $service_code = $this->service->code;
@@ -170,7 +171,7 @@ class DeliveryOrder extends Model
         if (isset($cost_id)) {
             $this->initData($cost_id);
             $fields->total_cost->value = $this->total_cost;
-        }else{
+        } else {
             Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
         }
     }
@@ -179,7 +180,7 @@ class DeliveryOrder extends Model
     {
     }
 
-  
+
 
 
     public function beforeCreate()
@@ -193,7 +194,7 @@ class DeliveryOrder extends Model
             . IdGenerator::numeric($this->branch->code, 4);
 
         $this->code = $code;
-        
+
         $this->created_user = $user;
         //SET BRANCH & BRANCH REGION
         if (isset($branch)) {
@@ -210,7 +211,8 @@ class DeliveryOrder extends Model
         }
     }
 
-    public function beforeSave(){
+    public function beforeSave()
+    {
         $origin_id = $this->branch_region->id;
         $destination_id = $this->consignee_region->id;
         $service_code = $this->service->code;
@@ -222,7 +224,8 @@ class DeliveryOrder extends Model
         }
     }
 
-    public function beforeUpdate(){
+    public function beforeUpdate()
+    {
         $user = BackendAuth::getUser();
         $this->updated_user = $user;
     }

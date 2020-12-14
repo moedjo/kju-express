@@ -95,15 +95,15 @@ navigation:
                 icon: icon-area-chart
                 permissions:
                     - access_regions
-    report:
-        label: 'kju.express::lang.global.report'
-        url: /
-        icon: icon-print
-        sideMenu:
-            export-delivery-orders:
-                label: 'kju.express::lang.delivery_order.export'
-                url: /
-                icon: icon-inbox
+    # report:
+    #     label: 'kju.express::lang.global.report'
+    #     url: /
+    #     icon: icon-print
+    #     sideMenu:
+    #         export-delivery-orders:
+    #             label: 'kju.express::lang.delivery_order.export'
+    #             url: /
+    #             icon: icon-inbox
     delivery-orders:
         label: 'kju.express::lang.delivery_order.plural'
         url: kju/express/deliveryorders
