@@ -1,6 +1,6 @@
 columns:
     delivery_order_code:
-        label: 'kju.express::lang.delivery_order.code'
+        label: 'kju.express::lang.global.order_code'
         type: text
         searchable: true
         sortable: true

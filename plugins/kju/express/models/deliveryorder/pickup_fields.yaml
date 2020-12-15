@@ -1,8 +1,8 @@
 fields:
     code:
-        label: 'kju.express::lang.delivery_order.code'
+        label: 'kju.express::lang.global.order_code'
         span: left
-        placeholder: 'kju.express::lang.delivery_order.code'
+        placeholder: 'kju.express::lang.global.order_code'
         disabled: 1
         context:
             - update
@@ -24,68 +24,68 @@ fields:
         disabled: true
         valueFrom: branch[displayName]
     _branch_region:
-        label: 'kju.express::lang.delivery_order.branch_region'
+        label: 'kju.express::lang.global.branch_region'
         span: right
         type: text
         disabled: true
         valueFrom: branch_region[displayName]
     pickup_request:
-        label: 'kju.express::lang.delivery_order.pickup_request'
+        label: 'kju.express::lang.global.pickup_request'
         span: left
-        placeholder: 'kju.express::lang.delivery_order.pickup_request'
+        placeholder: 'kju.express::lang.global.pickup_request'
         type: switch
         disabled: true
 tabs:
-    defaultTab: kju.express::lang.delivery_order.shipper_data
+    defaultTab: kju.express::lang.global.shipper_data
     icons:
-        kju.express::lang.delivery_order.shipper_data: icon-user
-        kju.express::lang.delivery_order.consignee_data: icon-user-circle
-        kju.express::lang.delivery_order.goods_data: icon-inbox
-        kju.express::lang.delivery_order.pickup_data: icon-truck
-        kju.express::lang.delivery_order.payment_data: icon-money
+        kju.express::lang.global.shipper_data: icon-user
+        kju.express::lang.global.consignee_data: icon-user-circle
+        kju.express::lang.global.goods_data: icon-inbox
+        kju.express::lang.global.pickup_data: icon-truck
+        kju.express::lang.global.payment_data: icon-money
         kju.express::lang.status.plural: icon-list-ol
     fields:
         customer:
             span: full
             path: field_customer
             type: partial
-            tab: 'kju.express::lang.delivery_order.shipper_data'
+            tab: 'kju.express::lang.global.shipper_data'
         _consignee_region:
-            label: 'kju.express::lang.delivery_order.consignee_region'
+            label: 'kju.express::lang.global.consignee_region'
             span: left
             type: text
             disabled: true
             valueFrom: consignee_region[displayName]
-            tab: 'kju.express::lang.delivery_order.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data'
         consignee_name:
-            label: 'kju.express::lang.delivery_order.consignee_name'
+            label: 'kju.express::lang.global.consignee_name'
             span: left
-            placeholder: 'kju.express::lang.delivery_order.consignee_name'
+            placeholder: 'kju.express::lang.global.consignee_name'
             type: text
             disabled: true
-            tab: 'kju.express::lang.delivery_order.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data'
         consignee_phone_number:
-            label: 'kju.express::lang.delivery_order.consignee_phone_number'
+            label: 'kju.express::lang.global.consignee_phone_number'
             span: right
-            placeholder: 'kju.express::lang.delivery_order.consignee_phone_number'
+            placeholder: 'kju.express::lang.global.consignee_phone_number'
             type: text
             disabled: true
-            tab: 'kju.express::lang.delivery_order.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data'
         consignee_address:
-            label: 'kju.express::lang.delivery_order.consignee_address'
+            label: 'kju.express::lang.global.consignee_address'
             size: small
             span: left
             disabled: true
-            placeholder: 'kju.express::lang.delivery_order.consignee_address'
+            placeholder: 'kju.express::lang.global.consignee_address'
             type: textarea
-            tab: 'kju.express::lang.delivery_order.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data'
         consignee_postal_code:
-            label: 'kju.express::lang.delivery_order.consignee_postal_code'
+            label: 'kju.express::lang.global.consignee_postal_code'
             span: right
             disabled: true
-            placeholder: 'kju.express::lang.delivery_order.consignee_postal_code'
+            placeholder: 'kju.express::lang.global.consignee_postal_code'
             type: text
-            tab: 'kju.express::lang.delivery_order.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data'
         service:
             label: 'kju.express::lang.service.singular'
             span: left
@@ -93,85 +93,85 @@ tabs:
             type: relation
             required: 1
             select: 'concat(code,'', '',name,if(weight_limit=-1,'''',concat('', '',weight_limit,''kg'')))'
-            tab: 'kju.express::lang.delivery_order.goods_data'
+            tab: 'kju.express::lang.global.goods_data'
         goods_weight:
-            label: 'kju.express::lang.delivery_order.goods_weight'
+            label: 'kju.express::lang.global.goods_weight'
             span: right
-            placeholder: 'kju.express::lang.delivery_order.goods_weight'
+            placeholder: 'kju.express::lang.global.goods_weight'
             type: text
             required: 1
-            tab: 'kju.express::lang.delivery_order.goods_data'
+            tab: 'kju.express::lang.global.goods_data'
             dependsOn:
                 - service
         goods_description:
-            label: 'kju.express::lang.delivery_order.goods_description'
+            label: 'kju.express::lang.global.goods_description'
             span: left
-            placeholder: 'kju.express::lang.delivery_order.goods_description'
+            placeholder: 'kju.express::lang.global.goods_description'
             type: text
-            tab: 'kju.express::lang.delivery_order.goods_data'
+            tab: 'kju.express::lang.global.goods_data'
         goods_amount:
-            label: 'kju.express::lang.delivery_order.goods_amount'
+            label: 'kju.express::lang.global.goods_amount'
             span: right
-            placeholder: 'kju.express::lang.delivery_order.goods_amount'
+            placeholder: 'kju.express::lang.global.goods_amount'
             default: '1'
             type: text
             required: 1
-            tab: 'kju.express::lang.delivery_order.goods_data'
+            tab: 'kju.express::lang.global.goods_data'
             dependsOn:
                 - service
         _pickup_region:
-            label: 'kju.express::lang.delivery_order.pickup_region'
+            label: 'kju.express::lang.global.pickup_region'
             span: left
             type: text
             valueFrom: pickup_region[displayName]
             disabled: true
-            tab: 'kju.express::lang.delivery_order.pickup_data'
+            tab: 'kju.express::lang.global.pickup_data'
             trigger:
                 action: show
                 field: pickup_request
                 condition: checked
         _pickup_courier:
-            label: 'kju.express::lang.delivery_order.pickup_courier'
+            label: 'kju.express::lang.global.pickup_courier'
             span: left
             type: text
             valueFrom: pickup_courier[fullName]
             disabled: true
-            tab: 'kju.express::lang.delivery_order.pickup_data'
+            tab: 'kju.express::lang.global.pickup_data'
             trigger:
                 action: show
                 field: pickup_request
                 condition: checked
         pickup_date:
-            label: 'kju.express::lang.delivery_order.pickup_date'
+            label: 'kju.express::lang.global.pickup_date'
             mode: date
             span: right
-            placeholder: 'kju.express::lang.delivery_order.pickup_date'
+            placeholder: 'kju.express::lang.global.pickup_date'
             disabled: true
             type: datepicker
-            tab: 'kju.express::lang.delivery_order.pickup_data'
+            tab: 'kju.express::lang.global.pickup_data'
             trigger:
                 action: show
                 field: pickup_request
                 condition: checked
         pickup_address:
-            label: 'kju.express::lang.delivery_order.pickup_address'
+            label: 'kju.express::lang.global.pickup_address'
             size: small
             span: left
-            placeholder: 'kju.express::lang.delivery_order.pickup_address'
+            placeholder: 'kju.express::lang.global.pickup_address'
             disabled: true
             type: textarea
-            tab: 'kju.express::lang.delivery_order.pickup_data'
+            tab: 'kju.express::lang.global.pickup_data'
             trigger:
                 action: show
                 field: pickup_request
                 condition: checked
         pickup_postal_code:
-            label: 'kju.express::lang.delivery_order.pickup_postal_code'
+            label: 'kju.express::lang.global.pickup_postal_code'
             span: right
-            placeholder: 'kju.express::lang.delivery_order.pickup_postal_code'
+            placeholder: 'kju.express::lang.global.pickup_postal_code'
             disabled: true
             type: text
-            tab: 'kju.express::lang.delivery_order.pickup_data'
+            tab: 'kju.express::lang.global.pickup_data'
             trigger:
                 action: show
                 field: pickup_request

@@ -13,7 +13,7 @@ use October\Rain\Support\Facades\Flash;
 /**
  * Model
  */
-class DeliveryOrder extends Model
+class OfficeDeliveryOrder extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
@@ -101,6 +101,7 @@ class DeliveryOrder extends Model
             $this->total_cost = $cost->cost;
             $this->original_total_cost = $this->total_cost + 0;
             $this->goods_amount = 1;
+
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
         } else {
@@ -280,10 +281,5 @@ class DeliveryOrder extends Model
         $order_status->created_user = $this->created_user;
         $order_status->delivery_order_code = $this->code;
         $order_status->save();
-    }
-
-    public function getDisplayStatusAttribute()
-    {
-        return e(trans('kju.express::lang.global.' . $this->status));
     }
 }

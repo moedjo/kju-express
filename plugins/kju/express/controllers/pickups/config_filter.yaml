@@ -4,8 +4,8 @@ scopes:
         type: group
         conditions: status in (:filtered)
         options:
-            pickup: 'kju.express::lang.status.pickup'
-            process: 'kju.express::lang.status.process'
+            pickup: 'kju.express::lang.global.pickup'
+            process: 'kju.express::lang.global.process'
     pickup_date:
         label: 'kju.express::lang.global.pickup_date'
         type: date

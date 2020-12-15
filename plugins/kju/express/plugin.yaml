@@ -26,9 +26,6 @@ permissions:
     access_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_delivery_orders'
-    access_status_types:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_status_types'
     access_regions:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_regions'
@@ -56,15 +53,22 @@ permissions:
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
-        url: kju/express/deliverycosts
+        url: kju/express/users
         icon: icon-book
         permissions:
             - access_delivery_costs
+            - access_users
             - access_delivery_routes
             - access_branches
             - access_services
             - access_regions
         sideMenu:
+            users:
+                label: 'kju.express::lang.user.plural'
+                url: kju/express/users
+                icon: icon-user
+                permissions:
+                    - access_users
             delivery-costs:
                 label: 'kju.express::lang.delivery_cost.plural'
                 url: kju/express/deliverycosts
@@ -95,15 +99,6 @@ navigation:
                 icon: icon-area-chart
                 permissions:
                     - access_regions
-    # report:
-    #     label: 'kju.express::lang.global.report'
-    #     url: /
-    #     icon: icon-print
-    #     sideMenu:
-    #         export-delivery-orders:
-    #             label: 'kju.express::lang.delivery_order.export'
-    #             url: /
-    #             icon: icon-inbox
     delivery-orders:
         label: 'kju.express::lang.delivery_order.plural'
         url: kju/express/deliveryorders
@@ -128,9 +123,3 @@ navigation:
         icon: icon-inbox
         permissions:
             - access_pickups
-    users:
-        label: 'kju.express::lang.user.plural'
-        url: kju/express/users
-        icon: icon-user-secret
-        permissions:
-            - access_users

@@ -1,11 +1,11 @@
 columns:
     code:
-        label: 'kju.express::lang.delivery_order.code'
+        label: 'kju.express::lang.global.order_code'
         type: text
         searchable: true
         sortable: true
     pickup_date: 
-        label: 'kju.express::lang.delivery_order.pickup_date'
+        label: 'kju.express::lang.global.pickup_date'
         type: date
         sortable: false
         searchable: false
@@ -30,24 +30,24 @@ columns:
         select: phone_number
         relation: customer
     pickup_region:
-        label: 'kju.express::lang.delivery_order.pickup_region'
+        label: 'kju.express::lang.global.pickup_region'
         type: text
         select: name
         relation: pickup_region
         searchable: false
         sortable: false
     pickup_address:
-        label: 'kju.express::lang.delivery_order.pickup_address'
+        label: 'kju.express::lang.global.pickup_address'
         type: text
         searchable: false
         sortable: false
     pickup_postal_code:
-        label: 'kju.express::lang.delivery_order.pickup_postal_code'
+        label: 'kju.express::lang.global.pickup_postal_code'
         type: text
         searchable: true
         sortable: true
     pickup_courier:
-        label: 'kju.express::lang.courier.singular'
+        label: 'kju.express::lang.global.courier'
         type: text
         invisible: true
         relation: pickup_courier

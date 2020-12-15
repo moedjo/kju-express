@@ -1,6 +1,6 @@
 columns:
     code:
-        label: 'kju.express::lang.delivery_route.code'
+        label: 'kju.express::lang.global.route_code'
         type: text
         searchable: true
         sortable: true

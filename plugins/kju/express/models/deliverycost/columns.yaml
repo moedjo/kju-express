@@ -38,7 +38,7 @@ columns:
         align: right
         sortable: true
     lead_time:
-        label: 'kju.express::lang.delivery_cost.lead_time'
+        label: 'kju.express::lang.global.lead_time'
         type: text
         searchable: false
         sortable: true

@@ -28,7 +28,7 @@ class Users extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'users');
+        BackendMenu::setContext('Kju.Express', 'master-data','users');
     }
 
 

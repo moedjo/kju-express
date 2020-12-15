@@ -20,12 +20,12 @@ fields:
         dependsOn:
             - service
     min_lead_time:
-        label: 'kju.express::lang.delivery_cost.min_lead_time'
+        label: 'kju.express::lang.global.min_lead_time'
         span: left
-        placeholder: 'kju.express::lang.delivery_cost.min_lead_time'
+        placeholder: 'kju.express::lang.global.min_lead_time'
         type: text
     max_lead_time:
-        label: 'kju.express::lang.delivery_cost.max_lead_time'
+        label: 'kju.express::lang.global.max_lead_time'
         span: right
-        placeholder: 'kju.express::lang.delivery_cost.max_lead_time'
+        placeholder: 'kju.express::lang.global.max_lead_time'
         type: text
