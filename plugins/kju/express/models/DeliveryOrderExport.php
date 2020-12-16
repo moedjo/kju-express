@@ -18,8 +18,8 @@ class DeliveryOrderExport extends \Backend\Models\ExportModel
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        $branch_code = isset($branch) ? $branch->code : -1;
-        $branch_region_id = isset($branch) ? $branch->region->id : -1;
+        $branch_code = isset($branch) ? $branch->code : null;
+        $branch_region_id = isset($branch) ? $branch->region->id : null;
 
         $query = DeliveryOrder::with([
             'branch_region',
