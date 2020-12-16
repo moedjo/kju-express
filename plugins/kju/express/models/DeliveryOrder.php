@@ -291,4 +291,9 @@ class DeliveryOrder extends Model
     {
         return e(trans('kju.express::lang.global.' . $this->status));
     }
+
+    public function getDisplayPaymentStatusAttribute()
+    {
+        return e(trans('kju.express::lang.global.' . $this->payment_status));
+    }
 }

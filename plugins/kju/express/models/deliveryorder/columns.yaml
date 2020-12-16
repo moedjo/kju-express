@@ -65,3 +65,7 @@ columns:
     branch_code:
         label: 'kju.express::lang.branch.code'
         type: text
+    payment_status:
+        label: 'kju.express::lang.global.payment_status'
+        type: text
+        valueFrom: displayPaymentStatus
