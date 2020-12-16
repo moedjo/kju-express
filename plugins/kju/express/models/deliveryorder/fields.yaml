@@ -17,18 +17,27 @@ fields:
             - update
             - preview
         type: text
-    _branch:
-        label: 'kju.express::lang.branch.singular'
+    _branch_region:
+        label: 'kju.express::lang.global.origin'
         span: left
         type: text
         disabled: true
-        valueFrom: branch[displayName]
-    _branch_region:
-        label: 'kju.express::lang.global.branch_region'
+        valueFrom: branch_region[displayName]
+    _branch:
+        label: 'kju.express::lang.branch.singular'
         span: right
         type: text
         disabled: true
-        valueFrom: branch_region[displayName]
+        valueFrom: branch[displayName]
+    branch_region:
+        label: 'kju.express::lang.global.origin'
+        span: left
+        placeholder: 'kju.express::lang.global.origin'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        nameFrom: displayName
+        conditions: '(type = "regency")'
     pickup_request:
         label: 'kju.express::lang.global.pickup_request'
         span: left
@@ -50,18 +59,18 @@ tabs:
             type: partial
             tab: 'kju.express::lang.global.shipper_data'
         consignee_region:
-            label: 'kju.express::lang.global.consignee_region'
+            label: 'kju.express::lang.global.destination'
             span: left
-            placeholder: 'kju.express::lang.global.consignee_region'
+            placeholder: 'kju.express::lang.global.destination'
             required: 1
             type: recordfinder
             list: ~/plugins/kju/express/models/region/columns.yaml
             modelClass: Kju\Express\Models\Region
             nameFrom: displayName
             conditions: 'type = "district"'
-            tab: 'kju.express::lang.global.consignee_data'
+            tab: 'kju.express::lang.global.consignee_data' 
         _consignee_region:
-            label: 'kju.express::lang.global.consignee_region'
+            label: 'kju.express::lang.global.destination'
             span: left
             type: text
             disabled: true
@@ -269,6 +278,7 @@ secondaryTabs:
                 - service
                 - goods_weight
                 - discount
+                - branch_region
         discount:
             label: 'kju.express::lang.global.discount'
             span: full

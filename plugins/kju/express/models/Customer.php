@@ -37,10 +37,16 @@ class Customer extends Model
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
     ];
 
-    public function beforeValidate(){
+    public function beforeValidate()
+    {
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        $this->rules['phone_number'][]='unique:kju_express_customers,phone_number,NULL,id,branch_code,'.$branch->code;
+        if (isset($branch)) {
+            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_code,' . $branch->code;
+        } else {
+            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_code,NULL';
+    
+        }
     }
 
 
@@ -62,7 +68,7 @@ class Customer extends Model
         } else if (isset($branch)) {
             return $query->where('branch_code', $branch->code);
         } else {
-            return $query->where('branch_code', '-1');;
+            return $query->where('branch_code', null);;
         }
     }
 }

@@ -145,9 +145,13 @@ class DeliveryOrder extends Model
             $fields->goods_amount->hidden = true;
         }
 
-        // initialize total cost
-        if (empty($this->branch_region)) {
+
+        if (isset($branch)) {
             $this->branch_region = $branch->region;
+        } else if (isset($this->branch_region)) {
+            // Nothing
+        } else {
+            return false;
         }
 
         if (empty($this->service)) {
@@ -172,6 +176,7 @@ class DeliveryOrder extends Model
             $fields->total_cost->value = $this->total_cost;
         } else {
             Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
+            $fields->total_cost->value = 0;
         }
     }
 
@@ -188,9 +193,9 @@ class DeliveryOrder extends Model
         $branch = $user->branch;
 
         //INITIALIZE CODE
-        $code = IdGenerator::alpha($this->branch->code, 4)
+        $code = IdGenerator::alpha(isset($this->branch)?$this->branch->code:'', 4)
             . $this->branch_region->id
-            . IdGenerator::numeric($this->branch->code, 4);
+            . IdGenerator::numeric(isset($this->branch)?$this->branch->code:'', 4);
 
         $this->code = $code;
 

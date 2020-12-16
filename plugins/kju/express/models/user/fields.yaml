@@ -1,71 +1,68 @@
-# ===================================
-#  Field Definitions
-# ===================================
-
 fields:
     login:
         span: left
-        label: backend::lang.user.login
-
+        label: 'backend::lang.user.login'
+        type: text
     email:
         span: right
         type: email
-        label: backend::lang.user.email
-
+        label: 'backend::lang.user.email'
     send_invite:
         context: create
         type: checkbox
-        label: backend::lang.user.send_invite
-        comment: backend::lang.user.send_invite_comment
+        label: 'backend::lang.user.send_invite'
+        comment: 'backend::lang.user.send_invite_comment'
         default: true
-
     first_name:
         span: left
-        label: backend::lang.user.first_name
-
+        label: 'backend::lang.user.first_name'
+        type: text
     last_name:
         span: right
-        label: backend::lang.user.last_name
-        
+        label: 'backend::lang.user.last_name'
+        type: text
     password:
         type: password
         span: left
-        label: backend::lang.user.password
-
+        label: 'backend::lang.user.password'
     password_confirmation:
         type: password
         span: right
-        label: backend::lang.user.password_confirmation
-
+        label: 'backend::lang.user.password_confirmation'
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        nameFrom: displayName
+        descriptionFrom: description
+        list: ~/plugins/kju/express/models/branch/columns.yaml
+        span: full
+        keyFrom: code
+        type: recordfinder
     role:
-        context: [create, update]
-        label: backend::lang.user.role_field
-        commentAbove: backend::lang.user.role_comment
+        label: 'backend::lang.user.role_field'
+        span: full
+        context:
+            - create
+            - update
         type: radio
-        options: 
-
+        commentAbove: 'backend::lang.user.role_comment'
 secondaryTabs:
     fields:
         btn_impersonate:
             label: ''
-            context: [update]
-            type: partial 
+            context:
+                - update
+            type: partial
+            tab: Lain-lain
         btn_unsuspend:
             label: ''
-            context: [update]
+            context:
+                - update
             type: partial
-        branch:
-            label: 'kju.express::lang.branch.singular'
-            span: full
-            placeholder: 'kju.express::lang.branch.singular'
-            type: recordfinder
-            list: ~/plugins/kju/express/models/branch/columns.yaml
-            modelClass: Kju\Express\Models\Branch
-            nameFrom: displayName
-            keyFrom: code
+            tab: Lain-lain
         avatar:
-            label: backend::lang.user.avatar
+            label: 'backend::lang.user.avatar'
             type: fileupload
             mode: image
             imageHeight: 250
             imageWidth: 250
+            tab: Lain-lain

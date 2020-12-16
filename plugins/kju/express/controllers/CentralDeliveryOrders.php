@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Kju\Express\Models\DeliveryOrder;
 use Renatio\DynamicPDF\Classes\PDF;
 
-class DeliveryOrders extends Controller
+class CentralDeliveryOrders extends Controller
 {
     public $implement = [
         'Backend\Behaviors\ListController',

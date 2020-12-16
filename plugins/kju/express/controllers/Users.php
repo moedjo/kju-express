@@ -28,7 +28,7 @@ class Users extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'master-data','users');
+        BackendMenu::setContext('Kju.Express', 'master-data', 'users');
     }
 
 
@@ -39,6 +39,7 @@ class Users extends Controller
         $branch = $user->branch;
         if ($context == 'create') {
             if ($user->isSuperUser()) {
+                
             } else if (isset($branch)) {
                 $model->branch = $branch;
             }
@@ -130,7 +131,7 @@ class Users extends Controller
         return Redirect::refresh();
     }
 
-     /**
+    /**
      * Impersonate this user
      */
     public function update_onImpersonateUser($recordId)
@@ -146,5 +147,24 @@ class Users extends Controller
         Flash::success(Lang::get('backend::lang.account.impersonate_success'));
 
         return Backend::redirect('backend/users/myaccount');
+    }
+
+    public function formExtendFields($host, $fields)
+    {
+        $user = $this->user;
+        $context = $host->getContext();
+        $model = $host->model;
+
+        if (!$user->isSuperUser()) {
+            $fields['branch']->disabled = true;
+        }
+
+        if ($context == 'create') {
+
+        }
+
+        if ($context == 'update') {
+   
+        }
     }
 }

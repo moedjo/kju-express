@@ -57,20 +57,6 @@ class DeliveryOrders extends Controller
         }
     }
 
-    public function create()
-    {
-
-        $user = $this->user;
-        $branch = $user->branch;
-
-        if (empty($branch)) {
-            return Redirect::back();
-        }
-
-        return $this->asExtension('FormController')->create();
-    }
-
-
     public function listInjectRowClass($record, $definition = null)
     {
         if ($record->trashed()) {
@@ -107,7 +93,7 @@ class DeliveryOrders extends Controller
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
-            $query->where('branch_code', '-1');
+            $query->where('branch_code', null);
         }
     }
 
@@ -121,7 +107,7 @@ class DeliveryOrders extends Controller
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
-            $query->where('branch_code', '-1');
+            $query->where('branch_code', null);
         }
     }
 
@@ -146,14 +132,26 @@ class DeliveryOrders extends Controller
         $model = $host->model;
 
         if ($context == 'create') {
-            // $fields['branch']->hidden = true;
-            // $fields['branch_region']->hidden = true;
+
+            if (isset($branch)) {
+                $host->removeField('branch_region');
+            } else {
+
+                $fields['_branch']->hidden = true;
+                $fields['_branch_region']->hidden = true;
+
+                $fields['pickup_request']->disabled = true;
+                $fields['pickup_request']->hidden = true;
+            }
         }
 
         if ($context == 'update') {
 
             //Main Data
             $fields['pickup_request']->disabled = true;
+            if(empty($branch)){
+                $fields['pickup_request']->hidden = true;
+            }
 
             // Consignee Data
             $host->removeField('consignee_region'); // recordfinder can't support disabled
@@ -169,7 +167,7 @@ class DeliveryOrders extends Controller
             $fields['goods_weight']->disabled = true;
             $fields['goods_amount']->disabled = true;
 
-
+            $host->removeField('branch_region');
 
             //panel Data
             $fields['agreement']->hidden = true;

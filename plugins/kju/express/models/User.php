@@ -30,7 +30,6 @@ class User extends \Backend\Models\User
     public function beforeValidate()
     {
         $this->rules['role'] = 'required';
-        $this->rules['branch'] = 'required';
     }
 
     public function scopeDeliveryOrderCourier($query, $model)
@@ -47,7 +46,7 @@ class User extends \Backend\Models\User
                 $query->where('code', 'courier');
             });
         } else {
-            return $query->where('branch_code', '-1')->whereHas('role', function ($query) {
+            return $query->where('branch_code', null)->whereHas('role', function ($query) {
                 $query->where('code', 'courier');
             });
         }
@@ -59,7 +58,11 @@ class User extends \Backend\Models\User
         $result = [];
         $roles = null;
         if ($user->isSuperUser()) {
-            $roles = UserRole::all();
+            $roles = UserRole::whereIn('code', [
+                'supervisor',
+                'operator',
+                'courier',
+            ])->get();
         } else if ($user->hasPermission([
             'is_supervisor'
         ])) {
@@ -77,14 +80,6 @@ class User extends \Backend\Models\User
         if ($user->isSuperUser()) {
         } else if ($user->hasPermission(['is_supervisor'])) {
             $this->branch = $user->branch;
-        }
-    }
-
-    public function filterFields($fields, $context = null)
-    {
-        $user = BackendAuth::getUser();
-        if (!$user->isSuperUser()) {
-            $fields->branch->disabled = true;
         }
     }
 }
