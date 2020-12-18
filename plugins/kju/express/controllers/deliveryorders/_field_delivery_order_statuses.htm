@@ -1,1 +1,5 @@
-<?= $this->relationRender('statuses', ['readOnly' => true]) ?>
+<?php if($this->user->isSuperUser()): ?>
+    <?= $this->relationRender('statuses', ['readOnly' => false]) ?>
+<?php else: ?>
+    <?= $this->relationRender('statuses', ['readOnly' => true]) ?>
+<?php endif; ?>

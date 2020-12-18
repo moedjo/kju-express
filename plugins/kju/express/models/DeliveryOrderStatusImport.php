@@ -102,9 +102,6 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
                 $new_order_status->save();
 
-                $order = $new_order_status->order;
-                $order->status = $new_order_status->status;
-                $order->save();
 
                 $this->logCreated();
             } catch (\Exception $ex) {
