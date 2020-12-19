@@ -3,10 +3,9 @@
 namespace Kju\Express\Models;
 
 use Backend\Facades\BackendAuth;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class DeliveryOrderExport extends \Backend\Models\ExportModel
+class ManifestDeliveryOrderExport extends \Backend\Models\ExportModel
 {
 
     protected $fillable = [

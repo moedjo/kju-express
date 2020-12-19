@@ -68,4 +68,11 @@ columns:
     payment_status:
         label: 'kju.express::lang.global.payment_status'
         type: text
+        sortable: false
         valueFrom: displayPaymentStatus
+    process_at: 
+        label: 'kju.express::lang.global.process_date'
+        type: datetime
+        invisible: true
+        sortable: true
+        format: 'Y-m-d H:i:s'

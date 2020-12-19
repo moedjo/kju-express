@@ -1,6 +1,5 @@
 export:
-    title: 'kju.express::lang.delivery_order.export'
-    modelClass: Kju\Express\Models\DeliveryOrderExport
-    list: $/kju/express/models/deliveryorderexport/columns.yaml
-    form: $/kju/express/models/deliveryorderexport/fields.yaml
+    useList:
+        definition: delivery_orders
+        raw: true
     fileName: delivery_orders.csv

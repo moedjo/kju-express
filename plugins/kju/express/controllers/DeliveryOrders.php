@@ -38,10 +38,8 @@ class DeliveryOrders extends Controller
     public function export()
     {
         $this->bodyClass = '';
-
         return $this->asExtension('ImportExportController')->export();
     }
-
 
     public function print($code)
     {

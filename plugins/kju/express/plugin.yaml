@@ -50,6 +50,9 @@ permissions:
     access_discount_for_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_discount_for_delivery_orders'
+    access_filter_branch_on_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_filter_branch_on_delivery_orders'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'

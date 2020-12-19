@@ -1,0 +1,6 @@
+export:
+    title: 'kju.express::lang.delivery_order.export_manifest'
+    modelClass: Kju\Express\Models\ManifestDeliveryOrderExport
+    list: $/kju/express/models/manifestdeliveryorderexport/columns.yaml
+    form: $/kju/express/models/manifestdeliveryorderexport/fields.yaml
+    fileName: manifest_delivery_orders.csv

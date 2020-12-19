@@ -18,8 +18,9 @@
         'is_supervisor' => 'Supervisor',
         'is_courier' => 'Courier',
         'is_operator' => 'Operator',
-        'access_payment_data_for_delivery_orders' => 'Access Payment Data for Delivery Order',
-        'access_discount_for_delivery_orders' => 'Access Discount for Delivery Order',
+        'access_payment_data_for_delivery_orders' => 'Access Payment Data for Delivery Orders',
+        'access_discount_for_delivery_orders' => 'Access Discount for Delivery Orders',
+        'access_filter_branch_on_delivery_orders' => 'Access Filter Branch on Delivery Orders'
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -155,6 +156,7 @@
         'edit' => 'Edit Delivery Order',
         'preview' => 'Preview Delivery Order',
         'export' => 'Export Delivery Orders',
+        'export_manifest' => 'Export Manifest Delivery Orders',
     ],
     'status' => [
         'plural' => 'Statuses',
