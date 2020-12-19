@@ -26,11 +26,15 @@ scopes:
         label: 'kju.express::lang.global.created_at'
         type: daterange
         conditions: created_at >= ':after' AND created_at <= ':before'
-    process_at:
-        label: 'kju.express::lang.global.process_date'
-        type: daterange
-        conditions: process_at >= ':after' AND process_at <= ':before'
     updated_at:
         label: 'kju.express::lang.global.updated_at'
         type: daterange
         conditions: updated_at >= ':after' AND updated_at <= ':before'
+    process_at:
+        label: 'kju.express::lang.global.process_date'
+        type: daterange
+        conditions: process_at >= ':after' AND process_at <= ':before'
+    received_at:
+        label: 'kju.express::lang.global.received_date'
+        type: daterange
+        conditions: received_at >= ':after' AND received_at <= ':before'

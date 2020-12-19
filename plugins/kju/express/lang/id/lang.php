@@ -107,6 +107,7 @@
         'goods_amount' => 'Jumlah Barang',
         'goods_weight' => 'Berat Barang',
         'courier' => 'Kurir',
+        'received_date' => 'Received Date'
     ],
     'branch' => [
         'singular' => 'Branch',

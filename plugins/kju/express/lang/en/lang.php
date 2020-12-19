@@ -107,6 +107,7 @@
         'goods_amount' => 'Goods Amount',
         'goods_weight' => 'Goods Weight',
         'courier' => 'Courier',
+        'received_date' => 'Received Date'
     ],
     'branch' => [
         'singular' => 'Branch',
