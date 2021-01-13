@@ -64,6 +64,7 @@
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
         'print' => 'Print',
+        'print_without_price' => 'Print Without Price',
         'process_date' => 'Process Date',
         'shipper' => 'Shipper',
         'consignee' => 'Consignee',

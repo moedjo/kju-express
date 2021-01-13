@@ -12,6 +12,10 @@ class BuilderTableCreateKjuExpressDeliveryCosts extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
 
+            // base cost
+            // profit percentage
+
+            
 
        });
     }

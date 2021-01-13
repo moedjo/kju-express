@@ -63,6 +63,7 @@
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
         'print' => 'Cetak',
+        'print_without_price' => 'Cetak Tanpa Harga',
         'process_date' => 'Tanggal Proses',
         'shipper' => 'Pengirim',
         'consignee' => 'Penerima',

@@ -48,11 +48,20 @@ class DeliveryOrders extends Controller
 
         $result = ['delivery_order' => $delivery_order];
 
-        if ($delivery_order->weight_limit == -1) {
-            return PDF::loadTemplate('delivery_order_no_weight', $result)->stream();
-        } else {
-            return PDF::loadTemplate('delivery_order', $result)->stream();
-        }
+    
+        return PDF::loadTemplate('delivery_order', $result)->stream();
+    
+    }
+
+    public function printWithoutPrice($code)
+    {
+
+        $delivery_order = DeliveryOrder::findOrFail($code);
+
+        $result = ['delivery_order' => $delivery_order];
+
+        return PDF::loadTemplate('delivery_order_without_price', $result)->stream();
+    
     }
 
     public function listInjectRowClass($record, $definition = null)

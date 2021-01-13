@@ -36,9 +36,14 @@
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
+
                 <a class="btn btn-success oc-icon-print"
                     href="<?= Backend::url('kju/express/deliveryorders/print/'.$formModel->code) ?>" target="_blank">
                     <?= e(trans('kju.express::lang.global.print')) ?>
+                </a>
+                <a class="btn btn-success oc-icon-print"
+                    href="<?= Backend::url('kju/express/deliveryorders/printwithoutprice/'.$formModel->code) ?>" target="_blank">
+                    <?= e(trans('kju.express::lang.global.print_without_price')) ?>
                 </a>
                 <button
                     type="button"
