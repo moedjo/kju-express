@@ -22,7 +22,7 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: name
-        scope: type
+        scope: parent
         dependsOn: type
         trigger:
             action: show

@@ -12,3 +12,6 @@
 1.0.2:
     - 'Add discount for orders 1.0.4'
     - add_fields_to_orders_table.php
+# database note
+# add country enum for regions
+

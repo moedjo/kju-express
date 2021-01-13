@@ -3,6 +3,7 @@
 namespace Kju\Express\Models;
 
 use Backend\Facades\BackendAuth;
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Model;
@@ -36,11 +37,32 @@ class Region extends Model
     public function getTypeOptions()
     {
         return [
+            'country' => 'kju.express::lang.global.country',
             'province' => 'kju.express::lang.global.province',
             'regency' => 'kju.express::lang.global.regency',
             'district' => 'kju.express::lang.global.district',
         ];
     }
+
+    public function scopeParent($query)
+    {
+        $type = post('Region[type]');
+
+        if (isset($type)) {
+            Session::put('Region[type]', $type);
+        } else {
+            $type = Session::get('Region[type]');
+        }
+
+        if ($type == 'regency') {
+            return $query->where('type', 'province');
+        }
+
+        if ($type == 'district') {
+            return $query->where('type', 'regency');
+        }
+    }
+
 
     public function getDisplayTypeAttribute()
     {

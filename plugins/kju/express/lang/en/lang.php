@@ -39,6 +39,7 @@
         'amount' => 'Amount (Units)',
         'check_delivery_cost' => 'Check Delivery Cost',
         'master_data' => 'Master Data',
+        'country' => 'Country',
         'province' => 'Province',
         'regency' => 'Regency',
         'district' => 'District',
