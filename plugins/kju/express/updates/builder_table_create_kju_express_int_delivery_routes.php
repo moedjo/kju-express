@@ -15,13 +15,13 @@ class BuilderTableCreateKjuExpressIntDeliveryRoutes extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->primary('code');
 
-            $table->integer('origin_region_id')->unsigned()->nullable();
-            $table->foreign('origin_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
+            $table->integer('src_region_id')->unsigned()->nullable();
+            $table->foreign('src_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
 
-            $table->integer('destination_region_id')->unsigned()->nullable();
-            $table->foreign('destination_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
+            $table->integer('dst_region_id')->unsigned()->nullable();
+            $table->foreign('dst_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
 
-            $table->unique(['origin_region_id','destination_region_id'],'ori_dst_unique');
+            $table->unique(['src_region_id','dst_region_id'],'int_src_dst_unique');
         });
     }
     
