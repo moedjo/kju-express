@@ -7,17 +7,17 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
 {
     public function up()
     {
-        Schema::create('kju_express_delivery_order_statuses', function($table)
+        Schema::create('kju_express_int_delivery_order_statuses', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
 
             $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
            
-            
-            $table->string('delivery_order_code',20)->nullable();;
-            $table->foreign('delivery_order_code')->references('code')->on('kju_express_delivery_orders')->onDelete('restrict');
+            $table->string('int_delivery_order_code',20)->nullable();;
+            $table->foreign('int_delivery_order_code','statuses_order_code_foreign')->references('code')->on('kju_express_int_delivery_orders')->onDelete('restrict');
 
+            
             $table->integer('region_id')->unsigned()->nullable();
             $table->foreign('region_id')->references('id')->on('kju_express_regions');
 
@@ -36,6 +36,6 @@ class BuilderTableCreateKjuExpressDeliveryOrderStatuses extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('kju_express_delivery_order_statuses');
+        Schema::dropIfExists('kju_express_int_delivery_order_statuses');
     }
 }

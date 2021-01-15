@@ -16,7 +16,7 @@ class BuilderTableCreateKjuExpressIntDeliveryCosts extends Migration
             $table->integer('profit_percentage')->unsigned()->default(0);   
             
             $table->string('int_delivery_route_code',12)->nullable();;
-            $table->foreign('int_delivery_route_code')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');
+            $table->foreign('int_delivery_route_code','costs_route_code_foreign')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');
 
             $table->unique(['int_delivery_route_code','weight'],'int_route_weight_unique');
        });

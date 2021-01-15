@@ -12,6 +12,14 @@
 1.0.2:
     - 'Add discount for orders 1.0.4'
     - add_fields_to_orders_table.php
-# database note
+1.0.17:
+    - 'Add International Module'
+    - builder_table_create_kju_express_goods_types.php
+    - builder_table_create_kju_express_int_delivery_routes.php
+    - builder_table_create_kju_express_int_delivery_costs.php
+    - builder_table_create_kju_express_int_add_delivery_costs.php
+    - builder_table_create_kju_express_int_delivery_orders.php
+    - builder_table_create_kju_express_int_delivery_order_statuses.php
+# database note 
 # add country enum for regions
 
