@@ -160,4 +160,5 @@
   'Kju\\Express\\Models\\IntDeliveryCost' => 'plugins\\kju\\express\\models\\IntDeliveryCost.php',
   'Kju\\Express\\Models\\IntAddDeliveryCost' => 'plugins\\kju\\express\\models\\IntAddDeliveryCost.php',
   'Kju\\Express\\Models\\GoodsType' => 'plugins\\kju\\express\\models\\GoodsType.php',
+  'kju\\express\\Controllers\\intcheckdeliverycost' => 'plugins\\kju\\express\\controllers\\intcheckdeliverycost.php',
 );

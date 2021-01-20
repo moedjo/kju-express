@@ -157,7 +157,7 @@ navigation:
                     - access_int_delivery_orders
             int-check-delivery-cost:
                 label: 'kju.express::lang.int_delivery_cost.check'
-                url: /
+                url: kju/express/intcheckdeliverycost
                 icon: icon-money
             int-delivery-order-statuses:
                 label: 'kju.express::lang.int_deliver_order_status.plural'

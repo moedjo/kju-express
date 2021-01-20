@@ -1,0 +1,17 @@
+<div class="callout fade in callout-info no-subheader">
+    <button type="button" class="close" data-dismiss="callout" aria-hidden="true">&times;</button>
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3><?= $src_region->displayName.' - '.$dst_region->displayName ?></h3>
+    </div>
+    <div class="content">
+        <p>
+            <?= $goods_type->name ?>
+        </p>
+        <?php if(isset($total_cost)): ?>
+         <p><strong><?= e(trans('kju.express::lang.global.total_cost')) ?> : <?= number_format($total_cost);?></strong></p>
+        <?php else: ?>
+        <p class=""><?= e(trans('kju.express::lang.global.not_available')) ?></p>
+        <?php endif ?>
+    </div>
+</div>

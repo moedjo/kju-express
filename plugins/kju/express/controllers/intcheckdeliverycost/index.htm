@@ -1,4 +1,4 @@
-<h2><?= e(trans('kju.express::lang.delivery_cost.check')) ?></h2>
+<h2><?= e(trans('kju.express::lang.int_delivery_cost.check')) ?></h2>
 <form class="layout" role="form">
     <div class="layout-row">
         <div class="form-group span-left">
@@ -18,19 +18,22 @@
             </select>
         </div>
         <div class="form-group span-left">
-            <label><?= e(trans('kju.express::lang.service.singular')) ?></label>
-            <select name="service_code" class="form-control custom-select select2-hidden-accessible"
+            <label><?= e(trans('kju.express::lang.goods_type.singular')) ?></label>
+            <select name="goods_type_code" class="form-control custom-select select2-hidden-accessible"
                 data-placeholder="<?= e(trans('kju.express::lang.service.singular')) ?>"
-                data-disposable="data-disposable" data-request="onLoadWeight" data-request-update="weight: '#weight'">
+                data-disposable="data-disposable">
                 <option value=""><?= e(trans('kju.express::lang.service.singular')) ?></option>
 
-                <?php foreach ($services as $key => $val) : ?>
+                <?php foreach ($goods_types as $key => $val) : ?>
                 <option value="<?= $key ?>"><?= $val ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <div id="weight" class="form-group span-left">
+        <div class="form-group span-left">
+            <label><?= e(trans('kju.express::lang.global.weight')) ?></label>
+            <input type="number" name="weight" class="form-control" />
         </div>
+        
         <div id="deliverycost" class="form-group span-left">
 
         </div>
