@@ -1,0 +1,12 @@
+columns:
+    min_range_weight:
+        label: 'kju.express::lang.int_delivery_cost.range_weight'
+        type: text
+        select: concat(min_range_weight, '-', max_range_weight)
+    base_cost_per_kg:
+        label: 'kju.express::lang.int_delivery_cost.base_cost_per_kg'
+        type: currency
+        align: right
+    profit_percentage:
+        label: 'kju.express::lang.int_delivery_cost.profit_percentage'
+        type: number

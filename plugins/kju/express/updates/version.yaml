@@ -12,7 +12,7 @@
 1.0.2:
     - 'Add discount for orders 1.0.4'
     - add_fields_to_orders_table.php
-1.0.17:
+1.0.21:
     - 'Add International Module'
     - builder_table_create_kju_express_goods_types.php
     - builder_table_create_kju_express_int_delivery_routes.php

@@ -23,6 +23,6 @@ class DeliveryOrderStatuses extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'delivery-order-statuses');
+        BackendMenu::setContext('Kju.Express', 'domestic', 'delivery-order-statuses');
     }
 }

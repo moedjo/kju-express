@@ -1,0 +1,4 @@
+columns:
+    code:
+        label: Test
+        type: text

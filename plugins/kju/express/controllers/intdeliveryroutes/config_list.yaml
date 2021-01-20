@@ -1,0 +1,14 @@
+list: $/kju/express/models/intdeliveryroute/columns.yaml
+modelClass: Kju\Express\Models\IntDeliveryRoute
+title: 'kju.express::lang.int_delivery_route.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+showPageNumbers: false
+toolbar:
+    buttons: list_toolbar
+    search: 
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'kju/express/intdeliveryroutes/update/:code'
+filter: config_filter.yaml

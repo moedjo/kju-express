@@ -1,0 +1,21 @@
+fields:
+    min_range_weight:
+        label: 'kju.express::lang.int_delivery_cost.min_range_weight'
+        span: left
+        placeholder: 'kju.express::lang.int_delivery_cost.min_range_weight'
+        type: text
+    max_range_weight:
+        label: 'kju.express::lang.int_delivery_cost.max_range_weight'
+        span: right
+        placeholder: 'kju.express::lang.int_delivery_cost.max_range_weight'
+        type: text
+    base_cost_per_kg:
+        label: 'kju.express::lang.int_delivery_cost.base_cost_per_kg'
+        span: left
+        placeholder: 'kju.express::lang.int_delivery_cost.base_cost_per_kg'
+        type: text
+    profit_percentage:
+        label: 'kju.express::lang.int_delivery_cost.profit_percentage'
+        span: right
+        placeholder: 'kju.express::lang.int_delivery_cost.profit_percentage'
+        type: text

@@ -1,0 +1,13 @@
+columns:
+    goods_type:
+        label: 'kju.express::lang.goods_type.singular'
+        type: text
+        searchable: true
+        sortable: true
+        relation: goods_type
+        select: name
+    add_cost_per_kg:
+        label: 'kju.express::lang.goods_type.add_cost_per_kg'
+        type: currency
+        align: right
+        sortable: true

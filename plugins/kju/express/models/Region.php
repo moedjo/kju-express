@@ -20,14 +20,17 @@ class Region extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_regions';
+    protected $primaryKey = 'id';
     public $incrementing = false;
 
     /**
      * @var array Validation rules
      */
     public $rules = [
-
-        'parent' => 'required_if:type,district,type,regency'
+        'parent' => 'required_if:type,district,type,regency',
+        'type' => 'required',
+        'name' => 'required',
+        'id' => 'required'
     ];
 
     public $belongsTo = [

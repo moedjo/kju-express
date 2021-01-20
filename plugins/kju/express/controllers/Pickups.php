@@ -58,6 +58,7 @@ class Pickups extends Controller
             $query->where('pickup_courier_user_id', $user->id);
         } else {
             $query->where('branch_code', null);
+            $query->where('pickup_courier_user_id', null);
         }
     }
 
@@ -71,6 +72,7 @@ class Pickups extends Controller
             $query->where('pickup_courier_user_id', $user->id);
         } else {
             $query->where('branch_code', null);
+            $query->where('pickup_courier_user_id', null);
         }
     }
 

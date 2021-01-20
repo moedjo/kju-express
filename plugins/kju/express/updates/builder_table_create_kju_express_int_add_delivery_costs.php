@@ -20,6 +20,11 @@ class BuilderTableCreateKjuExpressIntAddDeliveryCosts extends Migration
             $table->string('int_delivery_route_code',12)->nullable();;
             $table->foreign('int_delivery_route_code','add_costs_route_code_foreign')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');
 
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+
+            $table->unique(['int_delivery_route_code','goods_type_code'],'int_add_route_goods_type_unique');
+  
        });
     }
     

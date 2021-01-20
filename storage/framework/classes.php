@@ -153,4 +153,11 @@
   'kju\\express\\Controllers\\pickups' => 'plugins\\kju\\express\\controllers\\pickups.php',
   'kju\\express\\Controllers\\manifestdeliveryorders' => 'plugins\\kju\\express\\controllers\\manifestdeliveryorders.php',
   'Kju\\Express\\Models\\ManifestDeliveryOrderExport' => 'plugins\\kju\\express\\models\\ManifestDeliveryOrderExport.php',
+  'kju\\express\\Controllers\\intdeliveryorders' => 'plugins\\kju\\express\\controllers\\intdeliveryorders.php',
+  'Kju\\Express\\Models\\IntDeliveryOrder' => 'plugins\\kju\\express\\models\\IntDeliveryOrder.php',
+  'kju\\express\\Controllers\\intdeliveryroutes' => 'plugins\\kju\\express\\controllers\\intdeliveryroutes.php',
+  'Kju\\Express\\Models\\IntDeliveryRoute' => 'plugins\\kju\\express\\models\\IntDeliveryRoute.php',
+  'Kju\\Express\\Models\\IntDeliveryCost' => 'plugins\\kju\\express\\models\\IntDeliveryCost.php',
+  'Kju\\Express\\Models\\IntAddDeliveryCost' => 'plugins\\kju\\express\\models\\IntAddDeliveryCost.php',
+  'Kju\\Express\\Models\\GoodsType' => 'plugins\\kju\\express\\models\\GoodsType.php',
 );

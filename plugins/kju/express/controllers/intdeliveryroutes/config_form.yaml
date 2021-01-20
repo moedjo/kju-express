@@ -1,0 +1,14 @@
+name: 'kju.express::lang.int_delivery_route.singular'
+form: $/kju/express/models/intdeliveryroute/fields.yaml
+modelClass: Kju\Express\Models\IntDeliveryRoute
+defaultRedirect: kju/express/intdeliveryroutes
+create:
+    title: 'kju.express::lang.int_delivery_route.new'
+    redirect: 'kju/express/intdeliveryroutes/update/:code'
+    redirectClose: kju/express/intdeliveryroutes
+update:
+    title: 'kju.express::lang.int_delivery_route.edit'
+    redirect: kju/express/intdeliveryroutes
+    redirectClose: kju/express/intdeliveryroutes
+preview:
+    title: 'kju.express::lang.int_delivery_route.preview'

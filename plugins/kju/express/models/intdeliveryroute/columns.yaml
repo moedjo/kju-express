@@ -1,0 +1,28 @@
+columns:
+    code:
+        label: 'kju.express::lang.global.route_code'
+        type: text
+        searchable: true
+        sortable: true
+    src_region:
+        label: 'kju.express::lang.global.origin'
+        type: text
+        sortable: false
+        searchable: true
+        relation: src_region
+        valueFrom: name
+    dst_region:
+        label: 'kju.express::lang.global.destination'
+        type: text
+        sortable: false
+        relation: dst_region
+        valueFrom: displayName
+    dst_region_name:
+        label: 'kju.express::lang.global.destination'
+        type: text
+        sortable: false
+        searchable: true
+        invisible: true
+        relation: dst_region
+        valueFrom: name
+ 

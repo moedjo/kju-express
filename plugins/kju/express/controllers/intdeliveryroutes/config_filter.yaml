@@ -1,0 +1,9 @@
+scopes:
+    origin_id:
+        label: 'kju.express::lang.global.origin_id'
+        type: text
+        conditions: src_region_id = :value
+    destination_id:
+        label: 'kju.express::lang.global.destination_id'
+        type: text
+        conditions: dst_region_id = :value

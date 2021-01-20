@@ -20,7 +20,9 @@
         'is_operator' => 'Operator',
         'access_payment_data_for_delivery_orders' => 'Access Payment Data for Delivery Orders',
         'access_discount_for_delivery_orders' => 'Access Discount for Delivery Orders',
-        'access_filter_branch_on_delivery_orders' => 'Access Filter Branch on Delivery Orders'
+        'access_filter_branch_on_delivery_orders' => 'Access Filter Branch on Delivery Orders',
+        'access_int_delivery_orders' => 'Manage int. delivery orders',
+        'access_int_delivery_routes' => 'Manage int. delivery routes',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -109,7 +111,9 @@
         'goods_amount' => 'Goods Amount',
         'goods_weight' => 'Goods Weight',
         'courier' => 'Courier',
-        'received_date' => 'Received Date'
+        'received_date' => 'Received Date',
+        'domestic' => 'Domestic',
+        'international' => 'International',
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -194,4 +198,30 @@
         'singular' => 'Pickup',
         'edit' => 'Edit Pickup',
     ],
+    'int_delivery_order' => [
+        'plural' => 'Int. Delivery Orders',
+        'singular' => 'Int. Delivery Order',
+    ],
+    'int_delivery_cost' => [
+        'check' => 'Int. Check Delivery Cost',
+        'range_weight' => 'Range Weight',
+        'min_range_weight' => 'Min Range Weight',
+        'max_range_weight' => 'Max Range Weight',
+        'base_cost_per_kg' => 'Base Cost per KG',
+        'profit_percentage' => 'Profit Percentage',
+        'add' => 'Additional Costs',
+    ],
+    'int_deliver_order_status' => [
+        'plural' => 'Int. Delivery Order Statuses',
+    ],
+    'int_delivery_route' => [
+        'plural' => 'Int. Delivery Routes',
+        'new' => 'New Int. Delivery Route',
+        'edit' => 'Edit Int. Delivery Route',
+        'preview' => 'Preview Int. Delivery Route',
+    ],
+    'goods_type' => [
+        'singular' => 'Goods Type',
+        'add_cost_per_kg' => 'Additional Cost Per KG'
+    ]
 ];

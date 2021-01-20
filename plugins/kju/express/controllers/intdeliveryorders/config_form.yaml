@@ -1,0 +1,10 @@
+name: IntDeliveryOrders
+form: $/kju/express/models/intdeliveryorder/fields.yaml
+modelClass: Kju\Express\Models\IntDeliveryOrder
+defaultRedirect: kju/express/intdeliveryorders
+create:
+    redirect: 'kju/express/intdeliveryorders/update/:id'
+    redirectClose: kju/express/intdeliveryorders
+update:
+    redirect: kju/express/intdeliveryorders
+    redirectClose: kju/express/intdeliveryorders
