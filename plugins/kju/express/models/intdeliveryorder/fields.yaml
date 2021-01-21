@@ -17,4 +17,4 @@ tabs:
             span: full
             path: field_customer
             type: partial
-            tab: 'kju.express::lang.global.shipper_data'
+            tab: 'kju.express::lang.global.shipper_data' 

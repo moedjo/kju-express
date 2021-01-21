@@ -20,8 +20,8 @@ scopes:
         type: group
         conditions: payment_status in (:filtered)
         options:
-            pickup: 'kju.express::lang.global.paid'
-            process: 'kju.express::lang.global.unpaid'
+            paid: 'kju.express::lang.global.paid'
+            unpaid: 'kju.express::lang.global.unpaid'
     created_at:
         label: 'kju.express::lang.global.created_at'
         type: daterange
