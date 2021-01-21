@@ -1,4 +1,4 @@
 columns:
     code:
-        label: Test
+        label: 'kju.express::lang.global.order_code'
         type: text

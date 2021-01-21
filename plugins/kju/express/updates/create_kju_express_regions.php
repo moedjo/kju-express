@@ -5,7 +5,7 @@ namespace Kju\Express\Updates;
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateKjuExpressRegions extends Migration
+class CreateKjuExpressRegions extends Migration
 {
     public function up()
     {

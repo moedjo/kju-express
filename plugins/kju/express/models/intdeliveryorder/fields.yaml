@@ -1,5 +1,20 @@
 fields:
-    text1:
-        label: Text
-        span: auto
-        type: text
+    branch_region:
+        label: 'kju.express::lang.global.origin'
+        span: left
+        placeholder: 'kju.express::lang.global.origin'
+        type: recordfinder
+        list: ~/plugins/kju/express/models/region/columns.yaml
+        modelClass: Kju\Express\Models\Region
+        nameFrom: displayName
+        conditions: '(type = "province")'
+tabs:
+    defaultTab: kju.express::lang.global.shipper_data
+    icons:
+        kju.express::lang.global.shipper_data: icon-user
+    fields:
+        customer:
+            span: full
+            path: field_customer
+            type: partial
+            tab: 'kju.express::lang.global.shipper_data'

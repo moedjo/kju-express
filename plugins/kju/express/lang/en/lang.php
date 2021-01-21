@@ -201,6 +201,9 @@
     'int_delivery_order' => [
         'plural' => 'Int. Delivery Orders',
         'singular' => 'Int. Delivery Order',
+        'new' => 'New Int. Delivery Order',
+        'edit' => 'Edit Int. Delivery Order',
+        'preview' => 'Preview Int. Delivery Order',
     ],
     'int_delivery_cost' => [
         'check' => 'Int. Check Delivery Cost',
@@ -216,6 +219,7 @@
     ],
     'int_delivery_route' => [
         'plural' => 'Int. Delivery Routes',
+        'singular' => 'Int. Delivery Route',
         'new' => 'New Int. Delivery Route',
         'edit' => 'Edit Int. Delivery Route',
         'preview' => 'Preview Int. Delivery Route',

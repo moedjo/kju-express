@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateKjuExpressIntAddDeliveryCosts extends Migration
+class CreateKjuExpressIntAddDeliveryCosts extends Migration
 {
     public function up()
     {

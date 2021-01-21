@@ -1,10 +1,14 @@
-name: IntDeliveryOrders
+name: 'kju.express::lang.delivery_order.singular'
 form: $/kju/express/models/intdeliveryorder/fields.yaml
 modelClass: Kju\Express\Models\IntDeliveryOrder
 defaultRedirect: kju/express/intdeliveryorders
 create:
+    title: 'kju.express::lang.int_delivery_order.new'
     redirect: 'kju/express/intdeliveryorders/update/:id'
     redirectClose: kju/express/intdeliveryorders
-update:
+update: 
+    title: 'kju.express::lang.int_delivery_order.edit'
     redirect: kju/express/intdeliveryorders
     redirectClose: kju/express/intdeliveryorders
+preview:
+    title: 'kju.express::lang.int_delivery_order.preview'

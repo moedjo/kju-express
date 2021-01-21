@@ -1,17 +1,27 @@
-<?php namespace Kju\Express\Controllers;
+<?php
+
+namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
 
 class IntDeliveryOrders extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
-    
+    public $implement = [
+        'Backend\Behaviors\ListController',
+        'Backend\Behaviors\FormController',
+        'Backend\Behaviors\RelationController',
+        // 'Backend\Behaviors\ImportExportController',
+    ];
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
+    public $relationConfig = 'config_relation.yaml';
+
+    public $bodyClass = 'compact-container';
 
     public $requiredPermissions = [
-        'access_int_delivery_orders' 
+        'access_int_delivery_orders'
     ];
 
     public function __construct()

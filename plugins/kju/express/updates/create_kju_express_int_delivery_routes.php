@@ -3,11 +3,11 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
+class CreateKjuExpressIntDeliveryRoutes extends Migration
 {
     public function up()
     {
-        Schema::create('kju_express_delivery_routes', function($table)
+        Schema::create('kju_express_int_delivery_routes', function($table)
         {
             $table->engine = 'InnoDB';
             $table->string('code', 12);
@@ -21,13 +21,12 @@ class BuilderTableCreateKjuExpressDeliveryRoutes extends Migration
             $table->integer('dst_region_id')->unsigned()->nullable();
             $table->foreign('dst_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');;
 
-
-            $table->unique(['src_region_id','dst_region_id'],'src_dst_unique');
+            $table->unique(['src_region_id','dst_region_id'],'int_src_dst_unique');
         });
     }
     
     public function down()
     {
-        Schema::dropIfExists('kju_express_delivery_routes');
+        Schema::dropIfExists('kju_express_int_delivery_routes');
     }
 }

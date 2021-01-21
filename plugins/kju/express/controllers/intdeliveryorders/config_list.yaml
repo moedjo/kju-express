@@ -1,12 +1,16 @@
 list: $/kju/express/models/intdeliveryorder/columns.yaml
 modelClass: Kju\Express\Models\IntDeliveryOrder
-title: IntDeliveryOrders
+title: kju.express::lang.int_delivery_order.plural
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
-showCheckboxes: true
+showCheckboxes: false
+showPageNumbers: false
 recordsPerPage: 20
+defaultSort:
+    - updated_at : desc
+    - created_at : desc
 toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/intdeliveryorders/update/:id'
+recordUrl: 'kju/express/intdeliveryorders/update/:code'

@@ -27,6 +27,9 @@ fields:
         nameFrom: displayName
         conditions: '(type = "regency" or type = "district")'
 tabs:
+    defaultTab: kju.express::lang.delivery_cost.plural
+    icons:
+        kju.express::lang.delivery_cost.plural: icon-money
     fields:
         costs:
             span: full

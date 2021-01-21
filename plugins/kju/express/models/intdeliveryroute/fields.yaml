@@ -27,6 +27,10 @@ fields:
         nameFrom: displayName
         conditions: 'type = "country"'
 tabs:
+    defaultTab: kju.express::lang.delivery_cost.plural
+    icons:
+        kju.express::lang.delivery_cost.plural: icon-money
+        kju.express::lang.int_delivery_cost.add: icon-plus-circle
     fields:
         costs:
             span: full

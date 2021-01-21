@@ -28,7 +28,7 @@ fields:
         span: right
         type: text
         disabled: true
-        valueFrom: branch[displayName]
+        valueFrom: branch[displayName] 
     branch_region:
         label: 'kju.express::lang.global.origin'
         span: left

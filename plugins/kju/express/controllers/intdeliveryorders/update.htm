@@ -1,16 +1,19 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('kju/express/intdeliveryorders') ?>">IntDeliveryOrders</a></li>
+        <li><a href="<?= Backend::url('kju/express/intdeliveryorders') ?>"><?= e(trans('kju.express::lang.int_delivery_order.plural')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
 
 <?php if (!$this->fatalError): ?>
 
-    <?= Form::open(['class' => 'layout']) ?>
-
+    
+    <?php Block::put('form-contents') ?>
+        <div class="layout-row min-size">
+            <?= $this->formRenderOutsideFields() ?>
+        </div>
         <div class="layout-row">
-            <?= $this->formRender() ?>
+            <?= $this->formRenderPrimaryTabs() ?>
         </div>
 
         <div class="form-buttons">
@@ -33,6 +36,15 @@
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
+
+                <a class="btn btn-success oc-icon-print"
+                    href="<?= Backend::url('kju/express/intdeliveryorders/print/'.$formModel->code) ?>" target="_blank">
+                    <?= e(trans('kju.express::lang.global.print')) ?>
+                </a>
+                <a class="btn btn-success oc-icon-print"
+                    href="<?= Backend::url('kju/express/intdeliveryorders/printwithoutprice/'.$formModel->code) ?>" target="_blank">
+                    <?= e(trans('kju.express::lang.global.print_without_price')) ?>
+                </a>
                 <button
                     type="button"
                     class="oc-icon-trash-o btn-icon danger pull-right"
@@ -46,7 +58,17 @@
                 </span>
             </div>
         </div>
-    <?= Form::close() ?>
+    <?php Block::endPut() ?>
+
+    <?php Block::put('form-sidebar') ?>
+        <div class="hide-tabs"><?= $this->formRenderSecondaryTabs() ?></div>
+    <?php Block::endPut() ?>
+
+    <?php Block::put('body') ?>
+        <?= Form::open(['class'=>'layout stretch']) ?>
+            <?= $this->makeLayout('form-with-sidebar') ?>
+        <?= Form::close() ?>
+    <?php Block::endPut() ?>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
