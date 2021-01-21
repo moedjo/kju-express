@@ -11,38 +11,61 @@
    <!-- Body -->
    <div class="card-body">
      <div class="list-group list-group-lg list-group-flush list-group-no-gutters">
-       <!-- List Item -->
-       {% for cost in  costs %}
-       {% set service = cost.service %}
-       {% if service.weight_limit == -1 %}
-          {% set total_cost = cost.cost %}
-       {% else %}
-          {% set add_cost = (weight - service.weight_limit)*cost.add_cost %}
-          {% set add_cost = add_cost < 0 ? 0 : add_cost %}
-          {% set total_cost = add_cost + cost.cost %}
-       {% endif %} 
-       <div class="list-group-item">
-         <div class="media">
-           <i class="fas fa-tag list-group-icon mt-1"></i>
-           <div class="media-body">
-             <div class="row align-items-center">
-               <div class="col-sm mb-1 mb-sm-0">
-                 <h6 class="mb-0">{{service.code}} 
-                  {% if service.weight_limit != -1 %}
-                  ({{weight}} KG)
-                  {% endif %} 
-                  <span class="badge badge-soft-info ml-1">{{service.name}} </span>
-                  </h6>
-                 <small><strong>Harga : </strong> Rp{{total_cost|number_format(0, ',', '.') }}</small>
-                 <small>|</small>
-                 <small><strong>Estimasi : </strong> {{cost.min_lead_time}}-{{cost.max_lead_time}} Hari</small>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-       <!-- End List Item -->
-       {% endfor %}
+      {% if flag == 'dom' %}
+        <!-- List Item -->
+        {% for cost in  costs %}
+        {% set service = cost.service %}
+        {% if service.weight_limit == -1 %}
+            {% set total_cost = cost.cost %}
+        {% else %}
+            {% set add_cost = (weight - service.weight_limit)*cost.add_cost %}
+            {% set add_cost = add_cost < 0 ? 0 : add_cost %}
+            {% set total_cost = add_cost + cost.cost %}
+        {% endif %} 
+        <div class="list-group-item">
+          <div class="media">
+            <i class="fas fa-tag list-group-icon mt-1"></i>
+            <div class="media-body">
+              <div class="row align-items-center">
+                <div class="col-sm mb-1 mb-sm-0">
+                  <h6 class="mb-0">{{service.code}} 
+                    {% if service.weight_limit != -1 %}
+                    ({{weight}} KG)
+                    {% endif %} 
+                    <span class="badge badge-soft-info ml-1">{{service.name}} </span>
+                    </h6>
+                  <small><strong>Harga : </strong> Rp{{total_cost|number_format(0, ',', '.') }}</small>
+                  <small>|</small>
+                  <small><strong>Estimasi : </strong> {{cost.min_lead_time}}-{{cost.max_lead_time}} Hari</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End List Item -->
+        {% endfor %}
+      {% elseif flag == 'int' %}
+        <!-- List Item -->
+        {% for cost in  costs %}
+        <div class="list-group-item">
+          <div class="media">
+            <i class="fas fa-tag list-group-icon mt-1"></i>
+            <div class="media-body">
+              <div class="row align-items-center">
+                <div class="col-sm mb-1 mb-sm-0">
+                  <h6 class="mb-0">{{cost.goods_type_name}}
+                    <span class="badge badge-soft-info ml-1">{{weight}} KG</span>
+                    </h6>
+                  <small><strong>Harga : </strong> Rp{{cost.total_cost|number_format(0, ',', '.') }}</small>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End List Item -->
+        {% endfor %}
+      {% endif %}
      </div>
    </div>
    {% else %}

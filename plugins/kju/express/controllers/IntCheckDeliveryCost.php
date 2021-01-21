@@ -111,7 +111,6 @@ class IntCheckDeliveryCost extends Controller
 
             if(isset($int_add_delivery_cost)){
                 $add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
-
                 $total_cost = $total_cost + $add_cost;
             }
 
