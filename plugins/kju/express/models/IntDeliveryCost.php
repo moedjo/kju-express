@@ -38,8 +38,7 @@ class IntDeliveryCost extends Model
         $this->rules['max_range_weight'] = "required|numeric|between:$this->min_range_weight,10000";
 
         $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_code', $this->route->code)
-            ->whereRaw("$this->min_range_weight BETWEEN min_range_weight AND max_range_weight")
-            ->orWhereRaw("$this->max_range_weight BETWEEN min_range_weight AND max_range_weight")
+            ->whereRaw("($this->min_range_weight BETWEEN min_range_weight AND max_range_weight OR $this->max_range_weight BETWEEN min_range_weight AND max_range_weight)")
             ->first();
 
         if (isset($int_delivery_cost)) {
