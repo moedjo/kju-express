@@ -100,7 +100,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
     {
         $source = input('source');
         $destination = input('destination');
-        $weight = input('weight');
+        $weight = ceil(input('weight'));
         $this->page['weight'] = $weight;
 
 

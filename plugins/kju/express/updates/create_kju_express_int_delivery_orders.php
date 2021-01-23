@@ -18,8 +18,8 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->string('branch_code',10)->nullable();
             $table->foreign('branch_code')->references('code')->on('kju_express_branches')->onDelete('restrict');;
 
-            $table->integer('branch_region_id')->unsigned()->nullable();
-            $table->foreign('branch_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');
+            $table->integer('origin_region_id')->unsigned()->nullable();
+            $table->foreign('origin_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');
 
             $table->integer('consignee_region_id')->unsigned()->nullable();
             $table->foreign('consignee_region_id')->references('id')->on('kju_express_regions')->onDelete('restrict');
@@ -30,13 +30,20 @@ class CreateKjuExpressDeliveryOrders extends Migration
            
             $table->string('goods_description', 10);
             $table->integer('goods_amount');
-            $table->integer('goods_weight');
+            $table->double('goods_weight', 5, 2);
 
             $table->integer('goods_height');
             $table->integer('goods_width');
             $table->integer('goods_length');
 
+            $table->bigInteger('original_total_cost');
             $table->bigInteger('total_cost');
+            $table->bigInteger('branch_fee');
+            $table->bigInteger('branch_fee_percentage');
+
+            $table->smallInteger('discount');
+            $table->enum('payment_status', ['paid', 'unpaid'])->default('paid');
+            $table->string('payment_description');
     
             $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
 
@@ -51,7 +58,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->integer('add_cost_per_kg')->unsigned()->default(0); 
             $table->string('goods_type_code',10)->nullable();
             $table->foreign('goods_type_code')->references('code')->on('kju_express_goods_types')->onDelete('restrict');;
-
+ 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

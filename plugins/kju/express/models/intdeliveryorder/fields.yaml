@@ -1,5 +1,5 @@
 fields:
-    branch_region:
+    origin_region:
         label: 'kju.express::lang.global.origin'
         span: left
         placeholder: 'kju.express::lang.global.origin'
@@ -12,9 +12,180 @@ tabs:
     defaultTab: kju.express::lang.global.shipper_data
     icons:
         kju.express::lang.global.shipper_data: icon-user
+        kju.express::lang.global.consignee_data: icon-user-circle
+        kju.express::lang.global.goods_data: icon-inbox
+        kju.express::lang.global.payment_data: icon-money
+        kju.express::lang.status.plural: icon-list-ol
     fields:
+
+        #Shipper Data
         customer:
             span: full
             path: field_customer
             type: partial
-            tab: 'kju.express::lang.global.shipper_data' 
+            tab: 'kju.express::lang.global.shipper_data'
+
+        #Consignee Data
+        consignee_region:
+            label: 'kju.express::lang.global.destination'
+            span: left
+            placeholder: 'kju.express::lang.global.destination'
+            required: 1
+            type: recordfinder
+            list: ~/plugins/kju/express/models/region/columns.yaml
+            modelClass: Kju\Express\Models\Region
+            nameFrom: displayName
+            conditions: 'type = "country"'
+            tab: 'kju.express::lang.global.consignee_data'
+        consignee_name:
+            label: 'kju.express::lang.global.consignee_name'
+            span: left
+            required: 1
+            placeholder: 'kju.express::lang.global.consignee_name'
+            type: text
+            tab: 'kju.express::lang.global.consignee_data'
+        consignee_phone_number:
+            label: 'kju.express::lang.global.consignee_phone_number'
+            span: right
+            placeholder: 'kju.express::lang.global.consignee_phone_number'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.consignee_data'
+        consignee_address:
+            label: 'kju.express::lang.global.consignee_address'
+            size: small
+            span: left
+            placeholder: 'kju.express::lang.global.consignee_address'
+            type: textarea
+            required: 1
+            tab: 'kju.express::lang.global.consignee_data'
+        consignee_postal_code:
+            label: 'kju.express::lang.global.consignee_postal_code'
+            span: right
+            placeholder: 'kju.express::lang.global.consignee_postal_code'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.consignee_data'
+
+        #Goods Data
+        goods_type:
+            label: 'kju.express::lang.goods_type.singular'
+            span: left
+            placeholder: 'kju.express::lang.goods_type.singular'
+            type: relation
+            required: 1
+            tab: 'kju.express::lang.global.goods_data'
+        goods_height:
+            label: 'kju.express::lang.global.goods_height'
+            span: right
+            placeholder: 'kju.express::lang.global.goods_height'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_data'
+        goods_description:
+            label: 'kju.express::lang.global.goods_description'
+            span: left
+            placeholder: 'kju.express::lang.global.goods_description'
+            type: text
+            tab: 'kju.express::lang.global.goods_data'
+        goods_width:
+            label: 'kju.express::lang.global.goods_width'
+            span: right
+            placeholder: 'kju.express::lang.global.goods_width'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_data'
+        goods_amount:
+            label: 'kju.express::lang.global.goods_amount'
+            span: left
+            placeholder: 'kju.express::lang.global.goods_amount'
+            default: '1'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_data' 
+        goods_length:
+            label: 'kju.express::lang.global.goods_length'
+            span: right
+            placeholder: 'kju.express::lang.global.goods_length'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_data'
+            
+        # Payment Data
+        payment_status:
+            label: 'kju.express::lang.global.payment_status'
+            span: left
+            type: balloon-selector
+            default: paid
+            options:
+                paid: 'kju.express::lang.global.paid'
+                unpaid: 'kju.express::lang.global.unpaid'
+            tab: 'kju.express::lang.global.payment_data'
+            permissions: 
+                - access_payment_data_for_delivery_orders
+        payment_description:
+            label: 'kju.express::lang.global.payment_description'
+            span: left
+            placeholder: 'kju.express::lang.global.payment_description'
+            type: text
+            tab: 'kju.express::lang.global.payment_data'
+            permissions: 
+                - access_payment_data_for_delivery_orders
+secondaryTabs:
+    fields:
+        goods_weight:
+            label: 'kju.express::lang.global.goods_weight'
+            span: full
+            placeholder: 'kju.express::lang.global.goods_weight'
+            type: text
+            required: 1
+            tab: Misc
+            commentAbove: 'kju.express::lang.global.int_goods_weight_comment'
+            default: 0
+            readOnly: 1
+            dependsOn:
+                - goods_height
+                - goods_width
+                - goods_length
+        total_cost:
+            label: 'kju.express::lang.global.total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            dependsOn:
+                - origin_region
+                - consignee_region
+                - goods_type
+                - goods_height
+                - goods_width
+                - goods_length
+                - discount
+        discount:
+            label: 'kju.express::lang.global.discount'
+            span: full
+            placeholder: 'kju.express::lang.global.discount'
+            type: text
+            default: 0
+            comment: 'kju.express::lang.global.percentage'
+            tab: Misc
+            permissions: 
+                - access_discount_for_delivery_orders
+        discount_agreement:
+            label: 'kju.express::lang.global.agreement_for_discount'
+            span: full
+            tab: Misc
+            context:
+                - create
+            permissions: 
+                - access_discount_for_delivery_orders
+            type: checkbox
+        total_cost_agreement:
+            label: 'kju.express::lang.global.agreement_for_total_cost'
+            span: full
+            tab: Misc
+            context:
+                - create
+            type: checkbox

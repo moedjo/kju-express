@@ -42,7 +42,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->foreign('service_code')->references('code')->on('kju_express_services')->onDelete('restrict');;
             $table->string('goods_description', 10);
             $table->integer('goods_amount');
-            $table->integer('goods_weight');
+            $table->double('goods_weight', 5, 2);
 
             $table->bigInteger('total_cost');
     

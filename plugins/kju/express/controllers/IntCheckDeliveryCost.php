@@ -64,7 +64,7 @@ class IntCheckDeliveryCost extends Controller
         $src_region_id = input('src_region_id');
         $dst_region_id = input('dst_region_id');
         $goods_type_code = input('goods_type_code');
-        $weight = input('weight');
+        $weight = ceil(input('weight'));
 
         $validator = Validator::make(
             [
@@ -92,7 +92,7 @@ class IntCheckDeliveryCost extends Controller
         $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_code',$route_code)
             ->whereRaw("$weight BETWEEN min_range_weight AND max_range_weight")
             ->first();
-
+ 
         $this->vars['goods_type'] = $goods_type;
         $this->vars['src_region'] = Region::find($src_region_id);
         $this->vars['dst_region'] = Region::find($dst_region_id);

@@ -77,7 +77,7 @@ class CheckDeliveryCost extends Controller
         $src_region_id = input('src_region_id');
         $dst_region_id = input('dst_region_id');
         $service_code = input('service_code');
-        $weight = input('weight');
+        $weight = ceil(input('weight'));
 
         $validator = Validator::make(
             [

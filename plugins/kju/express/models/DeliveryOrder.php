@@ -75,7 +75,7 @@ class DeliveryOrder extends Model
 
         return isset($cost) ? $cost->id : null;
     }
-
+ 
     private function initData($cost_id)
     {
 
@@ -105,7 +105,7 @@ class DeliveryOrder extends Model
             $this->total_cost = $this->total_cost - $total_discount;
         } else {
 
-            $add_cost = ($this->goods_weight - $cost->service->weight_limit) * $cost->add_cost;
+            $add_cost = (ceil($this->goods_weight) - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost = $add_cost + $cost->cost;
             $this->original_total_cost = $this->total_cost + 0;
