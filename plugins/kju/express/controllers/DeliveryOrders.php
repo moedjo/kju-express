@@ -226,8 +226,8 @@ class DeliveryOrders extends Controller
                     // Goods data
                     $model->rules['service'] = 'required';
                     if (isset($model->service) && $model->service->weight_limit != -1) {
-                        $model->rules['goods_weight'] = "required";
-                        $model->rules['goods_amount'] = "required";
+                        $model->rules['goods_weight'] = "required|numeric|min:1";
+                        $model->rules['goods_amount'] = "required|numeric|min:1";
                     }
 
                     //Pickup data
@@ -269,8 +269,8 @@ class DeliveryOrders extends Controller
             // Goods Data
             $model->rules['service'] = 'required';
             if (isset($model->service) && $model->service->weight_limit != -1) {
-                $model->rules['goods_weight'] = "required";
-                $model->rules['goods_amount'] = "required";
+                $model->rules['goods_weight'] = "required|numeric|min:1";
+                $model->rules['goods_amount'] = "required|numeric|min:1";
             }
 
             // Pickup Data

@@ -1,4 +1,22 @@
-fields:
+fields: 
+    code:
+        label: 'kju.express::lang.global.order_code'
+        span: left
+        placeholder: 'kju.express::lang.global.order_code'
+        disabled: 1
+        context:
+            - update
+            - preview
+        type: text
+    status:
+        label: 'kju.express::lang.global.status'
+        disabled: 1
+        span: right
+        placeholder: 'kju.express::lang.global.status'
+        context:
+            - update
+            - preview
+        type: text
     origin_region:
         label: 'kju.express::lang.global.origin'
         span: left
@@ -7,7 +25,19 @@ fields:
         list: ~/plugins/kju/express/models/region/columns.yaml
         modelClass: Kju\Express\Models\Region
         nameFrom: displayName
-        conditions: '(type = "province")'
+        conditions: '(type = "province")' 
+    _origin_region:
+        label: 'kju.express::lang.global.origin'
+        span: left
+        type: text
+        disabled: true
+        valueFrom: origin_region[displayName]
+    _branch:
+        label: 'kju.express::lang.branch.singular'
+        span: right
+        type: text
+        disabled: true
+        valueFrom: branch[displayName] 
 tabs:
     defaultTab: kju.express::lang.global.shipper_data
     icons:
@@ -36,6 +66,14 @@ tabs:
             modelClass: Kju\Express\Models\Region
             nameFrom: displayName
             conditions: 'type = "country"'
+            tab: 'kju.express::lang.global.consignee_data'
+        _consignee_region:
+            label: 'kju.express::lang.global.destination'
+            span: left
+            type: text
+            disabled: true
+            hidden: true
+            valueFrom: consignee_region[displayName]
             tab: 'kju.express::lang.global.consignee_data'
         consignee_name:
             label: 'kju.express::lang.global.consignee_name'

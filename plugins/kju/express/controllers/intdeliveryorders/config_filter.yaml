@@ -1,0 +1,39 @@
+scopes:
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        modelClass: Kju\Express\Models\Branch
+        conditions: branch_code in (:filtered)
+        nameFrom: displayName
+        permissions: access_filter_branch_on_delivery_orders
+    status:
+        label: 'kju.express::lang.global.status'
+        type: group
+        conditions: status in (:filtered)
+        options:
+            process: 'kju.express::lang.global.process'
+            transit: 'kju.express::lang.global.transit'
+            received: 'kju.express::lang.global.received'
+            failed: 'kju.express::lang.global.failed'
+    payment_status:
+        label: 'kju.express::lang.global.payment_status'
+        type: group
+        conditions: payment_status in (:filtered)
+        options:
+            paid: 'kju.express::lang.global.paid'
+            unpaid: 'kju.express::lang.global.unpaid'
+    created_at:
+        label: 'kju.express::lang.global.created_at'
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+    updated_at:
+        label: 'kju.express::lang.global.updated_at'
+        type: daterange
+        conditions: updated_at >= ':after' AND updated_at <= ':before'
+    process_at:
+        label: 'kju.express::lang.global.process_date'
+        type: daterange
+        conditions: process_at >= ':after' AND process_at <= ':before'
+    received_at:
+        label: 'kju.express::lang.global.received_date'
+        type: daterange
+        conditions: received_at >= ':after' AND received_at <= ':before'
