@@ -8,7 +8,7 @@ fields:
             - update
             - preview
         type: text
-    status:
+    display_status:
         label: 'kju.express::lang.global.status'
         disabled: 1
         span: right

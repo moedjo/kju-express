@@ -94,13 +94,16 @@ class IntDeliveryOrder extends Model
                 $add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
                 $total_cost = $total_cost + $add_cost;
 
-                $this->add_cost_per_kg = $int_delivery_cost->add_cost_per_kg;
+                $this->add_cost_per_kg = $int_add_delivery_cost->add_cost_per_kg;
+            } else {
+                $this->add_cost_per_kg = 0;
             }
+
 
             $this->total_cost = $total_cost;
 
             $this->original_total_cost = $this->total_cost + 0;
-            
+
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
 
@@ -172,7 +175,6 @@ class IntDeliveryOrder extends Model
         //SET BRANCH & BRANCH REGION
         if (isset($branch)) {
             $this->branch = $branch;
-            $this->origin_region = $branch->region->parent;
         }
 
         // SET INIT STATUS

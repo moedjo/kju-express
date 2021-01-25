@@ -23,7 +23,7 @@ columns:
         type: text
         valueFrom: displayStatus
         sortable: false
-    delivery_route_code:
+    int_delivery_route_code:
         label: 'kju.express::lang.global.route_code'
         type: text
         searchable: true

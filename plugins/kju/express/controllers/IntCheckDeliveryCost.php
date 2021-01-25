@@ -22,7 +22,7 @@ class IntCheckDeliveryCost extends Controller
     public $pageTitle = "kju.express::lang.int_delivery_cost.check";
 
     public $requiredPermissions = [
-        'access_check_delivery_cost'
+        'access_int_check_delivery_cost'
     ];
 
     public function __construct()

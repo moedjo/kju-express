@@ -23,12 +23,80 @@ class IntDeliveryOrders extends Controller
     public $requiredPermissions = [
         'access_int_delivery_orders'
     ];
-
+ 
     public function __construct()
     {
         parent::__construct();
         BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-orders');
     }
+
+    public function formExtendModel($model)
+    {
+        $user = $this->user;
+        $branch = $user->branch;
+        $context = $this->formGetContext();
+        if ($context == 'create') {
+            if (isset($branch)) {
+                $model->branch = $branch;
+                $model->origin_region = $branch->region->parent;
+            }
+        }
+    }
+
+    public function listExtendQuery($query)
+    {
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($user->isSuperUser()) {
+            // TODO Nothing
+        } else if (isset($branch)) {
+            $query->where('branch_code', $branch->code);
+        } else {
+            $query->where('branch_code', null);
+        }
+    }
+
+    public function formExtendQuery($query)
+    {
+
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($user->isSuperUser()) {
+            // TODO Nothing
+        } else if (isset($branch)) {
+            $query->where('branch_code', $branch->code);
+        } else {
+            $query->where('branch_code', null);
+        }
+    }
+
+    public function listInjectRowClass($record, $definition = null)
+    {
+        if ($record->trashed()) {
+            return 'strike';
+        }
+
+        if ($record->status == 'process') {
+            return 'new';
+        }
+
+        if ($record->status == 'received') {
+            return 'safe';
+        }
+
+        if ($record->status == 'transit') {
+            return 'frozen';
+        }
+
+        if ($record->status == 'pickup') {
+            return 'positive';
+        }
+
+        if ($record->status == 'failed') {
+            return 'negative';
+        }
+    }
+
 
     public function formExtendFields($host, $fields)
     {
@@ -36,9 +104,14 @@ class IntDeliveryOrders extends Controller
         $branch = $user->branch;
         $context = $host->getContext();
         $model = $host->model;
-
+ 
         if ($context == 'create') {
-            $fields['_origin_region']->hidden = true;
+
+            if (isset($branch)) {
+                $host->removeField('origin_region');
+            } else {
+                $fields['_origin_region']->hidden = true;
+            }
         }
 
         if ($context == 'update') {
