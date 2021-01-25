@@ -201,6 +201,15 @@ secondaryTabs:
                 - goods_width
                 - goods_length
                 - discount
+        payment_type:
+            label: 'kju.express::lang.global.payment_type'
+            span: full
+            type: balloon-selector
+            default: cash
+            options:
+                cash: 'kju.express::lang.global.cash'
+                transfer: 'kju.express::lang.global.transfer'
+            tab: Misc
         discount:
             label: 'kju.express::lang.global.discount'
             span: full

@@ -45,6 +45,11 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->double('goods_weight', 5, 2);
 
             $table->bigInteger('total_cost');
+
+            $table->bigInteger('original_total_cost');
+            $table->smallInteger('discount');
+            $table->enum('payment_status', ['paid', 'unpaid'])->default('paid');
+            $table->string('payment_description');
     
             $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
 

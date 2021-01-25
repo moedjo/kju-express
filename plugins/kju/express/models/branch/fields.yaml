@@ -13,6 +13,11 @@ fields:
         span: left
         placeholder: 'kju.express::lang.branch.name'
         type: text
+    fee_percentage:
+        label: 'kju.express::lang.global.fee_percentage'
+        span: left
+        placeholder: 'kju.express::lang.global.fee_percentage'
+        type: text
     region:
         label: 'kju.express::lang.global.region'
         span: left

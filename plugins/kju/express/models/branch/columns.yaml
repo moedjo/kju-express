@@ -9,6 +9,12 @@ columns:
         type: text
         searchable: true
         sortable: true
+    fee_percentage:
+        label: 'kju.express::lang.global.fee_percentage'
+        type: text
+        searchable: false
+        sortable: true
+        select: CONCAT(fee_percentage,' %')
     region:
         label: 'kju.express::lang.global.region'
         type: text

@@ -120,6 +120,11 @@
         'goods_length' => 'Length (cm)',
         'int_goods_weight_comment' => 'Volume (H x W x L) / 5.000',
         'branch_fee' => 'Branch Fee',
+        'cash' => 'Cash',
+        'transfer' => 'Transfer',
+        'payment_type' => 'Payment Type',
+        'profit_share' => 'Profit Share',
+        'fee_percentage' => 'Fee Percentage',
     ],
     'branch' => [
         'singular' => 'Branch',

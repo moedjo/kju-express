@@ -3,7 +3,11 @@ ALTER TABLE `kju_express_regions`
     ENUM('country','province','regency','district') NOT NULL COLLATE 'utf8mb4_unicode_ci' AFTER `name`;
 ALTER TABLE `kju_express_delivery_orders`
 	CHANGE COLUMN `goods_weight` `goods_weight` DOUBLE(5,2) NOT NULL DEFAULT 0 AFTER `goods_amount`;
-    
+
+ALTER TABLE `kju_express_branches`
+	CHANGE COLUMN `fee_percentage` `fee_percentage` SMALLINT NULL DEFAULT '0' AFTER `name`;
+
+
 INSERT INTO `kju_express_regions` (`id`, `name`, `type`, `parent_id`, `created_at`, `updated_at`) VALUES (6009600, 'BRUNEI DARUSSALAM', 'country', NULL, '2021-01-19 14:03:27', '2021-01-19 14:03:27');
 INSERT INTO `kju_express_regions` (`id`, `name`, `type`, `parent_id`, `created_at`, `updated_at`) VALUES (6010400, 'MYANMAR', 'country', NULL, '2021-01-19 14:05:55', '2021-01-19 14:05:55');
 INSERT INTO `kju_express_regions` (`id`, `name`, `type`, `parent_id`, `created_at`, `updated_at`) VALUES (6011600, 'CAMBODIA', 'country', NULL, '2021-01-19 14:05:40', '2021-01-19 14:05:40');

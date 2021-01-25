@@ -6,6 +6,12 @@ columns:
         sortable: true
         relation: goods_type
         select: name
+    profit_share:
+        label: 'kju.express::lang.global.profit_share'
+        type: switch
+        sortable: true
+        relation: goods_type
+        select: profit_share
     add_cost_per_kg:
         label: 'kju.express::lang.goods_type.add_cost_per_kg'
         type: currency

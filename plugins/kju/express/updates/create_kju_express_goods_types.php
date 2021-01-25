@@ -12,6 +12,9 @@ class CreateKjuExpressGoodsTypes extends Migration
             $table->engine = 'InnoDB';
             $table->string('code', 10);
             $table->string('name', 50);
+
+            $table->boolean('profit_share')->default(false);
+
             $table->integer('sort_order')->default(0);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

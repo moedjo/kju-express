@@ -144,6 +144,7 @@ class IntDeliveryOrders extends Controller
             if ($user->hasPermission('access_discount_for_delivery_orders')) {
                 $fields['discount']->disabled = true;
             }
+            $fields['payment_type']->disabled = true;
         }
     }
 
