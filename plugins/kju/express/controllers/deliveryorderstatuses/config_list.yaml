@@ -1,6 +1,6 @@
 list: $/kju/express/models/deliveryorderstatus/columns.yaml
 modelClass: Kju\Express\Models\DeliveryOrderStatus
-title: 'kju.express::lang.deliver_order_status.plural'
+title: 'kju.express::lang.delivery_order_status.plural'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: false

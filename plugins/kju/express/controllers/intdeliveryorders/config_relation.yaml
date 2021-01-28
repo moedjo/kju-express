@@ -13,8 +13,8 @@ customer:
 statuses:
     label: 'kju.express::lang.status.singular'
     manage:
-        form: $/kju/express/models/deliveryorderstatus/fields.yaml
-        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
+        form: $/kju/express/models/intdeliveryorderstatus/fields.yaml
+        list: $/kju/express/models/intdeliveryorderstatus/short_columns.yaml
     view:
-        list: $/kju/express/models/deliveryorderstatus/short_columns.yaml
+        list: $/kju/express/models/intdeliveryorderstatus/short_columns.yaml
         toolbarButtons: create|delete

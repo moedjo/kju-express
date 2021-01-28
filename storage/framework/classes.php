@@ -161,4 +161,7 @@
   'Kju\\Express\\Models\\IntAddDeliveryCost' => 'plugins\\kju\\express\\models\\IntAddDeliveryCost.php',
   'Kju\\Express\\Models\\GoodsType' => 'plugins\\kju\\express\\models\\GoodsType.php',
   'kju\\express\\Controllers\\intcheckdeliverycost' => 'plugins\\kju\\express\\controllers\\intcheckdeliverycost.php',
+  'Kju\\Express\\Models\\IntDeliveryOrderStatus' => 'plugins\\kju\\express\\models\\IntDeliveryOrderStatus.php',
+  'kju\\express\\Controllers\\intdeliveryorderstatuses' => 'plugins\\kju\\express\\controllers\\intdeliveryorderstatuses.php',
+  'Kju\\Express\\Models\\IntDeliveryOrderStatusImport' => 'plugins\\kju\\express\\models\\IntDeliveryOrderStatusImport.php',
 );

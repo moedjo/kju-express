@@ -180,7 +180,7 @@
         'id' => 'Customer Id',
         'name' => 'Customer Name',
     ],
-    'deliver_order_status' => [
+    'delivery_order_status' => [
         'plural' => 'Delivery Order Statuses',
         'singular' => 'Delivery Order Status',
         'import' => 'Import Delivery Order Status',

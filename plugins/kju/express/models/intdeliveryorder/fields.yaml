@@ -169,6 +169,13 @@ tabs:
             tab: 'kju.express::lang.global.payment_data'
             permissions: 
                 - access_payment_data_for_delivery_orders
+        statuses:
+            span: full
+            path: field_delivery_order_statuses
+            context:
+                - update
+            type: partial
+            tab: 'kju.express::lang.status.plural'
 secondaryTabs:
     fields:
         goods_weight:

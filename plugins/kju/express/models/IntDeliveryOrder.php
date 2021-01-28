@@ -40,7 +40,7 @@ class IntDeliveryOrder extends Model
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
         'origin_region' => ['Kju\Express\Models\Region', 'key' => 'origin_region_id'],
         'consignee_region' => ['Kju\Express\Models\Region', 'key' => 'consignee_region_id'],
-
+ 
         'customer' => ['Kju\Express\Models\Customer', 'key' => 'customer_id'],
 
         'goods_type' => ['Kju\Express\Models\GoodsType', 'key' => 'goods_type_code'],
@@ -49,6 +49,10 @@ class IntDeliveryOrder extends Model
         'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
 
+    ];
+
+    public $hasMany = [
+        'statuses' => ['Kju\Express\Models\IntDeliveryOrderStatus']
     ];
 
 
@@ -82,8 +86,12 @@ class IntDeliveryOrder extends Model
 
         if (isset($int_delivery_cost)) {
             $total_cost = $int_delivery_cost->base_cost_per_kg * $weight;
-            $total_cost = $total_cost +
-                ($total_cost * ($int_delivery_cost->profit_percentage / 100));
+
+            $this->base_cost = $int_delivery_cost->base_cost_per_kg * $weight;
+
+            $this->profit = $this->base_cost * ($int_delivery_cost->profit_percentage / 100);
+
+            $total_cost =  $this->base_cost + $this->profit;
 
 
             $int_add_delivery_cost = IntAddDeliveryCost::where('int_delivery_route_code', $route_code)
@@ -91,8 +99,9 @@ class IntDeliveryOrder extends Model
                 ->first();
 
             if (isset($int_add_delivery_cost)) {
-                $add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
-                $total_cost = $total_cost + $add_cost;
+
+                $this->add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
+                $total_cost = $total_cost + $this->add_cost;
 
                 $this->add_cost_per_kg = $int_add_delivery_cost->add_cost_per_kg;
             } else {
@@ -223,31 +232,15 @@ class IntDeliveryOrder extends Model
         $this->save();
     }
 
-    public function afterUpdate()
-    {
-        // $user = BackendAuth::getUser();
-        // if ($user->hasPermission('is_courier')) {
-        //     if ($this->original['status'] == 'pickup' && $this->status == 'process') {
-        //         $order_status = new DeliveryOrderStatus();
-        //         $order_status->region = $this->branch_region;
-        //         $order_status->status = $this->status;
-        //         $order_status->created_user = $this->created_user;
-        //         $order_status->delivery_order_code = $this->code;
-
-        //         $order_status->save();
-        //     }
-        // }
-    }
-
 
     public function afterCreate()
     {
-        // $order_status = new DeliveryOrderStatus();
-        // $order_status->region = $this->branch_region;
-        // $order_status->status = $this->status;
-        // $order_status->created_user = $this->created_user;
-        // $order_status->delivery_order_code = $this->code;
-        // $order_status->save();
+        $order_status = new IntDeliveryOrderStatus();
+        $order_status->region = $this->origin_region;
+        $order_status->status = $this->status;
+        $order_status->created_user = $this->created_user;
+        $order_status->int_delivery_order_code = $this->code;
+        $order_status->save();
     }
 
     public function getDisplayStatusAttribute()

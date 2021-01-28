@@ -1,0 +1,11 @@
+list: $/kju/express/models/intdeliveryorderstatus/columns.yaml
+modelClass: Kju\Express\Models\IntDeliveryOrderStatus
+title: 'kju.express::lang.int_delivery_order_status.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

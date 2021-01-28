@@ -24,6 +24,7 @@
         'access_int_delivery_orders' => 'Manage int. delivery orders',
         'access_int_delivery_routes' => 'Manage int. delivery routes',
         'access_int_check_delivery_cost' => 'Access int. check delivery cost',
+        'access_int_statuses' => 'Manage int. delivery order statuses',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -196,7 +197,7 @@
         'id' => 'Customer Id',
         'name' => 'Customer Name',
     ],
-    'deliver_order_status' => [
+    'delivery_order_status' => [
         'plural' => 'Delivery Order Statuses',
         'singular' => 'Delivery Order Status',
         'import' => 'Import Delivery Order Status',
@@ -225,8 +226,10 @@
         'profit_percentage' => 'Profit Percentage',
         'add' => 'Additional Costs',
     ],
-    'int_deliver_order_status' => [
+    'int_delivery_order_status' => [
         'plural' => 'Int. Delivery Order Statuses',
+        'singular' => 'Int. Delivery Order Status',
+        'import' => 'Import Int. Delivery Order Status',
     ],
     'int_delivery_route' => [
         'plural' => 'Int. Delivery Routes',

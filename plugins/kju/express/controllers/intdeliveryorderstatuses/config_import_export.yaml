@@ -1,0 +1,6 @@
+import:
+    title: 'kju.express::lang.int_delivery_order_status.import'
+    modelClass: Kju\Express\Models\IntDeliveryOrderStatusImport
+    list: $/kju/express/models/intdeliveryorderstatusimport/columns.yaml
+    form: $/kju/express/models/intdeliveryorderstatusimport/fields.yaml
+    redirect: kju/express/intdeliveryorderstatuses
