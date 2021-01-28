@@ -9,6 +9,7 @@ use Kju\Express\Models\DeliveryOrder;
 use Kju\Express\Models\GoodsType;
 use Kju\Express\Models\IntAddDeliveryCost;
 use Kju\Express\Models\IntDeliveryCost;
+use Kju\Express\Models\IntDeliveryOrder;
 use October\Rain\Exception\ValidationException;
 use Kju\Express\Models\Region;
 use Multiwebinc\Recaptcha\Validators\RecaptchaValidator;
@@ -92,7 +93,16 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         //     throw new ValidationException($validator);
         // }
         $delivery_order = DeliveryOrder::with(['statuses'])->find($delivery_order_code);
+        
+
+        // for international
+        if(empty($delivery_order)){
+            $delivery_order = IntDeliveryOrder::with(['statuses'])->find($delivery_order_code);
+       
+        }
+
         $this->page['delivery_order'] = $delivery_order;
+
     }
 
 
