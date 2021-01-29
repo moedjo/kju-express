@@ -23,6 +23,6 @@ class IntDeliveryOrderStatuses extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-order-statuses');
+        BackendMenu::setContext('Kju.Express', 'import-status', 'int-delivery-order-statuses');
     }
 }

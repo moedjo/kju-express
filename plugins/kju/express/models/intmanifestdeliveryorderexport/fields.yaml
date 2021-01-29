@@ -1,0 +1,6 @@
+fields:
+    process_date:
+        label: 'kju.express::lang.global.process_date'
+        mode: date
+        span: auto
+        type: datepicker

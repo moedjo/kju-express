@@ -123,9 +123,10 @@
         'branch_fee' => 'Branch Fee',
         'cash' => 'Cash',
         'transfer' => 'Transfer',
-        'payment_type' => 'Payment Type',
+        'payment_method' => 'Payment Method',
         'profit_share' => 'Profit Share',
         'fee_percentage' => 'Fee Percentage',
+        'import_status' => 'Import Status',
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -216,6 +217,8 @@
         'new' => 'New Int. Delivery Order',
         'edit' => 'Edit Int. Delivery Order',
         'preview' => 'Preview Int. Delivery Order',
+        'export' => 'Export Int. Delivery Orders',
+        'export_manifest' => 'Export Int. Manifest Delivery Orders',
     ],
     'int_delivery_cost' => [
         'check' => 'Int. Check Delivery Cost',
@@ -240,6 +243,6 @@
     ],
     'goods_type' => [
         'singular' => 'Goods Type',
-        'add_cost_per_kg' => 'Additional Cost Per KG'
-    ]
+        'add_cost_per_kg' => 'Additional Cost Per KG',
+    ],
 ];

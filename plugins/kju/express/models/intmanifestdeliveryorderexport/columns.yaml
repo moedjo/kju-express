@@ -1,0 +1,9 @@
+columns:
+    code: 'kju.express::lang.global.order_code'
+    goods_type.name: 'kju.express::lang.goods_type.singular'
+    origin_region.name: 'kju.express::lang.global.origin'
+    consignee_region.displayName: 'kju.express::lang.global.destination'
+    customer.name: 'kju.express::lang.global.shipper'
+    consignee_name: 'kju.express::lang.global.consignee'
+    goods_weight: 'kju.express::lang.global.weight'
+    goods_amount: 'kju.express::lang.global.amount'

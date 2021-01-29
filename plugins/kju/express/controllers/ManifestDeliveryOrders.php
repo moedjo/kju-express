@@ -23,7 +23,7 @@ class ManifestDeliveryOrders extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'delivery-orders');
+        BackendMenu::setContext('Kju.Express','domestic', 'delivery-orders');
     }
 
 }

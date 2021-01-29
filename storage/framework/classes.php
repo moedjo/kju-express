@@ -164,4 +164,6 @@
   'Kju\\Express\\Models\\IntDeliveryOrderStatus' => 'plugins\\kju\\express\\models\\IntDeliveryOrderStatus.php',
   'kju\\express\\Controllers\\intdeliveryorderstatuses' => 'plugins\\kju\\express\\controllers\\intdeliveryorderstatuses.php',
   'Kju\\Express\\Models\\IntDeliveryOrderStatusImport' => 'plugins\\kju\\express\\models\\IntDeliveryOrderStatusImport.php',
+  'kju\\express\\Controllers\\intmanifestdeliveryorders' => 'plugins\\kju\\express\\controllers\\intmanifestdeliveryorders.php',
+  'Kju\\Express\\Models\\IntManifestDeliveryOrderExport' => 'plugins\\kju\\express\\models\\IntManifestDeliveryOrderExport.php',
 );

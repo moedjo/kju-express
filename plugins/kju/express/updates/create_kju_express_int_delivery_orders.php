@@ -54,7 +54,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->string('payment_description');
 
 
-            $table->enum('payment_type', ['cash', 'transfer'])->default('cash');
+            $table->enum('payment_method', ['cash', 'transfer'])->default('cash');
     
             $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
 

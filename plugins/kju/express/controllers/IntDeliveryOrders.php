@@ -4,6 +4,8 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Kju\Express\Models\IntDeliveryOrder;
+use Renatio\DynamicPDF\Classes\PDF;
 
 class IntDeliveryOrders extends Controller
 {
@@ -11,12 +13,13 @@ class IntDeliveryOrders extends Controller
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController',
         'Backend\Behaviors\RelationController',
-        // 'Backend\Behaviors\ImportExportController',
+        'Backend\Behaviors\ImportExportController',
     ];
 
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $relationConfig = 'config_relation.yaml';
+    public $importExportConfig = 'config_import_export.yaml';
 
     public $bodyClass = 'compact-container';
 
@@ -28,6 +31,20 @@ class IntDeliveryOrders extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-orders');
+    }
+
+    public function print($code)
+    {
+        $delivery_order = IntDeliveryOrder::findOrFail($code);
+        $result = ['delivery_order' => $delivery_order];
+        return PDF::loadTemplate('int_delivery_order', $result)->stream();
+    }
+
+    public function printWithoutPrice($code)
+    {
+        $delivery_order = IntDeliveryOrder::findOrFail($code);
+        $result = ['delivery_order' => $delivery_order];
+        return PDF::loadTemplate('int_delivery_order_without_price', $result)->stream();
     }
 
     public function formExtendModel($model)
@@ -144,7 +161,7 @@ class IntDeliveryOrders extends Controller
             if ($user->hasPermission('access_discount_for_delivery_orders')) {
                 $fields['discount']->disabled = true;
             }
-            $fields['payment_type']->disabled = true;
+            $fields['payment_method']->disabled = true;
         }
     }
 
