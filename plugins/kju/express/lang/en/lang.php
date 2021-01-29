@@ -127,6 +127,7 @@
         'profit_share' => 'Profit Share',
         'fee_percentage' => 'Fee Percentage',
         'import_status' => 'Import Status',
+        'goods_volume_data' => 'Goods Volume Data'
     ],
     'branch' => [
         'singular' => 'Branch',

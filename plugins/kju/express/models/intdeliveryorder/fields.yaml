@@ -46,6 +46,8 @@ tabs:
         kju.express::lang.global.goods_data: icon-inbox
         kju.express::lang.global.payment_data: icon-money
         kju.express::lang.status.plural: icon-list-ol
+        kju.express::lang.global.goods_volume_data: icon-inbox
+        
     fields:
 
         #Shipper Data
@@ -113,25 +115,11 @@ tabs:
             type: relation
             required: 1
             tab: 'kju.express::lang.global.goods_data'
-        goods_height:
-            label: 'kju.express::lang.global.goods_height'
-            span: right
-            placeholder: 'kju.express::lang.global.goods_height'
-            type: text
-            required: 1
-            tab: 'kju.express::lang.global.goods_data'
         goods_description:
             label: 'kju.express::lang.global.goods_description'
             span: left
             placeholder: 'kju.express::lang.global.goods_description'
             type: text
-            tab: 'kju.express::lang.global.goods_data'
-        goods_width:
-            label: 'kju.express::lang.global.goods_width'
-            span: right
-            placeholder: 'kju.express::lang.global.goods_width'
-            type: text
-            required: 1
             tab: 'kju.express::lang.global.goods_data'
         goods_amount:
             label: 'kju.express::lang.global.goods_amount'
@@ -141,13 +129,29 @@ tabs:
             type: text
             required: 1
             tab: 'kju.express::lang.global.goods_data' 
+
+        # Goods Volume Data
+        goods_height:
+            label: 'kju.express::lang.global.goods_height'
+            span: left
+            placeholder: 'kju.express::lang.global.goods_height'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_volume_data'
+        goods_width:
+            label: 'kju.express::lang.global.goods_width'
+            span: left
+            placeholder: 'kju.express::lang.global.goods_width'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.goods_volume_data'
         goods_length:
             label: 'kju.express::lang.global.goods_length'
-            span: right
+            span: left
             placeholder: 'kju.express::lang.global.goods_length'
             type: text
             required: 1
-            tab: 'kju.express::lang.global.goods_data'
+            tab: 'kju.express::lang.global.goods_volume_data'
             
         # Payment Data
         payment_status:
