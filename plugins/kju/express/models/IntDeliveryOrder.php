@@ -76,7 +76,6 @@ class IntDeliveryOrder extends Model
         $user = BackendAuth::getUser();
         $weight = 0;
 
-        trace_log('test --> ' . $this->goods_volume_weight);
         if ($this->goods_weight > $this->goods_volume_weight) {
             $weight = ceil($this->goods_weight);
         } else {
@@ -119,8 +118,10 @@ class IntDeliveryOrder extends Model
 
             $this->original_total_cost = $this->total_cost + 0;
 
-            $total_discount =  $this->total_cost * ($this->discount / 100);
-            $this->total_cost = $this->total_cost - $total_discount;
+            if(is_numeric($this->discount)){
+                $total_discount =  $this->total_cost * ($this->discount / 100);
+                $this->total_cost = $this->total_cost - $total_discount;
+            }
 
             $this->int_delivery_route_code = $int_delivery_cost->int_delivery_route_code;
             $this->min_range_weight = $int_delivery_cost->min_range_weight;
@@ -161,11 +162,9 @@ class IntDeliveryOrder extends Model
             isset($this->goods_type) &&
 
             $this->goods_weight &&
-            $this->goods_volume_weight &&
+            $this->goods_volume_weight 
 
-            is_numeric($this->discount)
         ) {
-
             $this->initTotalCost();
 
             if ($this->total_cost) {
