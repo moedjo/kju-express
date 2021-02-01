@@ -32,6 +32,8 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->integer('goods_amount');
             $table->double('goods_weight', 5, 2);
 
+            $table->double('goods_volume_weight',5,2);
+
             $table->integer('goods_height');
             $table->integer('goods_width');
             $table->integer('goods_length');

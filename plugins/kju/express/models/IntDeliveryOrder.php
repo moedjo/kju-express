@@ -40,7 +40,7 @@ class IntDeliveryOrder extends Model
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
         'origin_region' => ['Kju\Express\Models\Region', 'key' => 'origin_region_id'],
         'consignee_region' => ['Kju\Express\Models\Region', 'key' => 'consignee_region_id'],
- 
+
         'customer' => ['Kju\Express\Models\Customer', 'key' => 'customer_id'],
 
         'goods_type' => ['Kju\Express\Models\GoodsType', 'key' => 'goods_type_code'],
@@ -67,15 +67,21 @@ class IntDeliveryOrder extends Model
             $width *
             $length) / self::VOLUME_DIVIDER;
 
-        $this->goods_weight = $weight;
+        $this->goods_volume_weight = $weight;
     }
 
 
     private function initTotalCost()
     {
         $user = BackendAuth::getUser();
+        $weight = 0;
 
-        $weight = ceil($this->goods_weight);
+        trace_log('test --> ' . $this->goods_volume_weight);
+        if ($this->goods_weight > $this->goods_volume_weight) {
+            $weight = ceil($this->goods_weight);
+        } else {
+            $weight = ceil($this->goods_volume_weight);  
+        }
 
         $route_code = $this->origin_region->id . '-' . $this->consignee_region->id;
         $goods_type_code = $this->goods_type->code;
@@ -129,27 +135,33 @@ class IntDeliveryOrder extends Model
 
     public function filterFields($fields, $context = null)
     {
+
+
         if (
             $this->goods_height &&
             $this->goods_width &&
             $this->goods_length &&
+            $this->goods_weight &&
 
             is_numeric($this->goods_height) &&
             is_numeric($this->goods_width) &&
-            is_numeric($this->goods_length)
+            is_numeric($this->goods_length) &&
+            is_numeric($this->goods_weight)
         ) {
             $this->initWeight();
-            $fields->goods_weight->value = $this->goods_weight;
+            // $fields->goods_weight->value = $this->goods_weight;
         } else {
-            $this->goods_weight = 0;
-            $fields->goods_weight->value = 0;
+            // $this->goods_weight = 0;
+            // $fields->goods_weight->value = 0;
         }
 
         if (
             isset($this->origin_region) &&
             isset($this->consignee_region) &&
             isset($this->goods_type) &&
+
             $this->goods_weight &&
+            $this->goods_volume_weight &&
 
             is_numeric($this->discount)
         ) {

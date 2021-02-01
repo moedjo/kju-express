@@ -68,10 +68,9 @@ navigation:
         url: kju/express/users
         icon: icon-book
         permissions:
-            - access_delivery_costs
+            - access_delivery_routes
             - access_int_delivery_routes
             - access_users
-            - access_delivery_routes
             - access_branches
             - access_services
             - access_regions
@@ -119,7 +118,6 @@ navigation:
         permissions:
             - access_delivery_orders
             - access_check_delivery_cost
-            - access_delivery_order_statuses
         sideMenu:
             delivery-orders:
                 label: 'kju.express::lang.delivery_order.plural'
@@ -139,6 +137,7 @@ navigation:
         icon: icon-globe
         permissions:
             - access_int_delivery_orders
+            - access_int_check_delivery_cost
         sideMenu:
             int-delivery-orders:
                 label: 'kju.express::lang.int_delivery_order.plural'
@@ -156,6 +155,9 @@ navigation:
         label: 'kju.express::lang.global.import_status'
         url: kju/express/deliveryorderstatuses
         icon: icon-align-justify
+        permissions:
+            - access_delivery_order_statuses
+            - access_int_delivery_order_statuses
         sideMenu:
             delivery-order-statuses:
                 label: 'kju.express::lang.delivery_order_status.plural'

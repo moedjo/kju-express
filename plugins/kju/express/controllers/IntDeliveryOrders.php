@@ -147,6 +147,8 @@ class IntDeliveryOrders extends Controller
             $fields['goods_type']->disabled = true;
             $fields['goods_description']->disabled = true;
             $fields['goods_amount']->disabled = true;
+
+            $fields['goods_weight']->disabled = true;
             $fields['goods_height']->disabled = true;
             $fields['goods_width']->disabled = true;
             $fields['goods_length']->disabled = true;
@@ -196,6 +198,7 @@ class IntDeliveryOrders extends Controller
             // Goods Data
             $model->rules['goods_type'] = 'required';
             $model->rules['goods_amount'] = 'required|numeric|min:1';
+            $model->rules['goods_weight'] = 'required|numeric|min:1';
             $model->rules['goods_height'] = 'required|numeric|min:1';
             $model->rules['goods_width'] = 'required|numeric|min:1';
             $model->rules['goods_length'] = 'required|numeric|min:1';
