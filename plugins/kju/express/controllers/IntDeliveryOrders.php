@@ -191,7 +191,7 @@ class IntDeliveryOrders extends Controller
             $model->rules['consignee_address'] = 'required';
             $model->rules['consignee_phone_number'] = [
                 'required',
-                'regex:/(\()?(\+)(\d{2,3})?\)?[ .-]?\d{2,4}[ .-]?\d{2,4}[ .-]?\d{2,4}/',
+                'regex:/^\+?\d*$/',
             ];
             $model->rules['consignee_postal_code'] = 'required';
 
