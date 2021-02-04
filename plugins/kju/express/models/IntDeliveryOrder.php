@@ -263,4 +263,9 @@ class IntDeliveryOrder extends Model
     {
         return e(trans('kju.express::lang.global.' . $this->payment_status));
     }
+
+    public function getDisplayPaymentMethodAttribute()
+    {
+        return e(trans('kju.express::lang.global.' . $this->payment_method));
+    }
 }

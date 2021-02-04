@@ -21,6 +21,13 @@ scopes:
         options:
             paid: 'kju.express::lang.global.paid'
             unpaid: 'kju.express::lang.global.unpaid'
+    payment_method:
+        label: 'kju.express::lang.global.payment_method'
+        type: group
+        conditions: payment_method in (:filtered)
+        options:
+            cash: 'kju.express::lang.global.cash'
+            transfer: 'kju.express::lang.global.transfer'
     created_at:
         label: 'kju.express::lang.global.created_at'
         type: daterange

@@ -70,6 +70,11 @@ columns:
         type: text
         sortable: false
         valueFrom: displayPaymentStatus
+    payment_method:
+        label: 'kju.express::lang.global.payment_method'
+        type: text
+        sortable: false
+        valueFrom: displayPaymentMethod
     process_at: 
         label: 'kju.express::lang.global.process_date'
         type: datetime
