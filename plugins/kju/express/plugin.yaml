@@ -62,15 +62,17 @@ permissions:
     access_int_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_int_statuses'
+    access_vendors:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_vendors'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
         url: kju/express/users
         icon: icon-book
         permissions:
-            - access_delivery_routes
-            - access_int_delivery_routes
             - access_users
+            - access_vendors
             - access_branches
             - access_services
             - access_regions
@@ -81,18 +83,6 @@ navigation:
                 icon: icon-user
                 permissions:
                     - access_users
-            delivery-routes:
-                label: 'kju.express::lang.delivery_route.plural'
-                url: kju/express/deliveryroutes
-                icon: icon-map-marker
-                permissions:
-                    - access_delivery_routes
-            int-delivery-routes:
-                label: 'kju.express::lang.int_delivery_route.plural'
-                url: kju/express/intdeliveryroutes
-                icon: icon-globe
-                permissions:
-                    - access_int_delivery_routes
             branches:
                 label: 'kju.express::lang.branch.plural'
                 url: kju/express/branches
@@ -111,6 +101,50 @@ navigation:
                 icon: icon-area-chart
                 permissions:
                     - access_regions
+            vendors:
+                label: 'kju.express::lang.vendor.plural'
+                url: kju/express/vendors
+                icon: icon-user-secret
+    master-route-data:
+        label: 'kju.express::lang.branch.master_route_data'
+        url: kju/express/deliveryroutes
+        icon: icon-map-marker
+        permissions:
+            - access_delivery_routes
+            - access_int_delivery_routes
+        sideMenu:
+            delivery-routes:
+                label: 'kju.express::lang.delivery_route.plural'
+                url: kju/express/deliveryroutes
+                icon: icon-map-marker
+                permissions:
+                    - access_delivery_routes
+            int-delivery-routes:
+                label: 'kju.express::lang.int_delivery_route.plural'
+                url: kju/express/intdeliveryroutes
+                icon: icon-globe
+                permissions:
+                    - access_int_delivery_routes
+    import-status:
+        label: 'kju.express::lang.global.import_status'
+        url: kju/express/deliveryorderstatuses
+        icon: icon-align-justify
+        permissions:
+            - access_delivery_order_statuses
+            - access_int_delivery_order_statuses
+        sideMenu:
+            delivery-order-statuses:
+                label: 'kju.express::lang.delivery_order_status.plural'
+                url: kju/express/deliveryorderstatuses
+                icon: icon-stack-exchange
+                permissions:
+                    - access_delivery_order_statuses
+            int-delivery-order-statuses:
+                label: 'kju.express::lang.int_delivery_order_status.plural'
+                url: kju/express/intdeliveryorderstatuses
+                icon: icon-bookmark
+                permissions:
+                    - access_int_delivery_order_statuses
     domestic:
         label: 'kju.express::lang.global.domestic'
         url: kju/express/deliveryorders
@@ -151,26 +185,6 @@ navigation:
                 icon: icon-money
                 permissions:
                     - access_int_check_delivery_cost
-    import-status:
-        label: 'kju.express::lang.global.import_status'
-        url: kju/express/deliveryorderstatuses
-        icon: icon-align-justify
-        permissions:
-            - access_delivery_order_statuses
-            - access_int_delivery_order_statuses
-        sideMenu:
-            delivery-order-statuses:
-                label: 'kju.express::lang.delivery_order_status.plural'
-                url: kju/express/deliveryorderstatuses
-                icon: icon-stack-exchange
-                permissions:
-                    - access_delivery_order_statuses
-            int-delivery-order-statuses:
-                label: 'kju.express::lang.int_delivery_order_status.plural'
-                url: kju/express/intdeliveryorderstatuses
-                icon: icon-bookmark
-                ermissions:
-                    - access_int_delivery_order_statuses
     pickup-list:
         label: 'kju.express::lang.pickup.plural'
         url: kju/express/pickups

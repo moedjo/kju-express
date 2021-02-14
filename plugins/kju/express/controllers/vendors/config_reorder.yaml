@@ -1,0 +1,4 @@
+title: Vendors
+modelClass: Kju\Express\Models\Vendor
+toolbar:
+    buttons: reorder_toolbar

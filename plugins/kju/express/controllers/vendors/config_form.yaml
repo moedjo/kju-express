@@ -1,0 +1,14 @@
+name: 'kju.express::lang.vendor.singular'
+form: $/kju/express/models/vendor/fields.yaml
+modelClass: Kju\Express\Models\Vendor
+defaultRedirect: kju/express/vendors
+create:
+    title: 'kju.express::lang.vendor.new'
+    redirect: 'kju/express/vendors/update/:id'
+    redirectClose: kju/express/vendors
+update:
+    title: 'kju.express::lang.vendor.edit'
+    redirect: kju/express/vendors
+    redirectClose: kju/express/vendors
+preview:
+    title: 'kju.express::lang.vendor.preview'

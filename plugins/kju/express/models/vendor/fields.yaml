@@ -1,0 +1,15 @@
+fields:
+    id:
+        label: 'kju.express::lang.vendor.id'
+        span: auto
+        placeholder: 'kju.express::lang.vendor.id'
+        disabled: 1
+        context:
+            - update
+            - preview
+        type: text
+    name:
+        label: 'kju.express::lang.vendor.name'
+        span: left
+        placeholder: 'kju.express::lang.vendor.name'
+        type: text

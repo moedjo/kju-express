@@ -1,0 +1,11 @@
+columns:
+    id:
+        label: 'kju.express::lang.vendor.id'
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'kju.express::lang.vendor.name'
+        type: text
+        searchable: true
+        sortable: true

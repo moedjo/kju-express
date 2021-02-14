@@ -1,0 +1,12 @@
+list: $/kju/express/models/vendor/columns.yaml
+modelClass: Kju\Express\Models\Vendor
+title: 'kju.express::lang.vendor.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'kju/express/vendors/update/:id'

@@ -22,6 +22,6 @@ class IntDeliveryRoutes extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'master-data', 'int-delivery-routes');
+        BackendMenu::setContext('Kju.Express', 'master-route-data', 'int-delivery-routes');
     }
 }

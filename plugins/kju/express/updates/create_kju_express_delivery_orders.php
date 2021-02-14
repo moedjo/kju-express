@@ -54,8 +54,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
 
             $table->string('delivery_route_code')->nullable();;
-            $table->foreign('delivery_route_code')->references('code')->on('kju_express_delivery_routes')->onDelete('restrict');
-
+            
             $table->integer('cost');
             $table->integer('add_cost');
             $table->integer('weight_limit');

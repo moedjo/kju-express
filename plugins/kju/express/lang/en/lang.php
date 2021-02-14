@@ -25,6 +25,7 @@
         'access_int_delivery_routes' => 'Manage int. delivery routes',
         'access_int_check_delivery_cost' => 'Access int. check delivery cost',
         'access_int_statuses' => 'Manage int. delivery order statuses',
+        'access_vendors' => 'Manage vendors',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -126,7 +127,7 @@
         'profit_share' => 'Profit Share',
         'fee_percentage' => 'Fee Percentage',
         'import_status' => 'Import Status',
-        'goods_volume_data' => 'Goods Volume Data'
+        'goods_volume_data' => 'Goods Volume Data',
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -136,6 +137,7 @@
         'new' => 'New Branch',
         'edit' => 'Edit Branch',
         'preview' => 'Preview Branch',
+        'master_route_data' => 'Master Route Data',
     ],
     'service' => [
         'plural' => 'Services',
@@ -244,5 +246,14 @@
     'goods_type' => [
         'singular' => 'Goods Type',
         'add_cost_per_kg' => 'Additional Cost Per KG',
+    ],
+    'vendor' => [
+        'id' => "Vendor Id",
+        'name' => 'Vendor Name',
+        'plural' => 'Vendors',
+        'singular' => 'Vendor',
+        'new' => 'New Vendor',
+        'edit' => 'Edit Vendor',
+        'preview' => 'Preview Vendor',
     ],
 ];

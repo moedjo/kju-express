@@ -58,11 +58,10 @@ class CreateKjuExpressDeliveryOrders extends Migration
 
             $table->enum('payment_method', ['cash', 'transfer'])->default('cash');
     
-            $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
+            $table->enum('status', ['paid', 'unpaid', 'process','export']);
 
             $table->string('int_delivery_route_code')->nullable();;
-            $table->foreign('int_delivery_route_code','orders_route_code_foreign')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');
-
+            
             $table->integer('min_range_weight');
             $table->integer('max_range_weight');
             $table->integer('base_cost_per_kg')->unsigned()->default(0);
@@ -88,6 +87,11 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->integer('deleted_user_id')->unsigned()->nullable();
             $table->foreign('deleted_user_id')->references('id')->on('backend_users')->onDelete('restrict');;
 
+
+            $table->integer('vendor_id')->unsigned()->nullable();
+            $table->foreign('vendor_id')->references('id')->on('kju_express_vendors')->onDelete('restrict');
+
+           
             $table->primary(['code']);
         });
     }
