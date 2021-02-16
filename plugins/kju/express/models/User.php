@@ -62,6 +62,8 @@ class User extends \Backend\Models\User
                 'supervisor',
                 'operator',
                 'courier',
+                'int_checker',
+                'int_exporter',
             ])->get();
         } else if ($user->hasPermission([
             'is_supervisor'

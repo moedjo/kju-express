@@ -18,7 +18,7 @@ class IntDeliveryOrder extends Model
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
     use \October\Rain\Database\Traits\Purgeable;
-
+    use \October\Rain\Database\Traits\Revisionable;
 
     /**
      * @var string The database table used by the model.
@@ -29,6 +29,13 @@ class IntDeliveryOrder extends Model
     protected $purgeable = ['total_cost_agreement', 'discount_agreement'];
 
     protected $dates = ['deleted_at', 'process_at', 'received_at'];
+
+    protected $revisionable = ['goods_description', 'goods_amount','goods_weight','goods_volume_weight',
+'goods_height','goods_width','goods_length','original_total_cost','base_cost','add_cost','total_cost'];
+    
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+    ];
     /**
      * @var array Validation rules
      */
@@ -198,7 +205,7 @@ class IntDeliveryOrder extends Model
         }
 
         // SET INIT STATUS
-        $this->status = 'process';
+        $this->status = 'pending';
         $this->process_at = Carbon::now();
     }
 
@@ -267,5 +274,16 @@ class IntDeliveryOrder extends Model
     public function getDisplayPaymentMethodAttribute()
     {
         return e(trans('kju.express::lang.global.' . $this->payment_method));
+    }
+
+    public function getStatusOptions()
+    {
+        return [
+            'pending' => 'kju.express::lang.global.pending',
+            'process' => 'kju.express::lang.global.process',
+            'export' => 'kju.express::lang.global.export',
+            'reject' => 'kju.express::lang.global.reject',
+            'failed' => 'kju.express::lang.global.failed',
+        ];
     }
 }

@@ -5,6 +5,31 @@ plugin:
     icon: oc-icon-truck
     homepage: ''
 permissions:
+    access_pickups:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_pickups'
+    access_users:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_users'
+    access_regions:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_regions'
+    access_branches:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_branches'
+    access_services:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_services'
+    access_vendors:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_vendors'
+    access_delivery_routes:
+        tab: 'kju.express::lang.global.master_route_data'
+        label: 'kju.express::lang.permission.access_delivery_routes'
+    access_int_delivery_routes:
+        tab: 'kju.express::lang.global.master_route_data'
+        label: 'kju.express::lang.permission.access_int_delivery_routes'
+
     access_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_delivery_orders'
@@ -35,36 +60,18 @@ permissions:
     is_courier:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.is_courier'
-    access_pickups:
+    is_int_checker:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_pickups'
-    access_users:
+        label: 'kju.express::lang.permission.is_int_checker'
+    is_int_exporter:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_users'
-    access_regions:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_regions'
-    access_branches:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_branches'
-    access_services:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_services'
-    access_delivery_routes:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_delivery_routes'
-    access_int_delivery_routes:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_int_delivery_routes'
+        label: 'kju.express::lang.permission.is_int_exporter'
     access_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_statuses'
     access_int_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_int_statuses'
-    access_vendors:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_vendors'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -106,7 +113,7 @@ navigation:
                 url: kju/express/vendors
                 icon: icon-user-secret
     master-route-data:
-        label: 'kju.express::lang.branch.master_route_data'
+        label: 'kju.express::lang.global.master_route_data'
         url: kju/express/deliveryroutes
         icon: icon-map-marker
         permissions:

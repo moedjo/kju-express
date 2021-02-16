@@ -26,6 +26,8 @@
         'access_int_check_delivery_cost' => 'Access int. check delivery cost',
         'access_int_statuses' => 'Manage int. delivery order statuses',
         'access_vendors' => 'Manage vendors',
+        'is_int_checker' => 'International Checker',
+        'is_int_exporter' => 'International Exporter'
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -128,6 +130,11 @@
         'fee_percentage' => 'Fee Percentage',
         'import_status' => 'Import Status',
         'goods_volume_data' => 'Goods Volume Data',
+        'master_route_data' => 'Master Route Data',
+        'reject' => 'Reject',
+        'export' => 'Export',
+        'failed' => 'Failed',
+        'pending' => 'Pending'
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -137,7 +144,6 @@
         'new' => 'New Branch',
         'edit' => 'Edit Branch',
         'preview' => 'Preview Branch',
-        'master_route_data' => 'Master Route Data',
     ],
     'service' => [
         'plural' => 'Services',

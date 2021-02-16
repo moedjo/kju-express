@@ -10,17 +10,11 @@ scopes:
         type: group
         conditions: status in (:filtered)
         options:
+            pending: 'kju.express::lang.global.pending'
             process: 'kju.express::lang.global.process'
-            transit: 'kju.express::lang.global.transit'
-            received: 'kju.express::lang.global.received'
+            export: 'kju.express::lang.global.export'
+            reject: 'kju.express::lang.global.reject'
             failed: 'kju.express::lang.global.failed'
-    payment_status:
-        label: 'kju.express::lang.global.payment_status'
-        type: group
-        conditions: payment_status in (:filtered)
-        options:
-            paid: 'kju.express::lang.global.paid'
-            unpaid: 'kju.express::lang.global.unpaid'
     payment_method:
         label: 'kju.express::lang.global.payment_method'
         type: group

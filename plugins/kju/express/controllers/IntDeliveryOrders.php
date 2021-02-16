@@ -78,6 +78,17 @@ class IntDeliveryOrders extends Controller
 
         $user = $this->user;
         $branch = $user->branch;
+        if($this->user->hasPermission('is_int_checker')){
+            $query->whereIn('status', ['pending']);
+            return $query;
+        }
+
+
+        if($this->user->hasPermission('is_int_exporter')){
+            $query->whereIn('status', ['process']);
+            return $query;
+        }
+
         if ($user->isSuperUser()) {
             // TODO Nothing
         } else if (isset($branch)) {
@@ -97,19 +108,19 @@ class IntDeliveryOrders extends Controller
             return 'new';
         }
 
-        if ($record->status == 'received') {
+        if ($record->status == 'paid') {
             return 'safe';
         }
 
-        if ($record->status == 'transit') {
+        if ($record->status == 'return') {
             return 'frozen';
         }
 
-        if ($record->status == 'pickup') {
+        if ($record->status == 'export') {
             return 'positive';
         }
 
-        if ($record->status == 'failed') {
+        if ($record->status == 'unpaid') {
             return 'negative';
         }
     }
@@ -152,13 +163,6 @@ class IntDeliveryOrders extends Controller
             $fields['goods_height']->disabled = true;
             $fields['goods_width']->disabled = true;
             $fields['goods_length']->disabled = true;
-
-            if ($user->hasPermission('access_payment_data_for_delivery_orders')) {
-                if ($model->payment_status == 'paid') {
-                    $fields['payment_status']->disabled = true;
-                    $fields['payment_description']->disabled = true;
-                }
-            }
 
             if ($user->hasPermission('access_discount_for_delivery_orders')) {
                 $fields['discount']->disabled = true;

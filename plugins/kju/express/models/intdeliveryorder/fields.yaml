@@ -8,15 +8,15 @@ fields:
             - update
             - preview
         type: text
-    display_status:
+    status:
         label: 'kju.express::lang.global.status'
-        disabled: 1
         span: right
         placeholder: 'kju.express::lang.global.status'
+        disabled: 1
         context:
             - update
             - preview
-        type: text
+        type: balloon-selector
     origin_region:
         label: 'kju.express::lang.global.origin'
         span: left
@@ -160,26 +160,6 @@ tabs:
             required: 1
             tab: 'kju.express::lang.global.goods_volume_data'
             
-        # Payment Data
-        payment_status:
-            label: 'kju.express::lang.global.payment_status'
-            span: left
-            type: balloon-selector
-            default: paid
-            options:
-                paid: 'kju.express::lang.global.paid'
-                unpaid: 'kju.express::lang.global.unpaid'
-            tab: 'kju.express::lang.global.payment_data'
-            permissions: 
-                - access_payment_data_for_delivery_orders
-        payment_description:
-            label: 'kju.express::lang.global.payment_description'
-            span: left
-            placeholder: 'kju.express::lang.global.payment_description'
-            type: text
-            tab: 'kju.express::lang.global.payment_data'
-            permissions: 
-                - access_payment_data_for_delivery_orders
         statuses:
             span: full
             path: field_delivery_order_statuses

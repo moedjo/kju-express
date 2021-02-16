@@ -12,7 +12,7 @@ class CreateKjuExpressDeliveryOrderStatuses extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
 
-            $table->enum('status', ['pickup', 'process', 'transit','received','failed']);
+            $table->enum('status', ['pending', 'process','export','reject','failed']);
            
             $table->string('int_delivery_order_code',20)->nullable();;
             $table->foreign('int_delivery_order_code','statuses_order_code_foreign')->references('code')->on('kju_express_int_delivery_orders')->onDelete('restrict');
