@@ -47,7 +47,7 @@ tabs:
         kju.express::lang.global.payment_data: icon-money
         kju.express::lang.status.plural: icon-list-ol
         kju.express::lang.global.goods_volume_data: icon-inbox
-        
+        kju.express::lang.global.checker_data: icon-user-secret
     fields:
 
         #Shipper Data
@@ -159,7 +159,8 @@ tabs:
             type: text
             required: 1
             tab: 'kju.express::lang.global.goods_volume_data'
-            
+        
+        # Status Data
         statuses:
             span: full
             path: field_delivery_order_statuses
@@ -167,6 +168,50 @@ tabs:
                 - update
             type: partial
             tab: 'kju.express::lang.status.plural'
+        
+        #Checker Data
+        vendor:
+            label: 'kju.express::lang.vendor.singular'
+            span: left
+            placeholder: 'kju.express::lang.vendor.singular'
+            type: recordfinder
+            list: ~/plugins/kju/express/models/vendor/columns.yaml
+            modelClass: Kju\Express\Models\Vendor
+            nameFrom: name
+            tab: 'kju.express::lang.global.checker_data'
+            disabled: true
+            context:
+                - update
+        _vendor:
+            label: 'kju.express::lang.vendor.singular'
+            span: left
+            type: text
+            disabled: true
+            valueFrom: vendor[name]
+            tab: 'kju.express::lang.global.checker_data'
+            context:
+                - update
+        checker_action:
+            label: 'kju.express::lang.global.action'
+            span: right
+            placeholder: 'kju.express::lang.global.action'
+            context:
+                - update
+            type: balloon-selector
+            options:
+                process: 'kju.express::lang.global.process'
+                reject: 'kju.express::lang.global.reject'
+            tab: 'kju.express::lang.global.checker_data'
+        checker_comment:
+            label: 'kju.express::lang.global.comment'
+            span: full
+            placeholder: 'kju.express::lang.global.comment'
+            disabled: true
+            context:
+                - update
+            type: textarea
+            size: small
+            tab: 'kju.express::lang.global.checker_data'
 secondaryTabs:
     fields:
         total_cost:
@@ -186,6 +231,36 @@ secondaryTabs:
                 - goods_length
                 - goods_weight
                 - discount
+        branch_total_cost:
+            label: 'kju.express::lang.global.branch_total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.branch_total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            context:
+                - update
+        checker_total_cost:
+            label: 'kju.express::lang.global.checker_total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.checker_total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            context:
+                - update
+        different_total_cost:
+            label: 'kju.express::lang.global.different_total_cost'
+            span: full
+            placeholder: 'kju.express::lang.global.different_total_cost'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            context:
+                - update
         payment_method:
             label: 'kju.express::lang.global.payment_method'
             span: full
@@ -195,29 +270,11 @@ secondaryTabs:
                 cash: 'kju.express::lang.global.cash'
                 transfer: 'kju.express::lang.global.transfer'
             tab: Misc
-        discount:
-            label: 'kju.express::lang.global.discount'
-            span: full
-            placeholder: 'kju.express::lang.global.discount'
-            type: text
-            default: 0
-            comment: 'kju.express::lang.global.percentage'
-            tab: Misc
-            permissions: 
-                - access_discount_for_delivery_orders
-        discount_agreement:
-            label: 'kju.express::lang.global.agreement_for_discount'
-            span: full
-            tab: Misc
-            context:
-                - create
-            permissions: 
-                - access_discount_for_delivery_orders
-            type: checkbox
         total_cost_agreement:
             label: 'kju.express::lang.global.agreement_for_total_cost'
             span: full
             tab: Misc
             context:
                 - create
+                - update
             type: checkbox

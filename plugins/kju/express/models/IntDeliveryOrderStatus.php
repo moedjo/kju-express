@@ -38,9 +38,11 @@ class IntDeliveryOrderStatus extends Model
     ];
 
     public function afterCreate(){
-        $order = $this->order;
-        $order->status = $this->status;
-        $order->save();
+        // $order = $this->order;
+        // $order->status = $this->status;
+        // $order->save();
+
+        trace_log('afterCreate');
     }
 
     public function beforeSave(){

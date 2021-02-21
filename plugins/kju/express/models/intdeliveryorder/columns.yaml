@@ -76,3 +76,8 @@ columns:
         invisible: true
         sortable: true
         format: 'Y-m-d H:i:s'
+    different_total_cost:
+        label: 'kju.express::lang.global.different_total_cost'
+        type: currency
+        align: right
+        invisible: true

@@ -6,3 +6,5 @@ ALTER TABLE `kju_express_delivery_orders`
 
 ALTER TABLE `kju_express_branches`
 	ADD COLUMN `fee_percentage` SMALLINT NULL DEFAULT '0' AFTER `name`;
+
+ALTER TABLE kju_express_delivery_orders MODIFY COLUMN goods_description VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;

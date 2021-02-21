@@ -16,7 +16,7 @@
     - create_kju_express_int_delivery_costs.php
     - create_kju_express_int_add_delivery_costs.php
     - builder_table_create_kju_express_vendors.php
-1.0.5:
+1.0.8:
     - 'Add International Order Module'
     - create_kju_express_int_delivery_orders.php
     - create_kju_express_int_delivery_order_statuses.php

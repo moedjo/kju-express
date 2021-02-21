@@ -28,7 +28,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->text('consignee_address',2000);
             $table->string('consignee_postal_code', 10);
            
-            $table->string('goods_description', 10);
+            $table->string('goods_description');
             $table->integer('goods_amount');
             $table->double('goods_weight', 5, 2);
 
@@ -47,17 +47,15 @@ class CreateKjuExpressDeliveryOrders extends Migration
 
             $table->bigInteger('branch_total_cost');
             $table->bigInteger('checker_total_cost');
+            $table->bigInteger('different_total_cost');
+            $table->string('checker_comment');
             
             $table->bigInteger('base_profit')->unsigned()->default(0); 
             $table->bigInteger('profit')->unsigned()->default(0); 
 
+
             $table->bigInteger('fee')->unsigned()->default(0); ;
             $table->bigInteger('fee_percentage')->unsigned()->default(0); ;
-
-            $table->smallInteger('discount');
-            // $table->enum('payment_status', ['paid', 'unpaid'])->default('paid');
-            // $table->string('payment_description');
-
 
             $table->enum('payment_method', ['cash', 'transfer'])->default('cash');
     

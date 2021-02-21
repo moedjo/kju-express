@@ -26,13 +26,16 @@ class IntDeliveryOrder extends Model
     public $table = 'kju_express_int_delivery_orders';
     protected $primaryKey = 'code';
     public $incrementing = false;
-    protected $purgeable = ['total_cost_agreement', 'discount_agreement'];
+    protected $purgeable = ['total_cost_agreement','checker_action'];
 
     protected $dates = ['deleted_at', 'process_at', 'received_at'];
 
-    protected $revisionable = ['goods_description', 'goods_amount','goods_weight','goods_volume_weight',
-'goods_height','goods_width','goods_length','original_total_cost','base_cost','add_cost','total_cost'];
-    
+    protected $revisionable = [
+        'goods_description', 'goods_amount', 'goods_weight', 'goods_volume_weight',
+        'goods_height', 'goods_width', 'goods_length', 'original_total_cost', 'base_cost', 'add_cost',
+        'total_cost', 'base_profit', 'profit', 'fee', 'fee_percentage', 'branch_total_cost', 'checker_total_cost', 'different_total_cost'
+    ];
+
     public $morphMany = [
         'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
     ];
@@ -55,6 +58,8 @@ class IntDeliveryOrder extends Model
         'updated_user' => ['Kju\Express\Models\User', 'key' => 'updated_user_id'],
         'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
+
+        'vendor' => ['Kju\Express\Models\Vendor', 'key' => 'vendor_id'],
 
     ];
 
@@ -86,7 +91,7 @@ class IntDeliveryOrder extends Model
         if ($this->goods_weight > $this->goods_volume_weight) {
             $weight = ceil($this->goods_weight);
         } else {
-            $weight = ceil($this->goods_volume_weight);  
+            $weight = ceil($this->goods_volume_weight);
         }
 
         $route_code = $this->origin_region->id . '-' . $this->consignee_region->id;
@@ -114,7 +119,6 @@ class IntDeliveryOrder extends Model
 
                 $this->add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
                 $total_cost = $total_cost + $this->add_cost;
-
                 $this->add_cost_per_kg = $int_add_delivery_cost->add_cost_per_kg;
             } else {
                 $this->add_cost_per_kg = 0;
@@ -122,12 +126,14 @@ class IntDeliveryOrder extends Model
 
 
             $this->total_cost = $total_cost;
-
             $this->original_total_cost = $this->total_cost + 0;
 
-            if(is_numeric($this->discount)){
-                $total_discount =  $this->total_cost * ($this->discount / 100);
-                $this->total_cost = $this->total_cost - $total_discount;
+        
+            if ($user->hasPermission('is_int_checker')) {
+                $this->checker_total_cost = $this->total_cost;
+                $this->different_total_cost = $this->branch_total_cost - $this->checker_total_cost;
+            } else {
+                $this->branch_total_cost = $this->total_cost;
             }
 
             $this->int_delivery_route_code = $int_delivery_cost->int_delivery_route_code;
@@ -157,10 +163,8 @@ class IntDeliveryOrder extends Model
             is_numeric($this->goods_weight)
         ) {
             $this->initWeight();
-            // $fields->goods_weight->value = $this->goods_weight;
         } else {
-            // $this->goods_weight = 0;
-            // $fields->goods_weight->value = 0;
+            $this->goods_volume_weight = 0;
         }
 
         if (
@@ -168,8 +172,11 @@ class IntDeliveryOrder extends Model
             isset($this->consignee_region) &&
             isset($this->goods_type) &&
 
+            is_numeric($this->goods_weight) &&
+            is_numeric($this->goods_volume_weight) &&
+
             $this->goods_weight &&
-            $this->goods_volume_weight 
+            $this->goods_volume_weight
 
         ) {
             $this->initTotalCost();
@@ -223,6 +230,17 @@ class IntDeliveryOrder extends Model
     {
         $user = BackendAuth::getUser();
         $this->updated_user = $user;
+
+        if ($user->hasPermission('is_int_checker') && $this->status == 'pending') {
+            $order_status = new IntDeliveryOrderStatus();
+            $order_status->region = $this->origin_region;
+            $order_status->status = $this->getOriginalPurgeValue('checker_action');
+            $order_status->created_user = $this->created_user;
+            $order_status->int_delivery_order_code = $this->code;
+            $order_status->save();
+
+            $this->status = $order_status->status;
+        }
     }
 
     public function beforeDelete()

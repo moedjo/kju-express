@@ -134,7 +134,15 @@
         'reject' => 'Reject',
         'export' => 'Export',
         'failed' => 'Failed',
-        'pending' => 'Pending'
+        'pending' => 'Pending',
+        'action' => 'Action',
+
+        'branch_total_cost' => 'Branch Total Cost',
+        'checker_total_cost' => 'Checker Total Cost',
+        'different_total_cost' => 'Different Total Cost',
+        'checker_data' => 'Checker Data',
+        'comment' => 'Comment'
+
     ],
     'branch' => [
         'singular' => 'Branch',

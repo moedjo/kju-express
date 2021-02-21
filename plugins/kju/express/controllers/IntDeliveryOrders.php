@@ -4,6 +4,8 @@ namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 use Kju\Express\Models\IntDeliveryOrder;
 use Renatio\DynamicPDF\Classes\PDF;
 
@@ -26,11 +28,24 @@ class IntDeliveryOrders extends Controller
     public $requiredPermissions = [
         'access_int_delivery_orders'
     ];
- 
+
     public function __construct()
     {
         parent::__construct();
         BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-orders');
+    }
+
+    public function create($context = null)
+    {
+
+        if ($this->user->isSuperUser()) {
+        } else if ($this->user->hasPermission('is_int_checker')) {
+            return Response::make(View::make('cms::404'), 404);
+        } else if ($this->user->hasPermission('is_int_exporter')) {
+            return Response::make(View::make('cms::404'), 404);
+        }
+
+        return $this->asExtension('FormController')->create($context);
     }
 
     public function print($code)
@@ -64,6 +79,18 @@ class IntDeliveryOrders extends Controller
     {
         $user = $this->user;
         $branch = $user->branch;
+
+        if ($this->user->hasPermission('is_int_checker')) {
+            $query->whereIn('status', ['pending', 'process', 'reject']);
+            return $query;
+        }
+
+
+        if ($this->user->hasPermission('is_int_exporter')) {
+            $query->whereIn('status', ['process']);
+            return $query;
+        }
+
         if ($user->isSuperUser()) {
             // TODO Nothing
         } else if (isset($branch)) {
@@ -78,13 +105,13 @@ class IntDeliveryOrders extends Controller
 
         $user = $this->user;
         $branch = $user->branch;
-        if($this->user->hasPermission('is_int_checker')){
-            $query->whereIn('status', ['pending']);
+        if ($this->user->hasPermission('is_int_checker')) {
+            $query->whereIn('status', ['pending', 'process', 'reject']);
             return $query;
         }
 
 
-        if($this->user->hasPermission('is_int_exporter')){
+        if ($this->user->hasPermission('is_int_exporter')) {
             $query->whereIn('status', ['process']);
             return $query;
         }
@@ -132,7 +159,7 @@ class IntDeliveryOrders extends Controller
         $branch = $user->branch;
         $context = $host->getContext();
         $model = $host->model;
- 
+
         if ($context == 'create') {
 
             if (isset($branch)) {
@@ -164,10 +191,31 @@ class IntDeliveryOrders extends Controller
             $fields['goods_width']->disabled = true;
             $fields['goods_length']->disabled = true;
 
-            if ($user->hasPermission('access_discount_for_delivery_orders')) {
-                $fields['discount']->disabled = true;
-            }
             $fields['payment_method']->disabled = true;
+
+            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+
+                $fields['goods_type']->disabled = false;
+                $fields['goods_description']->disabled = false;
+                $fields['goods_amount']->disabled = false;
+
+                $fields['goods_weight']->disabled = false;
+                $fields['goods_height']->disabled = false;
+                $fields['goods_width']->disabled = false;
+                $fields['goods_length']->disabled = false;
+
+                $fields['vendor']->disabled = false;
+                $fields['checker_comment']->disabled = false;
+
+                $fields['_vendor']->hidden = true;
+            } else {
+                $fields['total_cost_agreement']->hidden = true;
+
+                $host->removeField('checker_action');
+                $host->removeField('vendor'); // recordfinder can't support disabled
+                $fields['_vendor']->hidden = false; // recordfinder can't support disabled
+
+            }
         }
     }
 
@@ -211,17 +259,30 @@ class IntDeliveryOrders extends Controller
             $model->rules['goods_weight'] = "required|numeric|min:0";
             $model->rules['total_cost'] = "required|numeric|min:1";
             $model->rules['total_cost_agreement'] = 'in:1';
-
-            if ($this->user->hasPermission('access_discount_for_delivery_orders')) {
-                $model->rules['discount'] = 'required|numeric|between:0,100';
-                $model->rules['discount_agreement'] = 'in:1';
-            }
         });
     }
 
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
+            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+
+                // Goods Data
+                $model->rules['goods_type'] = 'required';
+                $model->rules['goods_amount'] = 'required|numeric|min:1';
+                $model->rules['goods_weight'] = 'required|numeric|min:1';
+                $model->rules['goods_height'] = 'required|numeric|min:1';
+                $model->rules['goods_width'] = 'required|numeric|min:1';
+                $model->rules['goods_length'] = 'required|numeric|min:1';
+
+                // Panel Data
+                $model->rules['goods_weight'] = "required|numeric|min:0";
+                $model->rules['total_cost'] = "required|numeric|min:1";
+                $model->rules['total_cost_agreement'] = 'in:1';
+
+                $model->rules['vendor'] = 'required';
+                $model->rules['checker_action'] = 'required';
+            }
         });
     }
 }
