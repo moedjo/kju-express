@@ -27,7 +27,8 @@ class Branch extends Model
     public $rules = [
         // 'code' => 'required|between:1,10',
         'name' => 'required|between:1,100|unique:kju_express_branches',
-        'fee_percentage' => 'required|numeric|between:0,50',
+        'dom_fee_percentage' => 'required|between:0,99.9',
+        'int_fee_percentage' => 'required|between:0,99.9',
         'region' => 'required',
     ];
 

@@ -14,7 +14,8 @@ class CreateKjuExpressIntDeliveryCosts extends Migration
             $table->integer('min_range_weight');
             $table->integer('max_range_weight');
             $table->integer('base_cost_per_kg')->unsigned()->default(0);
-            $table->integer('profit_percentage')->unsigned()->default(0);   
+
+            $table->double('profit_percentage',5,2)->default(0);
             
             $table->string('int_delivery_route_code',12)->nullable();;
             $table->foreign('int_delivery_route_code','costs_route_code_foreign')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');

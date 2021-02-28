@@ -279,6 +279,21 @@ secondaryTabs:
                 - goods_weight
                 - discount
                 - branch_region
+        fee:
+            label: 'kju.express::lang.global.branch_fee'
+            span: full
+            placeholder: 'kju.express::lang.global.branch_fee'
+            default: ''
+            readOnly: 1
+            type: text
+            tab: Misc
+            dependsOn:
+                - pickup_request
+                - consignee_region
+                - service
+                - goods_weight
+                - discount
+                - branch_region
         discount:
             label: 'kju.express::lang.global.discount'
             span: full

@@ -13,7 +13,8 @@ class CreateKjuExpressBranches extends Migration
             $table->string('code', 10);
             $table->string('name', 100);
 
-            $table->smallInteger('fee_percentage')->default(0);
+            $table->double('dom_fee_percentage',5,2)->default(0);
+            $table->double('int_fee_percentage',5,2)->default(0);
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

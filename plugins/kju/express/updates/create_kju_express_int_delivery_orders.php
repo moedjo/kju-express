@@ -32,7 +32,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->integer('goods_amount');
             $table->double('goods_weight', 5, 2);
 
-            $table->double('goods_volume_weight',5,2);
+            $table->double('goods_volume_weight',7,2);
 
             $table->integer('goods_height');
             $table->integer('goods_width');
@@ -48,14 +48,15 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->bigInteger('branch_total_cost');
             $table->bigInteger('checker_total_cost');
             $table->bigInteger('different_total_cost');
+
             $table->string('checker_comment');
             
             $table->bigInteger('base_profit')->unsigned()->default(0); 
             $table->bigInteger('profit')->unsigned()->default(0); 
-
-
-            $table->bigInteger('fee')->unsigned()->default(0); ;
-            $table->bigInteger('fee_percentage')->unsigned()->default(0); ;
+            $table->bigInteger('net_profit')->unsigned()->default(0); 
+            $table->boolean('goods_type_profit_share')->default(false);
+            $table->bigInteger('fee')->unsigned()->default(0);
+            $table->double('fee_percentage',5,2)->default(0);
 
             $table->enum('payment_method', ['cash', 'transfer'])->default('cash');
     
@@ -66,7 +67,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->integer('min_range_weight');
             $table->integer('max_range_weight');
             $table->integer('base_cost_per_kg')->unsigned()->default(0);
-            $table->integer('profit_percentage')->unsigned()->default(0); 
+            $table->double('profit_percentage',5,2)->default(0);
 
             $table->integer('add_cost_per_kg')->unsigned()->default(0); 
             $table->string('goods_type_code',10)->nullable();

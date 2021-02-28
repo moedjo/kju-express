@@ -76,3 +76,14 @@ columns:
         invisible: true
         sortable: true
         format: 'Y-m-d H:i:s'
+    goods_weight:
+        label: 'kju.express::lang.global.goods_weight'
+        type: text
+        searchable: false
+        sortable: false
+        invisible: true
+    fee:
+        label: 'kju.express::lang.global.branch_fee'
+        type: currency
+        align: right
+        invisible: true

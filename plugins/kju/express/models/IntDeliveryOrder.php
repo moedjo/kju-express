@@ -26,14 +26,16 @@ class IntDeliveryOrder extends Model
     public $table = 'kju_express_int_delivery_orders';
     protected $primaryKey = 'code';
     public $incrementing = false;
-    protected $purgeable = ['total_cost_agreement','checker_action'];
+    protected $purgeable = ['total_cost_agreement', 'checker_action'];
 
     protected $dates = ['deleted_at', 'process_at', 'received_at'];
 
     protected $revisionable = [
         'goods_description', 'goods_amount', 'goods_weight', 'goods_volume_weight',
-        'goods_height', 'goods_width', 'goods_length', 'original_total_cost', 'base_cost', 'add_cost',
-        'total_cost', 'base_profit', 'profit', 'fee', 'fee_percentage', 'branch_total_cost', 'checker_total_cost', 'different_total_cost'
+        'goods_height', 'goods_width', 'goods_length',
+        'original_total_cost', 'base_cost', 'add_cost', 'total_cost',
+        'base_profit', 'profit', 'net_profit', 'goods_type_profit_share', 'fee', 'fee_percentage',
+        'different_total_cost'
     ];
 
     public $morphMany = [
@@ -86,6 +88,8 @@ class IntDeliveryOrder extends Model
     private function initTotalCost()
     {
         $user = BackendAuth::getUser();
+        $fee_percentage = 0;
+        $branch = $user->branch;
         $weight = 0;
 
         if ($this->goods_weight > $this->goods_volume_weight) {
@@ -97,50 +101,69 @@ class IntDeliveryOrder extends Model
         $route_code = $this->origin_region->id . '-' . $this->consignee_region->id;
         $goods_type_code = $this->goods_type->code;
 
+
         $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_code', $route_code)
             ->whereRaw("$weight BETWEEN min_range_weight AND max_range_weight")
             ->first();
 
         if (isset($int_delivery_cost)) {
             $total_cost = $int_delivery_cost->base_cost_per_kg * $weight;
-
             $this->base_cost = $int_delivery_cost->base_cost_per_kg * $weight;
-
             $this->profit = $this->base_cost * ($int_delivery_cost->profit_percentage / 100);
-
             $total_cost =  $this->base_cost + $this->profit;
+
 
 
             $int_add_delivery_cost = IntAddDeliveryCost::where('int_delivery_route_code', $route_code)
                 ->where('goods_type_code', $goods_type_code)
                 ->first();
-
+            $this->goods_type_profit_share = false;
             if (isset($int_add_delivery_cost)) {
-
                 $this->add_cost = $int_add_delivery_cost->add_cost_per_kg * $weight;
                 $total_cost = $total_cost + $this->add_cost;
                 $this->add_cost_per_kg = $int_add_delivery_cost->add_cost_per_kg;
+                $this->goods_type_profit_share = $int_add_delivery_cost->goods_type
+                    ->profit_share;
             } else {
                 $this->add_cost_per_kg = 0;
             }
 
 
-            $this->total_cost = $total_cost;
-            $this->original_total_cost = $this->total_cost + 0;
-
-        
             if ($user->hasPermission('is_int_checker')) {
-                $this->checker_total_cost = $this->total_cost;
-                $this->different_total_cost = $this->branch_total_cost - $this->checker_total_cost;
             } else {
-                $this->branch_total_cost = $this->total_cost;
+                if (isset($branch)) {
+                    $fee_percentage = $branch->int_fee_percentage;
+                }
+                $this->fee_percentage = $fee_percentage;
             }
+
+
+            $this->total_cost = $total_cost;
+            $this->original_total_cost = $this->total_cost;
+
+            if ($this->goods_type_profit_share) {
+                $this->fee = $this->total_cost * ($this->fee_percentage / 100);
+            } else {
+                $this->fee = ($this->total_cost - $this->add_cost)
+                    * ($this->fee_percentage / 100);
+            }
+
+            $this->net_profit = $this->profit - $this->fee;
+
+
 
             $this->int_delivery_route_code = $int_delivery_cost->int_delivery_route_code;
             $this->min_range_weight = $int_delivery_cost->min_range_weight;
             $this->max_range_weight = $int_delivery_cost->max_range_weight;
             $this->base_cost_per_kg = $int_delivery_cost->base_cost_per_kg;
             $this->profit_percentage = $int_delivery_cost->profit_percentage;
+
+            if ($user->hasPermission('is_int_checker')) {
+                $this->checker_total_cost =  $total_cost - $this->fee;
+                $this->different_total_cost = $this->branch_total_cost - $this->checker_total_cost;
+            } else {
+                $this->branch_total_cost = $total_cost - $this->fee;
+            }
         } else {
             $this->total_cost = null;
         }
@@ -149,8 +172,6 @@ class IntDeliveryOrder extends Model
 
     public function filterFields($fields, $context = null)
     {
-
-
         if (
             $this->goods_height &&
             $this->goods_width &&
@@ -183,13 +204,16 @@ class IntDeliveryOrder extends Model
 
             if ($this->total_cost) {
                 $fields->total_cost->value = $this->total_cost;
+                $fields->fee->value = $this->fee;
             } else {
                 Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
                 $fields->total_cost->value = 0;
+                $fields->fee->value = 0;
             }
         } else {
             $this->total_cost = 0;
             $fields->total_cost->value = 0;
+            $fields->fee->value = 0;
         }
     }
 

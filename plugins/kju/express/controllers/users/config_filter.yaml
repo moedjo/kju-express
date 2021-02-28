@@ -22,4 +22,4 @@ scopes:
         label: 'kju.express::lang.branch.singular'
         modelClass: Kju\Express\Models\Branch
         conditions: branch_code in (:filtered)
-        nameFrom: displayName
+        nameFrom: name

@@ -81,3 +81,25 @@ columns:
         type: currency
         align: right
         invisible: true
+    fee:
+        label: 'kju.express::lang.global.branch_fee'
+        type: currency
+        align: right
+        invisible: true
+    net_profit:
+        label: 'kju.express::lang.global.net_profit'
+        type: currency
+        align: right
+        invisible: true
+    goods_weight:
+        label: 'kju.express::lang.global.goods_weight'
+        type: text
+        searchable: false
+        sortable: false
+        invisible: true
+    goods_volume_weight:
+        label: 'kju.express::lang.global.goods_volume_weight'
+        type: text
+        searchable: false
+        sortable: false
+        invisible: true

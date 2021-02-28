@@ -80,6 +80,7 @@ class DeliveryOrder extends Model
     {
 
         $user = BackendAuth::getUser();
+        $branch = $user->branch;
 
         $cost = DeliveryCost::findOrFail($cost_id);
 
@@ -103,17 +104,27 @@ class DeliveryOrder extends Model
             $this->goods_amount = 1;
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
+
+            if(isset($branch)){
+                $this->fee_percentage = $branch->dom_fee_percentage;
+                $this->fee = $this->total_cost * ($this->fee_percentage / 100);
+                $this->branch_total_cost = $this->total_cost - $this->fee;
+            }
+
         } else {
 
             $add_cost = (ceil($this->goods_weight) - $cost->service->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost = $add_cost + $cost->cost;
             $this->original_total_cost = $this->total_cost + 0;
-
-
-
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
+
+            if(isset($branch)){
+                $this->fee_percentage = $branch->dom_fee_percentage;
+                $this->fee = $this->total_cost * ($this->fee_percentage / 100);
+                $this->branch_total_cost = $this->total_cost - $this->fee;
+            }
         }
 
         if ($user->hasPermission('is_courier')) {
@@ -174,9 +185,12 @@ class DeliveryOrder extends Model
         if (isset($cost_id)) {
             $this->initData($cost_id);
             $fields->total_cost->value = $this->total_cost;
+            $fields->fee->value = $this->fee;
+
         } else {
             Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
             $fields->total_cost->value = 0;
+            $fields->fee->value = 0;
         }
     }
 

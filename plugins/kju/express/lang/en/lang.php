@@ -141,7 +141,11 @@
         'checker_total_cost' => 'Checker Total Cost',
         'different_total_cost' => 'Different Total Cost',
         'checker_data' => 'Checker Data',
-        'comment' => 'Comment'
+        'comment' => 'Comment',
+        'dom_fee_percentage' => 'Domestic Fee Percentage',
+        'int_fee_percentage' => 'International Fee Percentage',
+        'net_profit' => 'Net Profit',
+        'goods_volume_weight' => 'Goods Volume Weight',
 
     ],
     'branch' => [

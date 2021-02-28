@@ -41,8 +41,16 @@ class IntDeliveryCost extends Model
             ->whereRaw("($this->min_range_weight BETWEEN min_range_weight AND max_range_weight OR $this->max_range_weight BETWEEN min_range_weight AND max_range_weight)")
             ->first();
 
+
         if (isset($int_delivery_cost)) {
-            $this->rules['min_range_weight'] = 'required|accepted';
+
+            if (($int_delivery_cost->min_range_weight == $this->min_range_weight)
+                && ($int_delivery_cost->max_range_weight  == $this->max_range_weight)
+            ) {
+            } else {
+
+                $this->rules['min_range_weight'] = 'required|accepted';
+            }
         }
     }
 }
