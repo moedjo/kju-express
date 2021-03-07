@@ -63,9 +63,9 @@ permissions:
     is_int_checker:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.is_int_checker'
-    is_int_exporter:
+    is_int_tracker:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.is_int_exporter'
+        label: 'kju.express::lang.permission.is_int_tracker'
     access_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_statuses'

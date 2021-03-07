@@ -48,6 +48,7 @@ tabs:
         kju.express::lang.status.plural: icon-list-ol
         kju.express::lang.global.goods_volume_data: icon-inbox
         kju.express::lang.global.checker_data: icon-user-secret
+        kju.express::lang.global.tracker_data: icon-user-secret
     fields:
 
         #Shipper Data
@@ -212,6 +213,27 @@ tabs:
             type: textarea
             size: small
             tab: 'kju.express::lang.global.checker_data'
+
+
+        #Exporter Data
+        tracking_number:
+            label: 'kju.express::lang.global.tracking_number'
+            span: left
+            placeholder: 'kju.express::lang.global.tracking_number'
+            type: text
+            required: 1
+            tab: 'kju.express::lang.global.tracker_data'
+            disabled: true
+        tracker_action:
+            label: 'kju.express::lang.global.action'
+            span: right
+            placeholder: 'kju.express::lang.global.action'
+            context:
+                - update
+            type: balloon-selector
+            options:
+                export: 'kju.express::lang.global.export'
+            tab: 'kju.express::lang.global.tracker_data'
 secondaryTabs:
     fields:
         total_cost:
@@ -230,7 +252,6 @@ secondaryTabs:
                 - goods_width
                 - goods_length
                 - goods_weight
-                - discount
         fee:
             label: 'kju.express::lang.global.branch_fee'
             span: full
@@ -247,7 +268,6 @@ secondaryTabs:
                 - goods_width
                 - goods_length
                 - goods_weight
-                - discount
         branch_total_cost:
             label: 'kju.express::lang.global.branch_total_cost'
             span: full
@@ -268,6 +288,12 @@ secondaryTabs:
             tab: Misc
             context:
                 - update
+            dependsOn:
+                - goods_type
+                - goods_height
+                - goods_width
+                - goods_length
+                - goods_weight
         different_total_cost:
             label: 'kju.express::lang.global.different_total_cost'
             span: full
@@ -278,6 +304,12 @@ secondaryTabs:
             tab: Misc
             context:
                 - update
+            dependsOn:
+                - goods_type
+                - goods_height
+                - goods_width
+                - goods_length
+                - goods_weight
         payment_method:
             label: 'kju.express::lang.global.payment_method'
             span: full

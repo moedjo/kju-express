@@ -49,9 +49,8 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->bigInteger('fee')->unsigned()->default(0);
             $table->double('fee_percentage',5,2)->default(0);
 
-            $table->bigInteger('branch_total_cost');
-
             $table->bigInteger('original_total_cost');
+            $table->bigInteger('net_total_cost')->unsigned()->default(0); 
             $table->smallInteger('discount');
             $table->enum('payment_status', ['paid', 'unpaid'])->default('paid');
             $table->string('payment_description');

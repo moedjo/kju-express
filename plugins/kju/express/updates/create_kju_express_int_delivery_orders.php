@@ -50,9 +50,13 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->bigInteger('different_total_cost');
 
             $table->string('checker_comment');
+
+            $table->string('tracking_number', 100);
             
             $table->bigInteger('base_profit')->unsigned()->default(0); 
             $table->bigInteger('profit')->unsigned()->default(0); 
+
+            $table->bigInteger('net_total_cost')->unsigned()->default(0); 
             $table->bigInteger('net_profit')->unsigned()->default(0); 
             $table->boolean('goods_type_profit_share')->default(false);
             $table->bigInteger('fee')->unsigned()->default(0);

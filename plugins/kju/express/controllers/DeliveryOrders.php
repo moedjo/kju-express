@@ -100,7 +100,7 @@ class DeliveryOrders extends Controller
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
-            $query->where('branch_code', null);
+            $query->where('created_user_id', $user->id);
         }
     }
 
@@ -114,7 +114,7 @@ class DeliveryOrders extends Controller
         } else if (isset($branch)) {
             $query->where('branch_code', $branch->code);
         } else {
-            $query->where('branch_code', null);
+            $query->where('created_user_id',  $user->id);
         }
     }
 

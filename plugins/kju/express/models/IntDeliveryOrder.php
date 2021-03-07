@@ -26,7 +26,7 @@ class IntDeliveryOrder extends Model
     public $table = 'kju_express_int_delivery_orders';
     protected $primaryKey = 'code';
     public $incrementing = false;
-    protected $purgeable = ['total_cost_agreement', 'checker_action'];
+    protected $purgeable = ['total_cost_agreement', 'checker_action', 'tracker_action'];
 
     protected $dates = ['deleted_at', 'process_at', 'received_at'];
 
@@ -157,7 +157,7 @@ class IntDeliveryOrder extends Model
             $this->max_range_weight = $int_delivery_cost->max_range_weight;
             $this->base_cost_per_kg = $int_delivery_cost->base_cost_per_kg;
             $this->profit_percentage = $int_delivery_cost->profit_percentage;
-
+            $this->net_total_cost = $total_cost - $this->fee;
             if ($user->hasPermission('is_int_checker')) {
                 $this->checker_total_cost =  $total_cost - $this->fee;
                 $this->different_total_cost = $this->branch_total_cost - $this->checker_total_cost;
@@ -172,6 +172,7 @@ class IntDeliveryOrder extends Model
 
     public function filterFields($fields, $context = null)
     {
+        $user = BackendAuth::getUser();
         if (
             $this->goods_height &&
             $this->goods_width &&
@@ -198,22 +199,34 @@ class IntDeliveryOrder extends Model
 
             $this->goods_weight &&
             $this->goods_volume_weight
-
         ) {
             $this->initTotalCost();
-
             if ($this->total_cost) {
                 $fields->total_cost->value = $this->total_cost;
                 $fields->fee->value = $this->fee;
+
+                if ($user->hasPermission('is_int_checker')) {
+                    $fields->checker_total_cost->value = $this->checker_total_cost;
+                    $fields->different_total_cost->value = $this->different_total_cost;
+                }
             } else {
                 Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
                 $fields->total_cost->value = 0;
                 $fields->fee->value = 0;
+                if ($user->hasPermission('is_int_checker')) {
+                    $fields->checker_total_cost->value = 0;
+                    $fields->different_total_cost->value = 0;
+                }
             }
         } else {
             $this->total_cost = 0;
             $fields->total_cost->value = 0;
             $fields->fee->value = 0;
+
+            if ($user->hasPermission('is_int_checker')) {
+                $fields->checker_total_cost->value = 0;
+                $fields->different_total_cost->value = 0;
+            }
         }
     }
 
@@ -259,6 +272,19 @@ class IntDeliveryOrder extends Model
             $order_status = new IntDeliveryOrderStatus();
             $order_status->region = $this->origin_region;
             $order_status->status = $this->getOriginalPurgeValue('checker_action');
+            $order_status->created_user = $this->created_user;
+            $order_status->int_delivery_order_code = $this->code;
+            $order_status->save();
+
+            $this->status = $order_status->status;
+        }
+
+        trace_log('====> '.$user->hasPermission('is_int_tracker').' c'.$this->status  );
+
+        if ($user->hasPermission('is_int_tracker') && $this->status == 'process') {
+            $order_status = new IntDeliveryOrderStatus();
+            $order_status->region = $this->origin_region;
+            $order_status->status = $this->getOriginalPurgeValue('tracker_action');
             $order_status->created_user = $this->created_user;
             $order_status->int_delivery_order_code = $this->code;
             $order_status->save();

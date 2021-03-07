@@ -38,14 +38,9 @@ class IntDeliveryOrderStatus extends Model
     ];
 
     public function afterCreate(){
-        // $order = $this->order;
-        // $order->status = $this->status;
-        // $order->save();
-
-        trace_log('afterCreate');
     }
 
-    public function beforeSave(){
+    public function beforeCreate(){
         $user = BackendAuth::getUser();
         $this->created_user = $user;
     }
@@ -54,9 +49,10 @@ class IntDeliveryOrderStatus extends Model
     public function getStatusOptions()
     {
         return [
+            'pending' => 'kju.express::lang.global.pending',
             'process' => 'kju.express::lang.global.process',
-            'transit' => 'kju.express::lang.global.transit',
-            'received' => 'kju.express::lang.global.received',
+            'export' => 'kju.express::lang.global.export',
+            'reject' => 'kju.express::lang.global.reject',
             'failed' => 'kju.express::lang.global.failed',
         ];
     }

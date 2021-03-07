@@ -27,7 +27,7 @@
         'access_int_statuses' => 'Manage int. delivery order statuses',
         'access_vendors' => 'Manage vendors',
         'is_int_checker' => 'International Checker',
-        'is_int_exporter' => 'International Exporter'
+        'is_int_tracker' => 'International Tracker'
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -141,11 +141,14 @@
         'checker_total_cost' => 'Checker Total Cost',
         'different_total_cost' => 'Different Total Cost',
         'checker_data' => 'Checker Data',
+        'tracker_data' => 'Tracker Data',
         'comment' => 'Comment',
         'dom_fee_percentage' => 'Domestic Fee Percentage',
         'int_fee_percentage' => 'International Fee Percentage',
         'net_profit' => 'Net Profit',
         'goods_volume_weight' => 'Goods Volume Weight',
+        'net_total_cost' => 'Net Total Cost',
+        'tracking_number' => 'Tracking Number',
 
     ],
     'branch' => [

@@ -104,11 +104,12 @@ class DeliveryOrder extends Model
             $this->goods_amount = 1;
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
-
+            $this->net_total_cost = $this->total_cost;
             if(isset($branch)){
                 $this->fee_percentage = $branch->dom_fee_percentage;
                 $this->fee = $this->total_cost * ($this->fee_percentage / 100);
-                $this->branch_total_cost = $this->total_cost - $this->fee;
+
+                $this->net_total_cost = $this->total_cost- $this->fee ;
             }
 
         } else {
@@ -119,11 +120,11 @@ class DeliveryOrder extends Model
             $this->original_total_cost = $this->total_cost + 0;
             $total_discount =  $this->total_cost * ($this->discount / 100);
             $this->total_cost = $this->total_cost - $total_discount;
-
+            $this->net_total_cost = $this->total_cost;
             if(isset($branch)){
                 $this->fee_percentage = $branch->dom_fee_percentage;
                 $this->fee = $this->total_cost * ($this->fee_percentage / 100);
-                $this->branch_total_cost = $this->total_cost - $this->fee;
+                $this->net_total_cost = $this->total_cost - $this->fee;
             }
         }
 

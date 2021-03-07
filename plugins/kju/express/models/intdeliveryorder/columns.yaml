@@ -103,3 +103,8 @@ columns:
         searchable: false
         sortable: false
         invisible: true
+    net_total_cost:
+        label: 'kju.express::lang.global.net_total_cost'
+        type: currency
+        align: right
+        invisible: true

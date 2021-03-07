@@ -14,7 +14,7 @@
      </a>
  </div>
 <?php elseif($this->user->hasPermission('is_int_checker')): ?>
-<?php elseif($this->user->hasPermission('is_int_exporter')): ?>
+<?php elseif($this->user->hasPermission('is_int_tracker')): ?>
 <?php else: ?>
 <div data-control="toolbar">
     <a href="<?= Backend::url('kju/express/intdeliveryorders/create') ?>" class="btn btn-primary oc-icon-plus">
