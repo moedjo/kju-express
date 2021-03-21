@@ -35,6 +35,7 @@ class Customer extends Model
 
     public $belongsTo = [
         'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+        'user' => ['Kju\Express\Models\User', 'key' => 'user_id'],
     ];
 
     public function beforeValidate()
@@ -54,6 +55,8 @@ class Customer extends Model
     {
         $user = BackendAuth::getUser();
         $branch = $user->branch;
+
+        $this->user = $user;
         if (isset($branch)) {
             $this->branch = $branch;
         }
@@ -68,7 +71,7 @@ class Customer extends Model
         } else if (isset($branch)) {
             return $query->where('branch_code', $branch->code);
         } else {
-            return $query->where('branch_code', null);;
+            return $query->where('user_id', $user->id);;
         }
     }
 }

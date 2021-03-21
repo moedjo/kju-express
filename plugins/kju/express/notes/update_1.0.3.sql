@@ -15,3 +15,10 @@ ALTER TABLE kju_express_delivery_orders ADD net_total_cost bigint(20) NULL;
 
 
 ALTER TABLE kju_express_delivery_orders MODIFY COLUMN goods_description VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+
+
+ALTER TABLE kju_express_customers ADD user_id int(10) unsigned NULL;
+ALTER TABLE kju_express_customers DROP KEY kju_express_customers_phone_number_branch_code_unique;
+
+ALTER TABLE kju_express_customers ADD CONSTRAINT kju_express_customers_unique UNIQUE KEY (phone_number,branch_code,user_id);
+

@@ -20,7 +20,11 @@ class CreateKjuExpressCustomers extends Migration
             $table->string('branch_code',10)->nullable();
             $table->foreign('branch_code')->references('code')->on('kju_express_branches')->onDelete('restrict');
             
-            $table->unique(['phone_number','branch_code']);
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('backend_users')->onDelete('restrict');;
+
+
+            $table->unique(['phone_number','branch_code','user_id']);
         });
     }
     
