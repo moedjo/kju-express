@@ -38,9 +38,9 @@ class DeliveryOrderStatus extends Model
     ];
 
     public function afterCreate(){
-        $order = $this->order;
-        $order->status = $this->status;
-        $order->save();
+        // $order = $this->order;
+        // $order->status = $this->status;
+        // $order->save();
     }
 
     public function beforeSave(){
@@ -49,10 +49,9 @@ class DeliveryOrderStatus extends Model
     }
 
 
-    public function getStatusOptions()
+    public static function getStatusOptions()
     {
         return [
-            'pickup' => 'kju.express::lang.global.pickup',
             'process' => 'kju.express::lang.global.process',
             'transit' => 'kju.express::lang.global.transit',
             'received' => 'kju.express::lang.global.received',

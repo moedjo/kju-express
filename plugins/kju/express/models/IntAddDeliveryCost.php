@@ -2,6 +2,7 @@
 
 namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 
 /**
@@ -10,6 +11,21 @@ use Model;
 class IntAddDeliveryCost extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Revisionable;
+
+    protected $revisionable = [
+        'add_cost_per_kg', 'goods_type_code', 
+        'int_delivery_route_code', 'created_at', 'updated_at'
+    ];
+    
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+    ];
+
+    public function getRevisionableUser()
+    {
+        return BackendAuth::getUser();
+    }
 
 
     /**

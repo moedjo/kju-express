@@ -82,10 +82,6 @@ class DeliveryOrders extends Controller
             return 'frozen';
         }
 
-        if ($record->status == 'pickup') {
-            return 'positive';
-        }
-
         if ($record->status == 'failed') {
             return 'negative';
         }
@@ -143,22 +139,13 @@ class DeliveryOrders extends Controller
             if (isset($branch)) {
                 $host->removeField('branch_region');
             } else {
-
                 $fields['_branch']->hidden = true;
                 $fields['_branch_region']->hidden = true;
-
-                $fields['pickup_request']->disabled = true;
-                $fields['pickup_request']->hidden = true;
             }
         }
 
         if ($context == 'update') {
 
-            //Main Data
-            $fields['pickup_request']->disabled = true;
-            if(empty($branch)){
-                $fields['pickup_request']->hidden = true;
-            }
 
             // Consignee Data
             $host->removeField('consignee_region'); // recordfinder can't support disabled
@@ -189,55 +176,13 @@ class DeliveryOrders extends Controller
             if ($user->hasPermission('access_discount_for_delivery_orders')) {
                 $fields['discount']->disabled = true;
             }
-
-            if ($model->status == 'pickup') {
-
-                // Pickup Data
-                $host->removeField('pickup_region'); // recordfinder can't support disabled
-                $fields['_pickup_region']->hidden = false; // recordfinder can't support disabled
-                $fields['pickup_date']->disabled = true;
-                $fields['pickup_address']->disabled = true;
-                $fields['pickup_postal_code']->disabled = true;
-
-                if ($user->hasPermission('is_supervisor')) {
-                    $fields['service']->disabled = false;
-                    $fields['goods_weight']->disabled = false;
-                    $fields['goods_description']->disabled = false;
-                    $fields['goods_amount']->disabled = false;
-
-                    $fields['pickup_courier']->disabled = false;
-                    $fields['pickup_date']->disabled = false;
-
-                    $fields['agreement']->hidden = false;
-                } else {
-                    $host->removeField('pickup_courier'); // recordfinder can't support disabled
-                    $fields['_pickup_courier']->hidden = false; // recordfinder can't support disabled
-
-                }
-            }
         }
     }
 
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
-            if ($model->status == 'pickup') {
-                if ($this->user->hasPermission('is_supervisor')) {
-                    // Goods data
-                    $model->rules['service'] = 'required';
-                    if (isset($model->service) && $model->service->weight_limit != -1) {
-                        $model->rules['goods_weight'] = "required|numeric|min:1";
-                        $model->rules['goods_amount'] = "required|numeric|min:1";
-                    }
-
-                    //Pickup data
-                    $model->rules['pickup_courier'] = "required";
-                    $model->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
-
-                    //Panel data
-                    $model->rules['agreement'] = 'in:1';
-                }
-            }
+            
         });
     }
 
@@ -273,18 +218,7 @@ class DeliveryOrders extends Controller
                 $model->rules['goods_amount'] = "required|numeric|min:1";
             }
 
-            // Pickup Data
-            if ($model->pickup_request) {
-                $model->rules['pickup_region'] = "required";
-                $model->rules['pickup_courier'] = "required";
-                $model->rules['pickup_date'] = "required|after_or_equal:" . date('Y-m-d') . "|before_or_equal:" . date("Y-m-d", strtotime("+1 week"));
-
-                $model->rules['pickup_address'] = "required";
-                $model->rules['pickup_postal_code'] = "required|digits:5";
-                if (isset($model->pickup_region)) {
-                    $model->rules['branch_region'] = "required|in:" . substr($model->pickup_region->id, 0, 4);
-                }
-            } else if ($this->user->hasPermission('access_discount_for_delivery_orders')) {
+            if ($this->user->hasPermission('access_discount_for_delivery_orders')) {
                 $model->rules['discount_agreement'] = 'in:1';
                 $model->rules['discount'] = 'required|numeric|between:0,100';
             }

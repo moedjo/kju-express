@@ -2,8 +2,8 @@
 
 namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
-use October\Rain\Exception\ApplicationException;
 
 /**
  * Model
@@ -11,6 +11,21 @@ use October\Rain\Exception\ApplicationException;
 class IntDeliveryCost extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Revisionable;
+
+    protected $revisionable = [
+        'min_range_weight', 'max_range_weight', 'base_cost_per_kg', 'profit_percentage', 'int_delivery_route_code', 'updated_at',
+        'int_delivery_route_code', 'created_at','updated_at'
+    ];
+    
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+    ];
+
+    public function getRevisionableUser()
+    {
+        return BackendAuth::getUser();
+    }
 
 
     /**

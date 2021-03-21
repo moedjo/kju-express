@@ -2,6 +2,7 @@
 
 namespace Kju\Express\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 
 /**
@@ -10,6 +11,20 @@ use Model;
 class DeliveryCost extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Revisionable;
+
+    protected $revisionable = [
+        'cost', 'add_cost', 'min_lead_time', 'max_lead_time', 'created_at', 'updated_at',
+        'delivery_route_code', 'service_code'
+    ];
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+    ];
+
+    public function getRevisionableUser()
+    {
+        return BackendAuth::getUser();
+    }
 
 
     /**
@@ -34,22 +49,21 @@ class DeliveryCost extends Model
         'route' => ['Kju\Express\Models\DeliveryRoute', 'key' => 'delivery_route_code']
     ];
 
-    public function beforeValidate(){
+    public function beforeValidate()
+    {
         $this->rules['service_code'] = "required|unique:kju_express_delivery_costs,service_code,NULL,id,delivery_route_code,$this->delivery_route_code";
         $this->rules['max_lead_time'] = "numeric|between:$this->min_lead_time,99";
-  
     }
 
     public function filterFields($fields, $context = null)
     {
         if (isset($this->service)) {
-            if($this->service->weight_limit == -1){
+            if ($this->service->weight_limit == -1) {
                 $fields->add_cost->hidden = true;
-            }else{
+            } else {
                 $fields->add_cost->hidden = false;
             }
-
-        }else {
+        } else {
             $fields->add_cost->hidden = true;
         }
     }

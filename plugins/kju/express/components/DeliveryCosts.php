@@ -165,7 +165,8 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
             $int_add_delivery_costs = IntAddDeliveryCost::where('int_delivery_route_code', $route_code)
                 ->get()->pluck('add_cost_per_kg','goods_type_code');
-                trace_log($int_add_delivery_costs);
+               
+                
             foreach ($goods_types as $goods_type) {
 
                 $add_cost_per_kg = isset($int_add_delivery_costs[$goods_type->code]) ? 

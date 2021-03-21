@@ -31,11 +31,19 @@ class IntDeliveryOrder extends Model
     protected $dates = ['deleted_at', 'process_at', 'received_at'];
 
     protected $revisionable = [
-        'goods_description', 'goods_amount', 'goods_weight', 'goods_volume_weight',
-        'goods_height', 'goods_width', 'goods_length',
-        'original_total_cost', 'base_cost', 'add_cost', 'total_cost',
-        'base_profit', 'profit', 'net_profit', 'goods_type_profit_share', 'fee', 'fee_percentage',
-        'different_total_cost'
+        'customer_id', 'branch_code', 'origin_region_id', 'consignee_region_id',
+        'consignee_name', 'consignee_phone_number', 'consignee_address',
+        'consignee_postal_code', 'goods_description', 'goods_amount', 'goods_weight',
+        'goods_volume_weight', 'goods_height', 'goods_width', 'goods_length', 'original_total_cost', 'base_cost',
+        'add_cost','total_cost','branch_total_cost','checker_total_cost','different_total_cost',
+        'checker_comment','tracking_number','base_profit','profit',
+        'net_total_cost','net_profit','goods_type_profit_share',
+        'fee','fee_percentage','payment_method','status',
+        'int_delivery_route_code','min_range_weight','max_range_weight',
+        'base_cost_per_kg','profit_percentage','add_cost_per_kg','goods_type_code',
+        'created_at','updated_at','deleted_at','export_at',
+        'received_at','updated_user_id','created_user_id','deleted_user_id',
+        'vendor_id'
     ];
 
     public $morphMany = [
@@ -69,6 +77,10 @@ class IntDeliveryOrder extends Model
         'statuses' => ['Kju\Express\Models\IntDeliveryOrderStatus']
     ];
 
+    public function getRevisionableUser()
+    {
+        return BackendAuth::getUser();
+    }
 
     private function initWeight()
     {
@@ -279,8 +291,7 @@ class IntDeliveryOrder extends Model
             $this->status = $order_status->status;
         }
 
-        trace_log('====> '.$user->hasPermission('is_int_tracker').' c'.$this->status  );
-
+      
         if ($user->hasPermission('is_int_tracker') && $this->status == 'process') {
             $order_status = new IntDeliveryOrderStatus();
             $order_status->region = $this->origin_region;

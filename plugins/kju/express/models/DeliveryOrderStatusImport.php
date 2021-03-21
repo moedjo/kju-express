@@ -57,13 +57,13 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
                     continue;
                 }
 
-                if ($delivery_order->status == 'pickup') {
-                    $this->logError(
-                        $row,
-                        e(trans('kju.express::lang.global.delivery_order_still_pickup'))
-                    );
-                    continue;
-                }
+                // if ($delivery_order->status == 'pickup') {
+                //     $this->logError(
+                //         $row,
+                //         e(trans('kju.express::lang.global.delivery_order_still_pickup'))
+                //     );
+                //     continue;
+                // }
 
                 if ($delivery_order->status == 'received' || $delivery_order->status == 'failed') {
                     $this->logError(
@@ -101,6 +101,9 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
                 }
 
                 $new_order_status->save();
+
+                $delivery_order->status = $new_order_status->status;
+                $delivery_order->save();
 
 
                 $this->logCreated();

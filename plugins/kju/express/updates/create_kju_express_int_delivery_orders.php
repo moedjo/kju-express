@@ -82,7 +82,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->timestamp('deleted_at')->nullable();
 
             $table->timestamp('process_at')->nullable();
-            $table->timestamp('received_at')->nullable();
+            $table->timestamp('export_at')->nullable();
 
             $table->integer('updated_user_id')->unsigned()->nullable();
             $table->foreign('updated_user_id')->references('id')->on('backend_users')->onDelete('restrict');;

@@ -18,6 +18,7 @@ class DeliveryOrder extends Model
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
     use \October\Rain\Database\Traits\Purgeable;
+    use \October\Rain\Database\Traits\Revisionable;
 
     /**
      * @var string The database table used by the model.
@@ -30,6 +31,22 @@ class DeliveryOrder extends Model
 
 
     protected $dates = ['deleted_at', 'process_at', 'received_at', 'pickup_date'];
+
+    protected $revisionable = [
+        'customer_id', 'branch_code', 'branch_region_id',
+        'pickup_region_id', 'pickup_courier_user_id', 'pickup_request', 'pickup_date',
+        'pickup_address', 'pickup_postal_code', 'consignee_region_id', 'consignee_name',
+        'consignee_phone_number', 'consignee_address', 'consignee_postal_code',
+        'service_code', 'goods_description', 'goods_amount', 'goods_weight',
+        'total_cost', 'fee', 'fee_percentage', 'original_total_cost', 'net_total_cost',
+        'discount', 'payment_status', 'payment_description', 'status',
+        'delivery_route_code', 'cost', 'add_cost', 'weight_limit', 'min_lead_time', 'max_lead_time',
+        'created_at', 'updated_at', 'deleted_at', 'process_at', 'received_at',
+        'updated_user_id', 'created_user_id', 'deleted_user_id'
+    ];
+    public $morphMany = [
+        'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
+    ];
 
     /**
      * @var array Validation rules
@@ -59,79 +76,69 @@ class DeliveryOrder extends Model
         'statuses' => ['Kju\Express\Models\DeliveryOrderStatus']
     ];
 
-    private function getCostId($service_code, $origin_id, $destination_id)
+    public function getRevisionableUser()
     {
-
-        $src_regency_id = substr($origin_id, 0, 4);
-        $dst_regency_id = substr($destination_id, 0, 4);
-        $cost = DB::table('kju_express_delivery_costs AS cost')
-            ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_code', '=', 'route.code')
-            ->select('cost.id', 'cost.cost', 'cost.add_cost')
-            ->where('cost.service_code', $service_code)
-            ->where('route.src_region_id', $src_regency_id)
-            ->whereIn('route.dst_region_id', [$destination_id, $dst_regency_id])
-            ->orderByRaw("FIELD(route.dst_region_id,'$destination_id','$dst_regency_id')")
-            ->first();
-
-        return isset($cost) ? $cost->id : null;
+        return BackendAuth::getUser();
     }
- 
-    private function initData($cost_id)
+
+    private function initTotalCost()
     {
 
-        $user = BackendAuth::getUser();
-        $branch = $user->branch;
+        if (empty($this->status)) {
 
-        $cost = DeliveryCost::findOrFail($cost_id);
+            $service_code = $this->service->code;
+            $origin_id = $this->branch_region->id;
+            $destination_id = $this->consignee_region->id;
 
-        $this->cost = $cost->cost;
-        $this->add_cost = $cost->add_cost;
-        $this->weight_limit = $cost->service->weight_limit;
-        $this->delivery_route_code = $cost->route->code;
-        $this->min_lead_time = $cost->min_lead_time;
-        $this->max_lead_time = $cost->max_lead_time;
+            $src_regency_id = substr($origin_id, 0, 4);
+            $dst_regency_id = substr($destination_id, 0, 4);
+            $cost = DB::table('kju_express_delivery_costs AS cost')
+                ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_code', '=', 'route.code')
+                ->select('cost.id', 'cost.cost', 'cost.add_cost')
+                ->where('cost.service_code', $service_code)
+                ->where('route.src_region_id', $src_regency_id)
+                ->whereIn('route.dst_region_id', [$destination_id, $dst_regency_id])
+                ->orderByRaw("FIELD(route.dst_region_id,'$destination_id','$dst_regency_id')")
+                ->first();
 
-        if ($this->pickup_request) {
-            $this->payment_status = 'paid';
-            $this->payment_description = '';
+            if (empty($cost)) {
+                return;
+            }
 
-            $this->discount = 0;
+            $cost = DeliveryCost::findOrFail($cost->id);
+
+            $this->cost = $cost->cost;
+            $this->add_cost = $cost->add_cost;
+            $this->weight_limit = $cost->service->weight_limit;
+            $this->delivery_route_code = $cost->route->code;
+            $this->min_lead_time = $cost->min_lead_time;
+            $this->max_lead_time = $cost->max_lead_time;
         }
 
-        if ($cost->service->weight_limit == -1) {
-            $this->total_cost = $cost->cost;
+        if ($this->weight_limit == -1) {
+            $this->total_cost =  $this->cost;
             $this->original_total_cost = $this->total_cost + 0;
             $this->goods_amount = 1;
-            $total_discount =  $this->total_cost * ($this->discount / 100);
-            $this->total_cost = $this->total_cost - $total_discount;
-            $this->net_total_cost = $this->total_cost;
-            if(isset($branch)){
-                $this->fee_percentage = $branch->dom_fee_percentage;
-                $this->fee = $this->total_cost * ($this->fee_percentage / 100);
-
-                $this->net_total_cost = $this->total_cost- $this->fee ;
-            }
-
         } else {
-
-            $add_cost = (ceil($this->goods_weight) - $cost->service->weight_limit) * $cost->add_cost;
+            $add_cost = (ceil($this->goods_weight) - $this->weight_limit) * $cost->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
-            $this->total_cost = $add_cost + $cost->cost;
+            $this->total_cost = $add_cost + $this->cost;
             $this->original_total_cost = $this->total_cost + 0;
-            $total_discount =  $this->total_cost * ($this->discount / 100);
-            $this->total_cost = $this->total_cost - $total_discount;
-            $this->net_total_cost = $this->total_cost;
-            if(isset($branch)){
-                $this->fee_percentage = $branch->dom_fee_percentage;
-                $this->fee = $this->total_cost * ($this->fee_percentage / 100);
-                $this->net_total_cost = $this->total_cost - $this->fee;
-            }
         }
 
-        if ($user->hasPermission('is_courier')) {
-            if ($this->status == 'pickup') {
-                $this->status = 'process';
-            }
+        if (is_numeric($this->discount) && $this->discount > 0) {
+            $total_discount =  $this->total_cost * ($this->discount / 100);
+            $this->total_cost = $this->total_cost - $total_discount;
+            $this->net_total_cost = $this->total_cost;
+        }
+
+        if (isset($branch)) {
+            $this->fee_percentage = $branch->dom_fee_percentage;
+            $this->fee = $this->total_cost * ($this->fee_percentage / 100);
+            $this->net_total_cost = $this->total_cost - $this->fee;
+        } else {
+            $this->fee_percentage = 0;
+            $this->fee = 0;
         }
     }
 
@@ -157,50 +164,27 @@ class DeliveryOrder extends Model
             $fields->goods_amount->hidden = true;
         }
 
-
         if (isset($branch)) {
             $this->branch_region = $branch->region;
-        } else if (isset($this->branch_region)) {
-            // Nothing
-        } else {
-            return false;
         }
 
-        if (empty($this->service)) {
-            return false;
-        }
-        if (empty($this->consignee_region)) {
-            return false;
-        }
+        if (
+            isset($this->branch_region) &&
+            isset($this->consignee_region) &&
+            isset($this->service)
+        ) {
+            $this->initTotalCost();
 
-        if (isset($this->discount)) {
-            if (!is_numeric($this->discount)) {
-                return false;
+            if ($this->total_cost) {
+                $fields->total_cost->value = $this->total_cost;
+                $fields->fee->value = $this->fee;
+            } else {
+                Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
+                $fields->total_cost->value = 0;
+                $fields->fee->value = 0;
             }
         }
-
-        $service_code = $this->service->code;
-        $origin_id = $this->branch_region->id;
-        $destination_id = $this->consignee_region->id;
-        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
-        if (isset($cost_id)) {
-            $this->initData($cost_id);
-            $fields->total_cost->value = $this->total_cost;
-            $fields->fee->value = $this->fee;
-
-        } else {
-            Flash::warning(e(trans('kju.express::lang.global.service_not_available')));
-            $fields->total_cost->value = 0;
-            $fields->fee->value = 0;
-        }
     }
-
-    public function beforeValidate()
-    {
-    }
-
-
-
 
     public function beforeCreate()
     {
@@ -208,39 +192,27 @@ class DeliveryOrder extends Model
         $branch = $user->branch;
 
         //INITIALIZE CODE
-        $code = IdGenerator::alpha(isset($this->branch)?$this->branch->code:'', 4)
+        $code = IdGenerator::alpha(isset($this->branch) ? $this->branch->code : '', 4)
             . $this->branch_region->id
-            . IdGenerator::numeric(isset($this->branch)?$this->branch->code:'', 4);
+            . IdGenerator::numeric(isset($this->branch) ? $this->branch->code : '', 4);
 
         $this->code = $code;
 
-        $this->created_user = $user;
+
         //SET BRANCH & BRANCH REGION
         if (isset($branch)) {
             $this->branch = $branch;
             $this->branch_region = $branch->region;
         }
 
-        // SET INIT STATUS
-        if ($this->pickup_request) {
-            $this->status = 'pickup';
-        } else {
-            $this->status = 'process';
-            $this->process_at = Carbon::now();
-        }
+        $this->status = 'process';
+        $this->process_at = Carbon::now();
+        $this->created_user = $user;
     }
 
     public function beforeSave()
     {
-        $origin_id = $this->branch_region->id;
-        $destination_id = $this->consignee_region->id;
-        $service_code = $this->service->code;
-
-        $cost_id = $this->getCostId($service_code, $origin_id, $destination_id);
-        trace_log($cost_id);
-        if (isset($cost_id)) {
-            $this->initData($cost_id);
-        }
+        $this->initTotalCost();
     }
 
     public function beforeUpdate()
@@ -256,7 +228,7 @@ class DeliveryOrder extends Model
         if ($user->isSuperUser()) {
             // Nothing
         } else if ($user->hasPermission('is_supervisor')) {
-            if ($this->status == 'pickup' || $this->status == 'process') {
+            if ($this->status == 'process') {
                 if ($this->created_at->diffInMinutes(new Carbon()) >= 120) {
                     throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
                 }
@@ -278,19 +250,8 @@ class DeliveryOrder extends Model
     public function afterUpdate()
     {
         $user = BackendAuth::getUser();
-        if ($user->hasPermission('is_courier')) {
-            if ($this->original['status'] == 'pickup' && $this->status == 'process') {
-                $order_status = new DeliveryOrderStatus();
-                $order_status->region = $this->branch_region;
-                $order_status->status = $this->status;
-                $order_status->created_user = $this->created_user;
-                $order_status->delivery_order_code = $this->code;
-
-                $order_status->save();
-            }
-        }
+        $this->updated_user = $user;
     }
-
 
     public function afterCreate()
     {
@@ -310,5 +271,10 @@ class DeliveryOrder extends Model
     public function getDisplayPaymentStatusAttribute()
     {
         return e(trans('kju.express::lang.global.' . $this->payment_status));
+    }
+
+    public function getStatusOptions()
+    {
+        return DeliveryOrderStatus::getStatusOptions();
     }
 }
