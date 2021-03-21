@@ -113,6 +113,7 @@ class DeliveryOrder extends Model
             $this->delivery_route_code = $cost->route->code;
             $this->min_lead_time = $cost->min_lead_time;
             $this->max_lead_time = $cost->max_lead_time;
+            $this->branch = BackendAuth::getUser()->branch;
         }
 
         if ($this->weight_limit == -1) {
@@ -120,7 +121,7 @@ class DeliveryOrder extends Model
             $this->original_total_cost = $this->total_cost + 0;
             $this->goods_amount = 1;
         } else {
-            $add_cost = (ceil($this->goods_weight) - $this->weight_limit) * $cost->add_cost;
+            $add_cost = (ceil($this->goods_weight) - $this->weight_limit) * $this->add_cost;
             $add_cost = $add_cost < 0 ? 0 : $add_cost;
             $this->total_cost = $add_cost + $this->cost;
             $this->original_total_cost = $this->total_cost + 0;
@@ -132,8 +133,8 @@ class DeliveryOrder extends Model
             $this->net_total_cost = $this->total_cost;
         }
 
-        if (isset($branch)) {
-            $this->fee_percentage = $branch->dom_fee_percentage;
+        if (isset($this->branch)) {
+            $this->fee_percentage = $this->branch->dom_fee_percentage;
             $this->fee = $this->total_cost * ($this->fee_percentage / 100);
             $this->net_total_cost = $this->total_cost - $this->fee;
         } else {
