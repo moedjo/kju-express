@@ -1,0 +1,11 @@
+fields:
+    amount:
+        label: 'kju.express::lang.transaction.amount'
+        span: left
+        placeholder: 'kju.express::lang.transaction.amount'
+        type: text
+    description:
+        label: 'kju.express::lang.transaction.description'
+        span: left
+        placeholder: 'kju.express::lang.transaction.description'
+        type: text

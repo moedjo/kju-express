@@ -62,7 +62,7 @@ columns:
         invisible: true
         select: login
         relation: updated_user
-    branch_code:
+    branch_id:
         label: 'kju.express::lang.branch.code'
         type: text
     payment_status:

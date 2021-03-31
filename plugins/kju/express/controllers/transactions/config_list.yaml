@@ -1,0 +1,9 @@
+list: $/kju/express/models/transaction/columns.yaml
+modelClass: Kju\Express\Models\Transaction
+title: 'kju.express::lang.transaction.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+showPageNumbers: false
+filter: config_filter.yaml

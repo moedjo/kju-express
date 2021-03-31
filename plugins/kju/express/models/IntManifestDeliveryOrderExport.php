@@ -17,7 +17,7 @@ class IntManifestDeliveryOrderExport extends \Backend\Models\ExportModel
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        $branch_code = isset($branch) ? $branch->code : null;
+        $branch_id = isset($branch) ? $branch->id : null;
         $branch_region_id = isset($branch) ? $branch->region->id : null;
 
         $query = IntDeliveryOrder::with([
@@ -31,7 +31,7 @@ class IntManifestDeliveryOrderExport extends \Backend\Models\ExportModel
         if ($user->isSuperUser()) {
             
         } else if ($this->type == 'outgoing') {
-            $query = $query->where('branch_code',  $branch_code);
+            $query = $query->where('branch_id',  $branch_id);
         } else {
             $query = $query->where('code',  -1);
         }

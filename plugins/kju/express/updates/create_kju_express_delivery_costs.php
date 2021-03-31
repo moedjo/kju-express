@@ -24,10 +24,10 @@ class CreateKjuExpressDeliveryCosts extends Migration
             $table->string('delivery_route_code',12)->nullable();;
             $table->foreign('delivery_route_code')->references('code')->on('kju_express_delivery_routes')->onDelete('restrict');
 
-            $table->string('service_code',10)->nullable();
-            $table->foreign('service_code')->references('code')->on('kju_express_services')->onDelete('restrict');;
+            $table->string('service_id',10)->nullable();
+            $table->foreign('service_id')->references('id')->on('kju_express_services')->onDelete('restrict');;
 
-            $table->unique(['delivery_route_code','service_code'],'route_service_unique');
+            $table->unique(['delivery_route_code','service_id'],'route_service_unique');
         });
     }
     

@@ -10,5 +10,5 @@ toolbar:
     buttons: list_toolbar
     search: 
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/intdeliveryroutes/update/:code'
+recordUrl: 'kju/express/intdeliveryroutes/update/:id'
 filter: config_filter.yaml

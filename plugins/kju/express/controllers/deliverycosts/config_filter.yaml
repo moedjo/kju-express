@@ -2,7 +2,7 @@ scopes:
     service:
         label: 'kju.express::lang.service.singular'
         type: group
-        conditions: service_code in (:filtered)
+        conditions: service_id in (:filtered)
         modelClass: Kju\Express\Models\Service
         nameFrom: displayName
     origin_id:

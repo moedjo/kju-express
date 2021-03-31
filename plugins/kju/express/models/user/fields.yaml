@@ -35,7 +35,6 @@ fields:
         descriptionFrom: description
         list: ~/plugins/kju/express/models/branch/columns.yaml
         span: full
-        keyFrom: code
         type: recordfinder
     role:
         label: 'backend::lang.user.role_field'

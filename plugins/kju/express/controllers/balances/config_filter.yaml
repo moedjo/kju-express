@@ -1,0 +1,21 @@
+scopes:
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        modelClass: Kju\Express\Models\Branch
+        conditions: owner_id in (:filtered) and owner_type = 'Kju\\Express\\Models\\Branch'
+        nameFrom: name
+        permissions: access_master_balances
+    user:
+        label: 'kju.express::lang.user.singular'
+        modelClass: Backend\Models\User
+        conditions: owner_id in (:filtered) and owner_type = 'Backend\\Models\\User'
+        nameFrom: login
+        permissions: access_master_balances
+    owner_type:
+        label: 'kju.express::lang.owner.type'
+        type: group
+        conditions: owner_type in (:filtered)
+        permissions: access_master_balances
+        options:
+            'Kju\Express\Models\Branch': 'kju.express::lang.branch.singular'
+            'Backend\Models\User': 'kju.express::lang.user.singular'

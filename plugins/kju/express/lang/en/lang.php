@@ -27,7 +27,12 @@
         'access_int_statuses' => 'Manage int. delivery order statuses',
         'access_vendors' => 'Manage vendors',
         'is_int_checker' => 'International Checker',
-        'is_int_tracker' => 'International Tracker'
+        'is_int_tracker' => 'International Tracker',
+        'access_banks' => 'Manage banks',
+        'access_balances' => 'Manage balances',
+        'access_transactions' => 'Manage transactions',
+        'access_master_balances' => 'Manage master balances',
+        'access_master_transactions' => 'Manage master transactions',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -70,6 +75,8 @@
         'received' => 'Received',
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
+        'action_not_allowed' => 'Action not allowed',
+        'insufficient_balance' => 'Insufficient balance',
         'print' => 'Print',
         'print_without_price' => 'Print Without Price',
         'process_date' => 'Process Date',
@@ -133,10 +140,8 @@
         'master_route_data' => 'Master Route Data',
         'reject' => 'Reject',
         'export' => 'Export',
-        'failed' => 'Failed',
         'pending' => 'Pending',
         'action' => 'Action',
-
         'branch_total_cost' => 'Branch Total Cost',
         'checker_total_cost' => 'Checker Total Cost',
         'different_total_cost' => 'Different Total Cost',
@@ -149,7 +154,6 @@
         'goods_volume_weight' => 'Goods Volume Weight',
         'net_total_cost' => 'Net Total Cost',
         'tracking_number' => 'Tracking Number',
-
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -269,7 +273,7 @@
         'add_cost_per_kg' => 'Additional Cost Per KG',
     ],
     'vendor' => [
-        'id' => "Vendor Id",
+        'id' => 'Vendor Id',
         'name' => 'Vendor Name',
         'plural' => 'Vendors',
         'singular' => 'Vendor',
@@ -277,4 +281,23 @@
         'edit' => 'Edit Vendor',
         'preview' => 'Preview Vendor',
     ],
+    'balance' => [
+        'singular' => 'Balance',
+        'plural' => 'Balances',
+        'id' => 'Balance Id',
+    ],
+    'transaction' => [
+        'plural' => 'Transactions',
+        'singular' => 'Transaction',
+        'description' => 'Description',
+        'amount' => 'Amount',
+        'id' => 'Transaction Id',
+        'last_balance' => 'Last Balance',
+        'current_balance' => 'Current Balance'
+    ],
+    'owner' => [
+        'name' => 'Owner Name',
+        'type' => 'Owner Type',
+        'singular' => 'Owner'
+    ]
 ];

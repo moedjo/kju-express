@@ -33,8 +33,8 @@ class CheckDeliveryCost extends Controller
     {
 
         $services = DB::table('kju_express_services AS service')
-            ->select(DB::raw("CONCAT(service.code,', ',service.name) AS name"), 'service.code')
-            ->get()->pluck('name', 'code');
+            ->select(DB::raw("CONCAT(service.code,', ',service.name) AS name"), 'service.id')
+            ->get()->pluck('name', 'id');
 
         $this->vars['services'] = $services;
     }
@@ -67,7 +67,7 @@ class CheckDeliveryCost extends Controller
 
     public function onLoadWeight()
     {
-        $service = Service::find(input('service_code'));
+        $service = Service::find(input('service_id'));
         $this->vars['service'] = $service;
     }
 
@@ -76,19 +76,19 @@ class CheckDeliveryCost extends Controller
 
         $src_region_id = input('src_region_id');
         $dst_region_id = input('dst_region_id');
-        $service_code = input('service_code');
+        $service_id = input('service_id');
         $weight = ceil(input('weight'));
 
         $validator = Validator::make(
             [
                 'src_region_id' => $src_region_id,
                 'dst_region_id' => $dst_region_id,
-                'service_code' => $service_code,
+                'service_id' => $service_id,
             ],
             [
                 'src_region_id' => 'required',
                 'dst_region_id' => 'required',
-                'service_code' => 'required',
+                'service_id' => 'required',
             ]
         );
 
@@ -96,7 +96,7 @@ class CheckDeliveryCost extends Controller
             throw new ValidationException($validator);
         }
 
-        $service = Service::find($service_code);
+        $service = Service::find($service_id);
         $validator = Validator::make(
             [
                 'weight' => $weight,
@@ -113,9 +113,9 @@ class CheckDeliveryCost extends Controller
 
         $dst_regency_id = substr($dst_region_id,0,4);
         $cost = DB::table('kju_express_delivery_costs AS cost')
-            ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_code', '=', 'route.code')
+            ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_id', '=', 'route.id')
             ->select('cost.id','cost.cost', 'cost.add_cost')
-            ->where('cost.service_code', $service_code)
+            ->where('cost.service_id', $service_id)
             ->where('route.src_region_id', $src_region_id)
             ->whereIn('route.dst_region_id', [$dst_region_id,$dst_regency_id])
             ->orderByRaw("FIELD(route.dst_region_id,'$dst_region_id','$dst_regency_id')")

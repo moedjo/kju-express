@@ -1,0 +1,14 @@
+name: 'kju.express::lang.balance.singular'
+form: $/kju/express/models/balance/fields.yaml
+modelClass: Kju\Express\Models\Balance
+defaultRedirect: kju/express/balances
+create:
+    title: 'kju.express::lang.balance.new'
+    redirect: 'kju/express/balances/update/:id'
+    redirectClose: kju/express/balances
+update:
+    title: 'kju.express::lang.balance.edit'
+    redirect: kju/express/balances
+    redirectClose: kju/express/balances
+preview:
+    title: 'kju.express::lang.balance.preview'

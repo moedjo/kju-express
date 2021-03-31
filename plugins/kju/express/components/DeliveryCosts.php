@@ -93,16 +93,14 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         //     throw new ValidationException($validator);
         // }
         $delivery_order = DeliveryOrder::with(['statuses'])->find($delivery_order_code);
-        
+
 
         // for international
-        if(empty($delivery_order)){
+        if (empty($delivery_order)) {
             $delivery_order = IntDeliveryOrder::with(['statuses'])->find($delivery_order_code);
-       
         }
 
         $this->page['delivery_order'] = $delivery_order;
-
     }
 
 
@@ -153,7 +151,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
                 ->whereRaw("$weight BETWEEN min_range_weight AND max_range_weight")
                 ->first();
 
-            if(empty($int_delivery_cost)){
+            if (empty($int_delivery_cost)) {
                 return;
             }
 
@@ -164,13 +162,13 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
             $goods_types = GoodsType::all();
 
             $int_add_delivery_costs = IntAddDeliveryCost::where('int_delivery_route_code', $route_code)
-                ->get()->pluck('add_cost_per_kg','goods_type_code');
-               
-                
+                ->get()->pluck('add_cost_per_kg', 'goods_type_code');
+
+
             foreach ($goods_types as $goods_type) {
 
-                $add_cost_per_kg = isset($int_add_delivery_costs[$goods_type->code]) ? 
-                    $int_add_delivery_costs[$goods_type->code] 
+                $add_cost_per_kg = isset($int_add_delivery_costs[$goods_type->code]) ?
+                    $int_add_delivery_costs[$goods_type->code]
                     : 0;
 
                 $add_cost = $add_cost_per_kg * $weight;
@@ -202,9 +200,9 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         })
             ->with(['service' => function ($query) {
             }])
-            ->orderBy('delivery_route_code', 'desc')
+            ->orderBy('delivery_route_id', 'desc')
             ->get()
-            ->unique('service_code')
+            ->unique('service_id')
             ->sortBy(function ($cost, $key) {
                 return $cost->service->sort_order;
             });

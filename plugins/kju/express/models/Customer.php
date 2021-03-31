@@ -34,7 +34,7 @@ class Customer extends Model
     ];
 
     public $belongsTo = [
-        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_id'],
         'user' => ['Kju\Express\Models\User', 'key' => 'user_id'],
     ];
 
@@ -43,9 +43,9 @@ class Customer extends Model
         $user = BackendAuth::getUser();
         $branch = $user->branch;
         if (isset($branch)) {
-            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_code,' . $branch->code;
+            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_id,' . $branch->id;
         } else {
-            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_code,NULL';
+            $this->rules['phone_number'][] = 'unique:kju_express_customers,phone_number,NULL,id,branch_id,NULL';
     
         }
     }
@@ -69,7 +69,7 @@ class Customer extends Model
         if ($user->isSuperUser()) {
             return $query;
         } else if (isset($branch)) {
-            return $query->where('branch_code', $branch->code);
+            return $query->where('branch_id', $branch->id);
         } else {
             return $query->where('user_id', $user->id);;
         }

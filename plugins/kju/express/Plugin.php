@@ -37,7 +37,23 @@ class Plugin extends PluginBase
     protected function extendBackendUser()
     {
         User::extend(function ($model) {
-            $model->belongsTo['branch'] =  ['Kju\Express\Models\Branch', 'key' => 'branch_code'];
+            $model->belongsTo['branch'] =  [
+                'Kju\Express\Models\Branch'
+            ];
+
+            $model->belongsTo['balance'] =  [
+                'Kju\Express\Models\Balance'
+            ];
+
+            $model->morphMany['transactions'] = [
+                'Kju\Express\Models\Transaction',
+                'name' => 'transactionable'
+            ];
+
+            $model->addDynamicMethod('getDisplayNameAttribute', function($value) use ($model) {
+                return "{$model->login}";
+            });
+
         });
     }
 }

@@ -94,7 +94,7 @@ class IntDeliveryOrders extends Controller
         if ($user->isSuperUser()) {
             // TODO Nothing
         } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
+            $query->where('branch_id', $branch->id);
         } else {
             $query->where('created_user_id',  $user->id);
         }
@@ -119,7 +119,7 @@ class IntDeliveryOrders extends Controller
         if ($user->isSuperUser()) {
             // TODO Nothing
         } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
+            $query->where('branch_id', $branch->id);
         } else {
             $query->where('created_user_id',  $user->id);
         }

@@ -24,7 +24,15 @@ class User extends \Backend\Models\User
     ];
     public $belongsTo = [
         'role' => UserRole::class,
-        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+        'branch' => ['Kju\Express\Models\Branch'],
+    ];
+
+    public $morphMany = [
+        'transactions' => ['Kju\Express\Models\Transaction', 'name' => 'transactionable']
+    ];
+
+    public $morphOne = [
+        'balance' => ['Kju\Express\Models\Balance', 'name' => 'owner']
     ];
 
     public function beforeValidate()
@@ -42,11 +50,11 @@ class User extends \Backend\Models\User
                 $query->where('code', 'courier');
             });
         } else if (isset($branch)) {
-            return $query->where('branch_code', $branch->code)->whereHas('role', function ($query) {
+            return $query->where('branch_id', $branch->id)->whereHas('role', function ($query) {
                 $query->where('code', 'courier');
             });
         } else {
-            return $query->where('branch_code', null)->whereHas('role', function ($query) {
+            return $query->where('branch_id', null)->whereHas('role', function ($query) {
                 $query->where('code', 'courier');
             });
         }
@@ -83,5 +91,12 @@ class User extends \Backend\Models\User
         } else if ($user->hasPermission(['is_supervisor'])) {
             $this->branch = $user->branch;
         }
+    }
+
+    public function afterCreate(){
+        $balance = new Balance();
+        $balance->balance = 0;
+        $balance->owner()->associate($this);
+        $balance->save();
     }
 }

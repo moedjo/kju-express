@@ -16,8 +16,7 @@ class DeliveryRoute extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_delivery_routes';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
+
 
     /**
      * @var array Validation rules

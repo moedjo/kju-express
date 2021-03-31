@@ -1,0 +1,24 @@
+fields:
+    balance:
+        label: 'kju.express::lang.balance.singular'
+        span: left
+        disabled: true
+        placeholder: 'kju.express::lang.balance.singular'
+        type: text
+    _owner:
+        label: 'kju.express::lang.balance.singular'
+        span: left
+        disabled: true
+        placeholder: 'kju.express::lang.balance.singular'
+        type: text
+        valueFrom: owner[displayName]
+        context:
+            - update
+            - preview
+    transactions:
+        span: full
+        path: field_balance_transactions
+        context:
+            - update
+        type: partial
+        tab: 'kju.express::lang.transaction.plural'

@@ -18,8 +18,7 @@ class Branch extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_branches';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
+  
 
     /**
      * @var array Validation rules
@@ -33,8 +32,18 @@ class Branch extends Model
     ];
 
     public $belongsTo = [
-        'region' => ['Kju\Express\Models\Region']
+        'region' => ['Kju\Express\Models\Region'],
+        // 'balance' => ['Kju\Express\Models\Balance']
     ];
+
+    public $morphMany = [
+        'transactions' => ['Kju\Express\Models\Transaction', 'name' => 'transactionable']
+    ];
+
+    public $morphOne = [
+        'balance' => ['Kju\Express\Models\Balance', 'name' => 'owner']
+    ];
+    
 
     public function filterFields($fields, $context = null)
     {
@@ -53,5 +62,12 @@ class Branch extends Model
     {
         $code = IdGenerator::alpha($this->region->code, 4).IdGenerator::numeric($this->region->code, 4);
         $this->code = $code;
+    }
+
+    public function afterCreate(){
+        $balance = new Balance();
+        $balance->balance = 0;
+        $balance->owner()->associate($this);
+        $balance->save();
     }
 }

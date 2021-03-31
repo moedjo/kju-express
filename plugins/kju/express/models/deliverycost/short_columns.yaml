@@ -4,7 +4,7 @@ columns:
         type: text
         searchable: true
         sortable: true
-        select: service_code
+        select: code
         relation: service
     cost:
         label: 'kju.express::lang.global.cost'

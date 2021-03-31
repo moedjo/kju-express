@@ -4,7 +4,7 @@ modelClass: Kju\Express\Models\IntDeliveryRoute
 defaultRedirect: kju/express/intdeliveryroutes
 create:
     title: 'kju.express::lang.int_delivery_route.new'
-    redirect: 'kju/express/intdeliveryroutes/update/:code'
+    redirect: 'kju/express/intdeliveryroutes/update/:id'
     redirectClose: kju/express/intdeliveryroutes
 update:
     title: 'kju.express::lang.int_delivery_route.edit'

@@ -4,7 +4,7 @@ modelClass: Kju\Express\Models\IntDeliveryOrder
 defaultRedirect: kju/express/intdeliveryorders
 create:
     title: 'kju.express::lang.int_delivery_order.new'
-    redirect: 'kju/express/intdeliveryorders/update/:code'
+    redirect: 'kju/express/intdeliveryorders/update/:id'
     redirectClose: kju/express/intdeliveryorders
 update: 
     title: 'kju.express::lang.int_delivery_order.edit'

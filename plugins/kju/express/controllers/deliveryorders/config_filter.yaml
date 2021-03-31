@@ -2,8 +2,8 @@ scopes:
     branch:
         label: 'kju.express::lang.branch.singular'
         modelClass: Kju\Express\Models\Branch
-        conditions: branch_code in (:filtered)
-        nameFrom: displayName
+        conditions: branch_id in (:filtered)
+        nameFrom: name
         permissions: access_filter_branch_on_delivery_orders
     status:
         label: 'kju.express::lang.global.status'

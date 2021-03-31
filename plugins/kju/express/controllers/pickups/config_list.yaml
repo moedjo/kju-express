@@ -12,5 +12,5 @@ defaultSort:
 toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/pickups/update/:code'
+recordUrl: 'kju/express/pickups/update/:id'
 filter: config_filter.yaml

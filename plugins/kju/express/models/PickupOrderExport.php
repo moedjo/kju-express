@@ -28,9 +28,9 @@ class PickupOrderExport extends \Backend\Models\ExportModel
 
         if (!$user->isSuperUser()) {
             if (isset($branch)) {
-                $query = $query->where('branch_code', $branch->code);
+                $query = $query->where('branch_id', $branch->id);
             } else {
-                $query = $query->where('branch_code', -1);
+                $query = $query->where('branch_id', -1);
             }
         }
 

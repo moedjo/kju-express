@@ -14,8 +14,7 @@ class GoodsType extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_goods_types';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
+
 
     /**
      * @var array Validation rules

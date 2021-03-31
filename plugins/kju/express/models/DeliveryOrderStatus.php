@@ -25,14 +25,14 @@ class DeliveryOrderStatus extends Model
 
 
     public $belongsTo = [
-         'order' => ['Kju\Express\Models\DeliveryOrder', 'key' => 'delivery_order_code'],
+         'order' => ['Kju\Express\Models\DeliveryOrder', 'key' => 'delivery_order_id'],
          'region' => ['Kju\Express\Models\Region'],
          'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
       
     ];
 
     protected $fillable = [
-        'delivery_order_code',
+        'delivery_order_id',
         'description' ,
         'status' ,
     ];

@@ -16,8 +16,7 @@ class IntDeliveryRoute extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_int_delivery_routes';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
+
 
 
     /**

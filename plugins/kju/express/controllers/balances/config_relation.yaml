@@ -1,0 +1,11 @@
+transactions:
+    label: 'kju.express::lang.transaction.singular'
+    manage:
+        form: $/kju/express/models/transaction/fields.yaml
+    view:
+        list: $/kju/express/models/transaction/short_columns.yaml
+        toolbarButtons: create
+        recordsPerPage: 20
+        defaultSort: 
+            -   created_at asc
+        showCheckboxes: false

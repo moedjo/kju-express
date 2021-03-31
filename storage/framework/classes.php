@@ -168,4 +168,8 @@
   'Kju\\Express\\Models\\IntManifestDeliveryOrderExport' => 'plugins\\kju\\express\\models\\IntManifestDeliveryOrderExport.php',
   'kju\\express\\Controllers\\vendors' => 'plugins\\kju\\express\\controllers\\vendors.php',
   'Kju\\Express\\Models\\Vendor' => 'plugins\\kju\\express\\models\\Vendor.php',
+  'kju\\express\\Controllers\\transactions' => 'plugins\\kju\\express\\controllers\\transactions.php',
+  'Kju\\Express\\Models\\Transaction' => 'plugins\\kju\\express\\models\\Transaction.php',
+  'kju\\express\\Controllers\\balances' => 'plugins\\kju\\express\\controllers\\balances.php',
+  'Kju\\Express\\Models\\Balance' => 'plugins\\kju\\express\\models\\Balance.php',
 );

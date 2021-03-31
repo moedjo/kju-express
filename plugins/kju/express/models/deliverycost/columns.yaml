@@ -8,11 +8,13 @@ columns:
         type: text
         searchable: true
         sortable: true
-    service_code:
+    service:
         label: 'kju.express::lang.service.singular'
         type: text
         searchable: true
         sortable: true
+        select: code
+        relation: service
     source:
         label: 'kju.express::lang.global.origin'
         type: text

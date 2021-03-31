@@ -4,7 +4,7 @@ form: $/kju/express/models/deliveryroute/fields.yaml
 defaultRedirect: kju/express/deliveryroutes
 create:
     title: 'kju.express::lang.delivery_route.new'
-    redirect: 'kju/express/deliveryroutes/update/:code'
+    redirect: 'kju/express/deliveryroutes/update/:id'
     redirectClose: kju/express/deliveryroutes
 update:
     title: 'kju.express::lang.delivery_route.edit'
