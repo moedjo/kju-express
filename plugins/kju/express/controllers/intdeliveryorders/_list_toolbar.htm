@@ -13,8 +13,8 @@
          <?= e(trans('kju.express::lang.int_delivery_order.export_manifest')) ?>
      </a>
  </div>
-<?php elseif($this->user->hasPermission('is_int_checker')): ?>
-<?php elseif($this->user->hasPermission('is_int_tracker')): ?>
+<?php elseif($this->user->hasPermission('is_checker')): ?>
+<?php elseif($this->user->hasPermission('is_tracker')): ?>
 <?php else: ?>
 <div data-control="toolbar">
     <a href="<?= Backend::url('kju/express/intdeliveryorders/create') ?>" class="btn btn-primary oc-icon-plus">

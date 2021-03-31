@@ -17,8 +17,6 @@ class IntDeliveryRoute extends Model
      */
     public $table = 'kju_express_int_delivery_routes';
 
-
-
     /**
      * @var array Validation rules
      */

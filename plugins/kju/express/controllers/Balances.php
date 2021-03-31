@@ -29,7 +29,7 @@ class Balances extends Controller
         BackendMenu::setContext('Kju.Express','balances', 'balances');
 
 
-        $test = $this->user->hasPermission('is_int_checker');
+        $test = $this->user->hasPermission('is_checker');
         trace_log('test'.$test);
     }
 

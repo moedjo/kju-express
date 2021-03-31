@@ -224,6 +224,8 @@ tabs:
             required: 1
             tab: 'kju.express::lang.global.tracker_data'
             disabled: true
+            context:
+                - update
         tracker_action:
             label: 'kju.express::lang.global.action'
             span: right
@@ -234,6 +236,8 @@ tabs:
             options:
                 export: 'kju.express::lang.global.export'
             tab: 'kju.express::lang.global.tracker_data'
+            context:
+                - update
 secondaryTabs:
     fields:
         total_cost:

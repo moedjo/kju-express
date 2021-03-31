@@ -58,7 +58,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
 
             $table->string('tracking_number', 100);
 
-            $table->bigInteger('base_profit')->unsigned()->default(0);
+            // $table->bigInteger('base_profit')->unsigned()->default(0);
             $table->bigInteger('profit')->unsigned()->default(0);
 
             $table->bigInteger('net_total_cost')->unsigned()->default(0);
@@ -87,6 +87,7 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
+
             $table->timestamp('process_at')->nullable();
             $table->timestamp('export_at')->nullable();
 

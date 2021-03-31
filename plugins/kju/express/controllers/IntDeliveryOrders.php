@@ -39,9 +39,9 @@ class IntDeliveryOrders extends Controller
     {
 
         if ($this->user->isSuperUser()) {
-        } else if ($this->user->hasPermission('is_int_checker')) {
+        } else if ($this->user->hasPermission('is_checker')) {
             return Response::make(View::make('cms::404'), 404);
-        } else if ($this->user->hasPermission('is_int_tracker')) {
+        } else if ($this->user->hasPermission('is_tracker')) {
             return Response::make(View::make('cms::404'), 404);
         }
 
@@ -80,13 +80,13 @@ class IntDeliveryOrders extends Controller
         $user = $this->user;
         $branch = $user->branch;
 
-        if ($this->user->hasPermission('is_int_checker')) {
+        if ($this->user->hasPermission('is_checker')) {
             $query->whereIn('status', ['pending', 'process', 'reject']);
             return $query;
         }
 
 
-        if ($this->user->hasPermission('is_int_tracker')) {
+        if ($this->user->hasPermission('is_tracker')) {
             $query->whereIn('status', ['process','export']);
             return $query;
         }
@@ -105,13 +105,13 @@ class IntDeliveryOrders extends Controller
 
         $user = $this->user;
         $branch = $user->branch;
-        if ($this->user->hasPermission('is_int_checker')) {
+        if ($this->user->hasPermission('is_checker')) {
             $query->whereIn('status', ['pending', 'process', 'reject']);
             return $query;
         }
 
 
-        if ($this->user->hasPermission('is_int_tracker')) {
+        if ($this->user->hasPermission('is_tracker')) {
             $query->whereIn('status', ['process','export']);
             return $query;
         }
@@ -193,7 +193,7 @@ class IntDeliveryOrders extends Controller
 
             $fields['payment_method']->disabled = true;
             $fields['total_cost_agreement']->hidden = true;
-            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+            if ($this->user->hasPermission('is_checker') && $model->status == 'pending') {
 
                 $fields['goods_type']->disabled = false;
                 $fields['goods_description']->disabled = false;
@@ -218,7 +218,7 @@ class IntDeliveryOrders extends Controller
               
             }
 
-            if ($this->user->hasPermission('is_int_tracker') && $model->status == 'process') {
+            if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $fields['tracking_number']->disabled = false;
             } else {
                 $host->removeField('tracker_action');
@@ -273,7 +273,7 @@ class IntDeliveryOrders extends Controller
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
-            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+            if ($this->user->hasPermission('is_checker') && $model->status == 'pending') {
 
                 // Goods Data
                 $model->rules['goods_type'] = 'required';
@@ -292,7 +292,7 @@ class IntDeliveryOrders extends Controller
                 $model->rules['checker_action'] = 'required';
             }
 
-            if ($this->user->hasPermission('is_int_tracker') && $model->status == 'process') {
+            if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $model->rules['tracking_number'] = 'required';
                 $model->rules['tracker_action'] = 'required';
             }

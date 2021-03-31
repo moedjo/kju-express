@@ -11,6 +11,7 @@ use Kju\Express\Models\District;
 use Kju\Express\Models\GoodsType;
 use Kju\Express\Models\IntAddDeliveryCost;
 use Kju\Express\Models\IntDeliveryCost;
+use Kju\Express\Models\IntDeliveryRoute;
 use Kju\Express\Models\Region;
 use Kju\Express\Models\Service;
 use October\Rain\Exception\ValidationException;
@@ -22,7 +23,7 @@ class IntCheckDeliveryCost extends Controller
     public $pageTitle = "kju.express::lang.int_delivery_cost.check";
 
     public $requiredPermissions = [
-        'access_int_check_delivery_cost'
+        'access_int_delivery_orders'
     ];
 
     public function __construct()
@@ -34,7 +35,7 @@ class IntCheckDeliveryCost extends Controller
 
     public function index()
     {
-        $this->vars['goods_types'] = GoodsType::all()->pluck('name','code');
+        $this->vars['goods_types'] = GoodsType::all()->pluck('name','id');
     }
 
     public function onGetSources()
@@ -63,20 +64,20 @@ class IntCheckDeliveryCost extends Controller
 
         $src_region_id = input('src_region_id');
         $dst_region_id = input('dst_region_id');
-        $goods_type_code = input('goods_type_code');
+        $goods_type_id = input('goods_type_id');
         $weight = ceil(input('weight'));
 
         $validator = Validator::make(
             [
                 'src_region_id' => $src_region_id,
                 'dst_region_id' => $dst_region_id,
-                'goods_type_code' => $goods_type_code,
+                'goods_type_id' => $goods_type_id,
                 'weight' => $weight,
             ],
             [
                 'src_region_id' => 'required',
                 'dst_region_id' => 'required',
-                'goods_type_code' => 'required',
+                'goods_type_id' => 'required',
                 'weight' => 'required|numeric|min:1',
             ]
         );
@@ -85,11 +86,12 @@ class IntCheckDeliveryCost extends Controller
             throw new ValidationException($validator);
         }
 
-        $goods_type = GoodsType::findOrFail($goods_type_code);
+        $goods_type = GoodsType::findOrFail($goods_type_id);
 
         $route_code = $src_region_id.'-'.$dst_region_id;
-
-        $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_code',$route_code)
+        $route = IntDeliveryRoute::where('code',$route_code)->first();
+        
+        $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_id', $route->id)
             ->whereRaw("$weight BETWEEN min_range_weight AND max_range_weight")
             ->first();
  
@@ -104,9 +106,9 @@ class IntCheckDeliveryCost extends Controller
             $total_cost = $total_cost +
                 ($total_cost * ($int_delivery_cost->profit_percentage/100)) ;
             
-
-            $int_add_delivery_cost = IntAddDeliveryCost::where('int_delivery_route_code',$route_code)
-                ->where('goods_type_code',$goods_type_code)
+            $route = IntDeliveryRoute::where('code',$route_code)->first();
+            $int_add_delivery_cost = IntAddDeliveryCost::where('int_delivery_route_id', $route->id)
+                ->where('goods_type_id',$goods_type_id)
                 ->first();
 
             if(isset($int_add_delivery_cost)){

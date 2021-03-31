@@ -19,7 +19,7 @@ class CheckDeliveryCost extends Controller
     public $pageTitle = "kju.express::lang.delivery_cost.check";
 
     public $requiredPermissions = [
-        'access_check_delivery_cost'
+        'access_delivery_orders'
     ];
 
     public function __construct()

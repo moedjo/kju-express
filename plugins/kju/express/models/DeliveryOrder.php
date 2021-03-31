@@ -98,7 +98,7 @@ class DeliveryOrder extends Model
                 ->whereIn('route.dst_region_id', [$destination_id, $dst_regency_id])
                 ->orderByRaw("FIELD(route.dst_region_id,'$destination_id','$dst_regency_id')")
                 ->first();
-                
+
 
             if (empty($cost)) {
                 return;
@@ -269,32 +269,26 @@ class DeliveryOrder extends Model
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        
-        if(isset($branch)){
-            $balance = $branch->balance;
-            if($this->net_total_cost > $balance->balance){
-                throw new ApplicationException(e(trans('kju.express::lang.global.insufficient_balance')));
-            }
+        $balance = isset($branch) ? $branch->balance : $user->balance;
 
+        $balance = $branch->balance;
+        if ($this->net_total_cost > $balance->balance) {
+            throw new ApplicationException(e(trans('kju.express::lang.global.insufficient_balance')));
+        }
+
+        $transaction = new Transaction();
+        $transaction->description = "DOMESTIC_ORDER:" . $this->code;
+        $transaction->amount = -1 * $this->total_cost;
+        $transaction->balance()->associate($balance);
+        $transaction->save();
+
+        if ($this->fee > 0) {
             $transaction = new Transaction();
-            $transaction->description = "DOMESTIC_ORDER:".$this->code;
-            $transaction->amount = -1*$this->net_total_cost;
+            $transaction->description = "DOMESTIC_ORDER_FEE:" . $this->code;
+            $transaction->amount = 1 * $this->fee;
             $transaction->balance()->associate($balance);
             $transaction->save();
-
-            if($this->fee > 0){
-                $transaction = new Transaction();
-                $transaction->description = "DOMESTIC_ORDER_FEE:".$this->code;
-                $transaction->amount = 1*$this->fee;
-                $transaction->balance()->associate($balance);
-                $transaction->save();
-            }
-
-        } else {
-
-            $balance = $user->balance;
         }
-        
     }
 
     public function getDisplayStatusAttribute()

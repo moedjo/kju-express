@@ -70,8 +70,8 @@ class User extends \Backend\Models\User
                 'supervisor',
                 'operator',
                 'courier',
-                'int_checker',
-                'int_tracker',
+                'checker',
+                'tracker',
             ])->get();
         } else if ($user->hasPermission([
             'is_supervisor'
