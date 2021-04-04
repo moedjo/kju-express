@@ -172,4 +172,9 @@
   'Kju\\Express\\Models\\Transaction' => 'plugins\\kju\\express\\models\\Transaction.php',
   'kju\\express\\Controllers\\balances' => 'plugins\\kju\\express\\controllers\\balances.php',
   'Kju\\Express\\Models\\Balance' => 'plugins\\kju\\express\\models\\Balance.php',
+  'Kju\\Express\\Facades\\BalanceHelper' => 'plugins\\kju\\express\\facades\\BalanceHelper.php',
+  'Kju\\Express\\Classes\\BalanceHelperManager' => 'plugins\\kju\\express\\classes\\BalanceHelperManager.php',
+  'Kju\\Express\\Classes\\IdGenerator' => 'plugins\\kju\\express\\classes\\IdGenerator.php',
+  'kju\\express\\Controllers\\copyroute' => 'plugins\\kju\\express\\controllers\\copyroute.php',
+  'Kju\\Express\\Models\\Settings' => 'plugins\\kju\\express\\models\\Settings.php',
 );

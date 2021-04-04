@@ -108,6 +108,10 @@ class CreateKjuExpressDeliveryOrders extends Migration
             $table->foreign('vendor_id')->references('id')
                 ->on('kju_express_vendors')->onDelete('restrict');
 
+            $table->integer('balance_id')->unsigned()->nullable();
+            $table->foreign('balance_id')->references('id')
+                ->on('kju_express_balances')->onDelete('restrict');
+
 
             $table->unique('code');
         });

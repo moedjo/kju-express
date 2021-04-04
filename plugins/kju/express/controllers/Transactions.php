@@ -3,9 +3,9 @@
 namespace Kju\Express\Controllers;
 
 use Backend\Classes\Controller;
+use Backend\Models\User;
 use BackendMenu;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\View;
+use Kju\Express\Models\Branch;
 
 class Transactions extends Controller
 {
@@ -25,6 +25,28 @@ class Transactions extends Controller
 
     public function index_onDelete()
     {
-        return;
+        return Response::make(View::make('backend::access_denied'), 403);
+    }
+
+    private function extendQuery($query)
+    {
+        $user = $this->user;
+        $branch = $user->branch;
+        if ($user->hasPermission('access_master_transactions')) {
+            return $query;
+        }
+        if (isset($branch)) {
+            return $query
+                ->where('transactionable_id', $branch->id)
+                ->where('transactionable_type', Branch::class);
+        }
+        return $query
+            ->where('transactionable_id', $user->id)
+            ->where('transactionable_type', User::class);
+    }
+
+    public function listExtendQuery($query)
+    {
+        return $this->extendQuery($query);
     }
 }

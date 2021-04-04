@@ -2,7 +2,7 @@
 
 namespace Kju\Express\Models;
 
-use Kju\Express\classes\IdGenerator;
+use Kju\Express\Classes\IdGenerator;
 use Model;
 
 /**

@@ -5,7 +5,8 @@ namespace Kju\Express\Models;
 use Backend\Facades\BackendAuth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Kju\Express\classes\IdGenerator;
+use Kju\Express\Classes\IdGenerator;
+use Kju\Express\Facades\BalanceHelper;
 use Model;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Support\Facades\Flash;
@@ -67,6 +68,8 @@ class DeliveryOrder extends Model
         'updated_user' => ['Kju\Express\Models\User', 'key' => 'updated_user_id'],
         'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
+
+        'balance' => ['Kju\Express\Models\Balance', 'key' => 'balance_id'],
 
     ];
 
@@ -205,6 +208,9 @@ class DeliveryOrder extends Model
             $this->branch_region = $branch->region;
         }
 
+        $balance = BalanceHelper::getMyBalance();
+        $this->balance_id = $balance->id;
+
         $this->status = 'process';
         $this->process_at = Carbon::now();
         $this->created_user = $user;
@@ -249,8 +255,7 @@ class DeliveryOrder extends Model
 
     public function afterUpdate()
     {
-        $user = BackendAuth::getUser();
-        $this->updated_user = $user;
+       
     }
 
     public function afterCreate()
@@ -262,33 +267,8 @@ class DeliveryOrder extends Model
         $order_status->delivery_order_id = $this->id;
         $order_status->save();
 
-
-        // if($this->status == 'unpaid'){
-        //     return;
-        // }
-
-        $user = BackendAuth::getUser();
-        $branch = $user->branch;
-        $balance = isset($branch) ? $branch->balance : $user->balance;
-
-        $balance = $branch->balance;
-        if ($this->net_total_cost > $balance->balance) {
-            throw new ApplicationException(e(trans('kju.express::lang.global.insufficient_balance')));
-        }
-
-        $transaction = new Transaction();
-        $transaction->description = "DOMESTIC_ORDER:" . $this->code;
-        $transaction->amount = -1 * $this->total_cost;
-        $transaction->balance()->associate($balance);
-        $transaction->save();
-
-        if ($this->fee > 0) {
-            $transaction = new Transaction();
-            $transaction->description = "DOMESTIC_ORDER_FEE:" . $this->code;
-            $transaction->amount = 1 * $this->fee;
-            $transaction->balance()->associate($balance);
-            $transaction->save();
-        }
+        BalanceHelper::creditMyBalance($this->fee,"DOMESTIC_ORDER_FEE:$this->code");
+        BalanceHelper::debitMyBalance($this->total_cost,"DOMESTIC_ORDER:$this->code");
     }
 
     public function getDisplayStatusAttribute()

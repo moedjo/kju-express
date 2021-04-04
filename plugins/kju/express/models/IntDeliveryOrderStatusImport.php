@@ -2,7 +2,7 @@
 
 namespace Kju\Express\Models;
 
-
+use Illuminate\Support\Facades\Log;
 
 /**
  * Model
@@ -11,10 +11,9 @@ class IntDeliveryOrderStatusImport extends \Backend\Models\ImportModel
 {
 
 
-    public $rules = [];
-
-    public $belongsTo = [
-        'region' => ['Kju\Express\Models\Region', 'key' => 'region_id'],
+    public $rules = [
+        'order_code' => 'required',
+        'tracking_number' => 'required'
     ];
 
     public function importData($results, $sessionKey = null)
@@ -23,31 +22,12 @@ class IntDeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
             try {
 
-                $order_code = $data['int_delivery_order_code'];
-                $status = $data['status'];
-                $region_id = $data['region_id'];
+                $order_code = $data['order_code'];
+                $tracking_number = $data['tracking_number'];
+                $description = $data['description'];
 
-                $delivery_order = IntDeliveryOrder::find($order_code);
+                $delivery_order = IntDeliveryOrder::where('code',$order_code)->first();
 
-
-
-                $statuses = ['transit', 'received', 'failed'];
-
-                if (!in_array($status, $statuses)) {
-                    $this->logError(
-                        $row,
-                        e(trans('kju.express::lang.global.status_not_allowed'))
-                    );
-                    continue;
-                }
-
-                if (empty($order_code)) {
-                    $this->logError(
-                        $row,
-                        e(trans('kju.express::lang.global.order_code_not_found'))
-                    );
-                    continue;
-                }
 
                 if (empty($delivery_order)) {
                     $this->logError(
@@ -57,48 +37,33 @@ class IntDeliveryOrderStatusImport extends \Backend\Models\ImportModel
                     continue;
                 }
 
+                $statuses = ['process', 'export'];
 
-                if ($delivery_order->status == 'received' || $delivery_order->status == 'failed') {
+                if (!in_array($delivery_order->status, $statuses)) {
                     $this->logError(
                         $row,
-                        e(trans('kju.express::lang.global.delivery_order_already_finish'))
+                        e(trans('kju.express::lang.global.status_not_allowed'))
                     );
                     continue;
                 }
 
 
+                
+                $delivery_order->tracking_number = $tracking_number;
+                $delivery_order->status = 'export';
+                $delivery_order->save();
+
                 $new_order_status = new IntDeliveryOrderStatus();
-
-                $new_order_status->fill($data);
-
-                if ($status == 'received') {
-                    $new_order_status->region = $delivery_order->consignee_region->parent;
-                } else {
-                    $region = Region::find($region_id);
-                    if (empty($region)) {
-                        $this->logError(
-                            $row,
-                            e(trans('kju.express::lang.global.region_id_not_found'))
-                        );
-                        continue;
-                    }
-
-                    if ($region->type != 'country') {
-                        $this->logError(
-                            $row,
-                            e(trans('kju.express::lang.global.region_id_not_found'))
-                        );
-                        continue;
-                    }
-                    $new_order_status->region = $region;
-                }
-
+                $new_order_status->int_delivery_order_id = $delivery_order->id;
+                $new_order_status->description = $description;
+                $new_order_status->status = 'export';
                 $new_order_status->save();
-
 
                 $this->logCreated();
             } catch (\Exception $ex) {
-                trace_log($ex);
+
+                Log::alert($ex);
+
                 $this->logError($row, $ex->getMessage());
             }
         }

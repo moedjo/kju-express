@@ -27,11 +27,6 @@ class Balance extends Model
         'balance' => 'numeric'
     ];
 
-    // public $hasOne = [
-    //     'branch' =>['Kju\Express\Models\Branch'],
-    //     'user' => 'Kju\Express\Models\User',
-    // ];
-
     protected $purgeable = ['type'];
 
     public $hasMany = [
@@ -44,39 +39,5 @@ class Balance extends Model
 
     public function beforeValidate()
     {
-        if ($this->type == 'branch') {
-            // TODO FIX update id bro
-            $this->rules['branch'] = ['required'];
-
-            // trace_log($this->branch);
-            if (empty($this->branch)) {
-                // throw new ApplicationException(e(trans('kju.express::lang.global.action_not_allowed')));
-                return;
-            }
-
-            $branch_balance = Balance::whereHas('branch', function ($query) {
-                $query->where('id', $this->branch->id);
-            })->get()->toArray();
-
-            if (!empty($branch_balance)) {
-                throw new ApplicationException(e(trans('kju.express::lang.global.action_not_allowed')));
-            }
-        }
-
-        if ($this->type == 'user') {
-            $this->rules['user'] = 'required';
-
-            if (empty($this->user)) {
-                return;
-            }
-
-            $user_balance = Balance::whereHas('user', function ($query) {
-                $query->where('id', $this->user->id);
-            })->get()->toArray();
-
-            if (!empty($user_balance)) {
-                throw new ApplicationException(e(trans('kju.express::lang.global.action_not_allowed')));
-            }
-        }
     }
 }

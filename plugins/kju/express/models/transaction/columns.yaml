@@ -31,9 +31,9 @@ columns:
         label: 'kju.express::lang.owner.singular'
         relation: transactionable
         valueFrom: displayName
+        permissions: access_master_transactions
     transactionable_type:
         label: 'kju.express::lang.owner.type'
-        permissions: access_master_transactions
         invisible: true
 
     

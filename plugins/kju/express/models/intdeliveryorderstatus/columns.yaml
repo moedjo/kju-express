@@ -4,6 +4,8 @@ columns:
         type: text
         searchable: true
         sortable: true
+        relation: order
+        select: code
     created_at:
         label: 'kju.express::lang.global.created_at'
         type: datetime

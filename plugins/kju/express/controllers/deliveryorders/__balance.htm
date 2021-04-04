@@ -1,0 +1,9 @@
+<?php
+    $balance = BalanceHelper::getMyBalance();
+?>
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-money"></i>
+        <h3><?= number_format($balance->balance); ?></h3>
+    </div>
+</div>

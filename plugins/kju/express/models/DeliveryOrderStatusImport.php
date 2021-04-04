@@ -109,7 +109,6 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
                 $this->logCreated();
             } catch (\Exception $ex) {
-                trace_log($ex);
                 $this->logError($row, $ex->getMessage());
             }
         }

@@ -11,3 +11,7 @@ scopes:
         conditions: transactionable_id in (:filtered) and transactionable_type = 'Backend\\Models\\User'
         nameFrom: login
         permissions: access_master_transactions
+    created_at:
+        label: 'kju.express::lang.global.created_at'
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'

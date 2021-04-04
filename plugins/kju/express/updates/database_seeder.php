@@ -20,7 +20,6 @@ class DatabaseSeeder extends UpdatesSeeder
 
         $branchs = Branch::all();
         foreach ($branchs as $branch) {
-            // trace_log($branch);
 
             $balance = $branch->balance;
             if (empty($balance)) {
@@ -33,7 +32,6 @@ class DatabaseSeeder extends UpdatesSeeder
 
         $users = User::all();
         foreach ($users as $user) {
-            // trace_log($branch);
 
             $balance = $user->balance;
             if (empty($balance)) {

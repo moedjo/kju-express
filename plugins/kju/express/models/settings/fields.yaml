@@ -1,0 +1,6 @@
+fields:
+    enabled_balance:
+        label: 'Enabled Balance'
+        span: left
+        type: checkbox
+        default: false

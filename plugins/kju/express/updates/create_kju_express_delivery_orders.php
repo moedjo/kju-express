@@ -75,15 +75,19 @@ class CreateKjuExpressDeliveryOrders extends Migration
 
             $table->integer('updated_user_id')->unsigned()->nullable();
             $table->foreign('updated_user_id')->references('id')
-                ->on('backend_users')->onDelete('restrict');;
+                ->on('backend_users')->onDelete('restrict');
 
             $table->integer('created_user_id')->unsigned()->nullable();
             $table->foreign('created_user_id')->references('id')
-                ->on('backend_users')->onDelete('restrict');;
+                ->on('backend_users')->onDelete('restrict');
 
             $table->integer('deleted_user_id')->unsigned()->nullable();
             $table->foreign('deleted_user_id')->references('id')
-                ->on('backend_users')->onDelete('restrict');;
+                ->on('backend_users')->onDelete('restrict');
+
+            $table->integer('balance_id')->unsigned()->nullable();
+            $table->foreign('balance_id')->references('id')
+                ->on('kju_express_balances')->onDelete('restrict');
 
 
             $table->primary(['code']);

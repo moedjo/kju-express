@@ -11,6 +11,6 @@ columns:
         label: 'kju.express::lang.owner.singular'
         relation: owner
         valueFrom: displayName
+        permissions: access_master_balances
     owner_type:
         label: 'kju.express::lang.owner.type'
-        permissions: access_master_balances

@@ -1,5 +1,4 @@
 columns:
-    int_delivery_order_code: 'kju.express::lang.global.order_code'
-    region_id: 'kju.express::lang.region.id'
-    status: 'kju.express::lang.global.status'
+    order_code: 'kju.express::lang.global.order_code'
+    tracking_number: 'kju.express::lang.global.tracking_number'
     description: 'kju.express::lang.global.description'

@@ -6,6 +6,7 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use Illuminate\Support\Facades\Redirect;
 use Kju\Express\Models\DeliveryOrder;
+use October\Rain\Network\Http;
 use Renatio\DynamicPDF\Classes\PDF;
 
 class DeliveryOrders extends Controller
@@ -31,7 +32,7 @@ class DeliveryOrders extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'domestic','delivery-orders');
+        BackendMenu::setContext('Kju.Express', 'domestic', 'delivery-orders');
     }
 
 
@@ -48,9 +49,8 @@ class DeliveryOrders extends Controller
 
         $result = ['delivery_order' => $delivery_order];
 
-    
+
         return PDF::loadTemplate('delivery_order', $result)->stream();
-    
     }
 
     public function printWithoutPrice($code)
@@ -61,7 +61,6 @@ class DeliveryOrders extends Controller
         $result = ['delivery_order' => $delivery_order];
 
         return PDF::loadTemplate('delivery_order_without_price', $result)->stream();
-    
     }
 
     public function listInjectRowClass($record, $definition = null)
@@ -87,8 +86,7 @@ class DeliveryOrders extends Controller
         }
     }
 
-    public function listExtendQuery($query)
-    {
+    public function extendQuery($query){
         $user = $this->user;
         $branch = $user->branch;
         if ($user->isSuperUser()) {
@@ -100,18 +98,14 @@ class DeliveryOrders extends Controller
         }
     }
 
+    public function listExtendQuery($query)
+    {
+       return $this->extendQuery($query);
+    }
+
     public function formExtendQuery($query)
     {
-
-        $user = $this->user;
-        $branch = $user->branch;
-        if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_id', $branch->id);
-        } else {
-            $query->where('created_user_id',  $user->id);
-        }
+        return $this->extendQuery($query);
     }
 
     public function formExtendModel($model)
@@ -182,7 +176,6 @@ class DeliveryOrders extends Controller
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
-            
         });
     }
 

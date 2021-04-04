@@ -5,7 +5,8 @@ namespace Kju\Express\Models;
 use Backend\Facades\BackendAuth;
 use Carbon\Carbon;
 use Exception;
-use Kju\Express\classes\IdGenerator;
+use Kju\Express\Classes\IdGenerator;
+use Kju\Express\Facades\BalanceHelper;
 use Model;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Support\Facades\Flash;
@@ -69,6 +70,7 @@ class IntDeliveryOrder extends Model
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
 
         'vendor' => ['Kju\Express\Models\Vendor', 'key' => 'vendor_id'],
+        'balance' => ['Kju\Express\Models\Balance', 'key' => 'balance_id'],
 
     ];
 
@@ -240,7 +242,7 @@ class IntDeliveryOrder extends Model
         $branch = $user->branch;
 
         //INITIALIZE CODE
-        $code = IdGenerator::alpha(isset($this->branch) ? $this->branch->id : '', 4)
+        $code = IdGenerator::alpha(isset($this->branch) ? $this->branch->id : '', 3)
             . $this->origin_region->id
             . IdGenerator::numeric(isset($this->branch) ? $this->branch->id : '', 4);
         $this->code = $code;
@@ -252,6 +254,9 @@ class IntDeliveryOrder extends Model
             $this->branch = $branch;
         }
 
+        $balance = BalanceHelper::getMyBalance();
+        $this->balance_id = $balance->id;
+
         // SET INIT STATUS
         $this->status = 'pending';
         $this->process_at = Carbon::now();
@@ -259,7 +264,6 @@ class IntDeliveryOrder extends Model
 
     public function beforeSave()
     {
-        trace_log('beforeSave');
         if (empty($this->status) || $this->status == 'pending') {
             $this->initWeight();
             $this->initTotalCost();
@@ -272,7 +276,6 @@ class IntDeliveryOrder extends Model
 
     public function beforeUpdate()
     {
-        trace_log('beforeUpdate');
         $user = BackendAuth::getUser();
         $this->updated_user = $user;
 
@@ -322,52 +325,21 @@ class IntDeliveryOrder extends Model
         $order_status->int_delivery_order_id = $this->id;
         $order_status->save();
 
-        $user = BackendAuth::getUser();
-        $branch = $user->branch;
 
-        $balance = isset($branch) ? $branch->balance : $user->balance;
-
-        $balance = $branch->balance;
-        if ($this->net_total_cost > $balance->balance) {
-            throw new ApplicationException(e(trans('kju.express::lang.global.insufficient_balance')));
-        }
-
-        $transaction = new Transaction();
-        $transaction->description = "INTERNATIONAL_ORDER:" . $this->code;
-        $transaction->amount = -1 * $this->total_cost;
-        $transaction->balance()->associate($balance);
-        $transaction->save();
-
-        if ($this->fee > 0) {
-            $transaction = new Transaction();
-            $transaction->description = "INTERNATIONAL_ORDER_FEE:" . $this->code;
-            $transaction->amount = 1 * $this->fee;
-            $transaction->balance()->associate($balance);
-            $transaction->save();
-        }
+        BalanceHelper::creditMyBalance($this->fee, "INTERNATIONAL_ORDER_FEE:$this->code");
+        BalanceHelper::debitMyBalance($this->total_cost, "INTERNATIONAL_ORDER:$this->code");
     }
 
     public function afterUpdate()
     {
-
         if ($this->status == 'process') {
-            $branch = $this->branch;
-
-            $balance = isset($branch) ? $this->branch->balance : $this->created_user->balance;
-           
-            if($this->different_total_cost == 0){
-                return;
-            }
-            
-            if ($this->different_total_cost > $balance->balance) {
-                throw new ApplicationException(e(trans('kju.express::lang.global.insufficient_balance')));
+            if ($this->different_total_cost > 0) {
+                BalanceHelper::creditBalance($this->balance_id, $this->different_total_cost, "DIFF_INTERNATIONAL_ORDER:$this->code");
             }
 
-            $transaction = new Transaction();
-            $transaction->description = "DIFF_INTERNATIONAL_ORDER:" . $this->code;
-            $transaction->amount = $this->different_total_cost;
-            $transaction->balance()->associate($balance);
-            $transaction->save();
+            if ($this->different_total_cost < 0) {
+                BalanceHelper::debitBalance($this->balance_id, $this->different_total_cost, "DIFF_INTERNATIONAL_ORDER:$this->code");
+            }
         }
     }
 

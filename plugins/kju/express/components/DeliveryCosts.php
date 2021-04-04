@@ -14,6 +14,7 @@ use Kju\Express\Models\IntDeliveryRoute;
 use October\Rain\Exception\ValidationException;
 use Kju\Express\Models\Region;
 use Multiwebinc\Recaptcha\Validators\RecaptchaValidator;
+use October\Rain\Network\Http;
 use October\Rain\Support\Facades\Flash;
 
 class DeliveryCosts extends \Cms\Classes\ComponentBase
@@ -93,12 +94,30 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         // if ($validator->fails()) {
         //     throw new ValidationException($validator);
         // }
-        $delivery_order = DeliveryOrder::with(['statuses'])->where('code',$delivery_order_code)->first();
+        $delivery_order = DeliveryOrder::with(['statuses'])->where('code', $delivery_order_code)->first();
 
 
         // for international
         if (empty($delivery_order)) {
-            $delivery_order = IntDeliveryOrder::with(['statuses'])->where('code',$delivery_order_code)->first();
+            $delivery_order = IntDeliveryOrder::with(['statuses'])->where('code', $delivery_order_code)->first();
+
+            if (isset($delivery_order)) {
+                $result =  Http::get(
+                    'https://api.aftership.com/v4/trackings/sf-express/SF1047090845670',
+                    function ($http) {
+                        $http->header('aftership-api-key', ' fffd8eb9-ebab-4c34-93cc-c1f33bbcc880');
+                        $http->timeout(20);
+                    }
+                );
+
+                if ($result->code == 200) {
+                    $body = json_decode($result->body);
+                    $this->page['checkpoints'] = $body->data
+                        ->tracking
+                        ->checkpoints;
+                }
+
+            }
         }
 
         $this->page['delivery_order'] = $delivery_order;
@@ -150,7 +169,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
             $route_code = $source->parent->id . '-' . $destination->id;
             $costs = array();
 
-            $route = IntDeliveryRoute::where('code',$route_code)->first();
+            $route = IntDeliveryRoute::where('code', $route_code)->first();
 
             $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_id', $route->id)
                 ->whereRaw("$weight BETWEEN min_range_weight AND max_range_weight")
@@ -165,7 +184,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
                 ($total_cost * ($int_delivery_cost->profit_percentage / 100));
 
             $goods_types = GoodsType::all();
-            $route = IntDeliveryRoute::where('code',$route_code)->first();
+            $route = IntDeliveryRoute::where('code', $route_code)->first();
 
             $int_add_delivery_costs = IntAddDeliveryCost::where('int_delivery_route_id', $route->id)
                 ->get()->pluck('add_cost_per_kg', 'goods_type_id');

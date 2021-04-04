@@ -38,15 +38,11 @@ class Transaction extends Model
 
         $this->transactionable()->associate($this->balance->owner);
         $this->created_user = BackendAuth::getUser();
-
     }
 
     public function afterCreate()
     {
         $this->balance->balance = $this->current_balance;
         $this->balance->save();
-
-        
-
     }
 }

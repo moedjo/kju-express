@@ -75,54 +75,40 @@ class IntDeliveryOrders extends Controller
         }
     }
 
-    public function listExtendQuery($query)
+    public function extendQuery($query)
     {
         $user = $this->user;
         $branch = $user->branch;
 
-        if ($this->user->hasPermission('is_checker')) {
-            $query->whereIn('status', ['pending', 'process', 'reject']);
+        if ($user->isSuperUser()) {
             return $query;
         }
 
+        if ($this->user->hasPermission('is_checker')) {
+            return $query
+                ->whereIn('status', ['pending', 'process', 'reject']);
+        }
 
         if ($this->user->hasPermission('is_tracker')) {
-            $query->whereIn('status', ['process','export']);
-            return $query;
+            return $query
+                ->whereIn('status', ['process', 'export']);
         }
 
-        if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_id', $branch->id);
-        } else {
-            $query->where('created_user_id',  $user->id);
+        if (isset($branch)) {
+            return $query->where('branch_id', $branch->id);
         }
+
+        return $query->where('created_user_id',  $user->id);
+    }
+
+    public function listExtendQuery($query)
+    {
+        $this->extendQuery($query);
     }
 
     public function formExtendQuery($query)
     {
-
-        $user = $this->user;
-        $branch = $user->branch;
-        if ($this->user->hasPermission('is_checker')) {
-            $query->whereIn('status', ['pending', 'process', 'reject']);
-            return $query;
-        }
-
-
-        if ($this->user->hasPermission('is_tracker')) {
-            $query->whereIn('status', ['process','export']);
-            return $query;
-        }
-
-        if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_id', $branch->id);
-        } else {
-            $query->where('created_user_id',  $user->id);
-        }
+        $this->extendQuery($query);
     }
 
     public function listInjectRowClass($record, $definition = null)
@@ -209,13 +195,13 @@ class IntDeliveryOrders extends Controller
 
                 $fields['_vendor']->hidden = true;
                 $fields['total_cost_agreement']->hidden = false;
-            }  else {
+            } else {
 
                 $host->removeField('checker_action');
                 $host->removeField('vendor'); // recordfinder can't support disabled
                 $fields['_vendor']->hidden = false; // recordfinder can't support disabled
 
-              
+
             }
 
             if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
@@ -223,7 +209,6 @@ class IntDeliveryOrders extends Controller
             } else {
                 $host->removeField('tracker_action');
             }
-            
         }
     }
 
