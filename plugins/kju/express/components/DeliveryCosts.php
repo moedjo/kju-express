@@ -100,7 +100,8 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
         // for international
         if (empty($delivery_order)) {
-            $delivery_order = IntDeliveryOrder::with(['statuses'])->where('code', $delivery_order_code)->first();
+            $delivery_order = IntDeliveryOrder::with(['statuses'])
+                ->where('code', $delivery_order_code)->first();
 
             if (isset($delivery_order)) {
                 $this->page['checkpoints'] = AftershipHelper::track(
@@ -185,8 +186,8 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
             foreach ($goods_types as $goods_type) {
 
-                $add_cost_per_kg = isset($int_add_delivery_costs[$goods_type->code]) ?
-                    $int_add_delivery_costs[$goods_type->code]
+                $add_cost_per_kg = isset($int_add_delivery_costs[$goods_type->id]) ?
+                    $int_add_delivery_costs[$goods_type->id]
                     : 0;
 
                 $add_cost = $add_cost_per_kg * $weight;
@@ -200,8 +201,6 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
             $this->page['costs'] = $costs;
             return;
         }
-
-
 
 
         // Domestic Level
