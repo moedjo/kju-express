@@ -177,4 +177,6 @@
   'Kju\\Express\\Classes\\IdGenerator' => 'plugins\\kju\\express\\classes\\IdGenerator.php',
   'kju\\express\\Controllers\\copyroute' => 'plugins\\kju\\express\\controllers\\copyroute.php',
   'Kju\\Express\\Models\\Settings' => 'plugins\\kju\\express\\models\\Settings.php',
+  'Kju\\Express\\Facades\\AftershipHelper' => 'plugins\\kju\\express\\facades\\AftershipHelper.php',
+  'Kju\\Express\\Classes\\AftershipHelperManager' => 'plugins\\kju\\express\\classes\\AftershipHelperManager.php',
 );

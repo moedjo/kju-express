@@ -240,6 +240,12 @@ tabs:
                 - update
 secondaryTabs:
     fields:
+        _balance:
+            label: ''
+            context:
+                - create
+            type: partial
+            tab: Misc
         total_cost:
             label: 'kju.express::lang.global.total_cost'
             span: full

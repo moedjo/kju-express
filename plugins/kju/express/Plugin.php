@@ -5,7 +5,9 @@ namespace Kju\Express;
 use Backend\Models\User;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
+use Kju\Express\Classes\AftershipHelperManager;
 use Kju\Express\Classes\BalanceHelperManager;
+use Kju\Express\Facades\AftershipHelper;
 use Kju\Express\Facades\BalanceHelper;
 use System\Classes\PluginBase;
 
@@ -52,6 +54,12 @@ class Plugin extends PluginBase
         App::singleton('balance.helper', function() {
             return new BalanceHelperManager();
         });
+
+        $alias->alias('AftershipHelper', AftershipHelper::class);
+        App::singleton('aftership.helper', function() {
+            return new AftershipHelperManager();
+        });
+
     }
 
 

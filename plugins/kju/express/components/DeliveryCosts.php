@@ -4,6 +4,7 @@ namespace Kju\Express\Components;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Kju\Express\Facades\AftershipHelper;
 use Kju\Express\Models\DeliveryCost;
 use Kju\Express\Models\DeliveryOrder;
 use Kju\Express\Models\GoodsType;
@@ -102,21 +103,13 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
             $delivery_order = IntDeliveryOrder::with(['statuses'])->where('code', $delivery_order_code)->first();
 
             if (isset($delivery_order)) {
-                $result =  Http::get(
-                    'https://api.aftership.com/v4/trackings/sf-express/SF1047090845670',
-                    function ($http) {
-                        $http->header('aftership-api-key', ' fffd8eb9-ebab-4c34-93cc-c1f33bbcc880');
-                        $http->timeout(20);
-                    }
+                $this->page['checkpoints'] = AftershipHelper::track(
+                    $delivery_order
+                        ->vendor
+                        ->slug,
+                    $delivery_order
+                        ->tracking_number
                 );
-
-                if ($result->code == 200) {
-                    $body = json_decode($result->body);
-                    $this->page['checkpoints'] = $body->data
-                        ->tracking
-                        ->checkpoints;
-                }
-
             }
         }
 
