@@ -20,10 +20,26 @@ class BalanceHelperManager
         return $user->balance;
     }
 
+
+    public function creditMyBalance($amount = 0, $description = "")
+    {
+        $balance = $this->getMyBalance();
+        return $this->creditBalance($balance->id,$amount,$description);
+    }
+
+    public function debitMyBalance($amount = 0, $description = "")
+    {
+        $balance = $this->getMyBalance();
+        return $this->debitBalance($balance->id,$amount,$description);
+    }
+
     public function creditBalance($balance_id,  $amount = 0, $description = "")
     {
 
-        $enabled_balance = Settings::get('enabled_balance', false);
+        $user = BackendAuth::getUser();
+
+        $enabled_balance = $user->hasPermission('enabled_balances');
+        // $enabled_balance = Settings::get('enabled_balance', false);
         if (!$enabled_balance) {
             return;
         }
@@ -39,15 +55,11 @@ class BalanceHelperManager
 
     }
 
-    public function creditMyBalance($amount = 0, $description = "")
-    {
-        $balance = $this->getMyBalance();
-        return $this->creditBalance($balance->id,$amount,$description);
-    }
-
-
     public function debitBalance($balance_id,  $amount = 0, $description = ""){
-        $enabled_balance = Settings::get('enabled_balance', false);
+
+        $user = BackendAuth::getUser();
+        $enabled_balance = $user->hasPermission('enabled_balances');
+        // $enabled_balance = Settings::get('enabled_balance', false);
         if (!$enabled_balance) {
             return;
         }
@@ -67,9 +79,5 @@ class BalanceHelperManager
 
     }
 
-    public function debitMyBalance($amount = 0, $description = "")
-    {
-        $balance = $this->getMyBalance();
-        return $this->debitBalance($balance->id,$amount,$description);
-    }
+   
 }

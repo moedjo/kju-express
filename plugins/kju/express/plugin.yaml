@@ -74,6 +74,9 @@ permissions:
     access_balances:
         tab: 'kju.express::lang.balance.singular'
         label: 'kju.express::lang.permission.access_balances'
+    enabled_balances:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'Enabled Balances'
     access_transactions:
         tab: 'kju.express::lang.balance.singular'
         label: 'kju.express::lang.permission.access_transactions'

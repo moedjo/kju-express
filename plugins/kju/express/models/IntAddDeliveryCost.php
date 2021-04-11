@@ -42,7 +42,7 @@ class IntAddDeliveryCost extends Model
     ];
 
     public $belongsTo = [
-        'route' => ['Kju\Express\Models\IntDeliveryRoute'],
+        'route' => ['Kju\Express\Models\IntDeliveryRoute', 'key' => 'int_delivery_route_id'],
         'goods_type' => ['Kju\Express\Models\GoodsType'],
     ];
 }

@@ -12,7 +12,7 @@ class BuilderTableCreateKjuExpressVendors extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name', 100);
-            $table->string('slug', 100);
+            $table->string('slug', 100)->nullable();
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
