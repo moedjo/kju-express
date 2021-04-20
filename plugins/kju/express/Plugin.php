@@ -5,10 +5,14 @@ namespace Kju\Express;
 use Backend\Models\User;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Kju\Express\Classes\AftershipHelperManager;
 use Kju\Express\Classes\BalanceHelperManager;
 use Kju\Express\Facades\AftershipHelper;
 use Kju\Express\Facades\BalanceHelper;
+use Kju\Express\Models\IntDeliveryOrder;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -37,6 +41,37 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerSchedule($schedule)
+    {
+
+        $schedule->call(function () {
+
+            $data = array();
+            trace_sql();
+            $data = DB::table('kju_express_int_delivery_orders')
+                ->select('code')
+                ->where(DB::raw("DATE(updated_at)"),date('Y-m-d'))
+                ->where('status','export')
+                ->get()->toArray();
+
+           
+            $array = json_decode(json_encode($data), true);
+            array_unshift($array , ['code'=>'tracking_number']);
+            Storage::disk('local')
+                ->put('media/csv/int-orders.csv',  $this->array2csv($array));
+        })->everyMinute();
+    }
+
+    function array2csv($data, $delimiter = ',', $enclosure = '"', $escape_char = "\\")
+    {
+        $f = fopen('php://memory', 'r+');
+        foreach ($data as $item) {
+            fputcsv($f, $item, $delimiter, $enclosure, $escape_char);
+        }
+        rewind($f);
+        return stream_get_contents($f);
+    }
+
     public function registerListColumnTypes()
     {
         return [
@@ -51,15 +86,14 @@ class Plugin extends PluginBase
         $alias = AliasLoader::getInstance();
         $alias->alias('BalanceHelper', BalanceHelper::class);
 
-        App::singleton('balance.helper', function() {
+        App::singleton('balance.helper', function () {
             return new BalanceHelperManager();
         });
 
         $alias->alias('AftershipHelper', AftershipHelper::class);
-        App::singleton('aftership.helper', function() {
+        App::singleton('aftership.helper', function () {
             return new AftershipHelperManager();
         });
-
     }
 
 
@@ -82,10 +116,9 @@ class Plugin extends PluginBase
                 'Kju\Express\Models\Transaction',
                 'name' => 'transactionable'
             ];
-            $model->addDynamicMethod('getDisplayNameAttribute', function($value) use ($model) {
+            $model->addDynamicMethod('getDisplayNameAttribute', function ($value) use ($model) {
                 return "{$model->login}";
             });
-
         });
     }
 }
