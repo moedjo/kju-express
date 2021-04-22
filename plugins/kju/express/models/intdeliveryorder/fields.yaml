@@ -181,6 +181,8 @@ tabs:
             nameFrom: name
             tab: 'kju.express::lang.global.checker_data'
             disabled: true
+            permissions:
+                - is_checker
             context:
                 - update
         _vendor:
@@ -192,6 +194,8 @@ tabs:
             tab: 'kju.express::lang.global.checker_data'
             context:
                 - update
+            permissions:
+                - is_checker
         checker_action:
             label: 'kju.express::lang.global.action'
             span: right
@@ -203,6 +207,8 @@ tabs:
                 process: 'kju.express::lang.global.process'
                 reject: 'kju.express::lang.global.reject'
             tab: 'kju.express::lang.global.checker_data'
+            permissions:
+                - is_checker
         checker_comment:
             label: 'kju.express::lang.global.comment'
             span: full
@@ -213,6 +219,8 @@ tabs:
             type: textarea
             size: small
             tab: 'kju.express::lang.global.checker_data'
+            permissions:
+                - is_checker
 
 
         #Exporter Data
@@ -226,6 +234,8 @@ tabs:
             disabled: true
             context:
                 - update
+            permissions:
+                - is_tracker
         tracker_action:
             label: 'kju.express::lang.global.action'
             span: right
@@ -238,6 +248,8 @@ tabs:
             tab: 'kju.express::lang.global.tracker_data'
             context:
                 - update
+            permissions:
+            - is_tracker
 secondaryTabs:
     fields:
         _balance:

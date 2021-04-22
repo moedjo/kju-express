@@ -103,7 +103,7 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
             $delivery_order = IntDeliveryOrder::with(['statuses'])
                 ->where('code', $delivery_order_code)->first();
 
-            if (isset($delivery_order) && isset($delivery_order->tracking_number)) {
+            if (isset($delivery_order) && $delivery_order->status =='export') {
                 $this->page['checkpoints'] = AftershipHelper::track_v2(
                     $delivery_order->tracking_number
                 );

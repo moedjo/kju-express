@@ -47,19 +47,23 @@ class Plugin extends PluginBase
         $schedule->call(function () {
 
             $data = array();
+            trace_log('running schedule ' .date('Y-m-d'));
             trace_sql();
             $data = DB::table('kju_express_int_delivery_orders')
-                ->select('code')
+                ->select('tracking_number',DB::raw("'sf-express'"))
                 ->where(DB::raw("DATE(updated_at)"),date('Y-m-d'))
                 ->where('status','export')
+                ->where('tracking_number', 'like', 'SF%')
                 ->get()->toArray();
 
            
             $array = json_decode(json_encode($data), true);
-            array_unshift($array , ['code'=>'tracking_number']);
+            array_unshift($array , ['tracking_number'=>'tracking_number','sf-express'=>'courier']);
             Storage::disk('local')
                 ->put('media/csv/int-orders.csv',  $this->array2csv($array));
-        })->everyMinute();
+        // })->everyMinute();
+
+        })->dailyAt('19:00');
     }
 
     function array2csv($data, $delimiter = ',', $enclosure = '"', $escape_char = "\\")

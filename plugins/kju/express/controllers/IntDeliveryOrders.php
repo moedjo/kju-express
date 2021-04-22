@@ -184,7 +184,7 @@ class IntDeliveryOrders extends Controller
                 $fields['goods_type']->disabled = false;
                 $fields['goods_description']->disabled = false;
                 $fields['goods_amount']->disabled = false;
-
+ 
                 $fields['goods_weight']->disabled = false;
                 $fields['goods_height']->disabled = false;
                 $fields['goods_width']->disabled = false;
@@ -195,7 +195,7 @@ class IntDeliveryOrders extends Controller
 
                 $fields['_vendor']->hidden = true;
                 $fields['total_cost_agreement']->hidden = false;
-            } else {
+            } else  if ($this->user->hasPermission('is_checker') && $model->status != 'pending') {
 
                 $host->removeField('checker_action');
                 $host->removeField('vendor'); // recordfinder can't support disabled
@@ -206,7 +206,8 @@ class IntDeliveryOrders extends Controller
 
             if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $fields['tracking_number']->disabled = false;
-            } else {
+                
+            } else if ($this->user->hasPermission('is_tracker') && $model->status != 'process') {
                 $host->removeField('tracker_action');
             }
         }
