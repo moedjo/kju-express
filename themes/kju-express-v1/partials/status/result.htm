@@ -70,6 +70,13 @@
           </li>
           {% endfor %}
 
+          {% for checkpoint in processTimeLineLogsList|reverse %}
+          <li class="list-group-item text-dark">
+              <span>{{checkpoint.statusTime|date('d-m-Y H:i:s')}} - {{checkpoint.status}}</span><br>
+              <span>{{checkpoint.remarks}}</span>
+          </li>
+          {% endfor %}
+
 
         </ul>
         {% else %}

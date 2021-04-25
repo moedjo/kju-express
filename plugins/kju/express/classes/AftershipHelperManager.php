@@ -45,12 +45,33 @@ class AftershipHelperManager
         );
 
         if ($result->code == 200) {
-            trace_log($result->body);
+            // trace_log($result->body);
             $body = json_decode($result->body);
 
             return $body->data
                 ->trackings[0]
                 ->checkpoints;
+        } else {
+            trace_log($result->body);
+        }
+        return [];
+    }
+
+    public function track_tgi($tracking_number = "")
+    {
+
+        $url = "https://system.tgiexpress.com/api/v1/process_track_api?api_key=kDXTe4eJ4lQkDMZtSficnxxJiPjDAVNe&referenceNumber=$tracking_number&processMasterCode=shipment_tracking";
+        $result =  Http::get(
+            $url,
+            function ($http) {
+                $http->timeout(20);
+            }
+        );
+
+        if ($result->code == 200) {
+            // trace_log($result->body);
+            $body = json_decode($result->body);
+            return $body[0]->processTimeLineLogsList;
         } else {
             trace_log($result->body);
         }

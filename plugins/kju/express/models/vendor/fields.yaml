@@ -13,3 +13,8 @@ fields:
         span: left
         placeholder: 'kju.express::lang.vendor.name'
         type: text
+    slug:
+        label: 'kju.express::lang.vendor.slug'
+        span: left
+        placeholder: 'kju.express::lang.vendor.slug'
+        type: text

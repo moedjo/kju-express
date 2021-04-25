@@ -277,6 +277,7 @@
         'name' => 'Vendor Name',
         'plural' => 'Vendors',
         'singular' => 'Vendor',
+        'slug' => 'Vendor Slug',
         'new' => 'New Vendor',
         'edit' => 'Edit Vendor',
         'preview' => 'Preview Vendor',
