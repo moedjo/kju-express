@@ -14,6 +14,9 @@
      </a>
  </div>
 <?php elseif($this->user->hasPermission('is_checker')): ?>
+<a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
+    <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
+</a>
 <?php elseif($this->user->hasPermission('is_tracker')): ?>
 <?php else: ?>
 <div data-control="toolbar">
