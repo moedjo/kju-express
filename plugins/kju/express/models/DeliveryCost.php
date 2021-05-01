@@ -67,4 +67,19 @@ class DeliveryCost extends Model
             $fields->add_cost->hidden = true;
         }
     }
+
+    public function scopeOrigin($query,$value)
+    {
+
+        return $query->whereHas('route', function ($query) use ($value){
+            $query->where('src_region_id', $value);
+        })->get();
+    }
+
+    public function scopeDestination($query,$value)
+    {
+        return $query->whereHas('route', function ($query) use ($value){
+            $query->where('dst_region_id', $value);
+        })->get();
+    }
 }

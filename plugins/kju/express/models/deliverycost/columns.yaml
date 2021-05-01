@@ -3,12 +3,12 @@ columns:
         label: 'kju.express::lang.global.id'
         type: text
         invisible: true
-    delivery_route_code:
+    route[code]:
         label: 'kju.express::lang.global.route_code'
         type: text
         searchable: true
         sortable: true
-    service:
+    service_id:
         label: 'kju.express::lang.service.singular'
         type: text
         searchable: true
@@ -44,7 +44,7 @@ columns:
         type: text
         searchable: false
         sortable: true
-        select: 'concat(min_lead_time, ''-'', max_lead_time)'
+        select: 'concat(min_lead_time, '' - '', max_lead_time)'
     weight_limit:
         label: 'kju.express::lang.service.weight_limit'
         type: number
