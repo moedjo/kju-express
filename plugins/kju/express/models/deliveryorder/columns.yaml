@@ -82,6 +82,7 @@ columns:
         searchable: false
         sortable: false
         invisible: true
+        select: concat(goods_weight, ' KG')
     fee:
         label: 'kju.express::lang.global.branch_fee'
         type: currency

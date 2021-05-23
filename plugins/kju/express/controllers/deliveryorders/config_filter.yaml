@@ -4,7 +4,9 @@ scopes:
         modelClass: Kju\Express\Models\Branch
         conditions: branch_id in (:filtered)
         nameFrom: name
-        permissions: access_master_delivery_orders
+        permissions: 
+            - access_master_delivery_orders
+            - access_view_delivery_orders
     status:
         label: 'kju.express::lang.global.status'
         type: group

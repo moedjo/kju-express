@@ -44,7 +44,19 @@ columns:
         type: text
         searchable: false
         sortable: true
-        select: 'concat(min_lead_time, '' - '', max_lead_time)'
+        select: 'concat(min_lead_time, '' to '', max_lead_time)'
+    min_lead_time:
+        label: 'kju.express::lang.global.min_lead_time'
+        type: number
+        searchable: false
+        sortable: true
+        invisible: true
+    max_lead_time:
+        label: 'kju.express::lang.global.max_lead_time'
+        type: number
+        searchable: false
+        sortable: true
+        invisible: true
     weight_limit:
         label: 'kju.express::lang.service.weight_limit'
         type: number

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use Kju\Express\Models\DeliveryOrder;
 use October\Rain\Network\Http;
 use Renatio\DynamicPDF\Classes\PDF;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class DeliveryOrders extends Controller
 {
@@ -26,7 +28,8 @@ class DeliveryOrders extends Controller
     public $bodyClass = 'compact-container';
 
     public $requiredPermissions = [
-        'access_delivery_orders'
+        'access_delivery_orders',
+        'access_view_delivery_orders'
     ];
 
     public function __construct()
@@ -86,10 +89,11 @@ class DeliveryOrders extends Controller
         }
     }
 
-    public function extendQuery($query){
+    public function extendQuery($query)
+    {
         $user = $this->user;
         $branch = $user->branch;
-        if ($user->isSuperUser()) {
+        if ($user->hasAccess('access_view_delivery_orders')) {
             // TODO Nothing
         } else if (isset($branch)) {
             $query->where('branch_id', $branch->id);
@@ -100,7 +104,7 @@ class DeliveryOrders extends Controller
 
     public function listExtendQuery($query)
     {
-       return $this->extendQuery($query);
+        return $this->extendQuery($query);
     }
 
     public function formExtendQuery($query)
@@ -220,5 +224,30 @@ class DeliveryOrders extends Controller
             $model->rules['total_cost'] = "required|numeric|min:1";
             $model->rules['agreement'] = 'in:1';
         });
+    }
+
+    public function index_onDelete()
+    {
+
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('ListController')->index_onDelete();
+    }
+    
+    public function update_onDelete($recordId = null)
+    {
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->update_onDelete();
+    }
+
+    public function create($context = null)
+    {
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->create($context);
     }
 }

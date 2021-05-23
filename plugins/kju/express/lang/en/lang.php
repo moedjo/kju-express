@@ -33,6 +33,8 @@
 
         'access_master_delivery_orders' => 'Manage master delivery orders',
         'access_master_int_delivery_orders' => 'Manage master int. delivery orders',
+        'access_view_delivery_orders' => 'Access view delivery orders',
+        'access_view_int_delivery_orders' => 'Access view international delivery orders',
     ],
     'global' => [
         'region_data' => 'Region Data',

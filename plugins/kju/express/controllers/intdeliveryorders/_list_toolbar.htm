@@ -1,25 +1,6 @@
-
- <?php if($this->user->isSuperUser()): ?>
- <div data-control="toolbar">
-     <a href="<?= Backend::url('kju/express/intdeliveryorders/create') ?>" class="btn btn-primary oc-icon-plus">
-         <?= e(trans('backend::lang.form.create')) ?>
-     </a>
- 
-     <a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
-         <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
-     </a>
- 
-     <a href="<?= Backend::url('kju/express/intmanifestdeliveryorders/export') ?>" class="btn btn-success oc-icon-download">
-         <?= e(trans('kju.express::lang.int_delivery_order.export_manifest')) ?>
-     </a>
- </div>
-<?php elseif($this->user->hasPermission('is_checker')): ?>
-<a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
-    <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
-</a>
-<?php elseif($this->user->hasPermission('is_tracker')): ?>
-<?php else: ?>
 <div data-control="toolbar">
+    <?php if($this->user->isSuperUser()): ?>
+
     <a href="<?= Backend::url('kju/express/intdeliveryorders/create') ?>" class="btn btn-primary oc-icon-plus">
         <?= e(trans('backend::lang.form.create')) ?>
     </a>
@@ -28,8 +9,31 @@
         <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
     </a>
 
-    <a href="<?= Backend::url('kju/express/intmanifestdeliveryorders/export') ?>" class="btn btn-success oc-icon-download">
+    <a href="<?= Backend::url('kju/express/intmanifestdeliveryorders/export') ?>"
+        class="btn btn-success oc-icon-download">
         <?= e(trans('kju.express::lang.int_delivery_order.export_manifest')) ?>
     </a>
+    <?php elseif($this->user->hasPermission('is_checker')): ?>
+    <a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
+        <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
+    </a>
+    <?php elseif($this->user->hasPermission('is_tracker')): ?>
+    <?php elseif($this->user->hasPermission('access_view_int_delivery_orders')): ?>
+    <a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
+        <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
+    </a>
+    <?php else: ?>
+    <a href="<?= Backend::url('kju/express/intdeliveryorders/create') ?>" class="btn btn-primary oc-icon-plus">
+        <?= e(trans('backend::lang.form.create')) ?>
+    </a>
+
+    <a href="<?= Backend::url('kju/express/intdeliveryorders/export') ?>" class="btn btn-info oc-icon-download">
+        <?= e(trans('kju.express::lang.int_delivery_order.export')) ?>
+    </a>
+
+    <a href="<?= Backend::url('kju/express/intmanifestdeliveryorders/export') ?>"
+        class="btn btn-success oc-icon-download">
+        <?= e(trans('kju.express::lang.int_delivery_order.export_manifest')) ?>
+    </a>
+    <?php endif; ?>
 </div>
-<?php endif; ?>

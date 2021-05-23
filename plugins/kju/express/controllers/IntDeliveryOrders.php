@@ -26,7 +26,8 @@ class IntDeliveryOrders extends Controller
     public $bodyClass = 'compact-container';
 
     public $requiredPermissions = [
-        'access_int_delivery_orders'
+        'access_int_delivery_orders',
+        'access_view_int_delivery_orders'
     ];
 
     public function __construct()
@@ -35,18 +36,18 @@ class IntDeliveryOrders extends Controller
         BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-orders');
     }
 
-    public function create($context = null)
-    {
+    // public function create($context = null)
+    // {
 
-        if ($this->user->isSuperUser()) {
-        } else if ($this->user->hasPermission('is_checker')) {
-            return Response::make(View::make('cms::404'), 404);
-        } else if ($this->user->hasPermission('is_tracker')) {
-            return Response::make(View::make('cms::404'), 404);
-        }
+    //     if ($this->user->isSuperUser()) {
+    //     } else if ($this->user->hasPermission('is_checker')) {
+    //         return Response::make(View::make('cms::404'), 404);
+    //     } else if ($this->user->hasPermission('is_tracker')) {
+    //         return Response::make(View::make('cms::404'), 404);
+    //     }
 
-        return $this->asExtension('FormController')->create($context);
-    }
+    //     return $this->asExtension('FormController')->create($context);
+    // }
 
     public function print($code)
     {
@@ -81,6 +82,10 @@ class IntDeliveryOrders extends Controller
         $branch = $user->branch;
 
         if ($user->isSuperUser()) {
+            return $query;
+        }
+
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
             return $query;
         }
 
@@ -184,7 +189,7 @@ class IntDeliveryOrders extends Controller
                 $fields['goods_type']->disabled = false;
                 $fields['goods_description']->disabled = false;
                 $fields['goods_amount']->disabled = false;
- 
+
                 $fields['goods_weight']->disabled = false;
                 $fields['goods_height']->disabled = false;
                 $fields['goods_width']->disabled = false;
@@ -206,7 +211,6 @@ class IntDeliveryOrders extends Controller
 
             if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $fields['tracking_number']->disabled = false;
-                
             } else if ($this->user->hasPermission('is_tracker') && $model->status != 'process') {
                 $host->removeField('tracker_action');
             }
@@ -283,5 +287,36 @@ class IntDeliveryOrders extends Controller
                 $model->rules['tracker_action'] = 'required';
             }
         });
+    }
+
+    public function index_onDelete()
+    {
+
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('ListController')->index_onDelete();
+    }
+
+    public function update_onDelete($recordId = null)
+    {
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->update_onDelete();
+    }
+
+    public function create($context = null)
+    {
+        if ($this->user->hasPermission(['access_view_int_delivery_orders'])) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        if ($this->user->hasPermission('is_checker')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        if ($this->user->hasPermission('is_tracker')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->create($context);
     }
 }

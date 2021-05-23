@@ -86,6 +86,12 @@ permissions:
     access_master_balances:
         tab: 'kju.express::lang.balance.singular'
         label: 'kju.express::lang.permission.access_master_transactions'
+    access_view_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_view_delivery_orders'
+    access_view_int_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_view_int_delivery_orders'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -176,6 +182,7 @@ navigation:
         icon: icon-home
         permissions:
             - access_delivery_orders
+            - access_view_delivery_orders
         sideMenu:
             delivery-orders:
                 label: 'kju.express::lang.delivery_order.plural'
@@ -195,6 +202,7 @@ navigation:
         icon: icon-globe
         permissions:
             - access_int_delivery_orders
+            - access_view_int_delivery_orders
         sideMenu:
             int-delivery-orders:
                 label: 'kju.express::lang.int_delivery_order.plural'
