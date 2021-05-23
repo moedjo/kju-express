@@ -45,14 +45,16 @@ class AftershipHelperManager
         );
 
         if ($result->code == 200) {
-            // trace_log($result->body);
+            //trace_log("result : ".$result->body);
             $body = json_decode($result->body);
 
+            if(empty($body->data->trackings[0])){
+                return [];
+            }
             return $body->data
-                ->trackings[0]
-                ->checkpoints;
+                ->trackings[0]->checkpoints;
         } else {
-            trace_log($result->body);
+            trace_log("result : ".$result->body);
         }
         return [];
     }
