@@ -105,10 +105,13 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
 
             if (isset($delivery_order) && $delivery_order->status == 'export') {
 
-
-                trace_log($delivery_order->vendor->slug);
                 if ($delivery_order->vendor->slug == 'tgi') {
                     $this->page['processTimeLineLogsList'] = AftershipHelper::track_tgi(
+                        $delivery_order->tracking_number
+                    );
+
+                } if ($delivery_order->vendor->slug == 'tlx') {
+                    $this->page['track_trace'] = AftershipHelper::track_tlx(
                         $delivery_order->tracking_number
                     );
 
