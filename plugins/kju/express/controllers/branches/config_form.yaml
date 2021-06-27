@@ -4,7 +4,7 @@ modelClass: Kju\Express\Models\Branch
 defaultRedirect: kju/express/branches
 create:
     title: 'kju.express::lang.branch.new'
-    redirect: 'kju/express/branches/update/:code'
+    redirect: 'kju/express/branches/update/:id'
     redirectClose: kju/express/branches
 update:
     title: 'kju.express::lang.branch.edit'

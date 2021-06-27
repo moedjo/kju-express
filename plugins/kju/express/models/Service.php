@@ -16,9 +16,6 @@ class Service extends Model
      */
     public $table = 'kju_express_services';
 
-    protected $primaryKey = 'code';
-    public $incrementing = false;
-
     /**
      * @var array Validation rules
      */

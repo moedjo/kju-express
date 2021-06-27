@@ -1,6 +1,6 @@
 columns:
     code: 'kju.express::lang.global.order_code'
-    service_code: 'kju.express::lang.service.singular'
+    service.code: 'kju.express::lang.service.singular'
     branch_region.name: 'kju.express::lang.global.origin'
     consignee_region.displayName: 'kju.express::lang.global.destination'
     customer.name: 'kju.express::lang.global.shipper'

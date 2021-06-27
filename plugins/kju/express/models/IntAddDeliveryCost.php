@@ -14,8 +14,8 @@ class IntAddDeliveryCost extends Model
     use \October\Rain\Database\Traits\Revisionable;
 
     protected $revisionable = [
-        'add_cost_per_kg', 'goods_type_code', 
-        'int_delivery_route_code', 'created_at', 'updated_at'
+        'add_cost_per_kg', 'goods_type_id', 
+        'int_delivery_route_id', 'created_at', 'updated_at'
     ];
     
     public $morphMany = [
@@ -42,7 +42,7 @@ class IntAddDeliveryCost extends Model
     ];
 
     public $belongsTo = [
-        'route' => ['Kju\Express\Models\IntDeliveryRoute', 'key' => 'int_delivery_route_code'],
-        'goods_type' => ['Kju\Express\Models\GoodsType', 'key' => 'goods_type_code'],
+        'route' => ['Kju\Express\Models\IntDeliveryRoute', 'key' => 'int_delivery_route_id'],
+        'goods_type' => ['Kju\Express\Models\GoodsType'],
     ];
 }

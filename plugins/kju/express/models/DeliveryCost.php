@@ -15,7 +15,7 @@ class DeliveryCost extends Model
 
     protected $revisionable = [
         'cost', 'add_cost', 'min_lead_time', 'max_lead_time', 'created_at', 'updated_at',
-        'delivery_route_code', 'service_code'
+        'delivery_route_id', 'service_id'
     ];
     public $morphMany = [
         'revision_history' => ['System\Models\Revision', 'name' => 'revisionable']
@@ -45,13 +45,13 @@ class DeliveryCost extends Model
     ];
 
     public $belongsTo = [
-        'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
-        'route' => ['Kju\Express\Models\DeliveryRoute', 'key' => 'delivery_route_code']
+        'service' => ['Kju\Express\Models\Service'],
+        'route' => ['Kju\Express\Models\DeliveryRoute','key' => 'delivery_route_id']
     ];
 
     public function beforeValidate()
     {
-        $this->rules['service_code'] = "required|unique:kju_express_delivery_costs,service_code,NULL,id,delivery_route_code,$this->delivery_route_code";
+        $this->rules['service_id'] = "required|unique:kju_express_delivery_costs,service_id,NULL,id,delivery_route_id,$this->delivery_route_id";
         $this->rules['max_lead_time'] = "numeric|between:$this->min_lead_time,99";
     }
 
@@ -66,5 +66,20 @@ class DeliveryCost extends Model
         } else {
             $fields->add_cost->hidden = true;
         }
+    }
+
+    public function scopeOrigin($query,$value)
+    {
+
+        return $query->whereHas('route', function ($query) use ($value){
+            $query->where('src_region_id', $value);
+        })->get();
+    }
+
+    public function scopeDestination($query,$value)
+    {
+        return $query->whereHas('route', function ($query) use ($value){
+            $query->where('dst_region_id', $value);
+        })->get();
     }
 }

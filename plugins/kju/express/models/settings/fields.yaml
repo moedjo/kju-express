@@ -1,0 +1,10 @@
+fields:
+    enabled_balance:
+        label: 'Enabled Balance'
+        span: left
+        type: checkbox
+        default: false
+    aftership_api_key:
+        label: 'Aftership Api Key'
+        span: left
+        type: text

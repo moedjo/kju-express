@@ -52,7 +52,7 @@ columns:
         invisible: true
         relation: pickup_courier
         select: login
-    branch_code:
+    branch_id:
         label: 'kju.express::lang.branch.code'
         type: text
         invisible: true

@@ -1,0 +1,17 @@
+scopes:
+    branch:
+        label: 'kju.express::lang.branch.singular'
+        modelClass: Kju\Express\Models\Branch
+        conditions: transactionable_id in (:filtered) and transactionable_type = 'Kju\\Express\\Models\\Branch'
+        nameFrom: name
+        permissions: access_master_transactions
+    user:
+        label: 'kju.express::lang.user.singular'
+        modelClass: Backend\Models\User
+        conditions: transactionable_id in (:filtered) and transactionable_type = 'Backend\\Models\\User'
+        nameFrom: login
+        permissions: access_master_transactions
+    created_at:
+        label: 'kju.express::lang.global.created_at'
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'

@@ -1,0 +1,5 @@
+<?php if($this->user->hasPermission('access_master_balances')): ?>
+    <?= $this->relationRender('transactions', ['readOnly' => false]) ?>
+<?php else: ?>
+    <?= $this->relationRender('transactions', ['readOnly' => true]) ?>
+<?php endif; ?>

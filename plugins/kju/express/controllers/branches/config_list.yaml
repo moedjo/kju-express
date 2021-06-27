@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'kju/express/branches/update/:code'
+recordUrl: 'kju/express/branches/update/:id'

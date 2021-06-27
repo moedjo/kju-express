@@ -1,0 +1,10 @@
+list: $/kju/express/models/balance/columns.yaml
+modelClass: Kju\Express\Models\Balance
+title: 'kju.express::lang.balance.plural'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+showPageNumbers: false
+recordUrl: 'kju/express/balances/update/:id'
+filter: config_filter.yaml

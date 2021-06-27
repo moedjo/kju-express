@@ -35,7 +35,6 @@ fields:
         descriptionFrom: description
         list: ~/plugins/kju/express/models/branch/columns.yaml
         span: full
-        keyFrom: code
         type: recordfinder
     role:
         label: 'backend::lang.user.role_field'
@@ -52,17 +51,17 @@ secondaryTabs:
             context:
                 - update
             type: partial
-            tab: Lain-lain
+            tab: Misc
         btn_unsuspend:
             label: ''
             context:
                 - update
             type: partial
-            tab: Lain-lain
+            tab: Misc
         avatar:
             label: 'backend::lang.user.avatar'
             type: fileupload
             mode: image
             imageHeight: 250
             imageWidth: 250
-            tab: Lain-lain
+            tab: Misc

@@ -17,13 +17,16 @@ class CreateKjuExpressIntDeliveryCosts extends Migration
 
             $table->double('profit_percentage',5,2)->default(0);
             
-            $table->string('int_delivery_route_code',12)->nullable();;
-            $table->foreign('int_delivery_route_code','costs_route_code_foreign')->references('code')->on('kju_express_int_delivery_routes')->onDelete('restrict');
+            $table->integer('int_delivery_route_id')->unsigned()->nullable();
+            $table->foreign('int_delivery_route_id','int_del_costs_route_foreign')->references('id')
+                ->on('kju_express_int_delivery_routes')->onDelete('restrict');
+
 
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->unique(['int_delivery_route_code','min_range_weight','max_range_weight'],'int_route_weight_unique');
+            $table->unique(['int_delivery_route_id','min_range_weight','max_range_weight']
+                ,'int_route_weight_unique');
        });
     }
     

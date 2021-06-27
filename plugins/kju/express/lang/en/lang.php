@@ -10,7 +10,6 @@
         'access_services' => 'Manage services',
         'access_delivery_routes' => 'Manage delivery routes',
         'access_delivery_costs' => 'Manage delivery costs',
-        'access_check_delivery_cost' => 'Access check delivery cost',
         'access_delivery_orders' => 'Manage delivery orders',
         'access_regions' => 'Manage regions',
         'access_statuses' => 'Manage delivery order statuses',
@@ -18,16 +17,24 @@
         'is_supervisor' => 'Supervisor',
         'is_courier' => 'Courier',
         'is_operator' => 'Operator',
-        'access_payment_data_for_delivery_orders' => 'Access payment fata for delivery orders',
+        'access_payment_data_for_delivery_orders' => 'Access payment data for delivery orders',
         'access_discount_for_delivery_orders' => 'Access discount for delivery orders',
-        'access_filter_branch_on_delivery_orders' => 'Access filter branch on delivery orders',
         'access_int_delivery_orders' => 'Manage int. delivery orders',
         'access_int_delivery_routes' => 'Manage int. delivery routes',
-        'access_int_check_delivery_cost' => 'Access int. check delivery cost',
         'access_int_statuses' => 'Manage int. delivery order statuses',
         'access_vendors' => 'Manage vendors',
-        'is_int_checker' => 'International Checker',
-        'is_int_tracker' => 'International Tracker'
+        'is_checker' => 'Checker',
+        'is_tracker' => 'Tracker',
+        'access_banks' => 'Manage banks',
+        'access_balances' => 'Manage balances',
+        'access_transactions' => 'Manage transactions',
+        'access_master_balances' => 'Manage master balances',
+        'access_master_transactions' => 'Manage master transactions',
+
+        'access_master_delivery_orders' => 'Manage master delivery orders',
+        'access_master_int_delivery_orders' => 'Manage master int. delivery orders',
+        'access_view_delivery_orders' => 'Access view delivery orders',
+        'access_view_int_delivery_orders' => 'Access view international delivery orders',
     ],
     'global' => [
         'region_data' => 'Region Data',
@@ -70,6 +77,8 @@
         'received' => 'Received',
         'failed' => 'Failed',
         'delete_not_allowed' => 'Delete not allowed',
+        'action_not_allowed' => 'Action not allowed',
+        'insufficient_balance' => 'Insufficient balance',
         'print' => 'Print',
         'print_without_price' => 'Print Without Price',
         'process_date' => 'Process Date',
@@ -133,10 +142,8 @@
         'master_route_data' => 'Master Route Data',
         'reject' => 'Reject',
         'export' => 'Export',
-        'failed' => 'Failed',
         'pending' => 'Pending',
         'action' => 'Action',
-
         'branch_total_cost' => 'Branch Total Cost',
         'checker_total_cost' => 'Checker Total Cost',
         'different_total_cost' => 'Different Total Cost',
@@ -149,7 +156,6 @@
         'goods_volume_weight' => 'Goods Volume Weight',
         'net_total_cost' => 'Net Total Cost',
         'tracking_number' => 'Tracking Number',
-
     ],
     'branch' => [
         'singular' => 'Branch',
@@ -269,12 +275,32 @@
         'add_cost_per_kg' => 'Additional Cost Per KG',
     ],
     'vendor' => [
-        'id' => "Vendor Id",
+        'id' => 'Vendor Id',
         'name' => 'Vendor Name',
         'plural' => 'Vendors',
         'singular' => 'Vendor',
+        'slug' => 'Vendor Slug',
         'new' => 'New Vendor',
         'edit' => 'Edit Vendor',
         'preview' => 'Preview Vendor',
     ],
+    'balance' => [
+        'singular' => 'Balance',
+        'plural' => 'Balances',
+        'id' => 'Balance Id',
+    ],
+    'transaction' => [
+        'plural' => 'Transactions',
+        'singular' => 'Transaction',
+        'description' => 'Description',
+        'amount' => 'Amount',
+        'id' => 'Transaction Id',
+        'last_balance' => 'Last Balance',
+        'current_balance' => 'Current Balance'
+    ],
+    'owner' => [
+        'name' => 'Owner Name',
+        'type' => 'Owner Type',
+        'singular' => 'Owner'
+    ]
 ];

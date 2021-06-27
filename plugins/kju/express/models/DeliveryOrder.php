@@ -5,7 +5,8 @@ namespace Kju\Express\Models;
 use Backend\Facades\BackendAuth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Kju\Express\classes\IdGenerator;
+use Kju\Express\Classes\IdGenerator;
+use Kju\Express\Facades\BalanceHelper;
 use Model;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Support\Facades\Flash;
@@ -24,8 +25,6 @@ class DeliveryOrder extends Model
      * @var string The database table used by the model.
      */
     public $table = 'kju_express_delivery_orders';
-    protected $primaryKey = 'code';
-    public $incrementing = false;
 
     protected $purgeable = ['agreement', 'discount_agreement'];
 
@@ -33,11 +32,11 @@ class DeliveryOrder extends Model
     protected $dates = ['deleted_at', 'process_at', 'received_at', 'pickup_date'];
 
     protected $revisionable = [
-        'customer_id', 'branch_code', 'branch_region_id',
+        'customer_id', 'branch_id', 'branch_region_id',
         'pickup_region_id', 'pickup_courier_user_id', 'pickup_request', 'pickup_date',
         'pickup_address', 'pickup_postal_code', 'consignee_region_id', 'consignee_name',
         'consignee_phone_number', 'consignee_address', 'consignee_postal_code',
-        'service_code', 'goods_description', 'goods_amount', 'goods_weight',
+        'service_id', 'goods_description', 'goods_amount', 'goods_weight',
         'total_cost', 'fee', 'fee_percentage', 'original_total_cost', 'net_total_cost',
         'discount', 'payment_status', 'payment_description', 'status',
         'delivery_route_code', 'cost', 'add_cost', 'weight_limit', 'min_lead_time', 'max_lead_time',
@@ -57,18 +56,20 @@ class DeliveryOrder extends Model
 
     public $belongsTo = [
 
-        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_code'],
+        'branch' => ['Kju\Express\Models\Branch', 'key' => 'branch_id'],
         'branch_region' => ['Kju\Express\Models\Region', 'key' => 'branch_region_id'],
         'pickup_region' => ['Kju\Express\Models\Region', 'key' => 'pickup_region_id'],
         'consignee_region' => ['Kju\Express\Models\Region', 'key' => 'consignee_region_id'],
 
         'customer' => ['Kju\Express\Models\Customer', 'key' => 'customer_id'],
         'pickup_courier' => ['Kju\Express\Models\User', 'key' => 'pickup_courier_user_id'],
-        'service' => ['Kju\Express\Models\Service', 'key' => 'service_code'],
+        'service' => ['Kju\Express\Models\Service', 'key' => 'service_id'],
 
         'updated_user' => ['Kju\Express\Models\User', 'key' => 'updated_user_id'],
         'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
         'deleted_user' => ['Kju\Express\Models\User', 'key' => 'deleted_user_id'],
+
+        'balance' => ['Kju\Express\Models\Balance', 'key' => 'balance_id'],
 
     ];
 
@@ -86,20 +87,21 @@ class DeliveryOrder extends Model
 
         if (empty($this->status)) {
 
-            $service_code = $this->service->code;
+            $service_id = $this->service->id;
             $origin_id = $this->branch_region->id;
             $destination_id = $this->consignee_region->id;
 
             $src_regency_id = substr($origin_id, 0, 4);
             $dst_regency_id = substr($destination_id, 0, 4);
             $cost = DB::table('kju_express_delivery_costs AS cost')
-                ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_code', '=', 'route.code')
+                ->join('kju_express_delivery_routes AS route', 'cost.delivery_route_id', '=', 'route.id')
                 ->select('cost.id', 'cost.cost', 'cost.add_cost')
-                ->where('cost.service_code', $service_code)
+                ->where('cost.service_id', $service_id)
                 ->where('route.src_region_id', $src_regency_id)
                 ->whereIn('route.dst_region_id', [$destination_id, $dst_regency_id])
                 ->orderByRaw("FIELD(route.dst_region_id,'$destination_id','$dst_regency_id')")
                 ->first();
+
 
             if (empty($cost)) {
                 return;
@@ -193,9 +195,9 @@ class DeliveryOrder extends Model
         $branch = $user->branch;
 
         //INITIALIZE CODE
-        $code = IdGenerator::alpha(isset($this->branch) ? $this->branch->code : '', 4)
+        $code = IdGenerator::alpha(isset($this->branch) ? $this->branch->id : '', 4)
             . $this->branch_region->id
-            . IdGenerator::numeric(isset($this->branch) ? $this->branch->code : '', 4);
+            . IdGenerator::numeric(isset($this->branch) ? $this->branch->id : '', 4);
 
         $this->code = $code;
 
@@ -205,6 +207,9 @@ class DeliveryOrder extends Model
             $this->branch = $branch;
             $this->branch_region = $branch->region;
         }
+
+        $balance = BalanceHelper::getMyBalance();
+        $this->balance_id = $balance->id;
 
         $this->status = 'process';
         $this->process_at = Carbon::now();
@@ -245,13 +250,12 @@ class DeliveryOrder extends Model
     {
         $user = BackendAuth::getUser();
         $this->deleted_user = $user;
-        $this->save();
+       $this->save();
     }
 
     public function afterUpdate()
     {
-        $user = BackendAuth::getUser();
-        $this->updated_user = $user;
+       
     }
 
     public function afterCreate()
@@ -260,8 +264,11 @@ class DeliveryOrder extends Model
         $order_status->region = $this->branch_region;
         $order_status->status = $this->status;
         $order_status->created_user = $this->created_user;
-        $order_status->delivery_order_code = $this->code;
+        $order_status->delivery_order_id = $this->id;
         $order_status->save();
+
+        BalanceHelper::creditMyBalance($this->fee,"DOMESTIC_ORDER_FEE:$this->code");
+        BalanceHelper::debitMyBalance($this->total_cost,"DOMESTIC_ORDER:$this->code");
     }
 
     public function getDisplayStatusAttribute()

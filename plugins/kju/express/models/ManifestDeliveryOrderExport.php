@@ -17,7 +17,7 @@ class ManifestDeliveryOrderExport extends \Backend\Models\ExportModel
 
         $user = BackendAuth::getUser();
         $branch = $user->branch;
-        $branch_code = isset($branch) ? $branch->code : null;
+        $branch_id = isset($branch) ? $branch->id : null;
         $branch_region_id = isset($branch) ? $branch->region->id : null;
 
         $query = DeliveryOrder::with([
@@ -29,7 +29,7 @@ class ManifestDeliveryOrderExport extends \Backend\Models\ExportModel
 
         if ($user->isSuperUser()) {
         } else if ($this->type == 'outgoing') {
-            $query = $query->where('branch_code',  $branch_code);
+            $query = $query->where('branch_id',  $branch_id);
         } else if ($this->type == 'incoming') {
             $query = $query->where(DB::raw('SUBSTR(consignee_region_id,1,4)'),  $branch_region_id);
         } else {
@@ -47,9 +47,13 @@ class ManifestDeliveryOrderExport extends \Backend\Models\ExportModel
             $delivery_order->addVisible('branch_region');
             $delivery_order->addVisible('consignee_region');
             $delivery_order->addVisible('customer');
+            $delivery_order->addVisible('service');
+
 
             $delivery_order->consignee_region->displayName = $delivery_order->consignee_region->displayName;
+            
         });
+
         return $delivery_orders->toArray();
     }
 }

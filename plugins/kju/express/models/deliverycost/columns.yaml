@@ -3,16 +3,18 @@ columns:
         label: 'kju.express::lang.global.id'
         type: text
         invisible: true
-    delivery_route_code:
+    route[code]:
         label: 'kju.express::lang.global.route_code'
         type: text
         searchable: true
         sortable: true
-    service_code:
+    service_id:
         label: 'kju.express::lang.service.singular'
         type: text
         searchable: true
         sortable: true
+        select: code
+        relation: service
     source:
         label: 'kju.express::lang.global.origin'
         type: text
@@ -42,7 +44,19 @@ columns:
         type: text
         searchable: false
         sortable: true
-        select: 'concat(min_lead_time, ''-'', max_lead_time)'
+        select: 'concat(min_lead_time, '' to '', max_lead_time)'
+    min_lead_time:
+        label: 'kju.express::lang.global.min_lead_time'
+        type: number
+        searchable: false
+        sortable: true
+        invisible: true
+    max_lead_time:
+        label: 'kju.express::lang.global.max_lead_time'
+        type: number
+        searchable: false
+        sortable: true
+        invisible: true
     weight_limit:
         label: 'kju.express::lang.service.weight_limit'
         type: number

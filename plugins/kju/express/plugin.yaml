@@ -29,28 +29,24 @@ permissions:
     access_int_delivery_routes:
         tab: 'kju.express::lang.global.master_route_data'
         label: 'kju.express::lang.permission.access_int_delivery_routes'
-
     access_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_delivery_orders'
-    access_check_delivery_cost:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_check_delivery_cost'
     access_int_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_int_delivery_orders'
-    access_int_check_delivery_cost:
+    access_master_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_int_check_delivery_cost'
+        label: 'kju.express::lang.permission.access_master_delivery_orders'
+    access_master_int_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_master_int_delivery_orders'
     access_payment_data_for_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_payment_data_for_delivery_orders'
     access_discount_for_delivery_orders:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_discount_for_delivery_orders'
-    access_filter_branch_on_delivery_orders:
-        tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.access_filter_branch_on_delivery_orders'
     is_supervisor:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.is_supervisor'
@@ -60,18 +56,42 @@ permissions:
     is_courier:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.is_courier'
-    is_int_checker:
+    is_checker:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.is_int_checker'
-    is_int_tracker:
+        label: 'kju.express::lang.permission.is_checker'
+    is_tracker:
         tab: 'kju.express::lang.permission.tab'
-        label: 'kju.express::lang.permission.is_int_tracker'
+        label: 'kju.express::lang.permission.is_tracker'
     access_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_statuses'
     access_int_delivery_order_statuses:
         tab: 'kju.express::lang.permission.tab'
         label: 'kju.express::lang.permission.access_int_statuses'
+    access_banks:
+        tab: 'kju.express::lang.global.master_data'
+        label: 'kju.express::lang.permission.access_banks'
+    access_balances:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'kju.express::lang.permission.access_balances'
+    enabled_balances:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'Enabled Balances'
+    access_transactions:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'kju.express::lang.permission.access_transactions'
+    access_master_transactions:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'kju.express::lang.permission.access_master_balances'
+    access_master_balances:
+        tab: 'kju.express::lang.balance.singular'
+        label: 'kju.express::lang.permission.access_master_transactions'
+    access_view_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_view_delivery_orders'
+    access_view_int_delivery_orders:
+        tab: 'kju.express::lang.permission.tab'
+        label: 'kju.express::lang.permission.access_view_int_delivery_orders'
 navigation:
     master-data:
         label: 'kju.express::lang.global.master_data'
@@ -126,6 +146,10 @@ navigation:
                 icon: icon-map-marker
                 permissions:
                     - access_delivery_routes
+            delivery-costs:
+                label: 'kju.express::lang.delivery_cost.plural'
+                url: kju/express/deliverycosts
+                icon: icon-money
             int-delivery-routes:
                 label: 'kju.express::lang.int_delivery_route.plural'
                 url: kju/express/intdeliveryroutes
@@ -158,7 +182,7 @@ navigation:
         icon: icon-home
         permissions:
             - access_delivery_orders
-            - access_check_delivery_cost
+            - access_view_delivery_orders
         sideMenu:
             delivery-orders:
                 label: 'kju.express::lang.delivery_order.plural'
@@ -171,14 +195,14 @@ navigation:
                 url: kju/express/checkdeliverycost
                 icon: icon-money
                 permissions:
-                    - access_check_delivery_cost
+                    - access_delivery_orders
     international:
         label: 'kju.express::lang.global.international'
         url: kju/express/intdeliveryorders
         icon: icon-globe
         permissions:
             - access_int_delivery_orders
-            - access_int_check_delivery_cost
+            - access_view_int_delivery_orders
         sideMenu:
             int-delivery-orders:
                 label: 'kju.express::lang.int_delivery_order.plural'
@@ -191,10 +215,23 @@ navigation:
                 url: kju/express/intcheckdeliverycost
                 icon: icon-money
                 permissions:
-                    - access_int_check_delivery_cost
-    pickup-list:
-        label: 'kju.express::lang.pickup.plural'
-        url: kju/express/pickups
-        icon: icon-inbox
+                    - access_int_delivery_orders
+    balances:
+        label: 'kju.express::lang.balance.plural'
+        url: kju/express/balances
+        icon: icon-money
         permissions:
-            - access_pickups
+            - access_balances
+        sideMenu:
+            balances:
+                label: 'kju.express::lang.balance.plural'
+                url: kju/express/balances
+                icon: icon-money
+                permissions:
+                    - access_balances
+            transactions:
+                label: 'kju.express::lang.transaction.plural'
+                url: kju/express/transactions
+                icon: icon-columns
+                permissions:
+                    - access_transactions

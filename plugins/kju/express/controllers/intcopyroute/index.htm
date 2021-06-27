@@ -1,0 +1,26 @@
+<form class="layout" role="form">
+    <div class="layout-row">
+        <div class="form-group span-left">
+            <label><?= e(trans('kju.express::lang.global.origin')) ?></label>
+    
+                <input name="origin" type="text" name="" value="" class="form-control" />
+      
+        </div>
+        <div class="form-group span-left">
+            <label>Copy <?= e(trans('kju.express::lang.global.origin')) ?>s (Separate By ;)</label>
+            <input name="copy_origins" type="text" name="" value="" class="form-control" />
+        </div>
+ 
+    </div>
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <button type="submit" data-request="onCopy" data-hotkey="ctrl+p, cmd+p"
+                data-request-success=""
+                data-load-indicator="Submit Bro"
+                class="btn btn-primary">
+                Submit Bro
+            </button>
+        </div>
+    </div>
+</form>

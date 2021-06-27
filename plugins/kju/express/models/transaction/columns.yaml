@@ -1,0 +1,39 @@
+columns:
+    id:
+        label: 'kju.express::lang.transaction.id'
+        type: number
+    amount:
+        label: 'kju.express::lang.transaction.amount'
+        type: currency
+        align: right
+    description:
+        label: 'kju.express::lang.transaction.description'
+        type: text
+    current_balance:
+        label: 'kju.express::lang.transaction.current_balance'
+        type: currency
+        align: right
+    last_balance:
+        label: 'kju.express::lang.transaction.last_balance'
+        type: currency
+        align: right
+    created_at:
+        label: 'kju.express::lang.global.created_at'
+        type: number
+        sortable: true
+    created_user:
+        label: 'kju.express::lang.global.created_by'
+        permissions: access_master_transactions
+        relation: created_user
+        valueFrom: login
+        invisible: true
+    transactionable:
+        label: 'kju.express::lang.owner.singular'
+        relation: transactionable
+        valueFrom: displayName
+        permissions: access_master_transactions
+    transactionable_type:
+        label: 'kju.express::lang.owner.type'
+        invisible: true
+
+    

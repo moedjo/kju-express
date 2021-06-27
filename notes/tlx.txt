@@ -1,0 +1,5 @@
+Link TLX API Docs:
+https://documenter.getpostman.com/view/5363407/SWLh4kxV
+
+"account":"ID10128",
+"password":"KJU12345"

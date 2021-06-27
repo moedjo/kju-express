@@ -1,0 +1,13 @@
+fields:
+    type:
+        label: 'kju.express::lang.global.type'
+        type: balloon-selector
+        default: outgoing
+        options:
+            outgoing: 'kju.express::lang.global.outgoing'
+            incoming: 'kju.express::lang.global.incoming'
+    process_date:
+        label: 'kju.express::lang.global.process_date'
+        mode: date
+        span: auto
+        type: datepicker

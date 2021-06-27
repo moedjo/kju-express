@@ -6,7 +6,10 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use Illuminate\Support\Facades\Redirect;
 use Kju\Express\Models\DeliveryOrder;
+use October\Rain\Network\Http;
 use Renatio\DynamicPDF\Classes\PDF;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class DeliveryOrders extends Controller
 {
@@ -25,13 +28,14 @@ class DeliveryOrders extends Controller
     public $bodyClass = 'compact-container';
 
     public $requiredPermissions = [
-        'access_delivery_orders'
+        'access_delivery_orders',
+        'access_view_delivery_orders'
     ];
 
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Kju.Express', 'domestic','delivery-orders');
+        BackendMenu::setContext('Kju.Express', 'domestic', 'delivery-orders');
     }
 
 
@@ -48,9 +52,8 @@ class DeliveryOrders extends Controller
 
         $result = ['delivery_order' => $delivery_order];
 
-    
+
         return PDF::loadTemplate('delivery_order', $result)->stream();
-    
     }
 
     public function printWithoutPrice($code)
@@ -61,7 +64,6 @@ class DeliveryOrders extends Controller
         $result = ['delivery_order' => $delivery_order];
 
         return PDF::loadTemplate('delivery_order_without_price', $result)->stream();
-    
     }
 
     public function listInjectRowClass($record, $definition = null)
@@ -87,31 +89,27 @@ class DeliveryOrders extends Controller
         }
     }
 
-    public function listExtendQuery($query)
+    public function extendQuery($query)
     {
         $user = $this->user;
         $branch = $user->branch;
-        if ($user->isSuperUser()) {
+        if ($user->hasAccess('access_view_delivery_orders')) {
             // TODO Nothing
         } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
+            $query->where('branch_id', $branch->id);
         } else {
             $query->where('created_user_id', $user->id);
         }
     }
 
+    public function listExtendQuery($query)
+    {
+        return $this->extendQuery($query);
+    }
+
     public function formExtendQuery($query)
     {
-
-        $user = $this->user;
-        $branch = $user->branch;
-        if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
-        } else {
-            $query->where('created_user_id',  $user->id);
-        }
+        return $this->extendQuery($query);
     }
 
     public function formExtendModel($model)
@@ -182,7 +180,6 @@ class DeliveryOrders extends Controller
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
-            
         });
     }
 
@@ -227,5 +224,33 @@ class DeliveryOrders extends Controller
             $model->rules['total_cost'] = "required|numeric|min:1";
             $model->rules['agreement'] = 'in:1';
         });
+    }
+
+    public function index_onDelete()
+    {
+
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('ListController')->index_onDelete();
+    }
+    
+    public function update_onDelete($recordId = null)
+    {
+        if ($this->user->isSuperUser()) {
+            return $this->asExtension('FormController')->update_onDelete($recordId);
+        }
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->update_onDelete($recordId);
+    }
+
+    public function create($context = null)
+    {
+        if ($this->user->hasPermission('access_view_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->create($context);
     }
 }

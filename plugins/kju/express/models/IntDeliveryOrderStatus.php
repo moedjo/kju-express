@@ -25,17 +25,12 @@ class IntDeliveryOrderStatus extends Model
 
 
     public $belongsTo = [
-         'order' => ['Kju\Express\Models\IntDeliveryOrder', 'key' => 'int_delivery_order_code'],
+         'order' => ['Kju\Express\Models\IntDeliveryOrder', 'key' => 'int_delivery_order_id'],
          'region' => ['Kju\Express\Models\Region'],
          'created_user' => ['Kju\Express\Models\User', 'key' => 'created_user_id'],
       
     ];
 
-    protected $fillable = [
-        'int_delivery_order_code',
-        'description' ,
-        'status' ,
-    ];
 
     public function afterCreate(){
     }

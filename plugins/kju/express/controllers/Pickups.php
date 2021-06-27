@@ -53,11 +53,11 @@ class Pickups extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if (isset($branch) && $user->hasPermission('is_courier')) {
-            $query->where('branch_code', $branch->code);
+            $query->where('branch_id', $branch->id);
             $query->whereIn('status', ['pickup', 'process']);
             $query->where('pickup_courier_user_id', $user->id);
         } else {
-            $query->where('branch_code', null);
+            $query->where('branch_id', null);
             $query->whereIn('status', ['pickup', 'process']);
             $query->where('pickup_courier_user_id', $user->id);
         }
@@ -68,11 +68,11 @@ class Pickups extends Controller
         $user = $this->user;
         $branch = $user->branch;
         if (isset($branch) && $user->hasPermission('is_courier')) {
-            $query->where('branch_code', $branch->code);
+            $query->where('branch_id', $branch->id);
             $query->whereIn('status', ['pickup', 'process']);
             $query->where('pickup_courier_user_id', $user->id);
         } else {
-            $query->where('branch_code', null);
+            $query->where('branch_id', null);
             $query->whereIn('status', ['pickup', 'process']);
             $query->where('pickup_courier_user_id', $user->id);
         }

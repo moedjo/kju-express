@@ -26,7 +26,8 @@ class IntDeliveryOrders extends Controller
     public $bodyClass = 'compact-container';
 
     public $requiredPermissions = [
-        'access_int_delivery_orders'
+        'access_int_delivery_orders',
+        'access_view_int_delivery_orders'
     ];
 
     public function __construct()
@@ -35,18 +36,18 @@ class IntDeliveryOrders extends Controller
         BackendMenu::setContext('Kju.Express', 'international', 'int-delivery-orders');
     }
 
-    public function create($context = null)
-    {
+    // public function create($context = null)
+    // {
 
-        if ($this->user->isSuperUser()) {
-        } else if ($this->user->hasPermission('is_int_checker')) {
-            return Response::make(View::make('cms::404'), 404);
-        } else if ($this->user->hasPermission('is_int_tracker')) {
-            return Response::make(View::make('cms::404'), 404);
-        }
+    //     if ($this->user->isSuperUser()) {
+    //     } else if ($this->user->hasPermission('is_checker')) {
+    //         return Response::make(View::make('cms::404'), 404);
+    //     } else if ($this->user->hasPermission('is_tracker')) {
+    //         return Response::make(View::make('cms::404'), 404);
+    //     }
 
-        return $this->asExtension('FormController')->create($context);
-    }
+    //     return $this->asExtension('FormController')->create($context);
+    // }
 
     public function print($code)
     {
@@ -75,54 +76,44 @@ class IntDeliveryOrders extends Controller
         }
     }
 
-    public function listExtendQuery($query)
+    public function extendQuery($query)
     {
         $user = $this->user;
         $branch = $user->branch;
 
-        if ($this->user->hasPermission('is_int_checker')) {
-            $query->whereIn('status', ['pending', 'process', 'reject']);
-            return $query;
-        }
-
-
-        if ($this->user->hasPermission('is_int_tracker')) {
-            $query->whereIn('status', ['process','export']);
-            return $query;
-        }
-
         if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
-        } else {
-            $query->where('created_user_id',  $user->id);
+            return $query;
         }
+
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+            return $query;
+        }
+
+        if ($this->user->hasPermission('is_checker')) {
+            return $query
+                ->whereIn('status', ['pending', 'process', 'reject']);
+        }
+
+        if ($this->user->hasPermission('is_tracker')) {
+            return $query
+                ->whereIn('status', ['process', 'export']);
+        }
+
+        if (isset($branch)) {
+            return $query->where('branch_id', $branch->id);
+        }
+
+        return $query->where('created_user_id',  $user->id);
+    }
+
+    public function listExtendQuery($query)
+    {
+        $this->extendQuery($query);
     }
 
     public function formExtendQuery($query)
     {
-
-        $user = $this->user;
-        $branch = $user->branch;
-        if ($this->user->hasPermission('is_int_checker')) {
-            $query->whereIn('status', ['pending', 'process', 'reject']);
-            return $query;
-        }
-
-
-        if ($this->user->hasPermission('is_int_tracker')) {
-            $query->whereIn('status', ['process','export']);
-            return $query;
-        }
-
-        if ($user->isSuperUser()) {
-            // TODO Nothing
-        } else if (isset($branch)) {
-            $query->where('branch_code', $branch->code);
-        } else {
-            $query->where('created_user_id',  $user->id);
-        }
+        $this->extendQuery($query);
     }
 
     public function listInjectRowClass($record, $definition = null)
@@ -193,7 +184,7 @@ class IntDeliveryOrders extends Controller
 
             $fields['payment_method']->disabled = true;
             $fields['total_cost_agreement']->hidden = true;
-            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+            if ($this->user->hasPermission('is_checker') && $model->status == 'pending') {
 
                 $fields['goods_type']->disabled = false;
                 $fields['goods_description']->disabled = false;
@@ -209,21 +200,20 @@ class IntDeliveryOrders extends Controller
 
                 $fields['_vendor']->hidden = true;
                 $fields['total_cost_agreement']->hidden = false;
-            }  else {
+            } else  if ($this->user->hasPermission('is_checker') && $model->status != 'pending') {
 
                 $host->removeField('checker_action');
                 $host->removeField('vendor'); // recordfinder can't support disabled
                 $fields['_vendor']->hidden = false; // recordfinder can't support disabled
 
-              
+
             }
 
-            if ($this->user->hasPermission('is_int_tracker') && $model->status == 'process') {
+            if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $fields['tracking_number']->disabled = false;
-            } else {
+            } else if ($this->user->hasPermission('is_tracker') && $model->status != 'process') {
                 $host->removeField('tracker_action');
             }
-            
         }
     }
 
@@ -273,7 +263,7 @@ class IntDeliveryOrders extends Controller
     public function formBeforeUpdate($model)
     {
         $model->bindEvent('model.beforeValidate', function () use ($model) {
-            if ($this->user->hasPermission('is_int_checker') && $model->status == 'pending') {
+            if ($this->user->hasPermission('is_checker') && $model->status == 'pending') {
 
                 // Goods Data
                 $model->rules['goods_type'] = 'required';
@@ -292,10 +282,41 @@ class IntDeliveryOrders extends Controller
                 $model->rules['checker_action'] = 'required';
             }
 
-            if ($this->user->hasPermission('is_int_tracker') && $model->status == 'process') {
+            if ($this->user->hasPermission('is_tracker') && $model->status == 'process') {
                 $model->rules['tracking_number'] = 'required';
                 $model->rules['tracker_action'] = 'required';
             }
         });
+    }
+
+    public function index_onDelete()
+    {
+
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('ListController')->index_onDelete();
+    }
+
+    public function update_onDelete($recordId = null)
+    {
+        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->update_onDelete();
+    }
+
+    public function create($context = null)
+    {
+        if ($this->user->hasPermission(['access_view_int_delivery_orders'])) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        if ($this->user->hasPermission('is_checker')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        if ($this->user->hasPermission('is_tracker')) {
+            return Response::make(View::make('backend::access_denied'), 403);
+        }
+        return $this->asExtension('FormController')->create($context);
     }
 }

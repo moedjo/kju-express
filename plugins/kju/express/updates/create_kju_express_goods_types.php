@@ -10,7 +10,7 @@ class CreateKjuExpressGoodsTypes extends Migration
         Schema::create('kju_express_goods_types', function($table)
         {
             $table->engine = 'InnoDB';
-            $table->string('code', 10);
+            $table->increments('id')->unsigned();
             $table->string('name', 50);
 
             $table->boolean('profit_share')->default(false);
@@ -19,7 +19,6 @@ class CreateKjuExpressGoodsTypes extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->primary('code');
             $table->unique('name');
         });
     }

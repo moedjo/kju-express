@@ -14,8 +14,8 @@ class IntDeliveryCost extends Model
     use \October\Rain\Database\Traits\Revisionable;
 
     protected $revisionable = [
-        'min_range_weight', 'max_range_weight', 'base_cost_per_kg', 'profit_percentage', 'int_delivery_route_code', 'updated_at',
-        'int_delivery_route_code', 'created_at','updated_at'
+        'min_range_weight', 'max_range_weight', 'base_cost_per_kg', 'profit_percentage', 'int_delivery_route_id', 'updated_at',
+       'created_at','updated_at'
     ];
     
     public $morphMany = [
@@ -45,14 +45,14 @@ class IntDeliveryCost extends Model
 
 
     public $belongsTo = [
-        'route' => ['Kju\Express\Models\IntDeliveryRoute', 'key' => 'int_delivery_route_code']
+        'route' => ['Kju\Express\Models\IntDeliveryRoute', 'key' => 'int_delivery_route_id']
     ];
 
     public function beforeValidate()
     {
         $this->rules['max_range_weight'] = "required|numeric|between:$this->min_range_weight,10000";
 
-        $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_code', $this->route->code)
+        $int_delivery_cost = IntDeliveryCost::where('int_delivery_route_id', $this->route->id)
             ->whereRaw("($this->min_range_weight BETWEEN min_range_weight AND max_range_weight OR $this->max_range_weight BETWEEN min_range_weight AND max_range_weight)")
             ->first();
 

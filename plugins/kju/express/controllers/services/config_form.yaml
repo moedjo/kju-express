@@ -4,7 +4,7 @@ form: $/kju/express/models/service/fields.yaml
 defaultRedirect: kju/express/services
 create:
     title: 'kju.express::lang.service.new'
-    redirect: 'kju/express/services/update/:code'
+    redirect: 'kju/express/services/update/:id'
     redirectClose: kju/express/services
 update:
     title: 'kju.express::lang.service.edit'

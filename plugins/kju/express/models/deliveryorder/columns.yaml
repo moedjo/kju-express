@@ -62,7 +62,7 @@ columns:
         invisible: true
         select: login
         relation: updated_user
-    branch_code:
+    branch_id:
         label: 'kju.express::lang.branch.code'
         type: text
     payment_status:
@@ -82,6 +82,7 @@ columns:
         searchable: false
         sortable: false
         invisible: true
+        select: concat(goods_weight, ' KG')
     fee:
         label: 'kju.express::lang.global.branch_fee'
         type: currency

@@ -10,7 +10,6 @@
         'access_services' => 'Manage services',
         'access_delivery_routes' => 'Manage delivery routes',
         'access_delivery_costs' => 'Manage delivery costs',
-        'access_check_delivery_cost' => 'Access check delivery cost',
         'access_delivery_orders' => 'Manage delivery orders',
         'access_regions' => 'Manage regions',
         'access_statuses' => 'Manage delivery order statuses',
@@ -20,8 +19,7 @@
         'is_operator' => 'Operator',
         'access_payment_data_for_delivery_orders' => 'Access Payment Data for Delivery Orders',
         'access_discount_for_delivery_orders' => 'Access Discount for Delivery Orders',
-        'access_filter_branch_on_delivery_orders' => 'Access Filter Branch on Delivery Orders'
-    ],
+     ],
     'global' => [
         'region_data' => 'Data Wilayah',
         'description' => 'Deskripsi',

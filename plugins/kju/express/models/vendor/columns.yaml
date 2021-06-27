@@ -9,3 +9,8 @@ columns:
         type: text
         searchable: true
         sortable: true
+    slug:
+        label: 'kju.express::lang.vendor.slug'
+        type: text
+        searchable: true
+        sortable: true

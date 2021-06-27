@@ -1,6 +1,6 @@
 <?php
 
-namespace Kju\Express\classes;
+namespace Kju\Express\Classes;
 
 class IdGenerator
 {
@@ -22,7 +22,6 @@ class IdGenerator
 
     public static function numeric($salt = 'default', $len = 8)
     {
-
         $hex = md5($salt . uniqid("", true));
         $pack = pack('H*', $hex);
         $tmp =  base64_encode($pack);

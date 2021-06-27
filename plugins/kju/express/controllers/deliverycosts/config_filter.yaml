@@ -2,14 +2,14 @@ scopes:
     service:
         label: 'kju.express::lang.service.singular'
         type: group
-        conditions: service_code in (:filtered)
+        conditions: service_id in (:filtered)
         modelClass: Kju\Express\Models\Service
         nameFrom: displayName
     origin_id:
         label: 'kju.express::lang.global.origin_id'
         type: text
-        conditions: LEFT(delivery_route_code,4) = :value
+        scope: origin
     destination_id:
         label: 'kju.express::lang.global.destination_id'
         type: text
-        conditions: SUBSTR(delivery_route_code,6,4) = :value
+        scope: destination

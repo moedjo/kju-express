@@ -9,16 +9,17 @@
     - create_kju_express_delivery_orders.php
     - create_kju_express_delivery_order_statuses.php
     - add_new_fields_to_users_table.php
-1.0.3:
-    - 'Add International Data Module'
+1.0.2:
+    - 'Add International Data'
+    - create_kju_express_balances.php
+    - create_kju_express_vendors.php 
     - create_kju_express_goods_types.php
     - create_kju_express_int_delivery_routes.php
     - create_kju_express_int_delivery_costs.php
     - create_kju_express_int_add_delivery_costs.php
-1.0.4:
-    - 'Add Vendor for International Data Module'
-    - builder_table_create_kju_express_vendors.php
-1.0.5:
-    - 'Add International Order Module'
     - create_kju_express_int_delivery_orders.php
     - create_kju_express_int_delivery_order_statuses.php
+    - create_kju_express_transactions.php
+1.0.3:
+    - 'Balance Seeder'
+    - database_seeder.php

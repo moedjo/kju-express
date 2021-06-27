@@ -27,9 +27,10 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
                 $status = $data['status'];
                 $region_id = $data['region_id'];
 
-                $delivery_order = DeliveryOrder::find($order_code);
+                $delivery_order = DeliveryOrder::where('code',$order_code)
+                    ->first();
 
-
+                $data['delivery_order_id'] = $delivery_order->id;
 
                 $statuses = ['transit', 'received', 'failed'];
 
@@ -108,7 +109,6 @@ class DeliveryOrderStatusImport extends \Backend\Models\ImportModel
 
                 $this->logCreated();
             } catch (\Exception $ex) {
-                trace_log($ex);
                 $this->logError($row, $ex->getMessage());
             }
         }

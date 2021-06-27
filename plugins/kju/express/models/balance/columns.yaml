@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: 'kju.express::lang.balance.id'
+        type: number
+    balance:
+        label: 'kju.express::lang.balance.singular'
+        type: currency
+        align: right
+        sortable: true
+    owner:
+        label: 'kju.express::lang.owner.singular'
+        relation: owner
+        valueFrom: displayName
+        permissions: access_master_balances
+    owner_type:
+        label: 'kju.express::lang.owner.type'

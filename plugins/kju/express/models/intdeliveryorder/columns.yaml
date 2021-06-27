@@ -62,7 +62,7 @@ columns:
         invisible: true
         select: login
         relation: updated_user
-    branch_code:
+    branch_id:
         label: 'kju.express::lang.branch.code'
         type: text
     payment_method:
@@ -97,12 +97,14 @@ columns:
         searchable: false
         sortable: false
         invisible: true
+        select: concat(goods_weight, ' KG')
     goods_volume_weight:
         label: 'kju.express::lang.global.goods_volume_weight'
         type: text
         searchable: false
         sortable: false
         invisible: true
+        select: concat(goods_volume_weight, ' KG')
     net_total_cost:
         label: 'kju.express::lang.global.net_total_cost'
         type: currency
