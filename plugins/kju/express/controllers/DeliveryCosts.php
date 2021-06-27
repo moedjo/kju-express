@@ -17,7 +17,7 @@ class DeliveryCosts extends Controller
     public $importExportConfig = 'config_import_export.yaml';
 
     public $requiredPermissions = [
-        'access_delivery_costs'
+        'access_delivery_routes'
     ];
 
     public function __construct()

@@ -250,7 +250,7 @@ class DeliveryOrder extends Model
     {
         $user = BackendAuth::getUser();
         $this->deleted_user = $user;
-        $this->save();
+       $this->save();
     }
 
     public function afterUpdate()

@@ -237,10 +237,13 @@ class DeliveryOrders extends Controller
     
     public function update_onDelete($recordId = null)
     {
+        if ($this->user->isSuperUser()) {
+            return $this->asExtension('FormController')->update_onDelete($recordId);
+        }
         if ($this->user->hasPermission('access_view_delivery_orders')) {
             return Response::make(View::make('backend::access_denied'), 403);
         }
-        return $this->asExtension('FormController')->update_onDelete();
+        return $this->asExtension('FormController')->update_onDelete($recordId);
     }
 
     public function create($context = null)
