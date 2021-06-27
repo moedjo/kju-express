@@ -77,6 +77,13 @@
           </li>
           {% endfor %}
 
+          {% for checkpoint in track_trace|reverse %}
+          <li class="list-group-item text-dark">
+              <span>{{checkpoint.view_date_time|date('d-m-Y H:i:s')}} - {{checkpoint.status_eng}}</span><br>
+              <span>{{checkpoint.status_idn}}</span>
+          </li>
+          {% endfor %}
+
 
         </ul>
         {% else %}

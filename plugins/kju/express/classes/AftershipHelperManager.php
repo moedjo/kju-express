@@ -79,4 +79,26 @@ class AftershipHelperManager
         }
         return [];
     }
+
+
+    
+    public function track_tlx($tracking_number = ""){
+
+        $url = "https://api-customers.tlx.co.id/track-trace/$tracking_number";
+
+        $result =  Http::get(
+            $url,
+            function ($http) {
+                $http->timeout(20);
+            }
+        );
+
+        if ($result->code == 200) {
+            $body = json_decode($result->body);
+            return $body->data->track_trace;
+        } else {
+            trace_log($result->body);
+        }
+        return [];
+    }
 }
