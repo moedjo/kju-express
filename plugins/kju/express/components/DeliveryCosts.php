@@ -124,16 +124,16 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         $validator = Validator::make(
             [
 
-                'g-recaptcha-response' => input('g-recaptcha-response'),
+                // 'g-recaptcha-response' => input('g-recaptcha-response'),
                 'source' => $source,
                 'destination' => $destination,
                 'weight' => $weight,
             ],
             [
-                'g-recaptcha-response' => [
-                    'required',
-                    new RecaptchaValidator,
-                ],
+                // 'g-recaptcha-response' => [
+                //     'required',
+                //     new RecaptchaValidator,
+                // ],
                 'source' => 'required',
                 'destination' => 'required',
                 'weight' => 'required|numeric|between:0,100000',
