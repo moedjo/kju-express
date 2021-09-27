@@ -14,7 +14,6 @@ use Kju\Express\Models\IntDeliveryOrder;
 use Kju\Express\Models\IntDeliveryRoute;
 use October\Rain\Exception\ValidationException;
 use Kju\Express\Models\Region;
-use Multiwebinc\Recaptcha\Validators\RecaptchaValidator;
 use October\Rain\Network\Http;
 use October\Rain\Support\Facades\Flash;
 
@@ -124,16 +123,12 @@ class DeliveryCosts extends \Cms\Classes\ComponentBase
         $validator = Validator::make(
             [
 
-                // 'g-recaptcha-response' => input('g-recaptcha-response'),
                 'source' => $source,
                 'destination' => $destination,
                 'weight' => $weight,
             ],
             [
-                // 'g-recaptcha-response' => [
-                //     'required',
-                //     new RecaptchaValidator,
-                // ],
+    
                 'source' => 'required',
                 'destination' => 'required',
                 'weight' => 'required|numeric|between:0,100000',
