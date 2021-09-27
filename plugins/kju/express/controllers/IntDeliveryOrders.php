@@ -300,10 +300,10 @@ class IntDeliveryOrders extends Controller
 
     public function update_onDelete($recordId = null)
     {
-        if ($this->user->hasPermission('access_view_int_delivery_orders')) {
-            return Response::make(View::make('backend::access_denied'), 403);
-        }
-        return $this->asExtension('FormController')->update_onDelete();
+        // if ($this->user->hasPermission('access_view_int_delivery_orders')) {
+        //     return Response::make(View::make('backend::access_denied'), 403);
+        // }
+        return $this->asExtension('FormController')->update_onDelete($recordId);
     }
 
     public function create($context = null)

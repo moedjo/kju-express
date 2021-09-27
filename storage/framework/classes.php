@@ -180,4 +180,5 @@
   'Kju\\Express\\Facades\\AftershipHelper' => 'plugins\\kju\\express\\facades\\AftershipHelper.php',
   'Kju\\Express\\Classes\\AftershipHelperManager' => 'plugins\\kju\\express\\classes\\AftershipHelperManager.php',
   'kju\\express\\Controllers\\intcopyroute' => 'plugins\\kju\\express\\controllers\\intcopyroute.php',
+  'October\\Demo\\Components\\Todo' => 'plugins\\october\\demo\\components\\Todo.php',
 );

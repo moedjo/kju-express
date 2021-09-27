@@ -305,7 +305,12 @@ class IntDeliveryOrder extends Model
 
     public function beforeDelete()
     {
-        throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
+        $user = BackendAuth::getUser();
+        if ($user->isSuperUser()) {
+            // Nothing
+        } else {
+            throw new ApplicationException(e(trans('kju.express::lang.global.delete_not_allowed')));
+        }
     }
 
     public function afterDelete()
